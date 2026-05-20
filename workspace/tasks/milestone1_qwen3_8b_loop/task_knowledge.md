@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=22 -->
+<!-- METADATA:SESSION=23 -->
 
 ## Knowledge Entries
 
@@ -129,4 +129,6 @@
 115. Resource fact: fresh retry LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z` was provided at `ssh -p 23121 root@10.100.22.53` on node `lg-cmc-b7r202-r05u16-h200-000747`; hard review is `2026-05-20T12:06:20Z`.
 116. Retry-run receipt fact: at Session 21 receipt time, `M1-SFT-RETRY-RUN-DEV4` could not launch because the dev_4 worktree did not yet contain fresh endpoint/node evidence. Session 22 superseded the auth/resource gate facts with PR #29 auth completion and PM durable dev_2 endpoint evidence.
 117. SFT retry result fact: dev_4 ran exactly one authorized retry on `ssh -p 23121 root@10.100.22.53` with run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`; it exited `1` before checkpoint creation due `KeyError: 'from'` in LLamaFactory dataset conversion, indicating the current blocker is OpenAI-style role/content JSONL registered under ShareGPT defaults expecting `from`/`value`.
-118. Resource action fact: after the Session 22 retry failure, GPUs were idle and no training process remained; endpoint recheck at `2026-05-20T11:23:57Z` refused SSH. dev_4 recommends dev_2 stop frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z` immediately if not already stopped because no extra retry is authorized.
+118. Resource stop fact: dev_2 stopped retry frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`; LTP reached `STOPPED (Completed)` at `2026-05-20 11:23:29`, endpoint refused connection, and `/mnt/3fs` outputs were preserved.
+119. Current SFT blocker fact: another retry is not authorized; a future PM-gated retry must fix LLamaFactory dataset registration for `coding_agent_playground_sft_v1` OpenAI-style role/content messages or use a PM-approved ShareGPT-format training JSONL.
+120. PR #30 conflict refresh fact: after PR #32 stop-proof commit `5afb945bbfd97faca7af3e56b0765baa48632aa1`, dev_4 merged latest `origin/main` into PR #30 and preserved both dev_2 final stop proof and dev_4 retry failure evidence; PR #30 remains open and must wait for PM gate before self-merge.

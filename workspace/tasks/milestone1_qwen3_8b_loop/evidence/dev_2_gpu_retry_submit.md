@@ -234,7 +234,7 @@ done
 Current state:
 
 ```text
-PENDING. Resource is active for the PM-assigned SFT retry route. dev_2 has not run SFT.
+SUPERSEDED. Resource was active at initial handoff time. See "Final Stop Proof - 2026-05-20T11:22Z" below for completed release proof. dev_2 has not run SFT.
 ```
 
 When stop is authorized, write:
@@ -246,4 +246,90 @@ frame id
 post-stop LTP status
 endpoint proof
 artifact preservation note
+```
+
+## Monitor Update - 2026-05-20T11:19Z
+
+PM update: dev_4 pre-run gate passed and exactly one SFT retry started around 2026-05-20T11:18Z on:
+
+```text
+ssh -p 23121 root@10.100.22.53
+```
+
+Read-only monitor result:
+
+```text
+ltp_state: RUNNING / AttemptRunning
+gpu_state: all 8 H200 GPUs at 0% util and about 1 MiB memory used
+compute_processes: none at sample time
+latest_retry_run_id: milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z
+exit_status_file: EXIT_STATUS=1, END_UTC=2026-05-20T11:19:30Z
+log_tail: KeyError: 'from' in LLamaFactory dataset conversion, followed by torchrun ChildFailedError exitcode 1
+fresh_artifacts: run_manifest.json, config/qwen3_8b_sft.yaml, logs/train_stdout_stderr.log, exit_status.txt
+```
+
+Lifecycle action:
+
+```text
+No stop issued. Fresh retry artifacts had just been written and PM instructed dev_2 to stop only after dev_4/test_1 outcome or PM stop order.
+```
+
+## Final Stop Proof - 2026-05-20T11:22Z
+
+Stop reason:
+
+```text
+PM stop order. dev_4 one authorized SFT retry finished with exit_status=1, no checkpoint/model/trainer_state/all_results, failure KeyError: 'from' during LLamaFactory dataset conversion, and dev_4 recommended stopping immediately.
+```
+
+Pre-stop:
+
+```text
+timestamp_utc: 2026-05-20T11:22:47Z
+ltp_state: RUNNING / AttemptRunning
+endpoint: ssh -p 23121 root@10.100.22.53 reachable
+gpu_state: all 8 H200 GPUs idle at 0% util and about 1 MiB memory used
+latest_retry_run_id: milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z
+exit_status: EXIT_STATUS=1, END_UTC=2026-05-20T11:19:30Z
+preserved_artifacts_seen: config/qwen3_8b_sft.yaml, exit_status.txt, logs/train_stdout_stderr.log, run_manifest.json
+```
+
+Stop command/action:
+
+```text
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py stop xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z
+```
+
+Stop command result:
+
+```text
+STOP signal sent to xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z
+{
+  "status": 202,
+  "message": "Execute job xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z successfully."
+}
+```
+
+Post-stop proof:
+
+```text
+2026-05-20T11:23:07Z: STOPPING / AttemptDeleting; endpoint still briefly reachable and GPU idle.
+2026-05-20T11:23:28Z: STOPPING / AttemptDeleting; endpoint refused connection.
+2026-05-20T11:23:48Z: STOPPED / Completed; completed 2026-05-20 11:23:29; endpoint refused connection.
+2026-05-20T11:24:08Z: STOPPED / Completed; endpoint refused connection.
+2026-05-20T11:24:28Z: STOPPED / Completed; endpoint refused connection.
+2026-05-20T11:24:48Z: STOPPED / Completed; endpoint refused connection.
+```
+
+Artifact preservation:
+
+```text
+Outputs preserved under /mnt/3fs/data/ai4ai/outputs/coding_agent_playground.
+The stop action released the LTP compute worker only and did not delete /mnt/3fs artifacts.
+```
+
+Final state:
+
+```text
+M1-GPU-RETRY-SUBMIT-DEV2 stop proof complete. Resource released. dev_2 did not run SFT.
 ```

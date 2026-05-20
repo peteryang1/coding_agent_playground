@@ -186,6 +186,15 @@
 - Dev_2 evidence says 8 x H200 are idle, repo/data/nodes are staged, and stop proof is pending while the resource is active for dev_4.
 - PM injected the endpoint handoff to dev_4 by tmux. Dev_4 still owns the one retry and must write `evidence/dev_4_sft_retry_run.md`; PM will not execute it.
 
+## 2026-05-20 Session 12 Retry Failure And Stop Proof
+
+- Dev_4 ran the one authorized retry with run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`.
+- Retry result from dev_2/dev_4 evidence: exit status `1`; no checkpoint/model, `trainer_state.json`, or `all_results.json`; failure signature `KeyError: 'from'` during LLamaFactory dataset conversion.
+- PM decision: stop the H200 resource immediately because the single authorized retry completed, no extra retry was authorized, and the failure is a data registration/format blocker.
+- Dev_2 stop proof: frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z` reached `STOPPED (Completed)`, completed `2026-05-20 11:23:29`; endpoint `ssh -p 23121 root@10.100.22.53` refused connection after stop; `/mnt/3fs` outputs preserved.
+- Current blocker: SFT retry failed before checkpoint creation because OpenAI-style role/content messages were registered through ShareGPT defaults expecting `from`/`value`.
+- PR #30 has dev_4 run-result evidence but is currently `CONFLICTING` / `DIRTY`; dev_4 owns merging current `origin/main`, preserving stop proof and retry result evidence, then waiting for PM gate before self-merge.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
