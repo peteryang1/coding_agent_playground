@@ -473,6 +473,40 @@
   - `workspace/interns/intern_code_dev_2/status.md`.
 - dev_2 did not run SFT and did not peer-send PM routine status.
 
+## 2026-05-20 Session 12 Dev 2 GPU Retry Stop Completion
+
+- Task id: `M1-GPU-RETRY-SUBMIT-DEV2`.
+- Owner: `intern_code_dev_2`.
+- PM stop order input:
+  - dev_4 one authorized SFT retry finished with `EXIT_STATUS=1`;
+  - no checkpoint/model/trainer_state/all_results were produced;
+  - failure was `KeyError: 'from'` during LLamaFactory dataset conversion;
+  - dev_4 recommended stopping immediately.
+- Pre-stop state:
+  - frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`;
+  - endpoint `ssh -p 23121 root@10.100.22.53`;
+  - LTP state `RUNNING / AttemptRunning`;
+  - GPUs idle at 0% utilization and about 1 MiB memory used;
+  - latest retry run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`;
+  - retry artifacts visible under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z/`.
+- dev_2 stop action:
+  - sent `ltp.py stop xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z` at 2026-05-20T11:22Z;
+  - stop command returned status `202`.
+- Stop proof:
+  - LTP state reached `STOPPED (Completed)`;
+  - completed timestamp: `2026-05-20 11:23:29`;
+  - endpoint proof: `ssh -p 23121 root@10.100.22.53` refused connection after stop;
+  - repeated post-stop polls through 2026-05-20T11:24:48Z remained `STOPPED (Completed)`.
+- Artifact preservation:
+  - outputs preserved under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`;
+  - stop action released compute only and did not delete `/mnt/3fs` artifacts.
+- Durable evidence:
+  - `evidence/dev_2_gpu_retry_submit.md`;
+  - `evidence/gpu_retry_resource_tracking.md`;
+  - `task_registry.md`;
+  - `workspace/interns/intern_code_dev_2/status.md`.
+- dev_2 did not run SFT and did not peer-send PM routine status.
+
 ## 2026-05-20 Session 12 PM Gate Sync After PR #20/#21
 
 - PM gate state: GPU lifecycle resource blocker is closed. The active 8xH200 LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` reached `STOPPED (Completed)` and the SSH endpoint refused connection after stop.
@@ -588,3 +622,11 @@
 - Active resource: `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`, endpoint `ssh -p 23121 root@10.100.22.53`, node `lg-cmc-b7r202-r05u16-h200-000747`, hard review `2026-05-20T12:06:20Z`.
 - PM notified dev_4 by tmux inject with endpoint, node, frame, staged repo/data/nodes facts, and no-extra-retry rule.
 - PR #30 is not PM-gate-ready until dev_4 corrects stale PR facts from before PR #29 and updates its evidence for the current dev_2 endpoint handoff.
+
+## 2026-05-20 Session 12 Retry Failure And Resource Stop
+
+- Dev_4's one authorized retry reached LLamaFactory distributed launch and failed before checkpoint creation with `KeyError: 'from'` during dataset conversion.
+- The prior DP=8 `steps_in_epoch=0` and TP=8 one-step scheduler assertion were not the failure signatures for this retry; the current blocker is OpenAI-style `role`/`content` data being registered with ShareGPT defaults expecting `from`/`value`.
+- PM sent a stop order to dev_2 after dev_4 recommended immediate resource release and no further retry was authorized.
+- Dev_2 stopped LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`; final state is `STOPPED (Completed)`, completed `2026-05-20 11:23:29`, endpoint refused connection, and `/mnt/3fs` artifacts were preserved.
+- PM gate for PR #30: not ready while GitHub reports `CONFLICTING` / `DIRTY`; dev_4 must merge current main and preserve both dev_2 stop proof and retry result evidence.

@@ -11,8 +11,9 @@
 - Conduct gate: PM must reject any new dev/test PR that lacks an explicit task mapping, owner, acceptance criteria, durable evidence path, and completion marker. Owner self-merge must be followed by durable task completion marking and own status/history/evidence updates.
 - Current retry execution blocker: dev_2 must provide a fresh LTP endpoint/node and resource tracking evidence before dev_4 can run the retry.
 - Current eval blocker: test_2 cannot run mini-swe until dev_4 produces a checkpoint/model or served endpoint accepted by the eval unblock task.
-- Current PR blocker: dev_4 PR #30 is not ready because it was opened before PR #29/dev_2 endpoint handoff facts were reflected; dev_4 owns updating PR #30 or superseding it with retry run evidence.
-- Current resource watch: fresh H200 endpoint `ssh -p 23121 root@10.100.22.53` is active for dev_4. Stop/review deadline is `2026-05-20T12:06:20Z` unless dev_2 records a bounded extension or dev_4 is actively running.
+- Current PR blocker: dev_4 PR #30 is `CONFLICTING` / `DIRTY` after PR #31; dev_4 owns merging current main, preserving stop proof and retry result evidence, then waiting for PM gate.
+- Current SFT blocker: the one authorized retry failed with `KeyError: 'from'` in LLamaFactory dataset conversion. No checkpoint/model exists, so mini-swe remains blocked.
+- Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 
 ## Active
 
@@ -46,6 +47,7 @@
 - PR #29 PM retry authorization: PM self-merged at `2026-05-20T11:02:32Z`, merge commit `c14fa045b210a74fc243f2d2690a2523cc7ec2db`; owner-executed retry tasks are on main.
 - Dev_3 retry data gate: first retry data path/checksum and fallback rule are recorded in `evidence/dev_3_sft_retry_data_gate.md`.
 - Dev_2 fresh resource handoff: endpoint, node, frame, staged paths, and stop conditions are recorded in `evidence/dev_2_gpu_retry_submit.md` and `evidence/gpu_retry_resource_tracking.md`.
+- Retry H200 stop proof: dev_2 stopped frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`; stop proof is in `evidence/dev_2_gpu_retry_submit.md` and `evidence/gpu_retry_resource_tracking.md`.
 - PR #18 evidence gate: dev_4 self-merged PR #18 at `2026-05-20T10:18:04Z`, merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`.
 - PR #23 completion record: dev_4 self-merged PR #23 at `2026-05-20T10:20:28Z`, merge commit `3ccabb573aecccdb71fe8d296643e6816b3ed22e`, marking `M1-SFT-SMOKE-DEV4` blocked-with-final-evidence.
 - PM coordination PR #24 merged at `2026-05-20T10:24:30Z`, merge commit `41f025ec15e36c83c424aa43e37e36903c01d633`.
