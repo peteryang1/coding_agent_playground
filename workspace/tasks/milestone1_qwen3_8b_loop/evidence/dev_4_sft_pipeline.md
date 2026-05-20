@@ -795,6 +795,7 @@ Resolution:
   - `test_2_eval_validation.md` acceptance/provenance gate;
   - PM audit that PR #11 was conflicting before this resolution.
 - Added a Session 10 conflict-resolution record to `history_log.md`.
+- After push, GitHub PR #11 recheck returned `mergeable=MERGEABLE`, `state=OPEN`.
 
 ### Current Launch Package State
 

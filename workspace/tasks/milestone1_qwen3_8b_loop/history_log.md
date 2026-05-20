@@ -294,4 +294,5 @@
   - preserved dev_4 Session 9 completion record for the no-launch clean-base SFT smoke package;
   - preserved PM/test_1/test_2 post-PR10 gate records, including PR #10 merge, test_1 completion gate, test_2 eval acceptance/provenance gate, and PM PR #11 gate audit;
   - appended this Session 10 conflict-resolution record.
+- After push, GitHub PR #11 recheck reported `mergeable=MERGEABLE`, `state=OPEN`.
 - No SFT launch was attempted. The only remaining SFT launch blocker remains GPU endpoint/current Milestone 1 `nodes.json`; the next SFT command should use `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
