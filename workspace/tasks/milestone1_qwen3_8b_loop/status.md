@@ -221,6 +221,7 @@
 - PM opened the next no-execution parallel work package so all interns have active task ids while PR #30 is refreshed: `M1-SFT-DATASETINFO-PACKAGE-DEV3`, `M1-SFT-LAUNCH-PACKAGE-DEV4`, `M1-SFT-LAUNCH-REVIEW-DEV1`, `M1-GPU-RETRY-READY-DEV2`, `M1-SFT-LAUNCH-GATE-TEST1`, and `M1-EVAL-SMOKE-PACKAGE-TEST2`.
 - PM decision remains unchanged: no GPU, SFT, or mini-swe execution is authorized. The next execution gate requires PR #30 merge/completion marker, exact dataset_info/command package, test_1 launch gate, dev_2 fresh LTP readiness, and explicit PM authorization.
 - Owner-evidence audit at `2026-05-20T12:35:10Z`: PR #30 remains open and `CONFLICTING` / `DIRTY` with no new GitHub update after `2026-05-20T11:36:42Z`. The launch-package files `dev_3_sft_datasetinfo_package.md`, `dev_4_sft_launch_package.md`, `dev_1_sft_launch_review.md`, `dev_2_gpu_retry_ready.md`, `test_1_sft_launch_gate.md`, and `test_2_eval_smoke_package.md` are not yet present in PM durable evidence. PM re-submitted non-interrupt tmux start commands to all six owners.
+- Blocker-evidence escalation at `2026-05-20T12:39:01Z`: PM re-audited panes and found no owner output beyond prior instructions. PM injected explicit directives requiring each owner to write the required evidence file or, if blocked, a blocker/missing-input list in that same evidence file plus own status. PR #30 refresh remains dev_4's first priority; no execution authorization is open.
 
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
