@@ -70,6 +70,7 @@ Real SFT launch is not yet executed. Current blockers:
 - `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` is a broken symlink on the corrected final workspace.
 - The corrected entry host has no `nvidia-smi`; a GPU node or current milestone `nodes.json` is required.
 - Historical Qwen3-8B checkpoints are readable but are not clean base checkpoints unless PM/supervisor explicitly chooses warm-start.
+- After Session 6 supervisor correction, PM will not run SFT or remote experiments directly; dev_4 owns execution evidence and PM gates the durable result.
 
 ## Evaluation
 
@@ -101,6 +102,8 @@ uv run --with datasets mini-extra swebench \
 ```
 
 Evaluation smoke is blocked until an SFT smoke model/checkpoint or endpoint exists.
+
+After Session 6 supervisor correction, test_2 owns mini-swe-agent smoke execution once dev_4 supplies a usable model/checkpoint/endpoint; PM gates the durable evidence rather than running the command directly.
 
 ## Metrics
 

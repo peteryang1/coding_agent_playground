@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=5 -->
+<!-- METADATA:SESSION=7 -->
 
 ## Knowledge Entries
 
@@ -31,3 +31,9 @@
 25. Reporting fact: `final_report.md` now reflects current evidence instead of pending placeholders; it is not a completion report because SFT real smoke and mini-swe-agent execution remain blocked on model/GPU path.
 26. Technical fact: corrected final workspace still has no `nvidia-smi`, no current Milestone 1 `nodes.json`, and `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` is still a broken symlink.
 27. Technical fact: historical Qwen3-8B checkpoints with valid `config.json` exist under `/mnt/3fs/data/ai4ai/models/ws_202604...`, but using them would be a warm-start decision and not a clean-base SFT smoke.
+28. PM operating rule: PM must only assign tasks, set gates, collect durable evidence, and make decisions; PM must not directly modify code or execute code/experiments, including on the supervisor final workspace.
+29. Delegation rule: any further final-workspace execution, code changes, SFT/GPU/model probing, or mini-swe-agent eval smoke must be owned and executed by the assigned dev/test intern and recorded in the named durable evidence file.
+30. Coordination fact: for Session 6, peer assignment delivery succeeded for dev_3/test_1; dev_1/dev_2/dev_4/test_2 required `/esc` plus tmux direct assignment because normal peer messages remained unconfirmed or busy.
+31. Communication rule: PM -> dev/test task and correction messages should now default to direct tmux injection into the target intern pane with Enter; `peer_send` is not the primary notification channel.
+32. Communication rule: PM should avoid interrupts by default; use `C-c`, `/esc`, or equivalent only when the supervisor explicitly requires urgent interruption or when the target's current behavior would keep wasting resources or continue an incorrect execution.
+33. Communication rule: after tmux injection, PM must run `tmux capture-pane` to verify the message was submitted and is not just sitting in the target input line.

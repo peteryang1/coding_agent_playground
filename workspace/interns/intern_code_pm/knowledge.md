@@ -1,6 +1,6 @@
 # intern_code_pm - 个人知识库
 
-<!-- METADATA:SESSION=0 -->
+<!-- METADATA:SESSION=7 -->
 
 ---
 
@@ -21,3 +21,11 @@
 - Secretary -> PM is the normal direction for supervisor instructions and status questions; PM -> Secretary is not the default routine reporting channel.
 - PM-visible reports for secretary/supervisor must be written to durable milestone files, especially `workspace/tasks/milestone1_qwen3_8b_loop/pm_secretary_report.md`, `status.md`, `blockers.md`, and evidence files.
 - PM must not use `/esc` toward secretary for routine milestone reports or status.
+
+### 2026-05-20 - PM to dev/test notification channel change
+
+- For PM -> dev/test tasking or correction messages, primary delivery is now direct `tmux send-keys` injection into the target intern pane, followed by Enter.
+- `peer_send` is no longer the primary notification method for dev/test assignments because its priority is insufficient for this team workflow.
+- PM should avoid interrupts by default: do not use `C-c`, `/esc`, or other interruption unless the supervisor explicitly asks for urgent interruption, or the target's current behavior would keep wasting resources or continue an incorrect execution.
+- After tmux injection, PM must use `tmux capture-pane` to verify that the message was submitted and is not merely sitting in the input line.
+- Routine dev/test status and evidence still go to durable files; this change is about PM's outbound task/correction delivery mechanism.

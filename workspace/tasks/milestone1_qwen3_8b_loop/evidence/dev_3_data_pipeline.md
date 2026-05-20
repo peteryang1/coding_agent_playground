@@ -649,3 +649,94 @@ Conversion summary:
 ```
 
 This is the current final SFT smoke input for Milestone 1 Session 5.
+
+## Session 6 Re-Verification After Supervisor Correction
+
+PM Session 6 assignment acknowledged here only. PM will assign/gate/collect/decide; dev_3 owns conversion/data-pipeline evidence for Milestone 1.
+
+Corrected host:
+
+```text
+ssh -p 31787 root@10.100.194.40
+```
+
+Verified files:
+
+```text
+/root/workspace/cleaned_m1_sft_10/train.jsonl
+/root/workspace/cleaned_m1_sft_10/conversion_summary.json
+/root/workspace/cleaned_m1_sft_10/rejected.jsonl
+/root/workspace/rollouts_m1_10/complete_process_validation.json
+```
+
+Verification result:
+
+```json
+{
+  "format_ok": true,
+  "train_lines": 10,
+  "unique_example_ids": 10,
+  "unique_trajectory_ids": 10,
+  "repo_split": {
+    "fastapi/fastapi": 4,
+    "scikit-learn/scikit-learn": 3,
+    "Textualize/rich": 3
+  },
+  "status_counts": {"success": 10},
+  "role_counts": {
+    "user": 10,
+    "assistant": 10
+  },
+  "message_count_min": 2,
+  "message_count_max": 2,
+  "rejected_lines": 0,
+  "schema_errors": [],
+  "cleaning_defects": []
+}
+```
+
+`conversion_summary.json` agrees with the train/reject files:
+
+```json
+{
+  "format_version": "coding_agent_playground_sft_v1",
+  "input_count": 10,
+  "kept_count": 10,
+  "dropped_count": 0,
+  "error_count": 0,
+  "per_repo_kept": {
+    "fastapi/fastapi": 4,
+    "scikit-learn/scikit-learn": 3,
+    "Textualize/rich": 3
+  },
+  "status_counts": {"success": 10},
+  "train_path": "/root/workspace/cleaned_m1_sft_10/train.jsonl",
+  "rejected_path": "/root/workspace/cleaned_m1_sft_10/rejected.jsonl"
+}
+```
+
+Complete-process quality gate remains satisfied:
+
+```json
+{
+  "checked_count": 10,
+  "valid_count": 10,
+  "invalid_count": 0
+}
+```
+
+Cleaning defect check:
+
+- No JSONL parse errors.
+- No duplicate `example_id` or `trajectory_id`.
+- No missing required `coding_agent_playground_sft_v1` top-level fields.
+- All repos are in the expected set: `fastapi/fastapi`, `scikit-learn/scikit-learn`, `Textualize/rich`.
+- Every kept example has at least one user message and one assistant message.
+- No ANSI escape sequences or terminal control characters found in message content.
+- No obvious unredacted API-key/token/bearer/private-key patterns found in message content.
+- Every `source.raw_path` exists on the corrected host.
+
+Current data-pipeline decision:
+
+- `/root/workspace/cleaned_m1_sft_10/train.jsonl` is confirmed as valid `coding_agent_playground_sft_v1` 10-trajectory smoke SFT input.
+- There are no current cleaning defects to route.

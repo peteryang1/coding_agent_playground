@@ -7,6 +7,7 @@
 - Qwen3-8B SFT base/checkpoint path and GPU allocation are not yet validated. Dev_4 is deriving the training plan from axrd records.
 - SFT real launch is blocked on a valid Qwen3-8B base/checkpoint path and GPU allocation/current milestone `nodes.json`. Dev_4 validated dry-run command/manifest with the cleaned 10-example dataset.
 - mini-swe-agent real smoke is blocked on the SFT smoke model/checkpoint or endpoint. Test_2 validated the Singularity/mini-swe-agent command path.
+- PM execution boundary: PM must not personally run additional code/experiments or remote workspace commands for this milestone. This is not a technical blocker, but it means dev_4/test_2 must provide the next SFT/eval execution evidence and PM will gate their durable outputs.
 
 ## Watch Items
 
@@ -14,6 +15,7 @@
 - Old 300/100-per-repo rollout outputs may look useful but are scratch-only after Session 4 scope change; final evidence must come from `/root/workspace/rollouts_m1_10`.
 - mini-swe-agent benchmark target and scoring format need a smoke test before full evaluation.
 - PM top priority is full team utilization: each dev/test owner must continue with independent durable evidence while upstream artifacts are still forming.
+- PM should check durable files for progress rather than executing remote commands directly.
 
 ## Resolved / Mitigated
 

@@ -4,6 +4,10 @@
 
 Do not send routine confirmations, status, blockers, reports, or test results to PM by peer message. Write updates to the evidence paths listed below, plus your own `status.md` when your state changes.
 
+## PM Notification Rule
+
+PM -> dev/test task or correction messages now default to direct tmux injection into the target intern pane, followed by Enter and `tmux capture-pane` verification that the message was submitted. `peer_send` is no longer the primary notification method. PM should avoid interrupts by default and use `/esc`, `C-c`, or equivalent only for supervisor-explicit urgent interruptions or when current execution would keep wasting resources or continuing an error.
+
 ## PM Top Priority
 
 Every dev/test intern must have active, non-waiting work. If an upstream artifact is incomplete, continue on the nearest useful slice and write durable evidence: assumptions, sample inputs, validators, scripts, smoke plans, failure logs, or integration requirements. PM will treat idle owner areas as a coordination bug.
@@ -41,10 +45,19 @@ Every dev/test intern must have active, non-waiting work. If an upstream artifac
   - `intern_code_test_2`: prepare mini-swe-agent eval smoke using the SFT smoke model/checkpoint path and corrected final workspace backend; write command, config, and blocker evidence to `evidence/test_2_eval_validation.md`.
   Routine confirmations/status/results must be written to these durable files and each intern's own `status.md`; do not peer-send PM for routine updates.
 - 2026-05-20 Session 5 final PM update: `/root/workspace/rollouts_m1_10` completed 10/10, `complete_process_validation.json` reports 10 valid / 0 invalid, and `/root/workspace/cleaned_m1_sft_10/train.jsonl` has 10 kept examples. PM used exact `/esc` interrupts for all six dev/test interns; follow-up delivery succeeded for dev_3/test_1/test_2, dev_1 remained unconfirmed, and dev_2/dev_4 were busy for follow-up messages. This file is the authoritative assignment record for all six.
+- 2026-05-20 Session 6 supervisor correction: PM must only assign, gate, collect information, and decide. PM must not directly modify code or execute code/experiments, including on `ssh -p 31787 root@10.100.194.40`. All further final-workspace execution is delegated to the owner intern below.
+- 2026-05-20 Session 6 direct activation:
+  - `intern_code_dev_1`: review `/root/workspace/rollout_harness/tasks_m1_10.jsonl` for task quality and complete-process pressure; write findings to `evidence/dev_1_repo_tasks.md` and own `status.md`.
+  - `intern_code_dev_2`: own rollout harness/run evidence, confirm old 300 remains stopped, verify `/root/workspace/rollouts_m1_10` manifest and rerun/failure strategy; write to `evidence/dev_2_rollout_harness.md` and own `status.md`.
+  - `intern_code_dev_3`: verify `/root/workspace/cleaned_m1_sft_10/train.jsonl` plus conversion summary and schema fit; write to `evidence/dev_3_data_pipeline.md` and own `status.md`.
+  - `intern_code_dev_4`: own all SFT/GPU/model path probing and any SFT execution; resolve/report valid base/checkpoint, GPU/nodes, broken symlink, and warm-start decision needs in `evidence/dev_4_sft_pipeline.md` and own `status.md`.
+  - `intern_code_test_1`: validate the 10 trajectories for complete coding process including actual edit/patch attempt and test/check attempt; write to `evidence/test_1_validation.md` and own `status.md`.
+  - `intern_code_test_2`: own mini-swe-agent eval smoke readiness and execution after dev_4 supplies a model/checkpoint/endpoint; write readiness, blockers, commands, and results to `evidence/test_2_eval_validation.md` and own `status.md`.
+  Routine status and results go to durable files only. No routine peer-send reply to PM is requested.
 
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.
 - Keep `blockers.md` updated with active blockers and routing.
-- Ensure largest-scale rollout/training/eval runs on `ssh -p 31787 root@10.100.194.40`.
+- Ensure largest-scale rollout/training/eval owner assignments point to `ssh -p 31787 root@10.100.194.40`; PM gates evidence but does not execute code or experiments directly.
 - Write secretary/supervisor-readable task split, tracking paths, and blockers to durable task files such as `pm_secretary_report.md`, `status.md`, and `blockers.md`; do not send routine PM -> secretary peer messages.

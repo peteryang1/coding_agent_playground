@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=5 -->
+<!-- METADATA:SESSION=7 -->
 
 ## Session 1 - 2026-05-20
 
@@ -86,7 +86,32 @@
 - PM updated `final_report.md` with current rollout/data/SFT/eval evidence and explicit blockers.
 - PM re-audited SFT real-launch blockers: no GPU on corrected entry host, no current Milestone 1 `nodes.json`, broken clean base symlink at `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B`, and historical Qwen3-8B checkpoints are readable but require explicit warm-start approval.
 
+## Session 6 - 2026-05-20
+
+- Applied supervisor PM role correction: PM's responsibility is now assignment, gatekeeping, information collection, and decision-making only.
+- PM will not directly modify code, run remote workspace code, run experiments, launch SFT, probe GPU/model paths, or execute mini-swe-agent eval; those actions are delegated to dev/test owners.
+- Delivered direct activation for all six dev/test interns:
+  - `intern_code_dev_3` and `intern_code_test_1` received normal peer assignment messages.
+  - `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_4`, and `intern_code_test_2` received `/esc` interrupts and tmux-submitted direct assignments after peer delivery remained busy/unconfirmed.
+- Re-established owner responsibilities:
+  - `intern_code_dev_1`: task/prompt quality review for 10 complete-process trajectories.
+  - `intern_code_dev_2`: rollout harness/run evidence, old-300 stopped evidence, manifest and rerun strategy.
+  - `intern_code_dev_3`: cleaned data and `coding_agent_playground_sft_v1` conversion evidence.
+  - `intern_code_dev_4`: SFT/GPU/model path probing and any SFT execution.
+  - `intern_code_test_1`: 10-trajectory complete-process validation.
+  - `intern_code_test_2`: mini-swe-agent smoke readiness/execution once a model/checkpoint/endpoint exists.
+- Durable files remain the only routine status channel; dev/test should write evidence/status files and not peer-send PM for routine updates.
+
+## Session 7 - 2026-05-20
+
+- Applied supervisor PM -> dev/test notification-channel change.
+- New default delivery for PM task/correction messages is direct tmux injection into the target intern pane followed by Enter.
+- `peer_send` is no longer the primary delivery path for dev/test tasking because its priority is insufficient for this workflow.
+- PM should not casually interrupt: avoid `C-c`, `/esc`, or equivalent unless the supervisor explicitly requires urgent interruption, or the target's current behavior would keep wasting resources or continue incorrect execution.
+- After each tmux injection, PM must run `tmux capture-pane` to verify the message was submitted and did not remain parked on the input line.
+- This communication change was recorded in PM personal knowledge, task knowledge, status, and assignments; durable evidence files remain the route for dev/test routine status/results.
+
 ## Active Next Steps
 
-- Resolve SFT blockers: valid Qwen3-8B base/checkpoint path and allocated GPU node or current milestone `nodes.json`.
-- Run the prepared mini-swe-agent smoke after an SFT smoke model/checkpoint path exists.
+- Gate dev_4's durable decision package for valid Qwen3-8B base/checkpoint path and allocated GPU node or current milestone `nodes.json`.
+- Gate test_2's mini-swe-agent smoke evidence after dev_4 provides an SFT smoke model/checkpoint path or endpoint.

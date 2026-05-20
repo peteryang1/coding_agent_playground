@@ -163,3 +163,27 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - PM wrote eval readiness metrics to `/root/workspace/swe-bench-related/output/qwen3_8b_sft_smoke/metrics_readiness.json`, status `blocked`, with a two-instance SWE-bench Lite dev command ready to fill in once an SFT smoke model/checkpoint or endpoint exists.
 - PM updated `final_report.md` with current evidence and blockers; it is a live report, not a completion claim.
 - PM re-audited SFT real-launch blockers: entry host still has no GPU, no current Milestone 1 `nodes.json` exists, the clean Qwen3-8B base symlink is broken, and historical Qwen3-8B checkpoints are readable but only usable if warm-start is explicitly accepted.
+
+## 2026-05-20 Session 6 PM Role Correction
+
+- Supervisor clarified PM scope: PM must only assign tasks, set gates, collect durable information, and make decisions.
+- PM will not directly modify code or execute code/experiments, including on the supervisor final workspace `ssh -p 31787 root@10.100.194.40`.
+- All further execution is delegated:
+  - dev_1 owns 10-task prompt/task quality review.
+  - dev_2 owns rollout harness/run evidence and old-300 stopped verification.
+  - dev_3 owns data conversion/cleaning evidence.
+  - dev_4 owns SFT/GPU/model path probing and any SFT execution.
+  - test_1 owns complete-process trajectory validation.
+  - test_2 owns mini-swe-agent readiness and eval smoke execution once a model/checkpoint/endpoint exists.
+- Delivery/activation evidence:
+  - dev_3 and test_1 received normal peer assignment messages.
+  - dev_1/dev_2/dev_4/test_2 received `/esc` interrupts and tmux direct assignments after ordinary peer delivery stayed busy or unconfirmed.
+- Source of truth: `assignments.md`, this report, `status.md`, `blockers.md`, and each owner evidence file. No routine PM -> secretary peer report is being sent.
+
+## 2026-05-20 Session 7 Notification Change
+
+- Supervisor changed the PM -> dev/test notification method.
+- New default: PM task/correction messages are sent by tmux injection into the target intern pane, then Enter, followed by `tmux capture-pane` verification.
+- `peer_send` is no longer the primary PM -> dev/test notification channel.
+- PM should avoid interrupts by default; `/esc`, `C-c`, or equivalent interruption is reserved for supervisor-explicit urgent interruption or active resource-waste/error-continuation cases.
+- This rule is recorded in PM personal knowledge, milestone task knowledge, status, history, and assignments.

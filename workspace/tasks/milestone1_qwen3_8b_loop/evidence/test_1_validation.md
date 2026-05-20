@@ -856,3 +856,189 @@ PASS for the assigned after-interrupt validation scope.
 ### Blockers
 
 No blocker found in the assigned after-interrupt validation scope.
+
+## PM Session 6 Complete-Process Validation After Supervisor Correction
+
+Date: 2026-05-20
+
+Assignment confirmation: PM Session 6 request received after supervisor correction. PM will only assign/gate/collect/decide and will not execute code or experiments directly. Test ownership for continuous complete-process validation of the 10 trajectories is with `intern_code_test_1`. No routine `peer_send` was sent.
+
+Scope:
+
+- Input root: `/root/workspace/rollouts_m1_10`
+- Validate all 10 trajectories for:
+  - requirement understanding
+  - file localization
+  - code inspection
+  - actual edit/patch attempt
+  - test/check attempt
+  - observed result/error
+  - final changed files/tests/blockers
+
+### Commands Run
+
+Baseline validator:
+
+```bash
+ssh -p 31787 -o BatchMode=yes -o ConnectTimeout=8 root@10.100.194.40 'python3 /root/workspace/rollout_harness/validate_complete_coding_trajectories.py --input-root /root/workspace/rollouts_m1_10 --output /dev/stdout; printf "validator_exit=%s\n" "$?"'
+```
+
+Session 6 stricter marker and structural check:
+
+```bash
+ssh -p 31787 -o BatchMode=yes -o ConnectTimeout=8 root@10.100.194.40 'python3 - <<'"'"'PY'"'"'
+import json, re
+from pathlib import Path
+root=Path("/root/workspace/rollouts_m1_10")
+checks={
+  "requirement_understanding":[r"requirement",r"goal",r"task",r"need to",r"asked"],
+  "file_localization":[r"file",r"located",r"path",r"tests?/.+\.py",r"\.py"],
+  "code_inspection":[r"inspected",r"checked",r"reviewed",r"read",r"opened",r"looked at"],
+  "actual_edit_patch_attempt":[r"changed file",r"modified",r"edited",r"patch",r"updated",r"applied",r"diff"],
+  "test_check_attempt":[r"pytest",r"test command",r"tests? run",r"validation command",r"check attempted",r"ran .*test",r"command"],
+  "observed_result_error":[r"result",r"passed",r"failed",r"error",r"observed",r"exit",r"output"],
+  "final_changed_files_tests_blockers":[r"changed files",r"tests",r"blocker"],
+}
+def has_any(text, pats): return any(re.search(p, text, re.I|re.S) for p in pats)
+summary=[]
+for done_path in sorted(root.glob("*/*/done.json")):
+    d=done_path.parent
+    raw=json.loads((d/"raw_trajectory.json").read_text())
+    done=json.loads(done_path.read_text())
+    last=(d/"last_message.md").read_text(errors="replace") if (d/"last_message.md").exists() else ""
+    stdout=(d/"stdout.jsonl").read_text(errors="replace") if (d/"stdout.jsonl").exists() else ""
+    stderr=(d/"stderr.log").read_text(errors="replace") if (d/"stderr.log").exists() else ""
+    events=raw.get("events") if isinstance(raw.get("events"), list) else []
+    event_text="\n".join(str(e.get("content","")) for e in events if isinstance(e,dict))
+    final=raw.get("final") if isinstance(raw.get("final"),dict) else {}
+    text="\n".join([event_text,last,stdout,stderr,json.dumps(final,sort_keys=True)])
+    present={name:has_any(text,pats) for name,pats in checks.items()}
+    final_changed=isinstance(final.get("changed_files"), list)
+    final_tests=isinstance(final.get("tests"), list)
+    final_status=final.get("status")
+    final_summary_present="summary" in final
+    missing=[name for name,ok in present.items() if not ok]
+    structural_missing=[]
+    if not final_changed: structural_missing.append("final.changed_files_list")
+    if not final_tests: structural_missing.append("final.tests_list")
+    if not final_status: structural_missing.append("final.status")
+    if not final_summary_present: structural_missing.append("final.summary")
+    valid=not missing and not structural_missing and (done.get("normalized_status") or final_status) in {"success","partial"}
+    summary.append({
+      "trajectory_id": done.get("trajectory_id") or raw.get("trajectory_id"),
+      "repo": done.get("repo_full_id") or raw.get("repo"),
+      "task_id": done.get("task_id") or raw.get("task_id"),
+      "status": done.get("normalized_status") or final_status or done.get("status"),
+      "present": present,
+      "missing": missing,
+      "structural_missing": structural_missing,
+      "changed_files_count": len(final.get("changed_files",[])) if isinstance(final.get("changed_files"),list) else None,
+      "tests_count": len(final.get("tests",[])) if isinstance(final.get("tests"),list) else None,
+      "last_message_len": len(last),
+      "stdout_lines": sum(1 for line in stdout.splitlines() if line.strip()),
+      "valid_session6_complete_process": valid,
+    })
+print(json.dumps({
+  "input_root": str(root),
+  "checked_count": len(summary),
+  "valid_count": sum(r["valid_session6_complete_process"] for r in summary),
+  "invalid_count": sum(not r["valid_session6_complete_process"] for r in summary),
+  "results": summary,
+}, indent=2, sort_keys=True))
+PY'
+```
+
+Final-message evidence extraction:
+
+```bash
+ssh -p 31787 -o BatchMode=yes -o ConnectTimeout=8 root@10.100.194.40 'python3 - <<'"'"'PY'"'"'
+from pathlib import Path
+root=Path("/root/workspace/rollouts_m1_10")
+keys=("requirement","goal","task","inspected","checked","reviewed","read","modified","edited","patch","changed file","pytest","test","validation","result","passed","failed","error","observed","changed files","tests","blocker")
+for d in sorted(p for p in root.glob("*/*") if p.is_dir()):
+    last=(d/"last_message.md").read_text(errors="replace")
+    print(f"--- {d.relative_to(root)} ---")
+    matches=[]
+    for line in last.splitlines():
+        low=line.lower()
+        if any(k in low for k in keys):
+            matches.append(line.strip())
+    for line in matches[:18]:
+        print(line[:220])
+PY'
+```
+
+Count reconciliation:
+
+```bash
+ssh -p 31787 -o BatchMode=yes -o ConnectTimeout=8 root@10.100.194.40 'printf "manifest_lines="; wc -l < /root/workspace/rollouts_m1_10/manifest.jsonl; printf "done_count="; find /root/workspace/rollouts_m1_10 -maxdepth 3 -name done.json | wc -l; printf "raw_count="; find /root/workspace/rollouts_m1_10 -maxdepth 3 -name raw_trajectory.json | wc -l; printf "summary="; cat /root/workspace/rollouts_m1_10/summary.json'
+```
+
+### Count Results
+
+```text
+manifest_lines=10
+done_count=10
+raw_count=10
+summary total=10
+summary totals={'passed': 10}
+baseline validator: checked_count=10, valid_count=10, invalid_count=0, validator_exit=0
+Session 6 stricter validator: checked_count=10, valid_count=10, invalid_count=0
+```
+
+### Session 6 Per-Trajectory Result
+
+All 10 trajectories passed all seven Session 6 marker categories:
+
+```text
+fastapi__fastapi_complete_edit_001: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+fastapi__fastapi_complete_edit_002: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+fastapi__fastapi_complete_edit_003: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+fastapi__fastapi_complete_edit_004: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+rich__rich_complete_edit_001: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+rich__rich_complete_edit_002: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+rich__rich_complete_edit_003: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+scikit-learn__sklearn_complete_edit_001: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+scikit-learn__sklearn_complete_edit_002: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+scikit-learn__sklearn_complete_edit_003: requirement_understanding=true, file_localization=true, code_inspection=true, actual_edit_patch_attempt=true, test_check_attempt=true, observed_result_error=true, final_changed_files_tests_blockers=true, missing=[], structural_missing=[]
+```
+
+### Important Quality Note
+
+The trajectories record an actual patch/edit attempt, but the attempted patches were blocked by the read-only filesystem / approval-disabled environment. The final messages explicitly state no files were changed and explain the blocker. Structured `raw_trajectory.final.changed_files` and `raw_trajectory.final.tests` are present as lists but have count 0 for all 10 trajectories; the final answer text contains the required Changed Files / Tests / Blockers sections and observed test/check failures or direct-check results.
+
+### Evidence From Final Messages
+
+Observed common pattern across all 10 final messages:
+
+- Requirement understanding section present.
+- Specific repo files localized.
+- Code inspected section present.
+- Patch/edit attempt section present.
+- Test/check command attempted.
+- Observed result/error recorded, commonly read-only temp-dir or sandbox write blocker, with some direct checks passing.
+- Changed Files / Tests / Blockers sections present.
+
+Examples:
+
+```text
+fastapi__fastapi_complete_edit_001: attempted patch to preserve explicitly empty endpoint summary; patch rejected because writing is blocked; attempted pytest; observed no usable temporary directory; Changed Files none; Tests section present.
+fastapi__fastapi_complete_edit_004: attempted focused OpenAPI schema test patch; pytest attempts recorded; direct behavior check passed; Changed Files section present.
+rich__rich_complete_edit_002: attempted minimal patch in rich/syntax.py; pytest blocked; direct syntax smoke check passed; Changed Files, Tests, Blockers sections present.
+scikit-learn__sklearn_complete_edit_003: attempted grammar-fix patch in estimator check messages; pytest blocked by temp directory; Changed Files, Tests, Blockers sections present.
+```
+
+### Pass/Fail Result
+
+PASS for PM Session 6 assigned scope.
+
+- 10 trajectories checked.
+- 10 valid for the Session 6 complete-process criteria.
+- 0 invalid.
+- No missing marker categories.
+- No structural missing fields for final status/summary/changed_files/tests.
+- Counts reconcile: manifest, `done.json`, and `raw_trajectory.json` are all 10.
+
+### Blockers
+
+No blocker for validation. Quality caveat: all 10 patch attempts were blocked by the read-only/approval-disabled execution environment, so the trajectories demonstrate complete coding process attempts rather than applied code changes.

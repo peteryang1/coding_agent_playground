@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | #2 |
-| Session | 5 |
+| Session | 7 |
 
 ## Recent Progress
 
@@ -21,3 +21,6 @@
 - 2026-05-20 Session 5: completed the 10-total rollout, validated 10/10 complete-process trajectories, converted 10/10 to `coding_agent_playground_sft_v1`, used `/esc` interrupts to reactivate dev/test, and captured SFT dry-run plus mini-swe eval smoke readiness evidence.
 - 2026-05-20 Session 5 continuation: wrote eval readiness metrics, refreshed `final_report.md` with current rollout/data/SFT/eval evidence, and confirmed remaining blockers are valid Qwen3-8B base/checkpoint plus GPU/model endpoint for real SFT/eval smoke.
 - 2026-05-20 Session 5 continuation: re-audited SFT blockers on the final workspace; no GPU/current nodes.json is available and the clean Qwen3-8B base symlink remains broken, while historical Qwen3-8B checkpoints are warm-start candidates only.
+- 2026-05-20 Session 6: applied supervisor PM role correction: PM now only assigns, gates, collects information, and decides; all further remote workspace execution, code changes, SFT/GPU probing, and eval smoke execution are delegated to dev/test interns with durable evidence paths.
+- 2026-05-20 Session 6: delivered direct activation through `/esc`, peer messages, and tmux fallback as needed, then made `assignments.md` the authoritative source for dev_1/dev_2/dev_3/dev_4/test_1/test_2 owner responsibilities and evidence files.
+- 2026-05-20 Session 7: applied supervisor notification-channel change: PM -> dev/test task/correction messages now default to tmux inject plus Enter and capture-pane verification; peer_send is no longer the primary channel, and interrupts are reserved for explicit urgent or resource-waste/error-continuation cases.

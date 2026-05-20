@@ -51,9 +51,12 @@
 - Test_2 durable evidence now includes mini-swe-agent eval smoke readiness and exact two-instance/single-instance commands using Singularity, blocked only on the SFT smoke model/checkpoint or endpoint.
 - PM wrote mini-swe-agent machine-readable readiness metrics to `/root/workspace/swe-bench-related/output/qwen3_8b_sft_smoke/metrics_readiness.json`; status is `blocked` because no SFT smoke model/checkpoint or endpoint exists yet.
 - PM updated `final_report.md` from pending placeholders to current evidence: 10/10 rollout valid, 10/10 cleaned, SFT dry-run manifest path, mini-swe readiness metrics, and remaining blockers.
-- PM re-audited SFT real-launch blockers: corrected final workspace still has no `nvidia-smi`; no current Milestone 1 `nodes.json` exists; `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` remains a broken symlink; readable historical Qwen3-8B checkpoints exist but are warm-start candidates, not a clean base unless explicitly accepted.
+- PM re-audited SFT real-launch blockers before the Session 6 role correction: corrected final workspace still has no `nvidia-smi`; no current Milestone 1 `nodes.json` exists; `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` remains a broken symlink; readable historical Qwen3-8B checkpoints exist but are warm-start candidates, not a clean base unless explicitly accepted.
+- Session 6 PM role correction applied: PM now only assigns, gates, collects information, and decides. PM will not directly execute further remote workspace code, code changes, SFT/GPU probing, or mini-swe-agent eval; assigned dev/test owners must execute and record durable evidence.
+- Session 6 activation update: dev_3/test_1 received peer assignments; dev_1/dev_2/dev_4/test_2 required `/esc` plus tmux direct assignment because normal peer delivery stayed busy/unconfirmed. `assignments.md` is the authoritative source for all six owners and evidence paths.
+- Session 7 notification-channel change applied: PM -> dev/test task/correction messages now default to tmux injection plus Enter and `capture-pane` verification. `peer_send` is not the primary channel; interrupts are reserved for supervisor-explicit urgent cases or active resource-waste/error-continuation cases.
 
 ## Next PM Checks
 
-- Use dev_4 SFT dry-run manifest and blocker list to choose a valid Qwen3-8B base/checkpoint/GPU path.
-- Once an SFT smoke model/checkpoint path exists, run test_2's mini-swe-agent two-instance smoke command and write final report metrics.
+- Gate dev_4's durable SFT/GPU/model-path decision package and choose whether clean-base or explicit warm-start is acceptable.
+- Gate test_2's durable mini-swe-agent smoke evidence after dev_4 provides a usable model/checkpoint path or endpoint.
