@@ -374,3 +374,4 @@
 - Result evidence: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_smoke_run.md`.
 - Result: no checkpoint/model was produced. Baseline run reached training setup but failed with MCA tiny-data DP=8 `ZeroDivisionError` from `steps_in_epoch=0`; one bounded TP=8 retry failed Megatron scheduler assertion `lr_warmup_steps < lr_decay_steps` for 1-step smoke.
 - Resource decision: dev_2 should stop the active H200 allocation immediately and record stop proof. Further retry should wait for PM-approved config change for MCA/Megatron tiny-data smoke.
+- Evidence PR: `https://github.com/peteryang1/coding_agent_playground/pull/18`
