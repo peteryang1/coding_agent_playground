@@ -39,3 +39,4 @@
 33. Communication rule: after tmux injection, PM must run `tmux capture-pane` to verify the message was submitted and is not just sitting in the target input line.
 34. Gate decision: Milestone 1 is not complete until there is durable evidence of real SFT smoke output or an explicit accepted fallback plus mini-swe-agent smoke output/metrics; current dry-run manifest and readiness metrics alone are insufficient.
 35. PM decision: do not silently treat historical Qwen3-8B checkpoints as clean base; dev_4 must document whether clean base can be repaired/located or recommend a warm-start fallback for explicit PM/supervisor acceptance.
+36. Coordination fact: while waiting for dev_4/test_2 primary decision packages, PM assigned dev_1/dev_2/test_1 parallel support evidence for clean-base candidates, GPU/current `nodes.json`, and SFT+mini-swe completion gates by non-interrupt tmux injection.

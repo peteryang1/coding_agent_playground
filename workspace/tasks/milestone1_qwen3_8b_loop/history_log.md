@@ -115,6 +115,12 @@
   - `intern_code_dev_4`: write a current SFT unblock decision package covering clean base repair/location, warm-start fallback recommendation, GPU/current `nodes.json` acquisition/verification, exact next command after base+GPU, and blockers requiring PM/supervisor decision.
   - `intern_code_test_2`: write a current mini-swe gate package covering exact checkpoint/endpoint acceptance checks, prediction/results/metrics verification, and dirty checkout provenance.
 - `tmux capture-pane` verified both dev_4 and test_2 messages were submitted to the target panes; PM did not use `/esc` or `C-c` for this assignment.
+- PM checked for follow-up evidence and found dev_4/test_2 had not yet written new decision/gate packages. PM kept the goal active and did not mark blocked or complete.
+- PM split parallel support work by non-interrupt tmux injection:
+  - `intern_code_dev_1`: clean Qwen3-8B base path/model registry support evidence.
+  - `intern_code_dev_2`: current GPU allocation/`nodes.json`/compute workflow support evidence.
+  - `intern_code_test_1`: SFT+mini-swe completion audit gate.
+- `tmux capture-pane` verified dev_1/dev_2/test_1 messages were submitted; PM did not use `/esc` or `C-c`.
 
 ## Active Next Steps
 

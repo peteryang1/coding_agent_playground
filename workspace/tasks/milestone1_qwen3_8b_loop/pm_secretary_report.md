@@ -197,3 +197,12 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
   - dev_4 must produce the SFT unblock decision package for clean base vs warm-start, GPU/current `nodes.json`, exact next command, and PM/supervisor decision blockers.
   - test_2 must produce the eval gate package for checkpoint/endpoint acceptance, output predictions/results/metrics verification, and dirty checkout provenance.
 - No PM -> secretary peer report was sent; this durable report is the secretary-facing update.
+
+## 2026-05-20 Session 7 Parallel Support Update
+
+- PM found no new dev_4/test_2 decision/gate package in durable evidence yet, so the goal remains active and incomplete.
+- To keep the team fully utilized without PM running remote probes, PM assigned support work by non-interrupt tmux injection and verified submission with `capture-pane`:
+  - dev_1: clean Qwen3-8B base path/model registry support evidence in `evidence/dev_1_sft_base_path_support.md`.
+  - dev_2: GPU allocation/current `nodes.json`/compute workflow support evidence in `evidence/dev_2_gpu_nodes_support.md`.
+  - test_1: SFT+mini-swe completion audit gate in `evidence/test_1_sft_eval_completion_gate.md`.
+- PM did not use `/esc`, `C-c`, peer_send, remote workspace commands, SFT, or eval commands for this update.

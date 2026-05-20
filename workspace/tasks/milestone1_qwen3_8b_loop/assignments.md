@@ -58,6 +58,11 @@ Every dev/test intern must have active, non-waiting work. If an upstream artifac
   - `intern_code_dev_4`: produce a current SFT unblock decision package in `evidence/dev_4_sft_pipeline.md`, covering clean Qwen3-8B base path repair/location, warm-start historical checkpoint fallback recommendation, GPU/current `nodes.json` acquisition/verification, exact next command once base+GPU are available, and blockers requiring PM/supervisor decision.
   - `intern_code_test_2`: produce a current eval gate package in `evidence/test_2_eval_validation.md`, covering exact acceptance checks for SFT checkpoint path or endpoint, prediction/results/metrics verification, and whether the dirty mini-swe-agent checkout is acceptable or needs provenance note.
   PM used tmux inject plus Enter and capture-pane verification; no interrupt was used for this assignment.
+- 2026-05-20 Session 7 continuation parallel support, non-interrupt tmux assignments verified by `capture-pane`:
+  - `intern_code_dev_1`: independently check clean Qwen3-8B base model candidates and model registry evidence on corrected/shared paths; classify each path as clean base or historical/warm-start; write to `evidence/dev_1_sft_base_path_support.md` and own `status.md`.
+  - `intern_code_dev_2`: independently check current GPU allocation, `nodes.json`, and compute workflow evidence for Milestone 1 without starting training; write exact checked paths/commands and routing recommendation to `evidence/dev_2_gpu_nodes_support.md` and own `status.md`.
+  - `intern_code_test_1`: define the SFT+mini-swe smoke completion audit gate and identify which current evidence is insufficient for completion; write to `evidence/test_1_sft_eval_completion_gate.md` and own `status.md`.
+  These assignments keep the team parallelized while dev_4/test_2 prepare the primary SFT/eval decision packages.
 
 ## PM Integration Responsibilities
 

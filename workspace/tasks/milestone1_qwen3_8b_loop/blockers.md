@@ -9,6 +9,7 @@
 - mini-swe-agent real smoke is blocked on the SFT smoke model/checkpoint or endpoint. Test_2 validated the Singularity/mini-swe-agent command path.
 - PM execution boundary: PM must not personally run additional code/experiments or remote workspace commands for this milestone. This is not a technical blocker, but it means dev_4/test_2 must provide the next SFT/eval execution evidence and PM will gate their durable outputs.
 - PM gate: current dry-run manifest and eval readiness metrics do not prove loop completion; dev_4 must provide a base/checkpoint/GPU decision package, and test_2 must provide checkpoint/endpoint eval gate evidence before real smoke can proceed.
+- Evidence gap: dev_4/test_2 decision packages are still pending; dev_1/dev_2/test_1 now own parallel support evidence for base-path candidates, GPU/current `nodes.json`, and completion gate criteria.
 
 ## Watch Items
 
