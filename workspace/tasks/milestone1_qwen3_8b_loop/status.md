@@ -167,6 +167,15 @@
 - Current PR audit: PR #26 merged at `2026-05-20T10:44:55Z`, PR #27 merged at `2026-05-20T10:47:11Z`, and the latest open-PR list is empty.
 - Current gate decision: `M1-SFT-CONFIG-FIX-DEV4` is ready-for-retry, but actual GPU retry still requires PM to gate the support evidence package and assign owner execution; PM will not run training/eval itself.
 
+## 2026-05-20 Session 12 SFT Retry Authorization Split
+
+- PR #28 merged at `2026-05-20T10:58:33Z`, merge commit `d6d1092b8cf72eb6210502da0b058cd9bf9abab6`; it synced support evidence, PR #26/#27 facts, and task/PR conduct rules.
+- PM gate decision: the next SFT retry may proceed as owner-executed work through explicit tasks, not PM-run commands.
+- First retry config: `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`.
+- First retry data decision: use original `/root/workspace/cleaned_m1_sft_10/train.jsonl` for the first attempt; use repeated x16 data only if dev_3/test_1 records a concrete blocker or PM explicitly changes the gate.
+- Owner split created in `task_registry.md`: dev_2 submits/tracks fresh LTP resource; dev_4 runs one retry after endpoint exists; dev_3 gates data; dev_1 pregates package consistency; test_1 validates retry; test_2 prepares mini-swe unblock and remains blocked until checkpoint/endpoint exists.
+- PM boundary remains active: PM does not submit LTP, run SFT, run eval, or stop GPU jobs directly.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
