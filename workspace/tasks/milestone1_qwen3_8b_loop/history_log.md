@@ -250,3 +250,12 @@
   - there is no real SFT smoke checkpoint/output and no mini-swe eval metrics.
 - PM checked `tmux capture-pane` for `intern_code_test_1`, `intern_code_test_2`, and `intern_code_dev_4`; the required-now messages are present in their panes. PM did not interrupt with `/esc` or `C-c`.
 - PM decision: goal remains active, not complete. Current actionable blocker is owner evidence/execution readiness: test_1/test_2 gates and dev_4 clean-base no-launch package must land before PM can authorize SFT/eval execution, and GPU/current `nodes.json` is still required for real SFT.
+
+## Session 9 - Dev 4 Completion Record - 2026-05-20
+
+- Dev_4 completed the PM-required no-launch SFT smoke package using the accepted clean-base candidate `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
+- Dev_4 verified that candidate on `ssh -p 31787 root@10.100.194.40`: `config.json`, tokenizer files, `generation_config.json`, `model.safetensors.index.json`, 5 safetensors shards, and no missing index shards.
+- Dev_4 verified current SFT input `/root/workspace/cleaned_m1_sft_10/train.jsonl` with SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+- Dev_4 updated `evidence/dev_4_sft_pipeline.md` with the exact no-launch command package, required GPU evidence, output/checkpoint/manifest paths to verify, and remaining blockers.
+- Dev_4 opened PR #11 for Session 9 durable updates: `https://github.com/peteryang1/coding_agent_playground/pull/11`.
+- No real SFT launch was attempted; the current blocker remains missing GPU endpoint/current Milestone 1 `nodes.json`.
