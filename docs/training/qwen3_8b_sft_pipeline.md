@@ -9,7 +9,7 @@ trajectories into a Qwen3-8B SFT run.
 - Dataset: ShareGPT-style JSONL at `data/sft/milestone1_coding_agent_sft.jsonl`
   by default, override with `DATASET_JSONL`.
 - LLamaFactory config template: `configs/train/qwen3_8b_sft.yaml`.
-- Final workspace host: `ssh -p 20087 root@10.100.193.54`.
+- Final workspace host: `ssh -p 31787 root@10.100.194.40`.
 - Shared output root: `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
 
 ## GPU Workflow
@@ -17,7 +17,7 @@ trajectories into a Qwen3-8B SFT run.
 1. Start from the final workspace machine and confirm the run is on an allocated
    GPU node:
    ```bash
-   ssh -p 20087 root@10.100.193.54
+   ssh -p 31787 root@10.100.194.40
    command -v nvidia-smi && nvidia-smi
    ```
 2. If the shell is a CPU/login node, do not launch training there. Obtain the
@@ -128,6 +128,8 @@ candidate so far; rolling retention can delete older `checkpoint-*` directories.
 
 ## Current GPU Blocker
 
-As of 2026-05-20, `ssh -p 20087 root@10.100.193.54` reaches the final workspace
-and `/mnt/3fs/data/ai4ai/deps`, but `nvidia-smi` is not present on that entry
-host. Full SFT launch requires an allocated GPU node or a valid `nodes.json`.
+As of 2026-05-20, `ssh -p 31787 root@10.100.194.40` reaches the corrected final
+workspace and `/mnt/3fs/data/ai4ai/deps`, but `nvidia-smi` is not present on
+that entry host. Full SFT launch requires an allocated GPU node or a
+milestone-specific `nodes.json`. Any earlier `20087/root@10.100.193.54` probe
+is scratch-only and must not be used as the final workspace assumption.
