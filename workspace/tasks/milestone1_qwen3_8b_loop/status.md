@@ -203,6 +203,7 @@
 - Current PR audit: PR #30 for task `M1-SFT-RETRY-RUN-DEV4` is open, non-draft, `MERGEABLE` / `CLEAN`, with no merge commit yet.
 - PM gate decision: PR #30 passes the ready/mergeable gate for owner self-merge because it maps to `M1-SFT-RETRY-RUN-DEV4`, records owner/evidence/completion intent, and contains retry failure plus stop-proof evidence. Dev_4 was instructed by tmux inject to self-merge and then mark the task blocked-with-final-evidence.
 - Post-PR #33 update: PM coordination PR #33 merged at `2026-05-20T11:42:11Z`, merge commit `ce06aa0805760bb9391ad38d5fb2b2732abb232f`. After main advanced, PR #30 changed to `CONFLICTING` / `DIRTY`; PM gate is now revoked until dev_4 merges current `origin/main`, preserves retry/stop-proof evidence, pushes, and GitHub returns mergeable/clean.
+- Post-PR #34 audit: PM coordination PR #34 merged at `2026-05-20T11:44:37Z`, merge commit `62c60e367baaa60ca3935d78e0405b63f5a19366`. PR #30 still reports `CONFLICTING` / `DIRTY`, so it remains not gate-ready. PM re-injected the owner blocker to dev_4 by tmux and verified submission by `capture-pane`.
 
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
