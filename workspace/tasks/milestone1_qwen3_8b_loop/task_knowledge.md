@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=12 -->
+<!-- METADATA:SESSION=18 -->
 
 ## Knowledge Entries
 
@@ -93,12 +93,20 @@
 81. PM decision update: use the approved current GPU route `ssh -p 39314 root@10.100.20.37` with `nodes.json` at `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`, staged remotely at `/root/workspace/coding_agent_playground/nodes.json` and `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json`.
 82. PM decision: dev_4 is authorized to run only the short Qwen3-8B SFT smoke on the approved route after resolving PR #14 conflict; test_2 owns mini-swe after SFT model/checkpoint exists.
 83. PR conflict fact: PR #14 conflicted after PR #15 merged and again after GPU-route authorization records landed; dev_4 must merge current `origin/main`, preserve PR #15 GPU route evidence and PM records, push PR #14, and self-merge only after PR #14 is mergeable.
-84. Resource rule: coding_agent_playground interns must use LTP directly for GPU resources instead of routing routine requests through axrd interns. PM only gates/tracks; dev/test owners submit/status/ssh/stop and write durable evidence.
-85. GPU lifecycle fact: active H200 job `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` at `ssh -p 39314 root@10.100.20.37` is tracked in `evidence/gpu_resource_tracking.md`; dev_2 owns lifecycle/stop proof and dev_4 owns SFT workload.
-86. Stop condition: the active H200 node must be stopped after SFT smoke completion/failure, if idle for 15 minutes without owner progress, or by 2026-05-20T10:30:00Z unless dev_2 writes a durable extension reason.
-87. Intern conduct rule: PM must maintain explicit task records, not only scattered assignments. Every dev/test PR must reference a task with owner, acceptance criteria, durable evidence path, and completion marker.
-88. PR gate rule: before PM marks a dev/test PR ready, PM must confirm the PR references a task and that the task docs/status define owner and acceptance criteria. After owner self-merge, the owner must mark the corresponding task complete by updating task README/status, own status, necessary history/evidence, then push/merge those completion records.
-89. Current process gate: task registry for this milestone is `task_registry.md`; PR owners must keep that registry or task-specific docs aligned with PR state and completion state.
-90. Resource fact: `M1-GPU-LIFECYCLE-DEV2` is complete. PR #20 merged at `2026-05-20T10:02:28Z` with merge commit `3bfcb3781931070b932d138957620dbe9f1d2ee9`; PR #21 merged at `2026-05-20T10:05:06Z` with merge commit `36ee08ae3ad98f7a94b7c5c7155938479333bd37` to backfill merge facts.
-91. SFT blocker fact: PR #18 is still open and conflicting after PR #20/#21; it now references task id `M1-SFT-SMOKE-DEV4`, but PM gate cannot pass until dev_4 resolves conflicts and GitHub reports mergeable.
-92. PM decision: no further SFT GPU retry is authorized from the failed DP=8/drop_last and TP=8/max_steps=1 attempts unless a new explicit task documents a concrete config fix and resource plan.
+84. PR fact: dev_4 self-merged PR #14 at `2026-05-20T09:33:27Z` with merge commit `e21d6ba8c94ca4561777ec22444e9c1dd3d61b7a`.
+85. SFT smoke fact: approved H200 route, clean-base path, cleaned SFT dataset, output root, and LLamaFactory/MCA dependencies were usable, but no checkpoint was produced because MCA/Megatron tiny-data config failed: baseline DP=8 hit `steps_in_epoch=0`, and one bounded TP=8/max_steps=1 retry hit scheduler assertion `lr_warmup_steps < lr_decay_steps`.
+86. Resource fact: dev_4 recommends dev_2 stop the active H200 allocation immediately; another retry should wait for PM-approved config changes for tiny-data MCA/Megatron smoke.
+87. Resource rule: coding_agent_playground interns must use LTP directly for GPU resources instead of routing routine requests through axrd interns. PM only gates/tracks; dev/test owners submit/status/ssh/stop and write durable evidence.
+88. GPU lifecycle fact: active H200 job `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` at `ssh -p 39314 root@10.100.20.37` is tracked in `evidence/gpu_resource_tracking.md`; dev_2 owns lifecycle/stop proof and dev_4 owns SFT workload.
+89. Stop condition: the active H200 node must be stopped after SFT smoke completion/failure, if idle for 15 minutes without owner progress, or by 2026-05-20T10:30:00Z unless dev_2 writes a durable extension reason.
+90. Intern conduct rule: PM must maintain explicit task records, not only scattered assignments. Every dev/test PR must reference a task with owner, acceptance criteria, durable evidence path, and completion marker.
+91. PR gate rule: before PM marks a dev/test PR ready, PM must confirm the PR references a task and that the task docs/status define owner and acceptance criteria. After owner self-merge, the owner must mark the corresponding task complete by updating task README/status, own status, necessary history/evidence, then push/merge those completion records.
+92. Current process gate: task registry for this milestone is `task_registry.md`; PR owners must keep that registry or task-specific docs aligned with PR state and completion state.
+93. PR #18 task mapping fact: dev_4 SFT smoke evidence PR #18 must reference existing PM task id `M1-SFT-SMOKE-DEV4` and must preserve PM's registry.
+94. Resource fact: dev_2 stop proof on main records LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` stopped at 2026-05-20T09:53:21 with endpoint refusal and outputs preserved.
+95. Resource fact: `M1-GPU-LIFECYCLE-DEV2` is complete. PR #20 merged at `2026-05-20T10:02:28Z` with merge commit `3bfcb3781931070b932d138957620dbe9f1d2ee9`; PR #21 merged at `2026-05-20T10:05:06Z` with merge commit `36ee08ae3ad98f7a94b7c5c7155938479333bd37` to backfill merge facts.
+96. SFT blocker fact: PR #18 references task id `M1-SFT-SMOKE-DEV4`, but PM gate cannot pass until dev_4 resolves conflicts after PR #22 and GitHub reports mergeable.
+97. PM decision: no further SFT GPU retry is authorized from the failed DP=8/drop_last and TP=8/max_steps=1 attempts unless a new explicit task documents a concrete config fix and resource plan.
+98. PR #18 conflict fact: after PM PR #22 merged, dev_4 must merge latest `origin/main`, preserve `M1-SFT-SMOKE-DEV4` and `M1-GPU-LIFECYCLE-DEV2` task records, push PR #18, and wait for PM gate before self-merge.
+99. Task-flow rule: PR #18 must keep task id `M1-SFT-SMOKE-DEV4` in PR body/evidence/status/task registry; after PM-gated self-merge, dev_4 must mark the task complete or blocked-with-final-evidence with `mergedAt` and merge commit, update status/history/evidence, and push/merge that completion record.
+100. PM gate fact: PR #18 for task `M1-SFT-SMOKE-DEV4` passed PM gate after GitHub reported `MERGEABLE` / `CLEAN`; after owner self-merge, completion should be recorded as blocked-with-final-evidence because the scoped SFT smoke produced durable failure evidence and no checkpoint/model.
