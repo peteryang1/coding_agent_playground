@@ -808,3 +808,13 @@ OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground
 ```
 
 Exact next command remains the Session 9 command package above. Real launch remains blocked on GPU endpoint/current Milestone 1 `nodes.json`.
+
+## 2026-05-20 Session 11 PR #11 Merge Evidence
+
+- PM gate input: PR #11 was `MERGEABLE` and passed PM gate for scoped no-launch clean-base SFT smoke package/conflict-resolution evidence.
+- Owner action: dev_4 self-merged PR #11 after local `git diff --check` passed.
+- PR URL: `https://github.com/peteryang1/coding_agent_playground/pull/11`
+- `mergedAt`: `2026-05-20T09:10:26Z`
+- Merge commit: `93c4efaaff3e50220f7bb8583070321e65289efa`
+- Scope merged: no-launch clean-base SFT smoke launch package using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, plus PR #11 conflict-resolution evidence.
+- No SFT launch was attempted. Real launch remains blocked on GPU endpoint/current Milestone 1 `nodes.json`.
