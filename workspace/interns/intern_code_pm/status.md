@@ -7,7 +7,7 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | #2 |
+| PR | #5 |
 | Session | 8 |
 
 ## Recent Progress
@@ -33,3 +33,4 @@
 - 2026-05-20 Session 8 continuation: PR #2 was merged at `2026-05-20T07:51:54Z`; opened a continuation branch for ongoing PM coordination, rechecked PR #1 still open/mergeable, and sent non-interrupt tmux reminders for PR #1 self-merge plus missing dev_1/dev_2/test_1 support evidence.
 - 2026-05-20 Session 8 continuation: opened continuation PR #3, verified it is open/non-draft/mergeable and scoped to PM durable coordination only, so PM gate passes and PM will self-merge it as owner.
 - 2026-05-20 Session 8 continuation: PR #3 merged at `2026-05-20T07:58:02Z`; latest PM gate check still finds PR #1 open/mergeable, missing dev_1/dev_2/test_1 support files, and no new dev_4/test_2 decision package, so SFT/eval smoke remains unproven.
+- 2026-05-20 Session 8 continuation: PR #4 merged at `2026-05-20T08:01:24Z` with merge commit `002155e6295461871544cfc267863facc5570dd5`; re-audited PR #1 as `OPEN`/`MERGEABLE` and again notified dev_4 by non-interrupt tmux inject to self-merge as owner. Support evidence files from dev_1/dev_2/test_1 are still missing, so PM keeps the goal active and does not mark SFT/eval complete.

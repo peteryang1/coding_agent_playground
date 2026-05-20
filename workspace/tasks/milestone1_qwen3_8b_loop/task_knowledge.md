@@ -46,3 +46,7 @@
 40. PR fact: PR #2 merged at `2026-05-20T07:51:54Z` with merge commit `07b0dd167b9004af1c6994652966b7e1de5f2084`; further PM updates need a continuation branch/PR.
 41. PR fact: PR #3 was opened for continuation PM durable coordination, is mergeable, and passes PM gate for owner self-merge because it does not claim milestone completion.
 42. Gate fact: after PR #3 merge, PR #1 is still open/mergeable and the SFT/eval support evidence files remain missing, so SFT/eval smoke is still unproven.
+43. PR fact: PR #4 merged at `2026-05-20T08:01:24Z` with merge commit `002155e6295461871544cfc267863facc5570dd5`.
+44. PR gate fact: latest audit still shows PR #1 `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; PM gate passes for dev_4 owner self-merge of scoped Qwen3-8B SFT pipeline artifacts, but PM must not merge it for dev_4.
+45. Coordination fact: PM used non-interrupt tmux inject plus capture-pane verification to notify dev_4 again that PR #1 should be self-merged by the owner and recorded in durable evidence/status.
+46. Gate fact: latest evidence check still lacks `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md`; without these or dev_4/test_2 decision packages, PM cannot close the SFT/eval smoke gate.

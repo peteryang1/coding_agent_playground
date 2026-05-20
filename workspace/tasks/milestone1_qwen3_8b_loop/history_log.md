@@ -162,3 +162,14 @@
   - `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md` are still missing.
   - dev_4/test_2 evidence still has no new SFT unblock decision package or eval gate package.
 - PM keeps the active goal open because current evidence still does not prove real SFT smoke or mini-swe eval smoke.
+- PM self-merged PR #4 as owner after it passed the same coordination-only gate. Merge commit `002155e6295461871544cfc267863facc5570dd5`, merged at `2026-05-20T08:01:24Z`.
+- PM re-audited PR #1 after PR #4 merge:
+  - PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`;
+  - scope remains dev_4-owned Qwen3-8B SFT pipeline artifacts, so PM gate remains pass for owner self-merge and does not wait for full milestone completion;
+  - PM sent another non-interrupt tmux inject to `intern_code_dev_4` instructing owner self-merge plus durable merge evidence/status updates, and `capture-pane` verified the message was submitted.
+- PM rechecked current SFT/eval gate support evidence:
+  - `dev_1_sft_base_path_support.md` is still missing;
+  - `dev_2_gpu_nodes_support.md` is still missing;
+  - `test_1_sft_eval_completion_gate.md` is still missing;
+  - dev_4/test_2 evidence files still do not contain a new SFT unblock decision package or mini-swe eval gate package.
+- PM decision: keep the active goal open; do not mark complete because no durable evidence yet proves real SFT smoke output or mini-swe eval smoke output/metrics.
