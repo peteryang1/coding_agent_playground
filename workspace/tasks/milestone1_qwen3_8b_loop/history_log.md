@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=19 -->
+<!-- METADATA:SESSION=20 -->
 
 ## Session 1 - 2026-05-20
 
@@ -528,3 +528,14 @@
   - `M1-SFT-FAILURE-REVIEW-DEV1`.
 - PM delivered these task assignments by tmux inject to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`; `capture-pane` verified each pane showed the submitted task text.
 - PM remains within role boundary: task assignment, gate, durable evidence collection, and decisions only.
+
+## Session 20 - Dev 4 PR #26 Config Fix Package Merge - 2026-05-20
+
+- PM gate pass received for PR #26 / task `M1-SFT-CONFIG-FIX-DEV4`.
+- Gate facts: PR body cites task id, owner, acceptance criteria, durable evidence, and completion marker; GitHub reports `MERGEABLE` / `CLEAN`; no required checks are reported.
+- Dev_4 self-merged PR #26:
+  - PR: `https://github.com/peteryang1/coding_agent_playground/pull/26`
+  - `mergedAt`: `2026-05-20T10:44:55Z`
+  - merge commit: `6a704f842c992f83a8d86167dfe870fa6ff72440`
+- Completion state: `M1-SFT-CONFIG-FIX-DEV4` is ready-for-retry. The config package is landed and durable, but no GPU run is authorized until PM also gates test/resource plans.
+- No peer-send PM routine confirmation was used.

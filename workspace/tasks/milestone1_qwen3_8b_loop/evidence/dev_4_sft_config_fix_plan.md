@@ -156,3 +156,12 @@ max_steps: 2
 warmup_steps: 0
 tensor_model_parallel_size: 8
 ```
+
+## PR 26 Merge / Task Completion Record
+
+- Task ID: `M1-SFT-CONFIG-FIX-DEV4`
+- PR: `https://github.com/peteryang1/coding_agent_playground/pull/26`
+- `mergedAt`: `2026-05-20T10:44:55Z`
+- Merge commit: `6a704f842c992f83a8d86167dfe870fa6ff72440`
+- Completion marker: ready-for-retry.
+- Reason: the config-fix package and tiny-data-safe template are landed with durable evidence. No GPU run was performed; future execution requires PM authorization plus the remaining test/resource gates.
