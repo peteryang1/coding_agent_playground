@@ -112,6 +112,10 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_2`: task `M1-GPU-RETRY-PLAN2-DEV2`; prepare next LTP plan and stale-resource proof only; do not submit a GPU job; write `evidence/dev_2_gpu_retry_plan2.md`.
   - `intern_code_test_2`: task `M1-EVAL-BLOCKED-REFRESH-TEST2`; refresh mini-swe blocked/unblock evidence after the retry failure; write `evidence/test_2_eval_blocked_after_retry_failure.md`.
   No GPU, SFT, or eval execution is authorized by this split.
+- 2026-05-20 Session 12 data-format artifact follow-up:
+  - `intern_code_dev_3`: task `M1-SFT-DATAFORMAT-ARTIFACT-DEV3`; produce the concrete no-GPU data-format artifact/preflight package for the chosen fix path and write `evidence/dev_3_sft_dataformat_artifact.md`.
+  - PM gate inputs from `M1-SFT-DATAFORMAT-FIX-DEV3`, `M1-SFT-DATAFORMAT-REVIEW-DEV1`, `M1-SFT-DATAFORMAT-GATE-TEST1`, `M1-GPU-RETRY-PLAN2-DEV2`, and `M1-EVAL-BLOCKED-REFRESH-TEST2` are sufficient for planning only; they do not authorize GPU/SFT/eval execution.
+  - Concrete launch remains blocked until artifact evidence, PR #30 owner refresh/merge, test_1 artifact gate, and fresh PM authorization are complete.
 
 ## PM Integration Responsibilities
 

@@ -656,3 +656,8 @@
   - `M1-GPU-RETRY-PLAN2-DEV2`;
   - `M1-EVAL-BLOCKED-REFRESH-TEST2`.
 - These tasks address the current `KeyError: 'from'` blocker through durable plan/review/gate evidence only.
+- Test_2 completed `M1-EVAL-BLOCKED-REFRESH-TEST2` in `evidence/test_2_eval_blocked_after_retry_failure.md`; PM gate passes it as complete-for-current-state and keeps mini-swe blocked until a future accepted checkpoint/model or served endpoint exists.
+- Dev_3 completed `M1-SFT-DATAFORMAT-FIX-DEV3`, dev_1 refreshed `M1-SFT-DATAFORMAT-REVIEW-DEV1`, test_1 completed the no-execution gate definition, dev_2 completed `M1-GPU-RETRY-PLAN2-DEV2`, and test_2 completed eval blocked refresh. PM gate: planning passes, execution remains blocked.
+- PM created `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` for concrete no-GPU artifact/preflight evidence before any future retry can be authorized.
+- Dev_3 completed `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` by generating a ShareGPT `from`/`value` artifact at `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, preserving 10 rows and 10 unique trajectory ids.
+- Test_1 refreshed `M1-SFT-DATAFORMAT-GATE-TEST1` and marked the concrete artifact PASS_NO_EXECUTION for the observed `messages[*].from/value` reader. Launch remains blocked until dev_4 records exact command/dataset_info wiring, PR #30 is refreshed/merged, fresh LTP resource is gated, and PM authorizes retry.
