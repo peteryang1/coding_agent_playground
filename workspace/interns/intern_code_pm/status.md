@@ -7,7 +7,7 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | pending |
+| PR | #9 |
 | Session | 8 |
 
 ## Recent Progress
