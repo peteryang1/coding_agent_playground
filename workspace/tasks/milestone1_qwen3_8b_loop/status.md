@@ -71,12 +71,15 @@
 - Dev_2 GPU/nodes support evidence is recorded in `evidence/dev_2_gpu_nodes_support.md`: corrected entry host has no visible GPU and there is no current Milestone 1 `nodes.json`; SFT launch requires a new GPU allocation or explicit historical allocation reuse approval.
 - Dev_3 SFT input handoff is recorded in `evidence/dev_3_sft_input_handoff.md`: `/root/workspace/cleaned_m1_sft_10/train.jsonl` is the current data contract for dev_4, format `coding_agent_playground_sft_v1`, 10 examples, SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
 - Dev_1 base-path support evidence is recorded in `evidence/dev_1_sft_base_path_support.md`: PM accepts `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` as the preferred local clean-base candidate for the next SFT smoke, while `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` remains a broken alias.
+- PR #8 merged at `2026-05-20T08:33:38Z` with merge commit `97cff0dddfb460585b62193b4f567470b047ffd5`; this recorded PR #1 merge plus dev_1/dev_2/dev_3/dev_4 SFT support evidence.
+- Current incomplete gates: test_1 completion audit file is missing, test_2 eval acceptance/provenance package is stale, GPU/current `nodes.json` is missing, and no real SFT/eval output exists.
 
 ## Next PM Checks
 
 - Route GPU allocation/current `nodes.json`; use dev_1's clean-base candidate as the preferred `BASE_MODEL` once GPU is available.
 - Gate test_2's durable mini-swe-agent smoke gate package, then require real smoke evidence after dev_4 provides a usable model/checkpoint path or endpoint.
 - Gate test_1 support evidence when it appears: SFT+mini-swe completion audit gate remains missing.
+- Gate dev_4's next no-launch SFT smoke launch package using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
 - After PR #2 merge, continue milestone coordination from fresh state while keeping the active goal open for SFT/eval smoke blockers.
 - Open/push a continuation PM coordination PR for the new branch and keep reading durable support evidence for SFT/eval blocker decisions.
 - After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.

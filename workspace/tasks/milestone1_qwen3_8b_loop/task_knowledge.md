@@ -65,3 +65,6 @@
 59. SFT decision fact: dev_4 recommends warm-start fallback `/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final` only if PM/supervisor explicitly accepts warm-start smoke instead of clean-base smoke.
 60. Base-model gate fact: dev_1 found a usable local clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`; PM decision is to prefer this clean-base candidate over warm-start fallback for the next SFT smoke once GPU/current `nodes.json` exists.
 61. Remaining blocker fact: no current GPU endpoint or Milestone 1 `nodes.json`, no real SFT smoke checkpoint/output, and no mini-swe eval smoke metrics exist yet; test_1 completion gate and test_2 eval acceptance package remain missing.
+62. PR fact: PR #8 merged at `2026-05-20T08:33:38Z` with merge commit `97cff0dddfb460585b62193b4f567470b047ffd5`.
+63. Coordination fact: PM sent non-interrupt required-now tmux follow-ups to test_1/test_2 for missing completion/eval gates and to dev_4 for a no-launch clean-base SFT smoke launch package; capture-pane verified the messages were submitted.
+64. Gate fact: next SFT execution is not authorized yet because the GPU/current `nodes.json` requirement remains unsatisfied even though the clean-base candidate and SFT input are ready enough.

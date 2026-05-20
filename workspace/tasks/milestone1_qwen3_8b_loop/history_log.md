@@ -219,3 +219,14 @@
   - no current GPU endpoint or Milestone 1 `nodes.json` exists;
   - no real SFT smoke output/checkpoint and no mini-swe eval output/metrics exist yet.
 - PM decision: milestone remains active and incomplete. Next decision point is GPU allocation/current `nodes.json`; with current evidence, the preferred SFT base is dev_1's clean-base candidate, not warm-start fallback.
+- PM self-merged PR #8 as owner after it passed coordination/evidence gate. Merge commit `97cff0dddfb460585b62193b4f567470b047ffd5`, merged at `2026-05-20T08:33:38Z`.
+- PM re-audited the current remaining blockers after PR #8:
+  - `test_1_sft_eval_completion_gate.md` is still missing;
+  - `test_2_eval_validation.md` still ends at the earlier readiness package and has not yet received the requested current acceptance/provenance package;
+  - there is still no current GPU endpoint or Milestone 1 `nodes.json`;
+  - there is still no real SFT smoke checkpoint/output and no mini-swe eval metrics.
+- PM used non-interrupt tmux injection plus `capture-pane` verification for remaining owner actions:
+  - `intern_code_test_1`: create `test_1_sft_eval_completion_gate.md` with required SFT+mini-swe completion files, commands, artifacts, metrics, pass/fail criteria, and insufficient current evidence.
+  - `intern_code_test_2`: update `test_2_eval_validation.md` with checkpoint-vs-endpoint acceptance forms, env/config checks, prediction/result/metrics files, pass/fail criteria, and dirty checkout provenance.
+  - `intern_code_dev_4`: prepare a no-launch SFT smoke launch package using accepted clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, plus required GPU evidence and output/checkpoint manifest verification paths.
+- PM decision remains active/incomplete: clean-base and data are ready enough for next SFT smoke, but GPU allocation/current `nodes.json` and test/eval gates are still required before real execution can be authorized.
