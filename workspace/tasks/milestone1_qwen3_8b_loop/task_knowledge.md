@@ -54,3 +54,7 @@
 48. PR gate fact: after PR #5, PR #1 is still `OPEN` and `MERGEABLE` with no merge commit; dev_4 remains the owner who must self-merge or write a concrete blocker.
 49. Coordination fact: PM resent non-interrupt active-gate follow-ups by tmux to dev_4/dev_1/dev_2/test_1 and verified them with `capture-pane`; no peer_send or secretary report was used.
 50. Gate fact: PM should not mark the active goal complete until owner evidence proves SFT smoke output plus mini-swe eval smoke output/metrics, or an explicit accepted fallback path plus eval output is documented.
+51. PR fact: PR #6 merged at `2026-05-20T08:14:18Z` with merge commit `9f43d16932098010b12a138d661f90a383ff2d0a`.
+52. Coordination fact: PM expanded active non-interrupt tmux follow-up to all six dev/test owners so no intern is idle: dev_4 PR/SFT blocker, dev_1 base path, dev_2 GPU/nodes, dev_3 SFT input handoff, test_1 completion gate, and test_2 eval acceptance gate.
+53. Gate fact: current completion remains unproven because PR #1 is still open and evidence for SFT unblock, GPU route, SFT completion gate, and mini-swe acceptance gate is missing or stale.
+54. PM boundary fact: even when support evidence is missing repeatedly, PM must not fill it by running remote probes or experiments directly; PM should assign, gate, collect durable files, and decide from owner evidence.
