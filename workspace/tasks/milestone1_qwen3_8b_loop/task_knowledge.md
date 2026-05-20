@@ -50,3 +50,7 @@
 44. PR gate fact: latest audit still shows PR #1 `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; PM gate passes for dev_4 owner self-merge of scoped Qwen3-8B SFT pipeline artifacts, but PM must not merge it for dev_4.
 45. Coordination fact: PM used non-interrupt tmux inject plus capture-pane verification to notify dev_4 again that PR #1 should be self-merged by the owner and recorded in durable evidence/status.
 46. Gate fact: latest evidence check still lacks `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md`; without these or dev_4/test_2 decision packages, PM cannot close the SFT/eval smoke gate.
+47. PR fact: PR #5 merged at `2026-05-20T08:07:31Z` with merge commit `8f5b7736939453c15ffb802c42a0ee9c875b531d`.
+48. PR gate fact: after PR #5, PR #1 is still `OPEN` and `MERGEABLE` with no merge commit; dev_4 remains the owner who must self-merge or write a concrete blocker.
+49. Coordination fact: PM resent non-interrupt active-gate follow-ups by tmux to dev_4/dev_1/dev_2/test_1 and verified them with `capture-pane`; no peer_send or secretary report was used.
+50. Gate fact: PM should not mark the active goal complete until owner evidence proves SFT smoke output plus mini-swe eval smoke output/metrics, or an explicit accepted fallback path plus eval output is documented.

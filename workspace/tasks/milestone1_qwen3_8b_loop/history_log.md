@@ -173,3 +173,18 @@
   - `test_1_sft_eval_completion_gate.md` is still missing;
   - dev_4/test_2 evidence files still do not contain a new SFT unblock decision package or mini-swe eval gate package.
 - PM decision: keep the active goal open; do not mark complete because no durable evidence yet proves real SFT smoke output or mini-swe eval smoke output/metrics.
+- PM self-merged PR #5 as owner after it passed coordination-only gate. Merge commit `8f5b7736939453c15ffb802c42a0ee9c875b531d`, merged at `2026-05-20T08:07:31Z`.
+- PM re-audited PR #1 after PR #5 merge:
+  - PR #1 is still `OPEN`, non-draft, mergeable `MERGEABLE`, with `mergedAt=null` and no merge commit;
+  - PM gate remains pass for dev_4 owner self-merge of scoped Qwen3-8B SFT pipeline artifacts;
+  - PM still must not merge PR #1 on dev_4's behalf.
+- PM rechecked durable evidence directory and found no new support files:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_1_sft_base_path_support.md` missing;
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_gpu_nodes_support.md` missing;
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_sft_eval_completion_gate.md` missing.
+- PM used non-interrupt tmux injection plus `capture-pane` verification to submit active-gate follow-ups:
+  - `intern_code_dev_4`: self-merge PR #1 if local playbook check passes, or write exact blocker; also write SFT unblock decision package.
+  - `intern_code_dev_1`: write clean Qwen3-8B base/model registry support evidence.
+  - `intern_code_dev_2`: write GPU/current `nodes.json`/compute workflow support evidence.
+  - `intern_code_test_1`: write SFT+mini-swe completion audit gate.
+- PM decision remains unchanged: active goal stays open because SFT/eval smoke completion is unproven; continue collecting owner evidence rather than running experiments directly as PM.
