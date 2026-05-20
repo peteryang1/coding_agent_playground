@@ -439,4 +439,3 @@ Open dependencies before PM can authorize a retry:
 - dev_4 config fix package must show tiny-data-safe config and prior-failure avoidance.
 - dev_2 resource plan must provide current GPU route and stop conditions.
 - dev_3 must approve any data mitigation if the retry changes dataset size/content.
-

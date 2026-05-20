@@ -1,8 +1,8 @@
 # Dev 1 SFT Failure Review
 
-Owner: `intern_code_dev_1`  
-Task ID: `M1-SFT-FAILURE-REVIEW-DEV1`  
-Date: 2026-05-20  
+Owner: `intern_code_dev_1`
+Task ID: `M1-SFT-FAILURE-REVIEW-DEV1`
+Date: 2026-05-20
 Scope: independent durable review of merged SFT failure evidence after PR #18/#23. No remote experiments were run.
 
 ## Sources Reviewed

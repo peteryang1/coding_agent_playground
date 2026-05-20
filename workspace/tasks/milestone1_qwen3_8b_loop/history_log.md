@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=18 -->
+<!-- METADATA:SESSION=20 -->
 
 ## Session 1 - 2026-05-20
 
@@ -498,6 +498,23 @@
 - Completion record: task `M1-SFT-SMOKE-DEV4` marked blocked-with-final-evidence because the approved SFT smoke reached real launch/failure evidence but produced no checkpoint/model, `trainer_state.json`, or `all_results.json`.
 - No peer-send PM routine confirmation was used.
 
+## Session 19 - Dev 4 SFT Config Fix Package - 2026-05-20
+
+- Task accepted: `M1-SFT-CONFIG-FIX-DEV4`.
+- Owner: `intern_code_dev_4`.
+- Scope: produce the next SFT unblock package after `M1-SFT-SMOKE-DEV4` blocked-with-final-evidence; no GPU run authorized.
+- Evidence created:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md`
+- Config patch created:
+  - `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`
+- PR opened:
+  - `https://github.com/peteryang1/coding_agent_playground/pull/26`
+- Plan summary:
+  - use TP=8 / DP=1 to avoid MCA/drop-last zero-step behavior on 10 examples;
+  - use `max_steps: 2` plus `warmup_steps: 0` to avoid the Megatron one-step scheduler assertion;
+  - use `save_steps: 1` so a successful smoke can produce immediate checkpoint/model evidence.
+- No GPU run was attempted. Fresh execution requires PM gate plus test/resource plans.
+
 ## 2026-05-20 Session 19 Next Blocker Task Split
 
 - PM audited current state after PR #18/#23/#24 merged: no open PRs, GPU released, SFT smoke blocked-with-final-evidence, and mini-swe blocked by absent checkpoint/endpoint.
@@ -517,3 +534,14 @@
 - Supervisor required PM and all interns to follow the intern conduct rule using explicit tasks, not scattered assignments. PM updated durable task/PR gate records so every dev/test PR must map to a task id, owner, acceptance criteria, evidence path, and completion marker before PM marks it ready.
 - PM delivered the task -> PR -> merge -> task-complete rule to all six dev/test panes by tmux inject and capture-pane verification. The notification instructed owners to write confirmations, status, blockers, and completion proof to durable files rather than peer-send PM.
 - PR #26 for `M1-SFT-CONFIG-FIX-DEV4` and PR #27 completion record are merged; latest open-PR audit returned no open PRs. PM gate now focuses on whether support evidence is merged and whether a fresh GPU retry task can be authorized without PM running experiments.
+
+## Session 20 - Dev 4 PR #26 Config Fix Package Merge - 2026-05-20
+
+- PM gate pass received for PR #26 / task `M1-SFT-CONFIG-FIX-DEV4`.
+- Gate facts: PR body cites task id, owner, acceptance criteria, durable evidence, and completion marker; GitHub reports `MERGEABLE` / `CLEAN`; no required checks are reported.
+- Dev_4 self-merged PR #26:
+  - PR: `https://github.com/peteryang1/coding_agent_playground/pull/26`
+  - `mergedAt`: `2026-05-20T10:44:55Z`
+  - merge commit: `6a704f842c992f83a8d86167dfe870fa6ff72440`
+- Completion state: `M1-SFT-CONFIG-FIX-DEV4` is ready-for-retry. The config package is landed and durable, but no GPU run is authorized until PM also gates test/resource plans.
+- No peer-send PM routine confirmation was used.
