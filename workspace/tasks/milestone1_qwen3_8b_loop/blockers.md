@@ -8,6 +8,7 @@
 - GPU resource is currently released. Any next GPU job must be a fresh PM-gated LTP resource plan owned by dev_2 after dev_4/test_1 provide a retry package.
 - mini-swe-agent real smoke is blocked on an SFT checkpoint or served endpoint. Test_2 must record explicit blocked-after-SFT-failure evidence under `M1-EVAL-BLOCKED-TEST2`.
 - PM gate: the loop is not complete because there is no SFT checkpoint/model and no mini-swe predictions/results/metrics against that model.
+- Conduct gate: PM must reject any new dev/test PR that lacks an explicit task mapping, owner, acceptance criteria, durable evidence path, and completion marker. Owner self-merge must be followed by durable task completion marking and own status/history/evidence updates.
 
 ## Active
 
@@ -35,6 +36,8 @@
 
 ## Resolved / Mitigated
 
+- PR #26 config-fix package: dev_4 self-merged at `2026-05-20T10:44:55Z`, merge commit `6a704f842c992f83a8d86167dfe870fa6ff72440`.
+- PR #27 config-fix completion record: dev_4 self-merged at `2026-05-20T10:47:11Z`, merge commit `9052693e5e3e03a0c9340a01f443164fdb03162d`; `M1-SFT-CONFIG-FIX-DEV4` is ready-for-retry but GPU retry still needs PM-gated owner execution.
 - PR #18 evidence gate: dev_4 self-merged PR #18 at `2026-05-20T10:18:04Z`, merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`.
 - PR #23 completion record: dev_4 self-merged PR #23 at `2026-05-20T10:20:28Z`, merge commit `3ccabb573aecccdb71fe8d296643e6816b3ed22e`, marking `M1-SFT-SMOKE-DEV4` blocked-with-final-evidence.
 - PM coordination PR #24 merged at `2026-05-20T10:24:30Z`, merge commit `41f025ec15e36c83c424aa43e37e36903c01d633`.

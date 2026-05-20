@@ -116,3 +116,7 @@
 104. Eval blocker fact: mini-swe cannot run for Milestone 1 until an SFT checkpoint/model or served endpoint exists; test_2 owns explicit blocked-after-SFT-failure evidence.
 105. PM utilization fact: all six dev/test interns have new explicit tasks tied to `task_registry.md`; routine status and completion proof remain durable-file only.
 106. Notification fact: PM delivered Session 19 next-blocker assignments by tmux inject and verified with `capture-pane`; no dev/test owner was asked to peer-send PM.
+107. Session 12 process rule: PM must create or maintain an explicit task before assigning PR-bearing dev/test work. A dev/test PR is not PM-gate-ready unless it references a task id with owner, acceptance criteria, durable evidence path, and completion marker.
+108. Session 12 owner merge rule: when a dev/test owner self-merges a ready PR, that owner must mark the matching task complete, blocked-with-final-evidence, or ready-for-retry in `task_registry.md` or task docs, update their own `status.md`, update needed history/evidence, and push or merge the completion record.
+109. PR fact: PR #26 for `M1-SFT-CONFIG-FIX-DEV4` merged at `2026-05-20T10:44:55Z` with merge commit `6a704f842c992f83a8d86167dfe870fa6ff72440`; PR #27 merged the completion record at `2026-05-20T10:47:11Z` with merge commit `9052693e5e3e03a0c9340a01f443164fdb03162d`.
+110. Current PR gate fact: no open GitHub PRs were present at the latest PM audit after PR #27. Next dev/test PRs must be tied to explicit tasks before PM gate.

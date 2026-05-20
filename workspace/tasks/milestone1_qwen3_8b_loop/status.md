@@ -157,6 +157,15 @@
   - `M1-SFT-FAILURE-REVIEW-DEV1`: dev_1 owns independent failure evidence review.
 - PM delivered each assignment by tmux inject and verified the submitted text with `capture-pane`; no routine peer-send reply was requested.
 
+## 2026-05-20 Session 12 Task/PR Conduct Reaffirmation
+
+- Supervisor reaffirmed the intern conduct rule: PM must create or maintain explicit tasks before assigning work that can become a dev/test PR.
+- PM durable gate rule is active: every dev/test PR must reference a task id with owner, acceptance criteria, durable evidence path, and completion marker before PM marks it ready.
+- Owner self-merge rule is active: after a ready PR is self-merged, the owner must mark the corresponding task complete, blocked-with-final-evidence, or ready-for-retry in task docs or `task_registry.md`, update their own `status.md`, update needed history/evidence, and push or merge the completion record.
+- PM notified all six dev/test owners by tmux inject plus capture-pane verification; no routine peer-send reply to PM was requested.
+- Current PR audit: PR #26 merged at `2026-05-20T10:44:55Z`, PR #27 merged at `2026-05-20T10:47:11Z`, and the latest open-PR list is empty.
+- Current gate decision: `M1-SFT-CONFIG-FIX-DEV4` is ready-for-retry, but actual GPU retry still requires PM to gate the support evidence package and assign owner execution; PM will not run training/eval itself.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
