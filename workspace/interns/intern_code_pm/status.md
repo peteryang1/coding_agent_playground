@@ -7,8 +7,8 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | #17 |
-| Session | 11 |
+| PR | #19 |
+| Session | 12 |
 
 ## Recent Progress
 
@@ -49,3 +49,4 @@
 - 2026-05-20 Session 8 continuation: PR #15 merged at `2026-05-20T09:19:31Z` with merge commit `21c59cd013e6d8c1a736483cc91864b11325f417`. Compute manager approved fresh single-node H200 route `ssh -p 39314 root@10.100.20.37`, wrote `compute_gpu_route_decision.md` and `compute_gpu_route_nodes.json`, and staged repo/data on the GPU node. PM instructed dev_4 to resolve PR #14 conflict first, then run the short SFT smoke on the approved route.
 - 2026-05-20 Session 11: applied supervisor resource-process correction. Added team LTP ownership rule, created `evidence/gpu_resource_tracking.md` for the active 8xH200 job, assigned dev_2 as lifecycle/stop-proof owner and dev_4 as SFT workload owner, and set stop conditions so the node cannot idle without proof.
 - 2026-05-20 Session 11: opened PM coordination PR #17 for active GPU resource lifecycle tracking and stop-proof rules.
+- 2026-05-20 Session 12: applied supervisor intern-conduct rule by creating `task_registry.md`, requiring every dev/test PR to map to a task with owner/acceptance/evidence/completion marker, and updating PM gate rules in assignments, task knowledge, status, blockers, and history. PM also instructed dev_2 to stop/release the active H200 after dev_4 reported both SFT attempts failed with no further GPU use recommended, then gated PR #18 as not ready because it is conflicting and lacks task id `M1-SFT-SMOKE-DEV4`.

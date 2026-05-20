@@ -20,6 +20,22 @@ PM only organizes, gates, collects durable evidence, and decides. PM does not su
 
 Current active 8xH200 node is tracked in `evidence/gpu_resource_tracking.md`. `intern_code_dev_2` owns LTP lifecycle and stop proof; `intern_code_dev_4` owns SFT workload execution and smoke artifacts. The node must not sit idle.
 
+## Task-To-PR Gate Rule
+
+PM must maintain explicit tasks instead of driving work only through scattered assignments. The task index for this milestone is `task_registry.md`.
+
+Every dev/test PR must map to a task id with owner, acceptance criteria, durable evidence path, and completion marker. PR owners must reference the task id in the PR body, task file, or evidence/status update.
+
+PM gate for a ready PR includes:
+
+- task id exists;
+- owner is named;
+- acceptance criteria are clear;
+- durable evidence path is updated;
+- PR is ready and mergeable.
+
+When an owner self-merges a PR, that owner must mark the corresponding task complete in the task README/status or `task_registry.md`, update their own `status.md`, update history/evidence when needed, push, and merge that completion record. Ready/mergeable owner PRs should still be self-merged as soon as they pass PM gate; do not wait for the whole milestone.
+
 ## Assignments
 
 | Intern | Role | Owner Area | Durable Evidence Path |
