@@ -21,6 +21,9 @@ Build the first full training/evaluation loop:
 - Durable channels for this milestone are this task directory, intern `status.md`, PR comments, task docs, and PM-designated evidence files under `evidence/`.
 - Dev/test interns must not use `/esc` toward PM for routine confirmations or status.
 - PM top priority is full parallel utilization: every dev/test intern must keep active durable output in their owner area; upstream gaps should produce assumptions, sample data, validators, launch commands, smoke plans, or blocker evidence rather than idle time.
+- PM must maintain explicit task records before assigning dev/test PR work; the registry is `task_registry.md`.
+- Every dev/test PR must reference a task id with owner, acceptance criteria, durable evidence path, and completion marker.
+- After owner self-merge, the owner must mark the corresponding task complete in task README/status or `task_registry.md`, update own `status.md`, update necessary history/evidence, push, and merge that completion record.
 
 ## Infrastructure
 
@@ -41,6 +44,7 @@ Build the first full training/evaluation loop:
 
 - PM status: `status.md`
 - PM assignments: `assignments.md`
+- PM task registry and PR gate index: `task_registry.md`
 - PM blockers: `blockers.md`
 - Repository shortlist and evidence: `repo_selection.md`
 - Intern outputs and evidence: `evidence/`

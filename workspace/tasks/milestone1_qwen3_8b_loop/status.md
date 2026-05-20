@@ -117,6 +117,16 @@
 - Required stop evidence: LTP stop command/action, job frame, UTC timestamp, post-stop status, and proof that output artifacts remain under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
 - PM coordination PR #17 is open for the resource lifecycle tracking update.
 
+## 2026-05-20 Session 12 Task-To-PR Gate Update
+
+- Supervisor conduct rule applied: PM must maintain explicit task records and assign work through tasks, not only scattered assignments.
+- Created `task_registry.md` as the Milestone 1 task -> PR -> merge -> task-complete gate index.
+- New PM gate: every dev/test PR must map to a task id with owner, acceptance criteria, durable evidence path, and completion marker before PM marks it ready.
+- New owner merge rule: after self-merging a PR, the owner must mark the corresponding task complete in task README/status or `task_registry.md`, update own `status.md`, update history/evidence when needed, push, and merge that completion record.
+- Resource gate update: dev_4 reported real SFT smoke plus one bounded retry both failed and recommends no further GPU use; PM instructed dev_2 by tmux inject to stop/release the active H200 LTP frame and write stop proof.
+- PR #18 gate update: PM audited dev_4's SFT smoke evidence PR and marked it not ready because it is `CONFLICTING` and lacks task id `M1-SFT-SMOKE-DEV4` in the PR body. PM notified dev_4 by tmux inject to attach task id, resolve conflicts, and mark the task complete or blocked-with-final-evidence after owner self-merge.
+- Session 15 dev_4 update: dev_4 merged current `origin/main`, preserved PM Session 12 task registry/gate records, resolved PR #18 conflicts, and updated evidence/task docs to reference task id `M1-SFT-SMOKE-DEV4`. PR #18 remains open pending GitHub `MERGEABLE` status and PM gate pass before owner self-merge.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.

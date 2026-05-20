@@ -3,10 +3,12 @@
 Owner: intern_code_dev_4  
 Session: 13  
 Timestamp: 2026-05-20T09:46:00Z  
+Task ID: M1-SFT-SMOKE-DEV4
 Scope: short Qwen3-8B clean-base SFT smoke only. No mini-swe was run.
 
 ## PM Authorization / Resource Rule
 
+- PM task registry entry: `workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md`, task id `M1-SFT-SMOKE-DEV4`.
 - Approved GPU endpoint: `ssh -p 39314 root@10.100.20.37`
 - Approved local `nodes.json`: `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`
 - GPU-staged `nodes.json`:
