@@ -235,3 +235,52 @@ Route recommendation for PM/dev_4:
 2. Prefer fresh single-node H200 8-GPU allocation because the discovered endpoints show high memory occupancy and lack local SFT paths.
 3. If fresh allocation is made, write the endpoint to durable evidence and optionally write a one-node Milestone 1 `nodes.json` so dev_4 has a stable route.
 4. If no fresh allocation is available, keep SFT smoke blocked on "no approved current GPU route"; do not use the historical nodes.json by default.
+
+## Route Acquired Update
+
+Timestamp: 2026-05-20 UTC
+
+Source:
+
+```text
+peer from axrd/intern_compute_manager
+durable evidence:
+  /work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_decision.md
+  /work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json
+```
+
+Approved fresh single-node H200 route for the requested short Qwen3-8B SFT smoke:
+
+```text
+ssh -p 39314 root@10.100.20.37
+LTP frame: xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130
+hostname: lg-cmc-b7r202-o09u26-h200-000667
+vc: h200agentic
+gpu: 8 x NVIDIA H200
+```
+
+Compute manager verification:
+
+```text
+all 8 GPUs idle: 0% util, about 1MB memory used per card
+no compute processes
+/mnt/cephfs is fuse.ceph-fuse
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground is writable
+```
+
+Staged on GPU node:
+
+```text
+/root/workspace/coding_agent_playground
+/root/workspace/cleaned_m1_sft_10/train.jsonl
+/root/workspace/coding_agent_playground/nodes.json
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json
+```
+
+Updated route decision:
+
+- The allocation blocker from the earlier route-attempt section is resolved for the short SFT smoke only.
+- dev_4 should use `ssh -p 39314 root@10.100.20.37` and the staged `nodes.json` paths above.
+- Do not use the earlier candidates `ssh -p 27094 root@10.100.10.20` or `ssh -p 31403 root@10.100.8.24`; compute manager reports both are occupied by Ray workers with about 133-135GB GPU memory used per card.
+- I did not run SFT.
+- After the short smoke, stop the LTP job or ask compute manager to stop it after use.

@@ -1,0 +1,11 @@
+{
+  "node_count": 1,
+  "nodes": [
+    {
+      "ip": "10.100.20.37",
+      "port": "39314",
+      "user": "root",
+      "node_rank": 0
+    }
+  ]
+}

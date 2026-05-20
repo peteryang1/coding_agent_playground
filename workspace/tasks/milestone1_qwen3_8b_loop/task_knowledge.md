@@ -88,3 +88,6 @@
 76. PR fact: dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; no-launch clean-base SFT package is now on main.
 77. GPU route fact: dev_2 route acquisition evidence found two live H200 candidate endpoints, `ssh -p 27094 root@10.100.10.20` and `ssh -p 31403 root@10.100.8.24`, but neither is approved Milestone 1 allocation; both show high memory use and lack local SFT paths.
 78. PM decision: do not authorize SFT launch until compute/PM approves a discovered endpoint or provides fresh GPU endpoint/current `nodes.json`; dev_4 owns execution only after that route is approved.
+79. PR fact: PR #15 merged at `2026-05-20T09:19:31Z` with merge commit `21c59cd013e6d8c1a736483cc91864b11325f417`.
+80. GPU route fact: compute manager approved fresh single-node H200 route `ssh -p 39314 root@10.100.20.37`, LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`, with one-node `compute_gpu_route_nodes.json`.
+81. PM decision: dev_4 is authorized to run only the short Qwen3-8B SFT smoke on the approved route after resolving PR #14 conflict; test_2 owns mini-swe after SFT model/checkpoint exists.
