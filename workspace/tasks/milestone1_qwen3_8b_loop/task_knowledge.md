@@ -68,3 +68,6 @@
 62. PR fact: PR #8 merged at `2026-05-20T08:33:38Z` with merge commit `97cff0dddfb460585b62193b4f567470b047ffd5`.
 63. Coordination fact: PM sent non-interrupt required-now tmux follow-ups to test_1/test_2 for missing completion/eval gates and to dev_4 for a no-launch clean-base SFT smoke launch package; capture-pane verified the messages were submitted.
 64. Gate fact: next SFT execution is not authorized yet because the GPU/current `nodes.json` requirement remains unsatisfied even though the clean-base candidate and SFT input are ready enough.
+65. PR fact: PR #9 merged at `2026-05-20T08:39:36Z` with merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`.
+66. Gate fact: after waiting and rechecking, test_1 completion gate, test_2 eval acceptance/provenance package, and dev_4 clean-base no-launch launch package remain missing or stale.
+67. Coordination fact: PM must keep using durable owner evidence for these remaining gates; do not fill missing test/dev artifacts by writing them as PM or by running SFT/eval directly.

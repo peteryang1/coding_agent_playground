@@ -230,3 +230,11 @@
   - `intern_code_test_2`: update `test_2_eval_validation.md` with checkpoint-vs-endpoint acceptance forms, env/config checks, prediction/result/metrics files, pass/fail criteria, and dirty checkout provenance.
   - `intern_code_dev_4`: prepare a no-launch SFT smoke launch package using accepted clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, plus required GPU evidence and output/checkpoint manifest verification paths.
 - PM decision remains active/incomplete: clean-base and data are ready enough for next SFT smoke, but GPU allocation/current `nodes.json` and test/eval gates are still required before real execution can be authorized.
+- PM self-merged PR #9 as owner after it passed coordination-only gate. Merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`, merged at `2026-05-20T08:39:36Z`.
+- PM waited after the required-now tmux messages and rechecked durable evidence:
+  - `test_1_sft_eval_completion_gate.md` remains missing;
+  - `test_2_eval_validation.md` timestamp remains `2026-05-20 07:19` and does not include the current acceptance/provenance package;
+  - `dev_4_sft_pipeline.md` timestamp remains `2026-05-20 08:28` and does not include the requested no-launch clean-base SFT smoke package using `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`;
+  - there is no real SFT smoke checkpoint/output and no mini-swe eval metrics.
+- PM checked `tmux capture-pane` for `intern_code_test_1`, `intern_code_test_2`, and `intern_code_dev_4`; the required-now messages are present in their panes. PM did not interrupt with `/esc` or `C-c`.
+- PM decision: goal remains active, not complete. Current actionable blocker is owner evidence/execution readiness: test_1/test_2 gates and dev_4 clean-base no-launch package must land before PM can authorize SFT/eval execution, and GPU/current `nodes.json` is still required for real SFT.
