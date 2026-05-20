@@ -1,11 +1,22 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Idle,TASK= -->
+<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Idle |
-| Current Task | |
-| PR | N/A |
+| Status | Working |
+| Current Task | milestone1_qwen3_8b_loop |
+| PR | https://github.com/peteryang1/coding_agent_playground/pull/1 |
 | Session | 0 |
+
+## PM Corrections
+
+- 2026-05-20: Acknowledged PM correction: do not use `peer_send` for routine confirmations, status, blockers, or test information to PM. Future dev evidence/status will be recorded in PM-named durable files, task docs, PR comments, or evidence paths. Do not use `/esc` to PM for routine status.
+
+## Active Assignment
+
+- 2026-05-20: Accepted Milestone 1 assignment for Qwen3-8B SFT pipeline, GPU workflow, training command templates, checkpoint layout, and run manifest. Routine updates will be written to `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_pipeline.md`.
+- 2026-05-20: Implemented initial SFT pipeline artifacts on branch `intern_code_dev_4/milestone1_qwen3_8b_loop`: Qwen3-8B LLamaFactory/MCA config, training launch wrapper, run manifest writer, and checkpoint/GPU workflow doc. Current blockers: GPU node or milestone `nodes.json` not confirmed; final SFT dataset pending dev_3 output.
+- 2026-05-20: Applied PM critical address correction. Correct final workspace is `ssh -p 31787 root@10.100.194.40`; old `20087/root@10.100.193.54` probes are scratch-only. Re-probed new machine and recorded findings in PM evidence. Current blockers remain: corrected entry host has no `nvidia-smi`, milestone GPU `nodes.json` is not confirmed, and `/root/workspace/coding_agent_playground` is missing on the corrected machine.
+- 2026-05-20: Completed PM Session 3 SFT planning update in durable evidence. Validated axrd registry facts for `Qwen/Qwen3-8B`, LLamaFactory/MCA deps and archive hash, historical Qwen3-8B checkpoint shapes, GPU-machine options, launcher templates, and output manifest/checkpoint layout. New critical blocker: `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` is a broken symlink on corrected machine, so clean base model path must be materialized or explicitly replaced before real SFT.
