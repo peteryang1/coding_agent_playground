@@ -3,9 +3,8 @@
 ## Current Superseding Active Blockers
 
 - GPU/current allocation: corrected final workspace entry host has no visible `nvidia-smi`, and no current Milestone 1 `nodes.json` exists. Real SFT smoke remains blocked until a GPU SSH endpoint/current `nodes.json` is provided, or explicit approval is given to reuse a historical allocation.
-- Dev_4 launch package: the no-launch clean-base SFT smoke package using accepted clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` has not landed in PM worktree yet. Dev_4 remains owner.
-- Dev_4 PR #11 is open/non-draft but mergeability is `CONFLICTING`; dev_4 must rebase/resolve against current `origin/main`, preserve PM/test_1/test_2 gate records, push again, and then self-merge only after it becomes mergeable.
-- SFT real launch is blocked until GPU/current `nodes.json` exists and dev_4's launch package lands. Dev_4 validated an earlier dry-run command/manifest with the cleaned 10-example dataset, but there is still no real `DRY_RUN=0` checkpoint/output.
+- GPU route approval: dev_2 found two live H200 candidate endpoints, but they are not approved for Milestone 1, appear occupied/high-memory, and lack local SFT paths. Real SFT smoke remains blocked until compute approves a candidate or allocates a fresh single-node H200/current `nodes.json`.
+- SFT real launch is blocked until an approved GPU/current `nodes.json` exists. Dev_4's no-launch clean-base package is now on main via PR #11, but there is still no real `DRY_RUN=0` checkpoint/output.
 - mini-swe-agent real smoke is blocked on the SFT smoke model/checkpoint or endpoint. Test_2's current gate requires a served OpenAI-compatible model string and endpoint; a raw checkpoint path alone is not accepted until served.
 - PM gate: current dry-run manifest and eval readiness metrics do not prove loop completion. Test_1 and test_2 criteria are now present, but real SFT/eval artifacts are still absent.
 
@@ -38,6 +37,9 @@
 - PR #1 owner action: dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z`, merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
 - PR #10 coordination state: PM self-merged PR #10 at `2026-05-20T08:45:07Z`, merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
 - PR #12 coordination state: PM self-merged PR #12 at `2026-05-20T08:56:29Z`, merge commit `1e32de047754e376f107b727ddf7349417696db9`.
+- PR #13 coordination state: PM self-merged PR #13 at `2026-05-20T09:00:25Z`, merge commit `9a6de432919102c17fdd839e5544d46c98a8f1f7`.
+- PR #11 owner action: dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z`, merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; no-launch clean-base SFT package and conflict-resolution evidence are on main.
+- Dev_2 GPU route acquisition: `evidence/dev_2_gpu_route_attempt.md` is present and passes PM gate for route-attempt evidence.
 - Base-model selection: dev_1 evidence identified `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` as the preferred local clean-base candidate; PM decision is to prefer it over warm-start fallback once GPU/current `nodes.json` exists.
 - Test_1 completion criteria: `evidence/test_1_sft_eval_completion_gate.md` is present and passes PM gate for required completion evidence criteria.
 - Test_2 eval acceptance criteria: `evidence/test_2_eval_validation.md` now includes current checkpoint/endpoint acceptance forms, env/config checks, output/metrics requirements, pass/fail criteria, and dirty checkout provenance.

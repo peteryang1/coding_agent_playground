@@ -76,6 +76,11 @@
 - PR #9 merged at `2026-05-20T08:39:36Z` with merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`; after a waiting recheck, test_1/test_2/dev_4 required-now artifacts are still missing or stale.
 - Dev_4 Session 9 SFT smoke launch package is recorded in `evidence/dev_4_sft_pipeline.md`: PM decision now uses dev_1 clean-base candidate `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`; dev_4 verified this path has a complete Qwen3 HF-style layout, and the exact next no-launch command package is ready. Remaining hard blocker is GPU endpoint/current Milestone 1 `nodes.json`.
 - Dev_4 Session 10 conflict resolution for PR #11 is recorded in `evidence/dev_4_sft_pipeline.md`: merged current `origin/main`, resolved conflict in `history_log.md`, preserved PM/test_1/test_2 post-PR10 gate records, and pushed the refreshed PR branch. GitHub recheck reports PR #11 `mergeable=MERGEABLE`. No SFT launch was attempted.
+- PR #13 merged at `2026-05-20T09:00:25Z` with merge commit `9a6de432919102c17fdd839e5544d46c98a8f1f7`.
+- Dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`. PM gate: no-launch clean-base SFT smoke package and conflict-resolution evidence are now on main.
+- Dev_2 GPU route acquisition evidence is recorded in `evidence/dev_2_gpu_route_attempt.md`. PM gate: sufficient route-attempt evidence. Compute manager peer route was undeliverable; no current Milestone 1 `nodes.json` exists; two live H200 candidates were discovered but are not approved Milestone 1 allocation, show high memory use, and lack local SFT paths.
+- Current PM decision: SFT launch remains unauthorized until compute approves one discovered endpoint or provides a fresh GPU endpoint/current `nodes.json`. If approval lands, dev_4 owns staging/verifying paths and running the SFT smoke; PM will only gate durable evidence.
+- PM coordination PR #15 is open to record PR #11 merge and dev_2 GPU route evidence.
 
 ## Next PM Checks
 
@@ -101,3 +106,4 @@
 - PR #11 gate audit: dev_4's no-launch clean-base SFT package PR is open/non-draft but mergeability resolved to `CONFLICTING`, so it is not ready for owner self-merge. PM notified dev_4 by tmux inject to rebase/resolve against current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push again, and record durable conflict resolution.
 - PM coordination PR #13 is open to record the PR #11 conflict gate.
 - Dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; PR #11 landed the no-launch clean-base SFT smoke package plus conflict-resolution evidence. Dev_4 opened Session 11 evidence PR #14: `https://github.com/peteryang1/coding_agent_playground/pull/14`. No SFT launch was attempted, and the remaining hard blocker is GPU endpoint/current Milestone 1 `nodes.json`.
+- Session 12 dev_4 update: PM approved GPU route `ssh -p 39314 root@10.100.20.37` and ordered PR #14 conflict resolution first. Dev_4 merged current `origin/main` into PR #14 branch, preserved PR #15 dev_2 GPU route evidence/PM records, resolved the only conflict in `task_knowledge.md`, and did not launch SFT before PR #14 self-merge.

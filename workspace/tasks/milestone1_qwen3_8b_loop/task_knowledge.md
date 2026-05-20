@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=11 -->
+<!-- METADATA:SESSION=12 -->
 
 ## Knowledge Entries
 
@@ -84,5 +84,8 @@
 72. Blocker fact: dev_4's no-launch SFT smoke package using clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is still not landed in PM worktree; dev_4 is owner and was observed working through a local status.md conflict.
 73. PR fact: PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
 74. PR gate fact: dev_4 PR #11 is open/non-draft but `CONFLICTING`, so it is not ready for owner self-merge; dev_4 must rebase/resolve against current `origin/main` and preserve PM/test_1/test_2 gate records.
-75. PR fact: dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`.
-76. Gate fact: PR #11 landed the no-launch clean-base SFT smoke package and conflict-resolution evidence only; no SFT launch was attempted, and GPU endpoint/current Milestone 1 `nodes.json` remains the blocker for real SFT.
+75. PR fact: PR #13 merged at `2026-05-20T09:00:25Z` with merge commit `9a6de432919102c17fdd839e5544d46c98a8f1f7`.
+76. PR fact: dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; no-launch clean-base SFT package is now on main.
+77. GPU route fact: dev_2 route acquisition evidence found two live H200 candidate endpoints, `ssh -p 27094 root@10.100.10.20` and `ssh -p 31403 root@10.100.8.24`, but neither is approved Milestone 1 allocation; both show high memory use and lack local SFT paths.
+78. PM decision update: use the approved current GPU route `ssh -p 39314 root@10.100.20.37` with `nodes.json` at `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`, staged remotely at `/root/workspace/coding_agent_playground/nodes.json` and `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json`.
+79. PR conflict fact: PR #14 conflicted after PR #15 merged; dev_4 must merge current `origin/main`, preserve PR #15 dev_2 GPU route evidence and PM records, push PR #14, and self-merge only after PR #14 is mergeable.

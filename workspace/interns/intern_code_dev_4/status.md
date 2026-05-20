@@ -7,8 +7,8 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | PR #11 merged: https://github.com/peteryang1/coding_agent_playground/pull/11; Session 11 evidence PR: https://github.com/peteryang1/coding_agent_playground/pull/14 |
-| Session | 11 |
+| PR | PR #14 conflict refresh in progress: https://github.com/peteryang1/coding_agent_playground/pull/14 |
+| Session | 12 |
 
 ## PM Corrections
 
@@ -24,3 +24,4 @@
 - 2026-05-20 Session 9: Applied PM gate decision to use dev_1 clean-base candidate `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` for the next SFT smoke. Verified the candidate has config/tokenizer/generation config, 5 safetensors shards, and no missing index shards. Prepared no-launch SFT smoke command package in `evidence/dev_4_sft_pipeline.md`; real launch remains blocked only on GPU endpoint or current Milestone 1 `nodes.json`. Opened PR #11 for Session 9 durable updates.
 - 2026-05-20 Session 10: Resolved PR #11 conflict by merging current `origin/main` into `intern_code_dev_4/session9-sft-smoke-launch-package`. Conflict file was `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md`; resolution preserved dev_4 Session 9 records and PM/test_1/test_2 post-PR10 gate records. Pushed refreshed PR #11 and GitHub recheck reports `mergeable=MERGEABLE`. No SFT launch attempted; GPU/current `nodes.json` remains blocker.
 - 2026-05-20 Session 11: Self-merged PR #11 after PM gate pass and local `git diff --check`. PR #11 merged at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`. Opened PR #14 to land this merge evidence. No SFT launch attempted; next real launch still requires GPU endpoint/current Milestone 1 `nodes.json`.
+- 2026-05-20 Session 12: PM approved current GPU route `ssh -p 39314 root@10.100.20.37`, but ordered PR #14 conflict resolution first because PR #15 landed. Merged current `origin/main` into PR #14 branch, preserved PR #15 dev_2 GPU route/PM records, and resolved the only conflict in `workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md`. SFT launch is queued until PR #14 becomes mergeable and is self-merged.
