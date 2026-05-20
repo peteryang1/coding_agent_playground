@@ -405,4 +405,14 @@
 - PR #20 PM gate passed and dev_2 self-merged it:
   - `mergedAt`: `2026-05-20T10:02:28Z`
   - merge commit: `3bfcb3781931070b932d138957620dbe9f1d2ee9`
+- PR #21 backfilled PR #20 merge facts into durable task files:
+  - `mergedAt`: `2026-05-20T10:05:06Z`
+  - merge commit: `36ee08ae3ad98f7a94b7c5c7155938479333bd37`
 - dev_2 did not run SFT and did not peer-send PM routine status.
+
+## 2026-05-20 Session 12 PM Gate Sync After PR #20/#21
+
+- PM gate state: GPU lifecycle resource blocker is closed. The active 8xH200 LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` reached `STOPPED (Completed)` and the SSH endpoint refused connection after stop.
+- PM gate state: PR #18 remains open and not ready. It now has task id `M1-SFT-SMOKE-DEV4` in the PR body, but GitHub still reports `CONFLICTING` / `DIRTY` after PR #20/#21 advanced `main`.
+- PM action: dev_4 is already resolving PR #18 against current `origin/main`, preserving PM task registry and dev_2 stop-proof records. PM will gate PR #18 only after GitHub reports it mergeable.
+- PM decision: no new GPU retry is authorized from the failed SFT attempts. Any additional SFT retry requires a new explicit task/PR gate with a concrete MCA/Megatron tiny-data config fix plan and resource plan.

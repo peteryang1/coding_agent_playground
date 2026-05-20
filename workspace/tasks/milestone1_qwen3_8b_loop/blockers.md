@@ -3,9 +3,9 @@
 ## Current Superseding Active Blockers
 
 - Task-to-PR conduct gate: every dev/test PR must map to an explicit task in `task_registry.md` or task docs with owner, acceptance criteria, evidence path, and completion marker. PM must not gate a dev/test PR as ready without that mapping.
-- PR #18 gate: dev_4's SFT smoke evidence PR is open but not ready. GitHub reports `CONFLICTING`, and PM audit found the PR body does not reference task id `M1-SFT-SMOKE-DEV4`. Dev_4 owns conflict resolution, task-id linkage, and post-merge task completion marking.
+- PR #18 gate: dev_4's SFT smoke evidence PR is open but not ready. The PR body now references task id `M1-SFT-SMOKE-DEV4`, but GitHub still reports `CONFLICTING` / `DIRTY`. Dev_4 owns conflict resolution and post-merge task completion marking.
 - SFT real smoke failed in owner execution. Dev_4 observed two real attempts on `ssh -p 39314 root@10.100.20.37`: DP=8/drop_last caused zero training steps, and the bounded TP=8/DP=1/max_steps=1 retry failed on Megatron LR scheduler assertion. Dev_4 must land `evidence/dev_4_sft_smoke_run.md` with run ids/logs and blocker decision.
-- GPU resource lifecycle: dev_4 recommended no further GPU use after the bounded retry failure. Dev_2 owns immediate LTP stop/release and stop proof for `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`; stop proof is pending.
+- PR #18 gate update: PR #18 now references task id `M1-SFT-SMOKE-DEV4`, but GitHub still reports `CONFLICTING` / `DIRTY` after PR #20/#21 advanced `main`. Dev_4 owns resolving conflicts against current `origin/main`, preserving PM task registry and dev_2 stop-proof records.
 - GPU/current allocation: corrected final workspace entry host has no visible `nvidia-smi`, and no current Milestone 1 `nodes.json` exists. Real SFT smoke remains blocked until a GPU SSH endpoint/current `nodes.json` is provided, or explicit approval is given to reuse a historical allocation.
 - GPU route approval: dev_2 found two live H200 candidate endpoints, but they are not approved for Milestone 1, appear occupied/high-memory, and lack local SFT paths. Real SFT smoke remains blocked until compute approves a candidate or allocates a fresh single-node H200/current `nodes.json`.
 - SFT real launch is blocked until an approved GPU/current `nodes.json` exists. Dev_4's no-launch clean-base package is now on main via PR #11, but there is still no real `DRY_RUN=0` checkpoint/output.
@@ -38,6 +38,7 @@
 
 ## Resolved / Mitigated
 
+- GPU resource lifecycle: dev_2 completed `M1-GPU-LIFECYCLE-DEV2`. PR #20 merged at `2026-05-20T10:02:28Z`, PR #21 merged at `2026-05-20T10:05:06Z`, LTP reached `STOPPED (Completed)`, endpoint `ssh -p 39314 root@10.100.20.37` refused connection after stop, and outputs were preserved.
 - PR #1 owner action: dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z`, merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
 - PR #10 coordination state: PM self-merged PR #10 at `2026-05-20T08:45:07Z`, merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
 - PR #12 coordination state: PM self-merged PR #12 at `2026-05-20T08:56:29Z`, merge commit `1e32de047754e376f107b727ddf7349417696db9`.
