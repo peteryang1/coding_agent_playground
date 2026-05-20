@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | #16 |
-| Session | 8 |
+| Session | 11 |
 
 ## Recent Progress
 
@@ -47,3 +47,4 @@
 - 2026-05-20 Session 8 continuation: Dev_2 landed `evidence/dev_2_gpu_route_attempt.md`. PM gate result: route evidence is sufficient; no approved current Milestone 1 GPU route exists yet. Two live H200 candidates were found, but both are unapproved, occupied/high-memory, and lack local SFT paths, so real SFT remains blocked pending compute approval or fresh allocation.
 - 2026-05-20 Session 8 continuation: opened PM coordination PR #15 to record PR #11 merge and dev_2 GPU route evidence.
 - 2026-05-20 Session 8 continuation: PR #15 merged at `2026-05-20T09:19:31Z` with merge commit `21c59cd013e6d8c1a736483cc91864b11325f417`. Compute manager approved fresh single-node H200 route `ssh -p 39314 root@10.100.20.37`, wrote `compute_gpu_route_decision.md` and `compute_gpu_route_nodes.json`, and staged repo/data on the GPU node. PM instructed dev_4 to resolve PR #14 conflict first, then run the short SFT smoke on the approved route.
+- 2026-05-20 Session 11: applied supervisor resource-process correction. Added team LTP ownership rule, created `evidence/gpu_resource_tracking.md` for the active 8xH200 job, assigned dev_2 as lifecycle/stop-proof owner and dev_4 as SFT workload owner, and set stop conditions so the node cannot idle without proof.

@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=12 -->
+<!-- METADATA:SESSION=11 -->
 
 ## Session 1 - 2026-05-20
 
@@ -356,3 +356,17 @@
   - preserved PR #15/PM records from `origin/main`, including dev_2 GPU route acquisition evidence and prior unapproved H200 candidate findings;
   - added PM's newly approved GPU route as the active route for the next SFT smoke.
 - No SFT launch was attempted during conflict resolution; launch remains ordered only after PR #14 is mergeable and self-merged.
+
+## 2026-05-20 Session 11 Resource Management Correction
+
+- Supervisor correction applied: do not keep asking axrd interns for GPU machines. coding_agent_playground dev/test owners must learn and use LTP directly for submit/status/ssh/stop workflows.
+- PM boundary reaffirmed: PM organizes, gates, collects durable evidence, and decides; PM does not submit LTP jobs, run SFT/eval, or stop resources directly.
+- Created `evidence/gpu_resource_tracking.md` for the active 8xH200 node:
+  - LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`
+  - endpoint `ssh -p 39314 root@10.100.20.37`
+  - lifecycle/stop-proof owner `intern_code_dev_2`
+  - SFT workload owner `intern_code_dev_4`
+  - expected end `2026-05-20T10:30:00Z` or earlier
+  - stop conditions and stop proof requirements recorded
+- Updated assignments/status/blockers/task knowledge with the new resource-management rule and owner split.
+- PM sent non-interrupt tmux instructions to dev_2 and dev_4: dev_2 must track/stop the LTP job and write stop proof; dev_4 must run the SFT smoke only after PR #14 conflict resolution and write SFT evidence. No mini-swe execution is authorized yet.

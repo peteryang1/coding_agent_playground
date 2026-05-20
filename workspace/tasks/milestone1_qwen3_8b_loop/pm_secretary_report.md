@@ -251,6 +251,20 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - PM instructed dev_4 to resolve PR #14 conflict first, then run only the SFT smoke and write `evidence/dev_4_sft_smoke_run.md`.
 - SFT/eval remains incomplete until that real SFT smoke produces checkpoint/model artifacts and test_2 runs mini-swe against the resulting model.
 
+## 2026-05-20 Session 11 Resource Management Correction
+
+- Supervisor resource-process correction applied: coding_agent_playground dev/test owners must learn/use LTP directly and must not rely on axrd interns for routine GPU-machine requests.
+- Current active 8xH200 node is tracked in `evidence/gpu_resource_tracking.md`.
+- Owners:
+  - `intern_code_dev_2`: LTP lifecycle, status tracking, idle watch, stop action, stop proof.
+  - `intern_code_dev_4`: SFT smoke workload and SFT artifacts.
+  - `intern_code_pm`: gate and durable tracking only.
+- Node:
+  - `ssh -p 39314 root@10.100.20.37`
+  - LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`
+- Stop policy: stop after SFT completion/failure, if idle for 15 minutes without owner progress, or by `2026-05-20T10:30:00Z` unless dev_2 records a bounded extension reason.
+- Stop proof is currently pending because the node is intentionally active for dev_4 SFT smoke.
+
 ## 2026-05-20 Session 8 PR Gate Audit
 
 - Supervisor correction applied: PM should not hold ready/mergeable PRs until the whole milestone completes.

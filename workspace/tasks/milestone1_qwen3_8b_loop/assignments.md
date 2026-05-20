@@ -12,6 +12,14 @@ PM -> dev/test task or correction messages now default to direct tmux injection 
 
 Every dev/test intern must have active, non-waiting work. If an upstream artifact is incomplete, continue on the nearest useful slice and write durable evidence: assumptions, sample inputs, validators, scripts, smoke plans, failure logs, or integration requirements. PM will treat idle owner areas as a coordination bug.
 
+## GPU Resource Management Rule
+
+Do not route routine GPU requests through axrd interns. The coding_agent_playground team must use LTP directly: submit jobs, check status, record job/node information, and stop/release resources after use.
+
+PM only organizes, gates, collects durable evidence, and decides. PM does not submit LTP jobs, run training/eval, or stop GPU jobs directly. The assigned dev/test owner must write exact LTP commands, job/frame id, node endpoint, logs, and final stop proof to durable evidence.
+
+Current active 8xH200 node is tracked in `evidence/gpu_resource_tracking.md`. `intern_code_dev_2` owns LTP lifecycle and stop proof; `intern_code_dev_4` owns SFT workload execution and smoke artifacts. The node must not sit idle.
+
 ## Assignments
 
 | Intern | Role | Owner Area | Durable Evidence Path |
@@ -63,6 +71,10 @@ Every dev/test intern must have active, non-waiting work. If an upstream artifac
   - `intern_code_dev_2`: independently check current GPU allocation, `nodes.json`, and compute workflow evidence for Milestone 1 without starting training; write exact checked paths/commands and routing recommendation to `evidence/dev_2_gpu_nodes_support.md` and own `status.md`.
   - `intern_code_test_1`: define the SFT+mini-swe smoke completion audit gate and identify which current evidence is insufficient for completion; write to `evidence/test_1_sft_eval_completion_gate.md` and own `status.md`.
   These assignments keep the team parallelized while dev_4/test_2 prepare the primary SFT/eval decision packages.
+- 2026-05-20 Session 11 resource-management correction:
+  - `intern_code_dev_2`: own LTP lifecycle for the active H200 job `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` at `ssh -p 39314 root@10.100.20.37`. Track status, idle time, stop conditions, and final stop proof in `evidence/gpu_resource_tracking.md` or `evidence/dev_2_gpu_lifecycle.md`. Do not run SFT.
+  - `intern_code_dev_4`: after resolving PR #14 conflict, run the short SFT smoke on the approved node only, write `evidence/dev_4_sft_smoke_run.md`, and record whether dev_2 should stop the node immediately or keep it for a bounded retry.
+  - `intern_code_test_2`: prepare mini-swe eval for the produced SFT model/checkpoint or endpoint only after dev_4 writes SFT smoke evidence. Do not use the SFT GPU node by default.
 
 ## PM Integration Responsibilities
 

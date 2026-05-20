@@ -4,6 +4,7 @@
 
 - PR #14 conflict: dev_4's PR #14 became `CONFLICTING` after PR #15 merged. Dev_4 must preserve PR #15 route records, rebase/merge current main, and self-merge once ready before proceeding with SFT smoke evidence.
 - SFT real launch is now unblocked on GPU route but still not complete. Compute approved `ssh -p 39314 root@10.100.20.37`; dev_4 owns the real `DRY_RUN=0` SFT smoke and must produce `evidence/dev_4_sft_smoke_run.md`.
+- GPU resource lifecycle: active 8xH200 node must not idle. Dev_2 owns LTP tracking and stop proof for `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`; stop proof is still pending while SFT smoke is pending.
 - GPU/current allocation: corrected final workspace entry host has no visible `nvidia-smi`, and no current Milestone 1 `nodes.json` exists. Real SFT smoke remains blocked until a GPU SSH endpoint/current `nodes.json` is provided, or explicit approval is given to reuse a historical allocation.
 - GPU route approval: dev_2 found two live H200 candidate endpoints, but they are not approved for Milestone 1, appear occupied/high-memory, and lack local SFT paths. Real SFT smoke remains blocked until compute approves a candidate or allocates a fresh single-node H200/current `nodes.json`.
 - SFT real launch is blocked until an approved GPU/current `nodes.json` exists. Dev_4's no-launch clean-base package is now on main via PR #11, but there is still no real `DRY_RUN=0` checkpoint/output.
@@ -43,6 +44,7 @@
 - PR #11 owner action: dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z`, merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; no-launch clean-base SFT package and conflict-resolution evidence are on main.
 - Dev_2 GPU route acquisition: `evidence/dev_2_gpu_route_attempt.md` is present and passes PM gate for route-attempt evidence.
 - Compute GPU route: `evidence/compute_gpu_route_decision.md` and `evidence/compute_gpu_route_nodes.json` are present; approved endpoint is `ssh -p 39314 root@10.100.20.37`.
+- Resource-management rule: current active GPU node is tracked in `evidence/gpu_resource_tracking.md`; owner, purpose, expected end, stop conditions, and stop-proof requirements are recorded.
 - Base-model selection: dev_1 evidence identified `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` as the preferred local clean-base candidate; PM decision is to prefer it over warm-start fallback once GPU/current `nodes.json` exists.
 - Test_1 completion criteria: `evidence/test_1_sft_eval_completion_gate.md` is present and passes PM gate for required completion evidence criteria.
 - Test_2 eval acceptance criteria: `evidence/test_2_eval_validation.md` now includes current checkpoint/endpoint acceptance forms, env/config checks, output/metrics requirements, pass/fail criteria, and dirty checkout provenance.

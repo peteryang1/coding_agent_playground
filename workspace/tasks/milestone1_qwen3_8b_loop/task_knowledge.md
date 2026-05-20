@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=12 -->
+<!-- METADATA:SESSION=11 -->
 
 ## Knowledge Entries
 
@@ -93,3 +93,6 @@
 81. PM decision update: use the approved current GPU route `ssh -p 39314 root@10.100.20.37` with `nodes.json` at `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`, staged remotely at `/root/workspace/coding_agent_playground/nodes.json` and `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json`.
 82. PM decision: dev_4 is authorized to run only the short Qwen3-8B SFT smoke on the approved route after resolving PR #14 conflict; test_2 owns mini-swe after SFT model/checkpoint exists.
 83. PR conflict fact: PR #14 conflicted after PR #15 merged and again after GPU-route authorization records landed; dev_4 must merge current `origin/main`, preserve PR #15 GPU route evidence and PM records, push PR #14, and self-merge only after PR #14 is mergeable.
+84. Resource rule: coding_agent_playground interns must use LTP directly for GPU resources instead of routing routine requests through axrd interns. PM only gates/tracks; dev/test owners submit/status/ssh/stop and write durable evidence.
+85. GPU lifecycle fact: active H200 job `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` at `ssh -p 39314 root@10.100.20.37` is tracked in `evidence/gpu_resource_tracking.md`; dev_2 owns lifecycle/stop proof and dev_4 owns SFT workload.
+86. Stop condition: the active H200 node must be stopped after SFT smoke completion/failure, if idle for 15 minutes without owner progress, or by 2026-05-20T10:30:00Z unless dev_2 writes a durable extension reason.
