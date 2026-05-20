@@ -1,0 +1,72 @@
+# Milestone 1 Assignments
+
+## Durable Response Rule
+
+Do not send routine confirmations, status, blockers, reports, or test results to PM by peer message. Write updates to the evidence paths listed below, plus your own `status.md` when your state changes.
+
+## PM Notification Rule
+
+PM -> dev/test task or correction messages now default to direct tmux injection into the target intern pane, followed by Enter and `tmux capture-pane` verification that the message was submitted. `peer_send` is no longer the primary notification method. PM should avoid interrupts by default and use `/esc`, `C-c`, or equivalent only for supervisor-explicit urgent interruptions or when current execution would keep wasting resources or continuing an error.
+
+## PM Top Priority
+
+Every dev/test intern must have active, non-waiting work. If an upstream artifact is incomplete, continue on the nearest useful slice and write durable evidence: assumptions, sample inputs, validators, scripts, smoke plans, failure logs, or integration requirements. PM will treat idle owner areas as a coordination bug.
+
+## Assignments
+
+| Intern | Role | Owner Area | Durable Evidence Path |
+|--------|------|------------|-----------------------|
+| `intern_code_dev_1` | Dev | Maintain the 10-total task set and ensure prompts force complete coding-process trajectories rather than no-edit read-only conclusions. | `evidence/dev_1_repo_tasks.md` |
+| `intern_code_dev_2` | Dev | Codex rollout harness for exactly 10 total trajectories on the final workspace machine. Include stop/supersede evidence for old 300 runs, resume, logging, metadata, and failure accounting. | `evidence/dev_2_rollout_harness.md` |
+| `intern_code_dev_3` | Dev | Trajectory schema discovery, normalization, cleaning, conversion, and quality gate for complete coding-process trajectories. | `evidence/dev_3_data_pipeline.md` |
+| `intern_code_dev_4` | Dev | Qwen3-8B SFT pipeline, GPU workflow, training command templates, checkpoint layout, and run manifest. | `evidence/dev_4_sft_pipeline.md` |
+| `intern_code_test_1` | Test | Validate rollout harness, 10-total scope, and complete coding-process quality gate including actual edit/patch attempt and test/check attempt. | `evidence/test_1_validation.md` |
+| `intern_code_test_2` | Test | Validate mini-swe-agent evaluation setup and final report metrics format; define smoke eval before full run. | `evidence/test_2_eval_validation.md` |
+
+## Follow-Up Assignments
+
+- 2026-05-20 Session 3: all interns must use final workspace `ssh -p 31787 root@10.100.194.40`; previous scratch-host artifacts are not final evidence.
+- 2026-05-20 Session 3: `intern_code_dev_1` owns the immediate 300-task input gate. Produce `/root/workspace/rollout_harness/tasks_300.jsonl` or a deterministic generator/spec that yields exactly 100 prompts per selected repo. Write task family counts, sample prompts, and any blocked assumptions to `evidence/dev_1_repo_tasks.md`.
+- 2026-05-20 Session 3: `intern_code_dev_2` owns full rollout launch readiness on the corrected final workspace. Harness gate is closed by PM tiny non-dry success; prepare/resume the 300-run command, batching plan, and failure accounting around `/root/workspace/rollouts`. Write commands and run status to `evidence/dev_2_rollout_harness.md`.
+- 2026-05-20 Session 3: `intern_code_dev_3` must not wait for all 300 trajectories. Consume `/root/workspace/rollouts_smoke_v3` and `/root/workspace/rollouts_nondry_new_machine_tiny`, keep the converter contract current, and prepare validation for `/root/workspace/rollouts`. Write schema findings to `evidence/dev_3_data_pipeline.md`.
+- 2026-05-20 Session 3: `intern_code_dev_4` must continue SFT planning independently of rollout completion. Validate Qwen3-8B base/checkpoint/GPU assumptions, produce launcher commands, and identify exact GPU-machine needs in `evidence/dev_4_sft_pipeline.md`.
+- 2026-05-20 Session 3: `intern_code_test_1` must revalidate corrected final-workspace artifacts now available under `/root/workspace/rollouts_smoke_v3` and `/root/workspace/rollouts_nondry_new_machine_tiny`. Write pass/fail evidence to `evidence/test_1_validation.md`.
+- 2026-05-20 Session 3: `intern_code_test_2` must re-check mini-swe-agent/backend availability on the corrected final workspace. `singularity` exists but `mini`, `mini-extra`, Docker, Apptainer, and `sb-cli` were not found in PM checks; write the install/backend recommendation and smoke-eval command to `evidence/test_2_eval_validation.md`.
+- 2026-05-20 Session 4: supervisor scope changed Milestone 1 from producing all 300 results to running an end-to-end smoke loop. Old 300/100-per-repo rollouts are stopped/superseded and scratch-only.
+- 2026-05-20 Session 4: active rollout target is exactly 10 total trajectories at `/root/workspace/rollouts_m1_10`, driven by `/root/workspace/rollout_harness/tasks_m1_10.jsonl`.
+- 2026-05-20 Session 4: every accepted trajectory must include requirements understanding, repo/file localization, code inspection, actual code edit/patch attempt, test/check attempt, observed result/error, and final changed-files/tests/blockers.
+- 2026-05-20 Session 4: `intern_code_dev_2` and `intern_code_test_1` should use `evidence/rollout_harness/validate_complete_coding_trajectories.py` for the 10-run quality gate and write results to their evidence files.
+- 2026-05-20 Session 5: do not interrupt the active `/root/workspace/rollouts_m1_10` rollout. Current PM snapshot is 9/10 manifest entries with 9/9 valid complete-process trajectories; keep working on the following parallel tracks:
+  - `intern_code_dev_1`: review `/root/workspace/rollout_harness/tasks_m1_10.jsonl` and write task/prompt quality findings to `evidence/dev_1_repo_tasks.md`, including whether each prompt forces actual edit/patch attempt and test/check attempt.
+  - `intern_code_dev_2`: monitor `/root/workspace/rollouts_m1_10`, `/root/workspace/rollout_harness/rollouts_m1_10.log`, and manifest/done files; if any of the 10 fail or hang, document rerun strategy in `evidence/dev_2_rollout_harness.md` before taking action.
+  - `intern_code_dev_3`: convert completed valid trajectories as they appear using `convert_rollouts_to_sft.py`; write counts, rejected examples, and final `coding_agent_playground_sft_v1` paths to `evidence/dev_3_data_pipeline.md`.
+  - `intern_code_dev_4`: proceed with Qwen3-8B SFT smoke/GPU path using `/root/workspace/cleaned_m1_sft_10/train.jsonl` or the current partial clean file when available; write exact commands, machine needs, and blockers to `evidence/dev_4_sft_pipeline.md`.
+  - `intern_code_test_1`: continuously validate complete-process quality using `validate_complete_coding_trajectories.py`; write latest checked/valid/invalid counts and any missing process markers to `evidence/test_1_validation.md`.
+  - `intern_code_test_2`: prepare mini-swe-agent eval smoke using the SFT smoke model/checkpoint path and corrected final workspace backend; write command, config, and blocker evidence to `evidence/test_2_eval_validation.md`.
+  Routine confirmations/status/results must be written to these durable files and each intern's own `status.md`; do not peer-send PM for routine updates.
+- 2026-05-20 Session 5 final PM update: `/root/workspace/rollouts_m1_10` completed 10/10, `complete_process_validation.json` reports 10 valid / 0 invalid, and `/root/workspace/cleaned_m1_sft_10/train.jsonl` has 10 kept examples. PM used exact `/esc` interrupts for all six dev/test interns; follow-up delivery succeeded for dev_3/test_1/test_2, dev_1 remained unconfirmed, and dev_2/dev_4 were busy for follow-up messages. This file is the authoritative assignment record for all six.
+- 2026-05-20 Session 6 supervisor correction: PM must only assign, gate, collect information, and decide. PM must not directly modify code or execute code/experiments, including on `ssh -p 31787 root@10.100.194.40`. All further final-workspace execution is delegated to the owner intern below.
+- 2026-05-20 Session 6 direct activation:
+  - `intern_code_dev_1`: review `/root/workspace/rollout_harness/tasks_m1_10.jsonl` for task quality and complete-process pressure; write findings to `evidence/dev_1_repo_tasks.md` and own `status.md`.
+  - `intern_code_dev_2`: own rollout harness/run evidence, confirm old 300 remains stopped, verify `/root/workspace/rollouts_m1_10` manifest and rerun/failure strategy; write to `evidence/dev_2_rollout_harness.md` and own `status.md`.
+  - `intern_code_dev_3`: verify `/root/workspace/cleaned_m1_sft_10/train.jsonl` plus conversion summary and schema fit; write to `evidence/dev_3_data_pipeline.md` and own `status.md`.
+  - `intern_code_dev_4`: own all SFT/GPU/model path probing and any SFT execution; resolve/report valid base/checkpoint, GPU/nodes, broken symlink, and warm-start decision needs in `evidence/dev_4_sft_pipeline.md` and own `status.md`.
+  - `intern_code_test_1`: validate the 10 trajectories for complete coding process including actual edit/patch attempt and test/check attempt; write to `evidence/test_1_validation.md` and own `status.md`.
+  - `intern_code_test_2`: own mini-swe-agent eval smoke readiness and execution after dev_4 supplies a model/checkpoint/endpoint; write readiness, blockers, commands, and results to `evidence/test_2_eval_validation.md` and own `status.md`.
+  Routine status and results go to durable files only. No routine peer-send reply to PM is requested.
+- 2026-05-20 Session 7 continuation, non-interrupt tmux assignment verified by `capture-pane`:
+  - `intern_code_dev_4`: produce a current SFT unblock decision package in `evidence/dev_4_sft_pipeline.md`, covering clean Qwen3-8B base path repair/location, warm-start historical checkpoint fallback recommendation, GPU/current `nodes.json` acquisition/verification, exact next command once base+GPU are available, and blockers requiring PM/supervisor decision.
+  - `intern_code_test_2`: produce a current eval gate package in `evidence/test_2_eval_validation.md`, covering exact acceptance checks for SFT checkpoint path or endpoint, prediction/results/metrics verification, and whether the dirty mini-swe-agent checkout is acceptable or needs provenance note.
+  PM used tmux inject plus Enter and capture-pane verification; no interrupt was used for this assignment.
+- 2026-05-20 Session 7 continuation parallel support, non-interrupt tmux assignments verified by `capture-pane`:
+  - `intern_code_dev_1`: independently check clean Qwen3-8B base model candidates and model registry evidence on corrected/shared paths; classify each path as clean base or historical/warm-start; write to `evidence/dev_1_sft_base_path_support.md` and own `status.md`.
+  - `intern_code_dev_2`: independently check current GPU allocation, `nodes.json`, and compute workflow evidence for Milestone 1 without starting training; write exact checked paths/commands and routing recommendation to `evidence/dev_2_gpu_nodes_support.md` and own `status.md`.
+  - `intern_code_test_1`: define the SFT+mini-swe smoke completion audit gate and identify which current evidence is insufficient for completion; write to `evidence/test_1_sft_eval_completion_gate.md` and own `status.md`.
+  These assignments keep the team parallelized while dev_4/test_2 prepare the primary SFT/eval decision packages.
+
+## PM Integration Responsibilities
+
+- Keep `status.md` updated with milestone state.
+- Keep `blockers.md` updated with active blockers and routing.
+- Ensure largest-scale rollout/training/eval owner assignments point to `ssh -p 31787 root@10.100.194.40`; PM gates evidence but does not execute code or experiments directly.
+- Write secretary/supervisor-readable task split, tracking paths, and blockers to durable task files such as `pm_secretary_report.md`, `status.md`, and `blockers.md`; do not send routine PM -> secretary peer messages.
