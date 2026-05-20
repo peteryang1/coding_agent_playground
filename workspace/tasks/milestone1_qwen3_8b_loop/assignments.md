@@ -38,6 +38,8 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
 
 2026-05-20 Session 12 reaffirmation: no dev/test PR should be opened or marked ready without a task id first. If a work item needs a PR, the owner must either use an existing task id from `task_registry.md` or PM must create/update the task record before the PR is gated. PM gate checks task id, owner, acceptance criteria, evidence path, mergeability, and the post-merge completion marker. Owner self-merge remains the owner responsibility; PM does not merge dev/test PRs.
 
+2026-05-20 Session 12 supervisor reaffirmation: PM and all dev/test interns must follow the intern conduct flow for every PR-bearing item: PM maintains an explicit task, assigns that task to the owner, the owner maps any PR to that task, PM gates task id/owner/acceptance/evidence/mergeability, and the owner self-merges only after PM gate. After self-merge, the owner must mark the matching task complete, blocked-with-final-evidence, or ready-for-retry in task docs or `task_registry.md`, update their own `status.md`, update required history/evidence, and push or merge the completion record. PM will reject PRs that do not have a task mapping or completion-marker plan.
+
 ## Assignments
 
 | Intern | Role | Owner Area | Durable Evidence Path |
