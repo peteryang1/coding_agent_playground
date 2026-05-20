@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=21 -->
+<!-- METADATA:SESSION=22 -->
 
 ## Session 1 - 2026-05-20
 
@@ -564,9 +564,42 @@
   - `https://github.com/peteryang1/coding_agent_playground/pull/30`
 - Current status: blocked before execution.
 - Blockers:
-  - no `evidence/dev_2_gpu_retry_submit.md` exists in this worktree;
-  - `M1-GPU-RETRY-SUBMIT-DEV2` remains open;
-  - `M1-SFT-RETRY-AUTH-PM` remains open;
+  - at Session 21 receipt time, no `evidence/dev_2_gpu_retry_submit.md` was present in the dev_4 worktree;
+  - at Session 21 receipt time, `M1-GPU-RETRY-SUBMIT-DEV2` had no visible fresh endpoint evidence in the dev_4 worktree;
+  - Session 22 superseded the auth fact: `M1-SFT-RETRY-AUTH-PM` is complete via PR #29.
   - prior endpoint `ssh -p 39314 root@10.100.20.37` is released and must not be reused.
 - Planned retry command uses `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` and PM-approved original data `/root/workspace/cleaned_m1_sft_10/train.jsonl`.
 - No GPU run was attempted and no peer-send PM routine status was used.
+
+## Session 22 - Dev 4 SFT Retry Execution - 2026-05-20
+
+- Task: `M1-SFT-RETRY-RUN-DEV4`.
+- PM gate correction applied: `M1-SFT-RETRY-AUTH-PM` is complete via PR #29, `mergedAt=2026-05-20T11:02:32Z`, merge commit `c14fa045b210a74fc243f2d2690a2523cc7ec2db`.
+- PM provided fresh dev_2 endpoint evidence in durable PM paths:
+  - `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_gpu_retry_submit.md`
+  - `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/gpu_retry_resource_tracking.md`
+- Endpoint used:
+  - `ssh -p 23121 root@10.100.22.53`
+  - node `lg-cmc-b7r202-r05u16-h200-000747`
+  - frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`
+- Pre-run gate passed after remote staging repair:
+  - 8 x H200 visible and idle;
+  - original dataset `/root/workspace/cleaned_m1_sft_10/train.jsonl` sha256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`, 10 rows, schema `coding_agent_playground_sft_v1`;
+  - clean base `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` passed Qwen3 config checks;
+  - config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` passed TP=8/max_steps=2/warmup_steps=0 checks;
+  - LLamaFactory 0.9.5.dev0, `flash_attn`, and `mcore_adapter` were available.
+- Exactly one retry was launched:
+  - run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`;
+  - command used `CONFIG_TEMPLATE=/root/workspace/coding_agent_playground/configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`, `DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl`, `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, `OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`, `LLAMAFACTORY_DIR=/root/workspace/coding_agent_playground/code/LLamaFactory`, `DRY_RUN=0`.
+- Result:
+  - exit status `1`;
+  - manifest, runtime config, log, and exit status file are present under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z/`;
+  - no checkpoint/model, `trainer_state.json`, or `all_results.json` exists under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z/`.
+- Failure signature:
+  - `KeyError: 'from'` in `LLamaFactory/src/llamafactory/data/converter.py` while converting dataset rows;
+  - current blocker is data registration/format mapping because the JSONL uses OpenAI-style role/content messages while the runtime registration used ShareGPT defaults expecting `from`/`value`.
+- Post-run resource state: GPUs returned to 1 MiB memory used and 0% utilization; no active torchrun/LLamaFactory workload was visible. Endpoint recheck at `2026-05-20T11:23:57Z` refused SSH.
+- Resource recommendation: dev_2 should stop the active H200 resource immediately if it is not already stopped. No extra retry is authorized without a new PM gate.
+- Durable evidence updated:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`
+  - `workspace/interns/intern_code_dev_4/status.md`

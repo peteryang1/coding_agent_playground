@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop / M1-SFT-RETRY-RUN-DEV4 |
 | PR | https://github.com/peteryang1/coding_agent_playground/pull/30 |
-| Session | 21 |
+| Session | 22 |
 
 ## PM Corrections
 
@@ -33,4 +33,5 @@
 - 2026-05-20 Session 18 completion: Self-merged PR #18 at `2026-05-20T10:18:04Z` with merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`. Task `M1-SFT-SMOKE-DEV4` is marked blocked-with-final-evidence because the approved SFT smoke ran and produced durable failure evidence with no checkpoint/model output.
 - 2026-05-20 Session 19: Accepted task `M1-SFT-CONFIG-FIX-DEV4`. Created durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md` and proposed tiny-data-safe config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`. Opened PR #26 for the package. No GPU run attempted; next execution requires PM gate plus test/resource plans.
 - 2026-05-20 Session 20: PM gate passed and dev_4 self-merged PR #26 at `2026-05-20T10:44:55Z` with merge commit `6a704f842c992f83a8d86167dfe870fa6ff72440`. Task `M1-SFT-CONFIG-FIX-DEV4` is marked ready-for-retry: config package is landed, no GPU run was performed, and future execution still requires PM authorization plus test/resource gates.
-- 2026-05-20 Session 21: Accepted task `M1-SFT-RETRY-RUN-DEV4` and recorded durable pre-run blocker/status in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`. Opened PR #30 for the task-attached blocker/receipt package. No SFT retry was launched because dev_2 has not yet provided a fresh endpoint/node in this worktree, `M1-GPU-RETRY-SUBMIT-DEV2` remains open, and `M1-SFT-RETRY-AUTH-PM` remains open.
+- 2026-05-20 Session 21: Accepted task `M1-SFT-RETRY-RUN-DEV4` and recorded durable pre-run blocker/status in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`. Opened PR #30 for the task-attached blocker/receipt package. No SFT retry was launched because dev_2 had not yet provided a fresh endpoint/node in this worktree.
+- 2026-05-20 Session 22: PM reported `M1-SFT-RETRY-AUTH-PM` complete via PR #29 (`mergedAt=2026-05-20T11:02:32Z`, merge commit `c14fa045b210a74fc243f2d2690a2523cc7ec2db`) and provided fresh dev_2 endpoint evidence at PM durable paths. Ran exactly one SFT retry on `ssh -p 23121 root@10.100.22.53` with run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`; exit status `1`, no checkpoint/model/trainer_state/all_results. Failure is `KeyError: 'from'` during LLamaFactory dataset conversion from OpenAI-style messages under ShareGPT default registration. Evidence updated in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`; dev_2 should stop the H200 resource immediately, and endpoint recheck at `2026-05-20T11:23:57Z` refused SSH. No extra retry launched.

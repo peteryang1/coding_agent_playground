@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=21 -->
+<!-- METADATA:SESSION=22 -->
 
 ## Knowledge Entries
 
@@ -125,4 +125,7 @@
 111. PR fact: PM coordination PR #28 merged at `2026-05-20T10:58:33Z` with merge commit `d6d1092b8cf72eb6210502da0b058cd9bf9abab6`.
 112. PM decision: first SFT retry should use `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` with original `/root/workspace/cleaned_m1_sft_10/train.jsonl`; repeated x16 data is fallback/supporting smoke data unless a launch-blocking issue is recorded.
 113. Retry ownership fact: dev_2 owns fresh LTP submit/lifecycle, dev_4 owns SFT retry execution, dev_3 owns data gate, dev_1 owns pre-run sanity check, test_1 owns retry validation, and test_2 owns mini-swe unblock after checkpoint/endpoint exists.
-114. Retry-run gate fact: `M1-SFT-RETRY-RUN-DEV4` must not launch until dev_2 provides a fresh endpoint/node; in the current worktree `M1-GPU-RETRY-SUBMIT-DEV2` and `M1-SFT-RETRY-AUTH-PM` remain open, so dev_4 records a pre-run blocker instead of running SFT.
+114. Retry-run receipt fact: at Session 21 receipt time, `M1-SFT-RETRY-RUN-DEV4` could not launch because the dev_4 worktree did not yet contain fresh endpoint/node evidence. Session 22 superseded the auth/resource gate facts with PR #29 auth completion and PM durable dev_2 endpoint evidence.
+115. PM auth correction fact: `M1-SFT-RETRY-AUTH-PM` is complete via PR #29, merged at `2026-05-20T11:02:32Z` with merge commit `c14fa045b210a74fc243f2d2690a2523cc7ec2db`; PR #30 and dev_4 retry evidence must not claim PM auth is open.
+116. SFT retry result fact: dev_4 ran exactly one authorized retry on `ssh -p 23121 root@10.100.22.53` with run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`; it exited `1` before checkpoint creation due `KeyError: 'from'` in LLamaFactory dataset conversion, indicating the current blocker is OpenAI-style role/content JSONL registered under ShareGPT defaults expecting `from`/`value`.
+117. Resource action fact: after the Session 22 retry failure, GPUs were idle and no training process remained; endpoint recheck at `2026-05-20T11:23:57Z` refused SSH. dev_4 recommends dev_2 stop frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z` immediately if not already stopped because no extra retry is authorized.
