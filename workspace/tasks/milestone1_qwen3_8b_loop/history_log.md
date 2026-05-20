@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=9 -->
+<!-- METADATA:SESSION=10 -->
 
 ## Session 1 - 2026-05-20
 
@@ -259,3 +259,39 @@
 - Dev_4 updated `evidence/dev_4_sft_pipeline.md` with the exact no-launch command package, required GPU evidence, output/checkpoint/manifest paths to verify, and remaining blockers.
 - Dev_4 opened PR #11 for Session 9 durable updates: `https://github.com/peteryang1/coding_agent_playground/pull/11`.
 - No real SFT launch was attempted; the current blocker remains missing GPU endpoint/current Milestone 1 `nodes.json`.
+
+## 2026-05-20 Session 8 Post-PR10 Test Gate Landing
+
+- PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
+- `intern_code_test_1` created `evidence/test_1_sft_eval_completion_gate.md`.
+  - PM gate: pass for completion-audit criteria.
+  - The file correctly states current evidence is insufficient for completion and requires real `DRY_RUN=0` SFT, checkpoint/model artifacts, logs/metrics, mini-swe smoke against the resulting model, predictions/trajectories, and metrics before PM can mark the loop complete.
+- `intern_code_test_2` updated `evidence/test_2_eval_validation.md`.
+  - PM gate: pass for mini-swe acceptance/provenance criteria.
+  - The package correctly requires a served OpenAI-compatible endpoint/model string for mini-swe; raw checkpoint paths must first be served and kept as provenance.
+  - The package records the dirty mini-swe checkout as acceptable for smoke only with explicit provenance.
+- `intern_code_dev_4` has not yet landed the requested no-launch clean-base SFT smoke package in PM worktree. PM observed dev_4 working in its own workspace and handling a local `status.md` conflict; dev_4 remains owner for resolving and landing durable evidence.
+- PM decision: no SFT/eval execution authorization yet. The remaining hard blockers are current GPU endpoint or Milestone 1 `nodes.json`, dev_4's no-launch package, real SFT checkpoint/output, and mini-swe eval metrics.
+
+## 2026-05-20 Session 8 PR #11 Gate Audit
+
+- PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
+- PM audited dev_4 PR #11 for the no-launch clean-base SFT smoke package.
+  - URL: `https://github.com/peteryang1/coding_agent_playground/pull/11`
+  - state: `OPEN`
+  - draft: `false`
+  - mergeability: `CONFLICTING`
+- PM gate result: PR #11 is not ready for owner self-merge because it conflicts with current `main`.
+- PM action: notified dev_4 by non-interrupt tmux inject to rebase/merge current `origin/main`, resolve conflicts without dropping PM/test_1/test_2 post-PR10 gate records, push PR #11 again, and record durable conflict files/resolution. PM did not merge PR #11.
+
+## Session 10 - Dev 4 PR #11 Conflict Resolution - 2026-05-20
+
+- Dev_4 handled PM gate notice that PR #11 was `CONFLICTING`.
+- Dev_4 merged current `origin/main` into branch `intern_code_dev_4/session9-sft-smoke-launch-package`.
+- Conflict file:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md`
+- Resolution:
+  - preserved dev_4 Session 9 completion record for the no-launch clean-base SFT smoke package;
+  - preserved PM/test_1/test_2 post-PR10 gate records, including PR #10 merge, test_1 completion gate, test_2 eval acceptance/provenance gate, and PM PR #11 gate audit;
+  - appended this Session 10 conflict-resolution record.
+- No SFT launch was attempted. The only remaining SFT launch blocker remains GPU endpoint/current Milestone 1 `nodes.json`; the next SFT command should use `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.

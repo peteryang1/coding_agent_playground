@@ -762,3 +762,48 @@ artifacts.output_dir starts with /mnt/3fs/data/ai4ai/outputs/coding_agent_playgr
 - Corrected final workspace entry host has no visible GPU; a GPU SSH endpoint or current Milestone 1 `nodes.json` is required.
 - Historical `nodes.json` must not be reused unless PM/supervisor explicitly approves.
 - Warm-start fallback remains disallowed by default and requires explicit PM/supervisor approval.
+
+## 2026-05-20 Session 10 PR #11 Conflict Resolution
+
+### PM Gate Input
+
+- PM reported PR #11 was `CONFLICTING` and not ready to self-merge.
+- Required owner action: merge/rebase current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push PR #11 again, and record durable conflict files/resolution.
+- No SFT launch was authorized or attempted.
+
+### Merge / Conflict Details
+
+Command run:
+
+```bash
+git fetch origin --prune
+git merge origin/main
+```
+
+Conflict file:
+
+```text
+workspace/tasks/milestone1_qwen3_8b_loop/history_log.md
+```
+
+Resolution:
+
+- Preserved dev_4 Session 9 completion record for the no-launch clean-base SFT smoke package.
+- Preserved PM/test_1/test_2 post-PR10 gate records from `origin/main`, including:
+  - PR #10 merge evidence;
+  - `test_1_sft_eval_completion_gate.md` landing/gate;
+  - `test_2_eval_validation.md` acceptance/provenance gate;
+  - PM audit that PR #11 was conflicting before this resolution.
+- Added a Session 10 conflict-resolution record to `history_log.md`.
+
+### Current Launch Package State
+
+The no-launch SFT smoke package remains current and uses:
+
+```text
+BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
+DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl
+OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground
+```
+
+Exact next command remains the Session 9 command package above. Real launch remains blocked on GPU endpoint/current Milestone 1 `nodes.json`.

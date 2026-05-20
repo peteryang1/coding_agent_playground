@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=9 -->
+<!-- METADATA:SESSION=10 -->
 
 ## Knowledge Entries
 
@@ -63,6 +63,7 @@
 57. Technical fact: dev_4 verified the clean-base candidate has `config.json`, tokenizer files, `generation_config.json`, `model.safetensors.index.json`, 5 safetensors shards, and no missing index shards.
 58. Technical fact: current SFT input for dev_4 is `/root/workspace/cleaned_m1_sft_10/train.jsonl` with SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
 59. Current blocker: real SFT smoke launch remains blocked on GPU endpoint or current Milestone 1 `nodes.json`; the corrected final workspace entry host has no `nvidia-smi`.
+60. PR conflict fact: PR #11 conflicted with current `origin/main`; dev_4 resolved the only conflict in `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md` by preserving both dev_4 Session 9 records and PM/test_1/test_2 post-PR10 gate records.
 55. PR fact: PR #7 merged at `2026-05-20T08:20:50Z` with merge commit `98eb9d3573e24a732a7de354e8ecbf1c0173c2c3`.
 56. PR fact: dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
 57. Gate fact: dev_3 SFT input handoff is sufficient for data-side SFT readiness: `/root/workspace/cleaned_m1_sft_10/train.jsonl`, format `coding_agent_playground_sft_v1`, 10 examples, SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
@@ -76,3 +77,10 @@
 65. PR fact: PR #9 merged at `2026-05-20T08:39:36Z` with merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`.
 66. Gate fact: after waiting and rechecking, test_1 completion gate, test_2 eval acceptance/provenance package, and dev_4 clean-base no-launch launch package remain missing or stale.
 67. Coordination fact: PM must keep using durable owner evidence for these remaining gates; do not fill missing test/dev artifacts by writing them as PM or by running SFT/eval directly.
+68. PR fact: PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
+69. Gate fact: test_1 completion audit gate is now present and passes PM gate for criteria definition, but it explicitly proves the milestone is still incomplete until real SFT and mini-swe smoke artifacts exist.
+70. Gate fact: test_2 mini-swe acceptance/provenance package is now present and passes PM gate; mini-swe should use a served OpenAI-compatible endpoint/model string, not a raw checkpoint path alone.
+71. Gate fact: dirty mini-swe checkout state (`M src/minisweagent/environments/apptainer.py`, `?? uv.lock`) is acceptable only for Milestone 1 smoke when recorded in provenance; it must not be silent state in final eval evidence.
+72. Blocker fact: dev_4's no-launch SFT smoke package using clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is still not landed in PM worktree; dev_4 is owner and was observed working through a local status.md conflict.
+73. PR fact: PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
+74. PR gate fact: dev_4 PR #11 is open/non-draft but `CONFLICTING`, so it is not ready for owner self-merge; dev_4 must rebase/resolve against current `origin/main` and preserve PM/test_1/test_2 gate records.

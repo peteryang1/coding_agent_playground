@@ -7,7 +7,7 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | #10 |
+| PR | #13 |
 | Session | 8 |
 
 ## Recent Progress
@@ -39,3 +39,7 @@
 - 2026-05-20 Session 8 continuation: PR #7 merged at `2026-05-20T08:20:50Z` with merge commit `98eb9d3573e24a732a7de354e8ecbf1c0173c2c3`; dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`. New owner evidence from dev_1/dev_2/dev_3 is now present; dev_4 added an SFT decision package. PM gate decision: use dev_1 clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` ahead of warm-start fallback; remaining gate gaps are GPU/current `nodes.json`, test_1 completion gate, test_2 eval acceptance/provenance, and actual SFT/eval output.
 - 2026-05-20 Session 8 continuation: PR #8 merged at `2026-05-20T08:33:38Z` with merge commit `97cff0dddfb460585b62193b4f567470b047ffd5`. Rechecked evidence: test_1 completion gate is still missing, test_2 eval acceptance package is still stale, no GPU/current `nodes.json` or real SFT/eval output exists. PM sent non-interrupt tmux required-now follow-ups to test_1/test_2 and a dev_4 launch-package update using the accepted clean-base candidate.
 - 2026-05-20 Session 8 continuation: PR #9 merged at `2026-05-20T08:39:36Z` with merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`. PM waited and rechecked durable evidence; `test_1_sft_eval_completion_gate.md` is still missing, `test_2_eval_validation.md` is still stale at 07:19, `dev_4_sft_pipeline.md` has no new clean-base launch package after 08:28, and no SFT/eval output exists. Owner panes show the required-now instructions were submitted; PM keeps the goal active.
+- 2026-05-20 Session 8 continuation: PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`. Test_1 landed the SFT+mini-swe completion audit gate and test_2 landed the current mini-swe endpoint/checkpoint acceptance package; both pass PM criteria-definition gate. Dev_4 clean-base no-launch package is still pending, GPU/current `nodes.json` is still missing, and no real SFT/eval output exists.
+- 2026-05-20 Session 8 continuation: opened PM coordination PR #12 for the post-PR10 gate evidence and durable status updates.
+- 2026-05-20 Session 8 continuation: PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`. Audited dev_4 PR #11; it is open/non-draft but `CONFLICTING`, so PM notified dev_4 by tmux inject to rebase/resolve and push before self-merge.
+- 2026-05-20 Session 8 continuation: opened PM coordination PR #13 to record the PR #11 conflict gate and dev_4 owner blocker.

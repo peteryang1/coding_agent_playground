@@ -75,6 +75,7 @@
 - Current incomplete gates: test_1 completion audit file is missing, test_2 eval acceptance/provenance package is stale, GPU/current `nodes.json` is missing, and no real SFT/eval output exists.
 - PR #9 merged at `2026-05-20T08:39:36Z` with merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`; after a waiting recheck, test_1/test_2/dev_4 required-now artifacts are still missing or stale.
 - Dev_4 Session 9 SFT smoke launch package is recorded in `evidence/dev_4_sft_pipeline.md`: PM decision now uses dev_1 clean-base candidate `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`; dev_4 verified this path has a complete Qwen3 HF-style layout, and the exact next no-launch command package is ready. Remaining hard blocker is GPU endpoint/current Milestone 1 `nodes.json`.
+- Dev_4 Session 10 conflict resolution for PR #11 is recorded in `evidence/dev_4_sft_pipeline.md`: merged current `origin/main`, resolved conflict in `history_log.md`, preserved PM/test_1/test_2 post-PR10 gate records, and pushed the refreshed PR branch. No SFT launch was attempted.
 
 ## Next PM Checks
 
@@ -87,3 +88,15 @@
 - Open/push a continuation PM coordination PR for the new branch and keep reading durable support evidence for SFT/eval blocker decisions.
 - After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.
 - Recheck test_2 eval acceptance/provenance package before authorizing mini-swe smoke after SFT checkpoint/endpoint exists.
+
+## 2026-05-20 Session 8 Post-PR10 Gate Update
+
+- PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
+- Test_1 wrote `evidence/test_1_sft_eval_completion_gate.md`. PM gate result: sufficient completion audit gate. It explicitly requires real `DRY_RUN=0` SFT smoke, durable checkpoint/model, logs/metrics, mini-swe smoke against that exact model, trajectories/predictions/metrics, and a final PASS/FAIL decision block before PM can mark the loop complete.
+- Test_2 updated `evidence/test_2_eval_validation.md` with the current mini-swe acceptance/provenance package. PM gate result: sufficient eval gate. It accepts an OpenAI-compatible served endpoint/model string plus `OPENAI_BASE_URL`/auth; a raw checkpoint path alone is not acceptable until served, and the dirty mini-swe checkout must be recorded as smoke provenance.
+- Dev_4's requested no-launch clean-base SFT smoke launch package using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is not yet present in PM worktree. PM observed dev_4 working in its own workspace with a local `status.md` conflict after rebasing/stash-pop; dev_4 remains owner for resolving and landing the package.
+- Current PM decision: SFT/eval execution is still not authorized. Data, clean-base candidate, test_1 completion gate, and test_2 eval acceptance gate are ready enough, but real SFT still needs a current GPU endpoint or Milestone 1 `nodes.json`; no real SFT checkpoint/output and no mini-swe eval metrics exist.
+- PM coordination PR #12 is open for these post-PR10 gate records.
+- PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
+- PR #11 gate audit: dev_4's no-launch clean-base SFT package PR is open/non-draft but mergeability resolved to `CONFLICTING`, so it is not ready for owner self-merge. PM notified dev_4 by tmux inject to rebase/resolve against current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push again, and record durable conflict resolution.
+- PM coordination PR #13 is open to record the PR #11 conflict gate.
