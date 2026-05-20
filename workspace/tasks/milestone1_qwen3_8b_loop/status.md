@@ -206,6 +206,13 @@
 - Post-PR #34 audit: PM coordination PR #34 merged at `2026-05-20T11:44:37Z`, merge commit `62c60e367baaa60ca3935d78e0405b63f5a19366`. PR #30 still reports `CONFLICTING` / `DIRTY`, so it remains not gate-ready. PM re-injected the owner blocker to dev_4 by tmux and verified submission by `capture-pane`.
 - Post-PR #35 conflict triage: PM coordination PR #35 merged at `2026-05-20T11:47:59Z`, merge commit `82eef1fb36900b1ddfb4ef57a6f02fe1ce8ff673`. PR #30 remains `CONFLICTING` / `DIRTY`; PM used `git merge-tree` to identify conflict markers in `history_log.md`, `task_knowledge.md`, and `task_registry.md`, then injected file-specific owner guidance to dev_4 by tmux.
 
+## 2026-05-20 Session 12 Data-Format Unblock Parallelization
+
+- PR #30 remains open and `CONFLICTING` / `DIRTY`; dev_4 still owns conflict refresh and no SFT rerun is authorized.
+- PM is keeping main stable for PR #30 conflict refresh but is not leaving other interns idle.
+- New explicit no-execution tasks were created for the known SFT blocker `KeyError: 'from'`: dev_3 data-format fix plan, dev_1 independent review, test_1 data-format gate, dev_2 next resource plan without submit, and test_2 eval blocked refresh.
+- PM decision: no GPU, SFT, or mini-swe execution is authorized until these durable plans/gates are reviewed and PM issues a fresh gate.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
