@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=8 -->
+<!-- METADATA:SESSION=10 -->
 
 ## Knowledge Entries
 
@@ -58,6 +58,12 @@
 52. Coordination fact: PM expanded active non-interrupt tmux follow-up to all six dev/test owners so no intern is idle: dev_4 PR/SFT blocker, dev_1 base path, dev_2 GPU/nodes, dev_3 SFT input handoff, test_1 completion gate, and test_2 eval acceptance gate.
 53. Gate fact: current completion remains unproven because PR #1 is still open and evidence for SFT unblock, GPU route, SFT completion gate, and mini-swe acceptance gate is missing or stale.
 54. PM boundary fact: even when support evidence is missing repeatedly, PM must not fill it by running remote probes or experiments directly; PM should assign, gate, collect durable files, and decide from owner evidence.
+55. PR fact: PR #1 was self-merged by dev_4 at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
+56. PM decision: for the next Qwen3-8B SFT smoke, use clean-base candidate `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`; do not use the broken alias `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B`.
+57. Technical fact: dev_4 verified the clean-base candidate has `config.json`, tokenizer files, `generation_config.json`, `model.safetensors.index.json`, 5 safetensors shards, and no missing index shards.
+58. Technical fact: current SFT input for dev_4 is `/root/workspace/cleaned_m1_sft_10/train.jsonl` with SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+59. Current blocker: real SFT smoke launch remains blocked on GPU endpoint or current Milestone 1 `nodes.json`; the corrected final workspace entry host has no `nvidia-smi`.
+60. PR conflict fact: PR #11 conflicted with current `origin/main`; dev_4 resolved the only conflict in `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md` by preserving both dev_4 Session 9 records and PM/test_1/test_2 post-PR10 gate records.
 55. PR fact: PR #7 merged at `2026-05-20T08:20:50Z` with merge commit `98eb9d3573e24a732a7de354e8ecbf1c0173c2c3`.
 56. PR fact: dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
 57. Gate fact: dev_3 SFT input handoff is sufficient for data-side SFT readiness: `/root/workspace/cleaned_m1_sft_10/train.jsonl`, format `coding_agent_playground_sft_v1`, 10 examples, SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.

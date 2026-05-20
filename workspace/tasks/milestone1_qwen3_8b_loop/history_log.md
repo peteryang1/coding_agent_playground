@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=8 -->
+<!-- METADATA:SESSION=10 -->
 
 ## Session 1 - 2026-05-20
 
@@ -78,6 +78,18 @@
   - conversion summary reports 10 input, 10 kept, 0 dropped, 0 errors; kept split is `fastapi/fastapi=4`, `scikit-learn/scikit-learn=3`, `Textualize/rich=3`.
 - Used the high-priority interrupt channel for dev/test activation:
   - exact `/esc` delivered to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`;
+
+## Session 9 - 2026-05-20
+
+- Dev_4 applied the PM gate decision to prefer dev_1's clean-base candidate for Qwen3-8B SFT smoke:
+  - `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
+- Dev_4 verified the candidate on `ssh -p 31787 root@10.100.194.40`: `config.json`, tokenizer files, `generation_config.json`, `model.safetensors.index.json`, 5 safetensors shards, and no missing index shards are present.
+- Dev_4 verified the current SFT input checksum:
+  - `/root/workspace/cleaned_m1_sft_10/train.jsonl`
+  - SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+- Dev_4 wrote the no-launch SFT smoke launch package to `evidence/dev_4_sft_pipeline.md`, including exact single-node command, required GPU evidence, manifest/checkpoint paths to verify, and blockers.
+- No SFT launch was attempted because GPU endpoint/current Milestone 1 `nodes.json` is still missing; only historical non-milestone `nodes.json` exists.
+- PR #1 was already merged at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`; no duplicate merge action was needed.
   - follow-up assignment messages delivered to `intern_code_dev_3`, `intern_code_test_1`, and `intern_code_test_2`;
   - `intern_code_dev_1` remained unconfirmed, and `intern_code_dev_2`/`intern_code_dev_4` were busy for follow-up messages, so `assignments.md` is the durable source of truth for their exact work.
 - Dev_4 evidence now records Qwen3-8B SFT dry-run command validation with `/root/workspace/cleaned_m1_sft_10/train.jsonl`; dry-run manifest is under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_smoke_cmd_20260520/`.
@@ -239,6 +251,15 @@
 - PM checked `tmux capture-pane` for `intern_code_test_1`, `intern_code_test_2`, and `intern_code_dev_4`; the required-now messages are present in their panes. PM did not interrupt with `/esc` or `C-c`.
 - PM decision: goal remains active, not complete. Current actionable blocker is owner evidence/execution readiness: test_1/test_2 gates and dev_4 clean-base no-launch package must land before PM can authorize SFT/eval execution, and GPU/current `nodes.json` is still required for real SFT.
 
+## Session 9 - Dev 4 Completion Record - 2026-05-20
+
+- Dev_4 completed the PM-required no-launch SFT smoke package using the accepted clean-base candidate `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
+- Dev_4 verified that candidate on `ssh -p 31787 root@10.100.194.40`: `config.json`, tokenizer files, `generation_config.json`, `model.safetensors.index.json`, 5 safetensors shards, and no missing index shards.
+- Dev_4 verified current SFT input `/root/workspace/cleaned_m1_sft_10/train.jsonl` with SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+- Dev_4 updated `evidence/dev_4_sft_pipeline.md` with the exact no-launch command package, required GPU evidence, output/checkpoint/manifest paths to verify, and remaining blockers.
+- Dev_4 opened PR #11 for Session 9 durable updates: `https://github.com/peteryang1/coding_agent_playground/pull/11`.
+- No real SFT launch was attempted; the current blocker remains missing GPU endpoint/current Milestone 1 `nodes.json`.
+
 ## 2026-05-20 Session 8 Post-PR10 Test Gate Landing
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
@@ -262,3 +283,16 @@
   - mergeability: `CONFLICTING`
 - PM gate result: PR #11 is not ready for owner self-merge because it conflicts with current `main`.
 - PM action: notified dev_4 by non-interrupt tmux inject to rebase/merge current `origin/main`, resolve conflicts without dropping PM/test_1/test_2 post-PR10 gate records, push PR #11 again, and record durable conflict files/resolution. PM did not merge PR #11.
+
+## Session 10 - Dev 4 PR #11 Conflict Resolution - 2026-05-20
+
+- Dev_4 handled PM gate notice that PR #11 was `CONFLICTING`.
+- Dev_4 merged current `origin/main` into branch `intern_code_dev_4/session9-sft-smoke-launch-package`.
+- Conflict file:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md`
+- Resolution:
+  - preserved dev_4 Session 9 completion record for the no-launch clean-base SFT smoke package;
+  - preserved PM/test_1/test_2 post-PR10 gate records, including PR #10 merge, test_1 completion gate, test_2 eval acceptance/provenance gate, and PM PR #11 gate audit;
+  - appended this Session 10 conflict-resolution record.
+- After push, GitHub PR #11 recheck reported `mergeable=MERGEABLE`, `state=OPEN`.
+- No SFT launch was attempted. The only remaining SFT launch blocker remains GPU endpoint/current Milestone 1 `nodes.json`; the next SFT command should use `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.

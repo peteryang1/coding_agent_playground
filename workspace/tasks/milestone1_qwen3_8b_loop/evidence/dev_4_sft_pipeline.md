@@ -602,3 +602,209 @@ BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-fina
 - Provide or route a current GPU allocation: either a GPU SSH endpoint or a current Milestone 1 `nodes.json`.
 - Confirm whether the smoke target should be single-node 8-GPU or multi-node. The command above is single-node; multi-node requires `nodes.json` and worker launch setup.
 - Confirm whether mini-swe evaluation may proceed from a warm-start smoke checkpoint if clean-base SFT remains blocked.
+
+## 2026-05-20 Session 9 PM Decision Update - SFT Smoke Launch Package
+
+### PM Decision Applied
+
+- PM decision: prefer dev_1's clean-base candidate over warm-start fallback.
+- Required `BASE_MODEL` for the next SFT smoke package:
+
+```text
+/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
+```
+
+- Warm-start fallback remains available only with explicit PM/supervisor approval; do not use it by default.
+- No real launch was attempted in this Session 9 update because GPU/current `nodes.json` remains the active blocker.
+
+### Clean-Base Candidate Verification
+
+Verified on corrected final workspace `ssh -p 31787 root@10.100.194.40`:
+
+```text
+path /mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
+exists True
+config.json True 1538
+tokenizer.json True 11422654
+tokenizer_config.json True 5404
+generation_config.json True 244
+model.safetensors.index.json True 34485
+safetensors 5 16381516624
+index_shards 5 missing []
+config_subset {'model_type': 'qwen3', 'architectures': ['Qwen3ForCausalLM'], 'torch_dtype': None, 'max_position_embeddings': 40960, 'rope_scaling': None, 'vocab_size': 151936}
+```
+
+Conclusion: the base-path blocker is cleared for command construction by PM decision. The broken alias `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` should not be used for the next smoke.
+
+### SFT Input Verification
+
+Current dev_3 handoff data on corrected final workspace:
+
+```text
+/root/workspace/cleaned_m1_sft_10/train.jsonl
+/root/workspace/cleaned_m1_sft_10/conversion_summary.json
+/root/workspace/cleaned_m1_sft_10/rejected.jsonl
+```
+
+Current checksums:
+
+```text
+5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054  /root/workspace/cleaned_m1_sft_10/train.jsonl
+c822d7d46d3237ef337c8a95629639d240b1ae55212948aa3717692054e7bd9d  /root/workspace/cleaned_m1_sft_10/conversion_summary.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /root/workspace/cleaned_m1_sft_10/rejected.jsonl
+```
+
+### GPU / Current `nodes.json` Requirement
+
+Current state:
+
+- `ssh -p 31787 root@10.100.194.40` is still the corrected final workspace entry host.
+- `nvidia-smi` is absent on that entry host.
+- No current Milestone 1 `nodes.json` was found.
+- Only historical non-milestone `nodes.json` remains:
+
+```text
+/mnt/3fs/data/ai4ai/outputs/ws_20260512_1931_qwen3-4b-thinking-2507_1bench_f327/nodes.json
+```
+
+Required GPU evidence before launch:
+
+```bash
+ssh -p <gpu_port> root@<gpu_host>
+hostname
+command -v nvidia-smi
+nvidia-smi -L
+nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader
+test -d /mnt/3fs/data/ai4ai/outputs
+test -d /root/workspace/coding_agent_playground
+test -f /root/workspace/cleaned_m1_sft_10/train.jsonl
+test -f /mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6/config.json
+```
+
+If compute provides `nodes.json`, verify it first:
+
+```bash
+NODES_JSON=<current-milestone-nodes.json>
+python3 - <<'PY'
+import json, os
+d=json.load(open(os.environ["NODES_JSON"]))
+assert d.get("nodes"), d
+for n in d["nodes"]:
+    assert "ip" in n and "port" in n and "node_rank" in n, n
+print("node_count", len(d["nodes"]))
+print("master", d["nodes"][0])
+PY
+```
+
+### Exact Next Command Package - No Launch Until GPU Exists
+
+Use this exact package once GPU/current `nodes.json` is available. For single-node smoke, run on the allocated GPU node:
+
+```bash
+ssh -p <gpu_port> root@<gpu_host>
+cd /root/workspace/coding_agent_playground
+
+mkdir -p code/LLamaFactory code/mcore_adapter
+tar -xf /mnt/3fs/data/ai4ai/deps/LLamaFactory_4fa8e1ee_20260507.tar.gz -C code/LLamaFactory --strip-components=1
+rsync -a /mnt/3fs/data/ai4ai/deps/mcore_adapter/ code/mcore_adapter/
+
+pip install --break-system-packages -e code/LLamaFactory/ --no-deps
+pip install --break-system-packages peft accelerate datasets 'trl<=0.24.0,>=0.18.0'
+pip install --break-system-packages /mnt/3fs/data/ai4ai/deps/flash_attn-2.8.3-cp312-cp312-linux_x86_64.whl
+pip install --break-system-packages -e code/mcore_adapter/ --no-deps
+python3 -c "import flash_attn, mcore_adapter; print('gpu deps ok')"
+llamafactory-cli version
+
+DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl \
+BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6 \
+OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground \
+LLAMAFACTORY_DIR=/root/workspace/coding_agent_playground/code/LLamaFactory \
+RUN_ID=milestone1_qwen3_8b_sft_cleanbase_smoke_$(date -u +%Y%m%dT%H%M%SZ) \
+DRY_RUN=0 \
+bash scripts/train_qwen3_8b_sft.sh
+```
+
+For multi-node smoke, do not run the single-node command directly. First verify current milestone `nodes.json`, propagate identical workspace paths/dependencies to every worker, and use `nodes.json` for `MASTER_ADDR`, `NNODES`, `NODE_RANK`, and worker SSH ports.
+
+### Expected Output / Checkpoint / Manifest Paths
+
+For a real run with:
+
+```text
+RUN_ID=milestone1_qwen3_8b_sft_cleanbase_smoke_<UTC timestamp>
+```
+
+verify:
+
+```text
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/<RUN_ID>/run_manifest.json
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/<RUN_ID>/config/qwen3_8b_sft.yaml
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/<RUN_ID>/logs/
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/<RUN_ID>/
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/<RUN_ID>/trainer_state.json
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/<RUN_ID>/checkpoint-*/
+```
+
+Manifest fields to verify:
+
+```text
+base_model == /mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
+data.train_path == /root/workspace/cleaned_m1_sft_10/train.jsonl
+data.train_sha256 == 5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054
+trainer.backend == LLamaFactory
+trainer.uses_mca == true
+artifacts.output_dir starts with /mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/
+```
+
+### Current Blockers Requiring PM/Supervisor/Compute
+
+- GPU/current `nodes.json` remains the only hard launch blocker after PM accepted dev_1's clean-base candidate.
+- Corrected final workspace entry host has no visible GPU; a GPU SSH endpoint or current Milestone 1 `nodes.json` is required.
+- Historical `nodes.json` must not be reused unless PM/supervisor explicitly approves.
+- Warm-start fallback remains disallowed by default and requires explicit PM/supervisor approval.
+
+## 2026-05-20 Session 10 PR #11 Conflict Resolution
+
+### PM Gate Input
+
+- PM reported PR #11 was `CONFLICTING` and not ready to self-merge.
+- Required owner action: merge/rebase current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push PR #11 again, and record durable conflict files/resolution.
+- No SFT launch was authorized or attempted.
+
+### Merge / Conflict Details
+
+Command run:
+
+```bash
+git fetch origin --prune
+git merge origin/main
+```
+
+Conflict file:
+
+```text
+workspace/tasks/milestone1_qwen3_8b_loop/history_log.md
+```
+
+Resolution:
+
+- Preserved dev_4 Session 9 completion record for the no-launch clean-base SFT smoke package.
+- Preserved PM/test_1/test_2 post-PR10 gate records from `origin/main`, including:
+  - PR #10 merge evidence;
+  - `test_1_sft_eval_completion_gate.md` landing/gate;
+  - `test_2_eval_validation.md` acceptance/provenance gate;
+  - PM audit that PR #11 was conflicting before this resolution.
+- Added a Session 10 conflict-resolution record to `history_log.md`.
+- After push, GitHub PR #11 recheck returned `mergeable=MERGEABLE`, `state=OPEN`.
+
+### Current Launch Package State
+
+The no-launch SFT smoke package remains current and uses:
+
+```text
+BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
+DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl
+OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground
+```
+
+Exact next command remains the Session 9 command package above. Real launch remains blocked on GPU endpoint/current Milestone 1 `nodes.json`.
