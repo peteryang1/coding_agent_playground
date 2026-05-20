@@ -57,9 +57,12 @@
 - Session 7 notification-channel change applied: PM -> dev/test task/correction messages now default to tmux injection plus Enter and `capture-pane` verification. `peer_send` is not the primary channel; interrupts are reserved for supervisor-explicit urgent cases or active resource-waste/error-continuation cases.
 - Session 7 continuation gate: PM inspected dev_4/test_2 durable evidence and judged SFT/eval smoke still incomplete. Dev_4 must produce the base/checkpoint/GPU decision package; test_2 must produce the checkpoint/endpoint eval gate package. Both assignments were delivered by non-interrupt tmux inject and verified with `capture-pane`.
 - Session 7 continuation parallelization: dev_4/test_2 have not yet produced new decision/gate packages. PM assigned dev_1 to collect clean-base candidate evidence, dev_2 to collect GPU/current `nodes.json` evidence, and test_1 to define the SFT+mini-swe completion gate. All were delivered by non-interrupt tmux inject and verified with `capture-pane`.
+- Latest PM gate check: support evidence files from dev_1/dev_2/test_1 are not present yet, and dev_4/test_2 evidence still lacks the requested decision/gate package. Real SFT smoke and mini-swe eval smoke remain unproven.
+- Session 8 PR gate correction applied: PR #1 is open/non-draft/mergeable and passes PM gate for its scoped SFT pipeline artifacts; PM notified dev_4 by non-interrupt tmux inject to self-merge. PR #2 was not gate-ready at initial audit because mergeability was `UNKNOWN` and PM durable updates were still local.
 
 ## Next PM Checks
 
 - Gate dev_4's durable SFT/GPU/model-path decision package and decide whether clean-base repair/location is available or explicit warm-start fallback should be escalated.
 - Gate test_2's durable mini-swe-agent smoke gate package, then require real smoke evidence after dev_4 provides a usable model/checkpoint path or endpoint.
 - Gate dev_1/dev_2/test_1 support evidence to decide whether PM can accept a warm-start fallback, needs compute-manager routing, or must escalate to supervisor for base/GPU decision.
+- Recheck PR #1 merge result from dev_4 durable status/evidence and re-audit PR #2 mergeability after current PM updates are pushed.

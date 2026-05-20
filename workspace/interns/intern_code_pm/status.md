@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | #2 |
-| Session | 7 |
+| Session | 8 |
 
 ## Recent Progress
 
@@ -26,3 +26,5 @@
 - 2026-05-20 Session 7: applied supervisor notification-channel change: PM -> dev/test task/correction messages now default to tmux inject plus Enter and capture-pane verification; peer_send is no longer the primary channel, and interrupts are reserved for explicit urgent or resource-waste/error-continuation cases.
 - 2026-05-20 Session 7 continuation: gated current dev_4/test_2 evidence and confirmed SFT/eval smoke is not complete; assigned dev_4 to produce the clean-base/warm-start/GPU decision package and test_2 to produce the endpoint/checkpoint eval gate package via non-interrupt tmux inject with capture-pane verification.
 - 2026-05-20 Session 7 continuation: found no new dev_4/test_2 decision package yet, so split parallel support tasks to dev_1 for clean-base path evidence, dev_2 for GPU/current `nodes.json` evidence, and test_1 for SFT+mini-swe completion gate; all delivered by non-interrupt tmux inject and verified with `capture-pane`.
+- 2026-05-20 Session 7 continuation: rechecked durable evidence after parallel support assignment; no new dev_1/dev_2/test_1 support files and no new dev_4/test_2 decision package are present yet, so SFT/eval smoke remains unproven and the goal stays active.
+- 2026-05-20 Session 8: applied supervisor PR gate correction, audited PR #1/#2, notified dev_4 via non-interrupt tmux inject that PR #1 is gate-passed and should be self-merged, and recorded PR #2 as not gate-ready until current PM durable changes are pushed and mergeability is rechecked.

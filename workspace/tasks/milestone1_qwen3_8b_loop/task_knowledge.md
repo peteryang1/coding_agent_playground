@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=7 -->
+<!-- METADATA:SESSION=8 -->
 
 ## Knowledge Entries
 
@@ -40,3 +40,6 @@
 34. Gate decision: Milestone 1 is not complete until there is durable evidence of real SFT smoke output or an explicit accepted fallback plus mini-swe-agent smoke output/metrics; current dry-run manifest and readiness metrics alone are insufficient.
 35. PM decision: do not silently treat historical Qwen3-8B checkpoints as clean base; dev_4 must document whether clean base can be repaired/located or recommend a warm-start fallback for explicit PM/supervisor acceptance.
 36. Coordination fact: while waiting for dev_4/test_2 primary decision packages, PM assigned dev_1/dev_2/test_1 parallel support evidence for clean-base candidates, GPU/current `nodes.json`, and SFT+mini-swe completion gates by non-interrupt tmux injection.
+37. Gate fact: absence of the new support evidence files means PM cannot yet decide clean-base vs warm-start or GPU routing; keep the goal active and continue collecting durable evidence.
+38. PR gate rule: ready and mergeable PRs that pass PM gate should be merged by their owner without waiting for the whole milestone to complete; PM gates readiness and uses tmux inject to notify the owner to self-merge.
+39. PR audit fact: PR #1 is open, non-draft, mergeable, scoped to Qwen3-8B SFT pipeline artifacts, and passes PM gate for self-merge by dev_4; PR #2 was mergeability `UNKNOWN` with local PM durable changes pending at the initial Session 8 audit.

@@ -2,6 +2,7 @@
 
 ## Active
 
+- PR #2 gate: initial Session 8 audit found mergeability `UNKNOWN` while current PM durable updates were local. Push current updates and recheck before deciding whether PM-owned PR #2 can self-merge.
 - GPU/SFT workflow: Qwen3-8B SFT GPU allocation and exact training launcher need confirmation from axrd records or compute manager.
 - mini-swe-agent evaluation environment is not installed on the corrected final workspace machine. PM checks found `singularity` present, but `mini`, `mini-extra`, Docker, Apptainer, and `sb-cli` absent, so evaluation is blocked until an install/backend path is provided.
 - Qwen3-8B SFT base/checkpoint path and GPU allocation are not yet validated. Dev_4 is deriving the training plan from axrd records.
@@ -10,6 +11,7 @@
 - PM execution boundary: PM must not personally run additional code/experiments or remote workspace commands for this milestone. This is not a technical blocker, but it means dev_4/test_2 must provide the next SFT/eval execution evidence and PM will gate their durable outputs.
 - PM gate: current dry-run manifest and eval readiness metrics do not prove loop completion; dev_4 must provide a base/checkpoint/GPU decision package, and test_2 must provide checkpoint/endpoint eval gate evidence before real smoke can proceed.
 - Evidence gap: dev_4/test_2 decision packages are still pending; dev_1/dev_2/test_1 now own parallel support evidence for base-path candidates, GPU/current `nodes.json`, and completion gate criteria.
+- Evidence pending: the new dev_1/dev_2/test_1 support files are not present yet, so PM cannot make the clean-base/GPU/warm-start decision from durable evidence in this check.
 
 ## Watch Items
 

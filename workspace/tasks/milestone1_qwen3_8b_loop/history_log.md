@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=7 -->
+<!-- METADATA:SESSION=8 -->
 
 ## Session 1 - 2026-05-20
 
@@ -121,8 +121,25 @@
   - `intern_code_dev_2`: current GPU allocation/`nodes.json`/compute workflow support evidence.
   - `intern_code_test_1`: SFT+mini-swe completion audit gate.
 - `tmux capture-pane` verified dev_1/dev_2/test_1 messages were submitted; PM did not use `/esc` or `C-c`.
+- PM rechecked the durable evidence directory after the parallel support assignment. The requested support files `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md` are not present yet, and dev_4/test_2 evidence still has no new decision/gate package.
+- PM kept the active goal open: current evidence still proves rollout/data/dry-run/readiness only, not real SFT smoke or mini-swe eval smoke.
 
 ## Active Next Steps
 
 - Gate dev_4's durable decision package for valid Qwen3-8B base/checkpoint path and allocated GPU node or current milestone `nodes.json`.
 - Gate test_2's mini-swe-agent smoke evidence after dev_4 provides an SFT smoke model/checkpoint path or endpoint.
+- Gate dev_1/dev_2/test_1 support evidence when those files appear, then decide whether to escalate clean base/GPU allocation or accept an explicit warm-start smoke fallback.
+
+## Session 8 - 2026-05-20
+
+- Applied supervisor PR gate correction: a PR that is ready/mergeable and passes PM gate should not wait for whole-milestone completion; PM gates readiness and notifies the PR owner to self-merge.
+- Audited PR #1 `https://github.com/peteryang1/coding_agent_playground/pull/1`:
+  - state `OPEN`, non-draft, mergeable `MERGEABLE`;
+  - head `intern_code_dev_4/milestone1_qwen3_8b_loop`, base `main`;
+  - scope is Qwen3-8B SFT pipeline artifacts and dev_4 status;
+  - PM gate pass for scoped SFT pipeline artifact merge, independent of unresolved real SFT/eval smoke blockers.
+- PM notified `intern_code_dev_4` by non-interrupt tmux inject to self-merge PR #1 via playbook and update durable status/evidence with the merge result; `capture-pane` verified the message was submitted.
+- Audited PR #2 `https://github.com/peteryang1/coding_agent_playground/pull/2`:
+  - state `OPEN`, non-draft, mergeable `UNKNOWN` at initial audit;
+  - PM branch had current uncommitted durable rule/status updates, so PR #2 was not gate-ready at that point.
+  - blocker for PR #2: push current PM durable updates and recheck mergeability before any self-merge decision.

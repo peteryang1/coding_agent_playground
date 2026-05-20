@@ -1,6 +1,6 @@
 # intern_code_pm - 个人知识库
 
-<!-- METADATA:SESSION=7 -->
+<!-- METADATA:SESSION=8 -->
 
 ---
 
@@ -29,3 +29,11 @@
 - PM should avoid interrupts by default: do not use `C-c`, `/esc`, or other interruption unless the supervisor explicitly asks for urgent interruption, or the target's current behavior would keep wasting resources or continue an incorrect execution.
 - After tmux injection, PM must use `tmux capture-pane` to verify that the message was submitted and is not merely sitting in the input line.
 - Routine dev/test status and evidence still go to durable files; this change is about PM's outbound task/correction delivery mechanism.
+
+### 2026-05-20 - PR gate and owner self-merge correction
+
+- A PR that is ready, mergeable, and passes PM gate should not wait for the full milestone to complete before merge.
+- PM's responsibility is to gate PR readiness, record whether the PR is mergeable, and identify concrete blockers if it is not ready.
+- When a PR passes gate, PM should notify the corresponding PR owner via tmux inject to follow the playbook and self-merge.
+- PM should not merge another owner's PR. The PR owner performs the merge and records the result in durable status/evidence.
+- If PM owns a PR, PM must still audit readiness and only self-merge when the PR is ready/mergeable and the merge does not falsely mark the milestone complete.

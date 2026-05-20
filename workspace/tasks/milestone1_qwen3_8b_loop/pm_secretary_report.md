@@ -206,3 +206,34 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
   - dev_2: GPU allocation/current `nodes.json`/compute workflow support evidence in `evidence/dev_2_gpu_nodes_support.md`.
   - test_1: SFT+mini-swe completion audit gate in `evidence/test_1_sft_eval_completion_gate.md`.
 - PM did not use `/esc`, `C-c`, peer_send, remote workspace commands, SFT, or eval commands for this update.
+
+## 2026-05-20 Session 7 Evidence Pending Check
+
+- PM rechecked durable evidence after the parallel support assignment.
+- Missing as of this check:
+  - `evidence/dev_1_sft_base_path_support.md`
+  - `evidence/dev_2_gpu_nodes_support.md`
+  - `evidence/test_1_sft_eval_completion_gate.md`
+  - updated dev_4 SFT unblock decision package
+  - updated test_2 eval gate package
+- PM decision: do not mark complete or blocked. Existing evidence still covers 10/10 rollout, 10/10 cleaning, SFT dry-run manifest, and eval readiness, but not real SFT smoke or real mini-swe eval smoke.
+
+## 2026-05-20 Session 8 PR Gate Audit
+
+- Supervisor correction applied: PM should not hold ready/mergeable PRs until the whole milestone completes.
+- PR #1 audit:
+  - URL: `https://github.com/peteryang1/coding_agent_playground/pull/1`
+  - state: `OPEN`
+  - draft: `false`
+  - mergeable: `MERGEABLE`
+  - owner: `intern_code_dev_4`
+  - PM gate: pass for scoped Qwen3-8B SFT pipeline artifacts.
+  - PM action: notified dev_4 by non-interrupt tmux inject to self-merge via playbook and write durable merge result.
+- PR #2 audit:
+  - URL: `https://github.com/peteryang1/coding_agent_playground/pull/2`
+  - state: `OPEN`
+  - draft: `false`
+  - mergeable: `UNKNOWN` at initial audit.
+  - owner: `intern_code_pm`
+  - blocker: current PM durable corrections were local and not pushed during initial audit; PR #2 must be pushed and mergeability rechecked before a self-merge decision.
+- PM did not merge any PR in this step and did not run code/tests/remote experiments.
