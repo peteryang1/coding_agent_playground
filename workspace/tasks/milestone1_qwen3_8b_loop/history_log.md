@@ -299,6 +299,26 @@
   - PM gate: these candidates are not approved for Milestone 1, show high GPU memory use, and lack local SFT paths, so they cannot be used without compute/PM approval and staging.
 - PM decision: real SFT remains blocked on approved current GPU route. No SFT/eval execution is authorized by PM yet.
 
+## 2026-05-20 Session 8 Approved GPU Route And SFT Dispatch
+
+- PR #15 merged at `2026-05-20T09:19:31Z` with merge commit `21c59cd013e6d8c1a736483cc91864b11325f417`.
+- Compute manager wrote:
+  - `evidence/compute_gpu_route_decision.md`
+  - `evidence/compute_gpu_route_nodes.json`
+- Approved fresh single-node H200 SFT smoke route:
+  - `ssh -p 39314 root@10.100.20.37`
+  - LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`
+  - node `lg-cmc-b7r202-o09u26-h200-000667`
+  - 8 x NVIDIA H200, empty compute process list at verification
+  - CephFS mounted and output root writable
+  - `/root/workspace/coding_agent_playground` and `/root/workspace/cleaned_m1_sft_10/train.jsonl` staged
+- PM decision: route is approved for short Qwen3-8B SFT smoke only.
+- PM notified dev_4 by tmux inject:
+  - PR #14 became `CONFLICTING` after PR #15 and must be resolved/preserved first.
+  - After PR #14 is mergeable/self-merged, dev_4 should run the short SFT smoke using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, `DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl`, `OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`, and `DRY_RUN=0`.
+  - Results must be written to `evidence/dev_4_sft_smoke_run.md`.
+- PM did not run SFT and did not run mini-swe.
+
 ## Session 10 - Dev 4 PR #11 Conflict Resolution - 2026-05-20
 
 - Dev_4 handled PM gate notice that PR #11 was `CONFLICTING`.
