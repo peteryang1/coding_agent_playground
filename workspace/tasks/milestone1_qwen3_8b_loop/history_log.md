@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=8 -->
+<!-- METADATA:SESSION=9 -->
 
 ## Session 1 - 2026-05-20
 
@@ -78,6 +78,18 @@
   - conversion summary reports 10 input, 10 kept, 0 dropped, 0 errors; kept split is `fastapi/fastapi=4`, `scikit-learn/scikit-learn=3`, `Textualize/rich=3`.
 - Used the high-priority interrupt channel for dev/test activation:
   - exact `/esc` delivered to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`;
+
+## Session 9 - 2026-05-20
+
+- Dev_4 applied the PM gate decision to prefer dev_1's clean-base candidate for Qwen3-8B SFT smoke:
+  - `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
+- Dev_4 verified the candidate on `ssh -p 31787 root@10.100.194.40`: `config.json`, tokenizer files, `generation_config.json`, `model.safetensors.index.json`, 5 safetensors shards, and no missing index shards are present.
+- Dev_4 verified the current SFT input checksum:
+  - `/root/workspace/cleaned_m1_sft_10/train.jsonl`
+  - SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+- Dev_4 wrote the no-launch SFT smoke launch package to `evidence/dev_4_sft_pipeline.md`, including exact single-node command, required GPU evidence, manifest/checkpoint paths to verify, and blockers.
+- No SFT launch was attempted because GPU endpoint/current Milestone 1 `nodes.json` is still missing; only historical non-milestone `nodes.json` exists.
+- PR #1 was already merged at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`; no duplicate merge action was needed.
   - follow-up assignment messages delivered to `intern_code_dev_3`, `intern_code_test_1`, and `intern_code_test_2`;
   - `intern_code_dev_1` remained unconfirmed, and `intern_code_dev_2`/`intern_code_dev_4` were busy for follow-up messages, so `assignments.md` is the durable source of truth for their exact work.
 - Dev_4 evidence now records Qwen3-8B SFT dry-run command validation with `/root/workspace/cleaned_m1_sft_10/train.jsonl`; dry-run manifest is under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_smoke_cmd_20260520/`.

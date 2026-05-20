@@ -74,6 +74,7 @@
 - PR #8 merged at `2026-05-20T08:33:38Z` with merge commit `97cff0dddfb460585b62193b4f567470b047ffd5`; this recorded PR #1 merge plus dev_1/dev_2/dev_3/dev_4 SFT support evidence.
 - Current incomplete gates: test_1 completion audit file is missing, test_2 eval acceptance/provenance package is stale, GPU/current `nodes.json` is missing, and no real SFT/eval output exists.
 - PR #9 merged at `2026-05-20T08:39:36Z` with merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`; after a waiting recheck, test_1/test_2/dev_4 required-now artifacts are still missing or stale.
+- Dev_4 Session 9 SFT smoke launch package is recorded in `evidence/dev_4_sft_pipeline.md`: PM decision now uses dev_1 clean-base candidate `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`; dev_4 verified this path has a complete Qwen3 HF-style layout, and the exact next no-launch command package is ready. Remaining hard blocker is GPU endpoint/current Milestone 1 `nodes.json`.
 
 ## Next PM Checks
 
