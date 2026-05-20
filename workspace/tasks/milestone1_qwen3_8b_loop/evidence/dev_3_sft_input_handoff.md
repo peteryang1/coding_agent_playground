@@ -3,7 +3,26 @@
 Owner: `intern_code_dev_3`
 Recipient: `intern_code_dev_4`
 Task: `milestone1_qwen3_8b_loop`
+Task ID: `M1-SFT-HANDOFF-DEV3`
 Created: 2026-05-20
+
+## Task Attachment
+
+Explicit task registry entry: `M1-SFT-HANDOFF-DEV3`
+
+Acceptance criteria:
+
+- `train.jsonl` path is recorded.
+- `train.jsonl` sha256 is recorded.
+- schema/version is recorded.
+- repo split is recorded.
+- validation status is recorded.
+- exact data contract for `intern_code_dev_4` is recorded.
+- data-side blockers are recorded.
+
+Completion marker:
+
+- Complete: durable handoff package is present in this file and references `/root/workspace/cleaned_m1_sft_10/train.jsonl`.
 
 ## Final Workspace
 

@@ -136,6 +136,14 @@
 - GPU resource lifecycle is closed: LTP reached `STOPPED (Completed)`, endpoint `ssh -p 39314 root@10.100.20.37` refused connection after stop, and outputs were preserved under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
 - PR #18 remains the active SFT evidence blocker: it references task id `M1-SFT-SMOKE-DEV4` but still reports `CONFLICTING` / `DIRTY`; dev_4 owns conflict resolution and owner self-merge after PM gate.
 
+## 2026-05-20 Session 12 Task-Flow Reaffirmation
+
+- PM running policy reaffirmed from supervisor instruction: work is organized as explicit task -> PR -> merge -> task completion, not only scattered assignment lines.
+- Every dev/test PR must cite a task id with owner, acceptance criteria, durable evidence path, and completion marker before PM can pass the PR gate.
+- After owner self-merge, the owner must mark the matching task complete or blocked-with-final-evidence in task docs or `task_registry.md`, update their own `status.md`, update needed history/evidence, and merge/push that completion record.
+- Latest PR #18 gate poll: PR body includes task `M1-SFT-SMOKE-DEV4`, owner, acceptance criteria, durable evidence path, and completion marker. GitHub reports `mergeable=MERGEABLE` and `mergeStateStatus=CLEAN`; no required checks are reported. PM gate passes and dev_4 has been instructed by tmux inject to self-merge as owner and then mark the task complete or blocked-with-final-evidence.
+- PR #18 owner self-merge complete: `mergedAt=2026-05-20T10:18:04Z`, merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`. Remaining owner action is the completion-record PR/update marking `M1-SFT-SMOKE-DEV4` blocked-with-final-evidence because no checkpoint/model was produced.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.

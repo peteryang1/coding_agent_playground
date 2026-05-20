@@ -1,6 +1,7 @@
 # Dev 1 SFT Base Path Support Evidence
 
 Owner: `intern_code_dev_1`  
+Task ID: `M1-SFT-BASEPATH-DEV1`
 Date: 2026-05-20  
 Scope: read-only support for clean Qwen3-8B base model path selection on corrected workspace host.  
 Corrected host: `ssh -p 31787 root@10.100.194.40`  
