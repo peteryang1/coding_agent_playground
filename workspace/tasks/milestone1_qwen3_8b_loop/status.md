@@ -144,6 +144,19 @@
 - Latest PR #18 gate poll: PR body includes task `M1-SFT-SMOKE-DEV4`, owner, acceptance criteria, durable evidence path, and completion marker. GitHub reports `mergeable=MERGEABLE` and `mergeStateStatus=CLEAN`; no required checks are reported. PM gate passes and dev_4 has been instructed by tmux inject to self-merge as owner and then mark the task complete or blocked-with-final-evidence.
 - PR #18 owner self-merge complete: `mergedAt=2026-05-20T10:18:04Z`, merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`. Remaining owner action is the completion-record PR/update marking `M1-SFT-SMOKE-DEV4` blocked-with-final-evidence because no checkpoint/model was produced.
 
+## 2026-05-20 Session 19 Next Blocker Tasks
+
+- Current gate state: PR #18 and PR #23 are merged; `M1-SFT-SMOKE-DEV4` is blocked-with-final-evidence. The failed SFT smoke produced no checkpoint/model, so mini-swe cannot run yet.
+- PM decision: no GPU retry is authorized until owners land a concrete config/data/resource/test package.
+- New explicit tasks:
+  - `M1-SFT-CONFIG-FIX-DEV4`: dev_4 owns config fix/retry package.
+  - `M1-SFT-DATA-MITIGATION-DEV3`: dev_3 owns data-side mitigation/rejection.
+  - `M1-GPU-RETRY-RESOURCE-DEV2`: dev_2 owns fresh LTP resource plan, without starting a job before PM gate.
+  - `M1-SFT-RETRY-GATE-TEST1`: test_1 owns retry acceptance gate.
+  - `M1-EVAL-BLOCKED-TEST2`: test_2 owns explicit eval blocked evidence until checkpoint/endpoint exists.
+  - `M1-SFT-FAILURE-REVIEW-DEV1`: dev_1 owns independent failure evidence review.
+- PM delivered each assignment by tmux inject and verified the submitted text with `capture-pane`; no routine peer-send reply was requested.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.

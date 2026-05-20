@@ -497,3 +497,17 @@
   - merge commit: `1c3a3e23921dd3fc91b340f9b67f83c747d42948`
 - Completion record: task `M1-SFT-SMOKE-DEV4` marked blocked-with-final-evidence because the approved SFT smoke reached real launch/failure evidence but produced no checkpoint/model, `trainer_state.json`, or `all_results.json`.
 - No peer-send PM routine confirmation was used.
+
+## 2026-05-20 Session 19 Next Blocker Task Split
+
+- PM audited current state after PR #18/#23/#24 merged: no open PRs, GPU released, SFT smoke blocked-with-final-evidence, and mini-swe blocked by absent checkpoint/endpoint.
+- PM decision: do not authorize another GPU run from the failed DP=8 and TP=8 attempts without a new task-attached config/data/test/resource package.
+- Created next explicit tasks in `task_registry.md`:
+  - `M1-SFT-CONFIG-FIX-DEV4`;
+  - `M1-SFT-DATA-MITIGATION-DEV3`;
+  - `M1-GPU-RETRY-RESOURCE-DEV2`;
+  - `M1-SFT-RETRY-GATE-TEST1`;
+  - `M1-EVAL-BLOCKED-TEST2`;
+  - `M1-SFT-FAILURE-REVIEW-DEV1`.
+- PM delivered these task assignments by tmux inject to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`; `capture-pane` verified each pane showed the submitted task text.
+- PM remains within role boundary: task assignment, gate, durable evidence collection, and decisions only.
