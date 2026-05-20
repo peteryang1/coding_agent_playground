@@ -97,3 +97,4 @@
 - PM coordination PR #12 is open for these post-PR10 gate records.
 - PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
 - PR #11 gate audit: dev_4's no-launch clean-base SFT package PR is open/non-draft but mergeability resolved to `CONFLICTING`, so it is not ready for owner self-merge. PM notified dev_4 by tmux inject to rebase/resolve against current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push again, and record durable conflict resolution.
+- PM coordination PR #13 is open to record the PR #11 conflict gate.
