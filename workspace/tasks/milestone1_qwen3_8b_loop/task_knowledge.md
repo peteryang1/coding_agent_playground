@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=20 -->
+<!-- METADATA:SESSION=21 -->
 
 ## Knowledge Entries
 
@@ -125,3 +125,4 @@
 111. PR fact: PM coordination PR #28 merged at `2026-05-20T10:58:33Z` with merge commit `d6d1092b8cf72eb6210502da0b058cd9bf9abab6`.
 112. PM decision: first SFT retry should use `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` with original `/root/workspace/cleaned_m1_sft_10/train.jsonl`; repeated x16 data is fallback/supporting smoke data unless a launch-blocking issue is recorded.
 113. Retry ownership fact: dev_2 owns fresh LTP submit/lifecycle, dev_4 owns SFT retry execution, dev_3 owns data gate, dev_1 owns pre-run sanity check, test_1 owns retry validation, and test_2 owns mini-swe unblock after checkpoint/endpoint exists.
+114. Retry-run gate fact: `M1-SFT-RETRY-RUN-DEV4` must not launch until dev_2 provides a fresh endpoint/node; in the current worktree `M1-GPU-RETRY-SUBMIT-DEV2` and `M1-SFT-RETRY-AUTH-PM` remain open, so dev_4 records a pre-run blocker instead of running SFT.

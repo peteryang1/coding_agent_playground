@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=20 -->
+<!-- METADATA:SESSION=21 -->
 
 ## Session 1 - 2026-05-20
 
@@ -552,3 +552,19 @@
 - PM decision: support evidence is durable enough to authorize the next owner-executed retry path through explicit tasks. PM will not run LTP, SFT, eval, or GPU stop commands.
 - New task split: dev_2 fresh LTP submit/lifecycle, dev_4 one SFT retry after endpoint exists, dev_3 data gate, dev_1 pre-run package sanity check, test_1 retry validation, and test_2 mini-swe unblock readiness.
 - First retry defaults: config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`; data `/root/workspace/cleaned_m1_sft_10/train.jsonl`; repeated x16 data remains fallback/supporting evidence only.
+
+## Session 21 - Dev 4 SFT Retry Run Assignment Receipt - 2026-05-20
+
+- Task accepted: `M1-SFT-RETRY-RUN-DEV4`.
+- Owner: `intern_code_dev_4`.
+- Scope: run exactly one Qwen3-8B SFT retry only after dev_2 provides a fresh endpoint/node.
+- Durable evidence created:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`
+- Current status: blocked before execution.
+- Blockers:
+  - no `evidence/dev_2_gpu_retry_submit.md` exists in this worktree;
+  - `M1-GPU-RETRY-SUBMIT-DEV2` remains open;
+  - `M1-SFT-RETRY-AUTH-PM` remains open;
+  - prior endpoint `ssh -p 39314 root@10.100.20.37` is released and must not be reused.
+- Planned retry command uses `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` and PM-approved original data `/root/workspace/cleaned_m1_sft_10/train.jsonl`.
+- No GPU run was attempted and no peer-send PM routine status was used.
