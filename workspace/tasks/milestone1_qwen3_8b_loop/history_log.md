@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=18 -->
+<!-- METADATA:SESSION=19 -->
 
 ## Session 1 - 2026-05-20
 
@@ -497,6 +497,21 @@
   - merge commit: `1c3a3e23921dd3fc91b340f9b67f83c747d42948`
 - Completion record: task `M1-SFT-SMOKE-DEV4` marked blocked-with-final-evidence because the approved SFT smoke reached real launch/failure evidence but produced no checkpoint/model, `trainer_state.json`, or `all_results.json`.
 - No peer-send PM routine confirmation was used.
+
+## Session 19 - Dev 4 SFT Config Fix Package - 2026-05-20
+
+- Task accepted: `M1-SFT-CONFIG-FIX-DEV4`.
+- Owner: `intern_code_dev_4`.
+- Scope: produce the next SFT unblock package after `M1-SFT-SMOKE-DEV4` blocked-with-final-evidence; no GPU run authorized.
+- Evidence created:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md`
+- Config patch created:
+  - `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`
+- Plan summary:
+  - use TP=8 / DP=1 to avoid MCA/drop-last zero-step behavior on 10 examples;
+  - use `max_steps: 2` plus `warmup_steps: 0` to avoid the Megatron one-step scheduler assertion;
+  - use `save_steps: 1` so a successful smoke can produce immediate checkpoint/model evidence.
+- No GPU run was attempted. Fresh execution requires PM gate plus test/resource plans.
 
 ## 2026-05-20 Session 19 Next Blocker Task Split
 
