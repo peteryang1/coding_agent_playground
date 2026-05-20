@@ -176,6 +176,16 @@
 - Owner split created in `task_registry.md`: dev_2 submits/tracks fresh LTP resource; dev_4 runs one retry after endpoint exists; dev_3 gates data; dev_1 pregates package consistency; test_1 validates retry; test_2 prepares mini-swe unblock and remains blocked until checkpoint/endpoint exists.
 - PM boundary remains active: PM does not submit LTP, run SFT, run eval, or stop GPU jobs directly.
 
+## 2026-05-20 Session 12 Retry Resource Handoff
+
+- Dev_3 completed `M1-SFT-RETRY-DATA-GATE-DEV3`: first retry data is `/root/workspace/cleaned_m1_sft_10/train.jsonl`, sha256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`; repeated x16 remains fallback only.
+- Dev_1 completed pregate review. Its only launch blocker was missing dev_3 retry data gate; PM treats that blocker as resolved because dev_3 has now written the data gate.
+- Test_1 completed pre-run validation: config/data/base/resource plan pass, post-run validation remains pending, and mini-swe remains blocked until checkpoint/model exists.
+- Test_2 completed eval unblock preparation and records current status as `BLOCKED` until dev_4 provides an accepted checkpoint/model or served endpoint.
+- Dev_2 started fresh LTP retry resource `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`; endpoint `ssh -p 23121 root@10.100.22.53`, node `lg-cmc-b7r202-r05u16-h200-000747`, started `2026-05-20 11:06:20`, hard review `2026-05-20T12:06:20Z`.
+- Dev_2 evidence says 8 x H200 are idle, repo/data/nodes are staged, and stop proof is pending while the resource is active for dev_4.
+- PM injected the endpoint handoff to dev_4 by tmux. Dev_4 still owns the one retry and must write `evidence/dev_4_sft_retry_run.md`; PM will not execute it.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.

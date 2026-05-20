@@ -445,6 +445,34 @@
   - merge commit: `36ee08ae3ad98f7a94b7c5c7155938479333bd37`
 - dev_2 did not run SFT and did not peer-send PM routine status.
 
+## 2026-05-20 Session 12 Dev 2 GPU Retry Submit
+
+- Task id: `M1-GPU-RETRY-SUBMIT-DEV2`.
+- Owner: `intern_code_dev_2`.
+- PM assignment: submit or explicitly block a fresh LTP H200 job for SFT retry using the merged resource plan; do not run SFT.
+- dev_2 action:
+  - confirmed previous Milestone 1 frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` remained `STOPPED / Completed` with completed timestamp `2026-05-20 09:53:21`;
+  - submitted fresh single-node `h200agentic` LTP worker `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`;
+  - first JSON submit attempt for `...T110520Z` failed with LTP API `HTTP 400 InvalidProtocolError` and created no job;
+  - successful YAML submit returned status `202`;
+  - LTP state became `RUNNING / AttemptRunning`, submitted `2026-05-20 11:06:15`, started `2026-05-20 11:06:20`;
+  - endpoint: `ssh -p 23121 root@10.100.22.53`;
+  - node: `lg-cmc-b7r202-r05u16-h200-000747`;
+  - verified 8 x NVIDIA H200 idle at 0% utilization and about 1 MiB used per GPU, no compute processes, `/mnt/cephfs` as `fuse.ceph-fuse`, and writable output root.
+- Staging:
+  - copied `/root/workspace/coding_agent_playground` and `/root/workspace/cleaned_m1_sft_10` from corrected final workspace to retry GPU node;
+  - wrote `/root/workspace/coding_agent_playground/nodes.json`;
+  - wrote `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_retry_nodes.json`.
+- Stop/lifecycle:
+  - expected review time: `2026-05-20T12:06:20Z` unless PM records a bounded extension;
+  - stop conditions recorded in `evidence/gpu_retry_resource_tracking.md`;
+  - final stop proof is pending while the retry resource remains active.
+- Durable evidence:
+  - `evidence/dev_2_gpu_retry_submit.md`;
+  - `evidence/gpu_retry_resource_tracking.md`;
+  - `workspace/interns/intern_code_dev_2/status.md`.
+- dev_2 did not run SFT and did not peer-send PM routine status.
+
 ## 2026-05-20 Session 12 PM Gate Sync After PR #20/#21
 
 - PM gate state: GPU lifecycle resource blocker is closed. The active 8xH200 LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` reached `STOPPED (Completed)` and the SSH endpoint refused connection after stop.
@@ -552,3 +580,11 @@
 - PM decision: support evidence is durable enough to authorize the next owner-executed retry path through explicit tasks. PM will not run LTP, SFT, eval, or GPU stop commands.
 - New task split: dev_2 fresh LTP submit/lifecycle, dev_4 one SFT retry after endpoint exists, dev_3 data gate, dev_1 pre-run package sanity check, test_1 retry validation, and test_2 mini-swe unblock readiness.
 - First retry defaults: config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`; data `/root/workspace/cleaned_m1_sft_10/train.jsonl`; repeated x16 data remains fallback/supporting evidence only.
+
+## 2026-05-20 Session 12 Retry Resource Handoff
+
+- PM collected owner durable evidence from dev_1/dev_2/dev_3/test_1/test_2 for the retry gate.
+- PM gate result: config/data/base/test/resource planning are sufficient for dev_4 to run exactly one retry after consuming dev_2's fresh endpoint evidence.
+- Active resource: `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`, endpoint `ssh -p 23121 root@10.100.22.53`, node `lg-cmc-b7r202-r05u16-h200-000747`, hard review `2026-05-20T12:06:20Z`.
+- PM notified dev_4 by tmux inject with endpoint, node, frame, staged repo/data/nodes facts, and no-extra-retry rule.
+- PR #30 is not PM-gate-ready until dev_4 corrects stale PR facts from before PR #29 and updates its evidence for the current dev_2 endpoint handoff.

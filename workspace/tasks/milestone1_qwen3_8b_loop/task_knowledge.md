@@ -125,3 +125,6 @@
 111. PR fact: PM coordination PR #28 merged at `2026-05-20T10:58:33Z` with merge commit `d6d1092b8cf72eb6210502da0b058cd9bf9abab6`.
 112. PM decision: first SFT retry should use `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` with original `/root/workspace/cleaned_m1_sft_10/train.jsonl`; repeated x16 data is fallback/supporting smoke data unless a launch-blocking issue is recorded.
 113. Retry ownership fact: dev_2 owns fresh LTP submit/lifecycle, dev_4 owns SFT retry execution, dev_3 owns data gate, dev_1 owns pre-run sanity check, test_1 owns retry validation, and test_2 owns mini-swe unblock after checkpoint/endpoint exists.
+114. PR fact: PM coordination PR #29 merged at `2026-05-20T11:02:32Z` with merge commit `c14fa045b210a74fc243f2d2690a2523cc7ec2db`; `M1-SFT-RETRY-AUTH-PM` is complete.
+115. Resource fact: fresh retry LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z` is running at `ssh -p 23121 root@10.100.22.53` on node `lg-cmc-b7r202-r05u16-h200-000747`; hard review is `2026-05-20T12:06:20Z`.
+116. Current gate fact: dev_4 PR #30 is open and mergeable but not PM-gate-ready while it contains stale authorization facts; dev_4 has been notified to update PR #30 and then run exactly one retry using the fresh endpoint evidence.
