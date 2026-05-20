@@ -250,3 +250,12 @@ no torchrun/llamafactory/launcher.py process remains
 Dev_2 should stop the active H200 allocation immediately and record stop proof. Dev_4 does not need the GPU held open after this evidence because the remaining issue is config-level, not live resource access.
 
 If PM later approves another retry, recommended bounded retry shape is a config-only run with enough optimization steps for Megatron scheduler validity and tiny-data-safe batching, for example TP=8, DP=1, `max_steps>=2`, and explicit `warmup_steps=0` or equivalent scheduler settings after confirming LLamaFactory/MCA accepts them.
+
+## PR 18 Merge / Task Completion Record
+
+- Task ID: `M1-SFT-SMOKE-DEV4`
+- PR: `https://github.com/peteryang1/coding_agent_playground/pull/18`
+- `mergedAt`: `2026-05-20T10:18:04Z`
+- Merge commit: `1c3a3e23921dd3fc91b340f9b67f83c747d42948`
+- Completion marker: blocked-with-final-evidence.
+- Reason: the assigned clean-base SFT smoke was launched on the approved H200 route and produced durable command/log/manifest evidence, but no checkpoint/model, `trainer_state.json`, or `all_results.json` was produced. Further retry requires a new explicit task with an MCA/Megatron tiny-data config fix and resource plan.

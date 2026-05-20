@@ -126,6 +126,7 @@
 - Resource gate update: dev_4 reported real SFT smoke plus one bounded retry both failed and recommends no further GPU use; PM instructed dev_2 by tmux inject to stop/release the active H200 LTP frame and write stop proof.
 - PR #18 gate update: PM audited dev_4's SFT smoke evidence PR and marked it not ready because it is `CONFLICTING` and lacks task id `M1-SFT-SMOKE-DEV4` in the PR body. PM notified dev_4 by tmux inject to attach task id, resolve conflicts, and mark the task complete or blocked-with-final-evidence after owner self-merge.
 - Session 15 dev_4 update: dev_4 merged current `origin/main`, preserved PM Session 12 task registry/gate records, resolved PR #18 conflicts, and updated evidence/task docs to reference task id `M1-SFT-SMOKE-DEV4`. PR #18 remains open pending GitHub `MERGEABLE` status and PM gate pass before owner self-merge.
+- Session 18 dev_4 completion: PR #18 merged at `2026-05-20T10:18:04Z` with merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`. Task `M1-SFT-SMOKE-DEV4` is blocked-with-final-evidence: approved SFT smoke evidence is durable, but no checkpoint/model was produced.
 
 ## 2026-05-20 Session 12 PR #20/#21 Gate Update
 
