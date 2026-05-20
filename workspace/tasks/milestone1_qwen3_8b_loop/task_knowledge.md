@@ -112,3 +112,7 @@
 100. PM gate fact: PR #18 for task `M1-SFT-SMOKE-DEV4` passed PM gate after GitHub reported `MERGEABLE` / `CLEAN`; after owner self-merge, completion should be recorded as blocked-with-final-evidence because the scoped SFT smoke produced durable failure evidence and no checkpoint/model.
 101. PR fact: dev_4 self-merged PR #18 at `2026-05-20T10:18:04Z` with merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`; task `M1-SFT-SMOKE-DEV4` is blocked-with-final-evidence rather than complete because no checkpoint/model was produced.
 102. PM notification fact: PM re-notified all six dev/test panes by tmux inject to follow task -> PR -> merge -> task completion flow, using durable status/evidence rather than routine peer-send replies.
+103. Session 19 decision: no further SFT GPU retry is authorized until dev_4 lands a config-fix package, dev_3 records any data-side mitigation/rejection, test_1 defines retry acceptance, and dev_2 records a fresh LTP resource plan.
+104. Eval blocker fact: mini-swe cannot run for Milestone 1 until an SFT checkpoint/model or served endpoint exists; test_2 owns explicit blocked-after-SFT-failure evidence.
+105. PM utilization fact: all six dev/test interns have new explicit tasks tied to `task_registry.md`; routine status and completion proof remain durable-file only.
+106. Notification fact: PM delivered Session 19 next-blocker assignments by tmux inject and verified with `capture-pane`; no dev/test owner was asked to peer-send PM.

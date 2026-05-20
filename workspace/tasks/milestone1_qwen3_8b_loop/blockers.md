@@ -3,14 +3,11 @@
 ## Current Superseding Active Blockers
 
 - Task-to-PR conduct gate: every dev/test PR must map to an explicit task in `task_registry.md` or task docs with owner, acceptance criteria, evidence path, and completion marker. PM must not gate a dev/test PR as ready without that mapping.
-- PR #18 gate: dev_4's SFT smoke evidence PR is open but not ready. The PR body now references task id `M1-SFT-SMOKE-DEV4`, but GitHub still reports `CONFLICTING` / `DIRTY`. Dev_4 owns conflict resolution and post-merge task completion marking.
-- SFT real smoke failed in owner execution. Dev_4 observed two real attempts on `ssh -p 39314 root@10.100.20.37`: DP=8/drop_last caused zero training steps, and the bounded TP=8/DP=1/max_steps=1 retry failed on Megatron LR scheduler assertion. Dev_4 must land `evidence/dev_4_sft_smoke_run.md` with run ids/logs and blocker decision.
-- PR #18 gate update: PR #18 now references task id `M1-SFT-SMOKE-DEV4`, but GitHub still reports `CONFLICTING` / `DIRTY` after PR #20/#21 advanced `main`. Dev_4 owns resolving conflicts against current `origin/main`, preserving PM task registry and dev_2 stop-proof records.
-- GPU/current allocation: corrected final workspace entry host has no visible `nvidia-smi`, and no current Milestone 1 `nodes.json` exists. Real SFT smoke remains blocked until a GPU SSH endpoint/current `nodes.json` is provided, or explicit approval is given to reuse a historical allocation.
-- GPU route approval: dev_2 found two live H200 candidate endpoints, but they are not approved for Milestone 1, appear occupied/high-memory, and lack local SFT paths. Real SFT smoke remains blocked until compute approves a candidate or allocates a fresh single-node H200/current `nodes.json`.
-- SFT real launch is blocked until an approved GPU/current `nodes.json` exists. Dev_4's no-launch clean-base package is now on main via PR #11, but there is still no real `DRY_RUN=0` checkpoint/output.
-- mini-swe-agent real smoke is blocked on the SFT smoke model/checkpoint or endpoint. Test_2's current gate requires a served OpenAI-compatible model string and endpoint; a raw checkpoint path alone is not accepted until served.
-- PM gate: current dry-run manifest and eval readiness metrics do not prove loop completion. Test_1 and test_2 criteria are now present, but real SFT/eval artifacts are still absent.
+- SFT smoke task `M1-SFT-SMOKE-DEV4` is blocked-with-final-evidence: PR #18 and PR #23 are merged, approved SFT smoke ran, but no checkpoint/model, `trainer_state.json`, or `all_results.json` was produced.
+- SFT retry is not authorized yet. New required gates are `M1-SFT-CONFIG-FIX-DEV4`, `M1-SFT-DATA-MITIGATION-DEV3`, `M1-SFT-RETRY-GATE-TEST1`, and `M1-GPU-RETRY-RESOURCE-DEV2`.
+- GPU resource is currently released. Any next GPU job must be a fresh PM-gated LTP resource plan owned by dev_2 after dev_4/test_1 provide a retry package.
+- mini-swe-agent real smoke is blocked on an SFT checkpoint or served endpoint. Test_2 must record explicit blocked-after-SFT-failure evidence under `M1-EVAL-BLOCKED-TEST2`.
+- PM gate: the loop is not complete because there is no SFT checkpoint/model and no mini-swe predictions/results/metrics against that model.
 
 ## Active
 
@@ -38,6 +35,9 @@
 
 ## Resolved / Mitigated
 
+- PR #18 evidence gate: dev_4 self-merged PR #18 at `2026-05-20T10:18:04Z`, merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`.
+- PR #23 completion record: dev_4 self-merged PR #23 at `2026-05-20T10:20:28Z`, merge commit `3ccabb573aecccdb71fe8d296643e6816b3ed22e`, marking `M1-SFT-SMOKE-DEV4` blocked-with-final-evidence.
+- PM coordination PR #24 merged at `2026-05-20T10:24:30Z`, merge commit `41f025ec15e36c83c424aa43e37e36903c01d633`.
 - GPU resource lifecycle: dev_2 completed `M1-GPU-LIFECYCLE-DEV2`. PR #20 merged at `2026-05-20T10:02:28Z`, PR #21 merged at `2026-05-20T10:05:06Z`, LTP reached `STOPPED (Completed)`, endpoint `ssh -p 39314 root@10.100.20.37` refused connection after stop, and outputs were preserved.
 - PR #1 owner action: dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z`, merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
 - PR #10 coordination state: PM self-merged PR #10 at `2026-05-20T08:45:07Z`, merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
