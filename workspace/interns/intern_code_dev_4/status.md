@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop / M1-SFT-RETRY-RUN-DEV4 |
-| PR | pending |
+| PR | https://github.com/peteryang1/coding_agent_playground/pull/30 |
 | Session | 21 |
 
 ## PM Corrections
@@ -33,4 +33,4 @@
 - 2026-05-20 Session 18 completion: Self-merged PR #18 at `2026-05-20T10:18:04Z` with merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`. Task `M1-SFT-SMOKE-DEV4` is marked blocked-with-final-evidence because the approved SFT smoke ran and produced durable failure evidence with no checkpoint/model output.
 - 2026-05-20 Session 19: Accepted task `M1-SFT-CONFIG-FIX-DEV4`. Created durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md` and proposed tiny-data-safe config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`. Opened PR #26 for the package. No GPU run attempted; next execution requires PM gate plus test/resource plans.
 - 2026-05-20 Session 20: PM gate passed and dev_4 self-merged PR #26 at `2026-05-20T10:44:55Z` with merge commit `6a704f842c992f83a8d86167dfe870fa6ff72440`. Task `M1-SFT-CONFIG-FIX-DEV4` is marked ready-for-retry: config package is landed, no GPU run was performed, and future execution still requires PM authorization plus test/resource gates.
-- 2026-05-20 Session 21: Accepted task `M1-SFT-RETRY-RUN-DEV4` and recorded durable pre-run blocker/status in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`. No SFT retry was launched because dev_2 has not yet provided a fresh endpoint/node in this worktree, `M1-GPU-RETRY-SUBMIT-DEV2` remains open, and `M1-SFT-RETRY-AUTH-PM` remains open.
+- 2026-05-20 Session 21: Accepted task `M1-SFT-RETRY-RUN-DEV4` and recorded durable pre-run blocker/status in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`. Opened PR #30 for the task-attached blocker/receipt package. No SFT retry was launched because dev_2 has not yet provided a fresh endpoint/node in this worktree, `M1-GPU-RETRY-SUBMIT-DEV2` remains open, and `M1-SFT-RETRY-AUTH-PM` remains open.

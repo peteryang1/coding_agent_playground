@@ -560,6 +560,8 @@
 - Scope: run exactly one Qwen3-8B SFT retry only after dev_2 provides a fresh endpoint/node.
 - Durable evidence created:
   - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`
+- PR opened:
+  - `https://github.com/peteryang1/coding_agent_playground/pull/30`
 - Current status: blocked before execution.
 - Blockers:
   - no `evidence/dev_2_gpu_retry_submit.md` exists in this worktree;
