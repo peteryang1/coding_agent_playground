@@ -226,6 +226,12 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - Dev_4's no-launch clean-base SFT smoke package using `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is still pending.
 - Current blocker remains GPU/current `nodes.json`; no real SFT checkpoint/output and no mini-swe eval metrics exist.
 
+## 2026-05-20 Session 8 PR #11 Gate Audit
+
+- PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
+- Dev_4 PR #11 (`https://github.com/peteryang1/coding_agent_playground/pull/11`) is open/non-draft but `CONFLICTING`.
+- PM gate: not ready for owner self-merge. Dev_4 has been notified by tmux inject to rebase/resolve against current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push again, and record durable conflict resolution.
+
 ## 2026-05-20 Session 8 PR Gate Audit
 
 - Supervisor correction applied: PM should not hold ready/mergeable PRs until the whole milestone completes.
