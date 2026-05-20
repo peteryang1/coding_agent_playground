@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=10 -->
+<!-- METADATA:SESSION=12 -->
 
 ## Knowledge Entries
 
@@ -87,7 +87,9 @@
 75. PR fact: PR #13 merged at `2026-05-20T09:00:25Z` with merge commit `9a6de432919102c17fdd839e5544d46c98a8f1f7`.
 76. PR fact: dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; no-launch clean-base SFT package is now on main.
 77. GPU route fact: dev_2 route acquisition evidence found two live H200 candidate endpoints, `ssh -p 27094 root@10.100.10.20` and `ssh -p 31403 root@10.100.8.24`, but neither is approved Milestone 1 allocation; both show high memory use and lack local SFT paths.
-78. PM decision: do not authorize SFT launch until compute/PM approves a discovered endpoint or provides fresh GPU endpoint/current `nodes.json`; dev_4 owns execution only after that route is approved.
+78. PM decision before GPU approval: do not authorize SFT launch until compute/PM approves a discovered endpoint or provides fresh GPU endpoint/current `nodes.json`; dev_4 owns execution only after that route is approved.
 79. PR fact: PR #15 merged at `2026-05-20T09:19:31Z` with merge commit `21c59cd013e6d8c1a736483cc91864b11325f417`.
 80. GPU route fact: compute manager approved fresh single-node H200 route `ssh -p 39314 root@10.100.20.37`, LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`, with one-node `compute_gpu_route_nodes.json`.
-81. PM decision: dev_4 is authorized to run only the short Qwen3-8B SFT smoke on the approved route after resolving PR #14 conflict; test_2 owns mini-swe after SFT model/checkpoint exists.
+81. PM decision update: use the approved current GPU route `ssh -p 39314 root@10.100.20.37` with `nodes.json` at `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`, staged remotely at `/root/workspace/coding_agent_playground/nodes.json` and `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json`.
+82. PM decision: dev_4 is authorized to run only the short Qwen3-8B SFT smoke on the approved route after resolving PR #14 conflict; test_2 owns mini-swe after SFT model/checkpoint exists.
+83. PR conflict fact: PR #14 conflicted after PR #15 merged and again after GPU-route authorization records landed; dev_4 must merge current `origin/main`, preserve PR #15 GPU route evidence and PM records, push PR #14, and self-merge only after PR #14 is mergeable.

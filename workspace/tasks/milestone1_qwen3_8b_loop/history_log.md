@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=10 -->
+<!-- METADATA:SESSION=12 -->
 
 ## Session 1 - 2026-05-20
 
@@ -331,3 +331,28 @@
   - appended this Session 10 conflict-resolution record.
 - After push, GitHub PR #11 recheck reported `mergeable=MERGEABLE`, `state=OPEN`.
 - No SFT launch was attempted. The only remaining SFT launch blocker remains GPU endpoint/current Milestone 1 `nodes.json`; the next SFT command should use `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
+
+## Session 11 - Dev 4 PR #11 Merge Evidence - 2026-05-20
+
+- PM gate input: PR #11 was `MERGEABLE` and passed PM gate for scoped no-launch clean-base SFT smoke package/conflict-resolution evidence.
+- Dev_4 owner action: self-merged PR #11 using merge commit workflow after local `git diff --check` passed.
+- PR URL: `https://github.com/peteryang1/coding_agent_playground/pull/11`
+- `mergedAt`: `2026-05-20T09:10:26Z`
+- Merge commit: `93c4efaaff3e50220f7bb8583070321e65289efa`
+- Scope merged by PR #11: Session 9 no-launch clean-base SFT smoke package plus Session 10 conflict-resolution evidence preserving PM/test_1/test_2 post-PR10 gate records.
+- Session 11 evidence PR: `https://github.com/peteryang1/coding_agent_playground/pull/14`
+- No SFT launch was attempted. Real SFT remains blocked on GPU endpoint/current Milestone 1 `nodes.json`; the next launch package still uses `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`.
+
+## Session 12 - Dev 4 PR #14 Conflict Refresh Before SFT Smoke - 2026-05-20
+
+- PM order update: PR #14 became `CONFLICTING` after PR #15 merged; dev_4 must refresh PR #14 against current `origin/main`, preserve PR #15 dev_2 GPU route evidence and PM records, push PR #14, and self-merge only after it becomes mergeable.
+- Approved GPU route for the subsequent SFT smoke, after PR #14 is mergeable and self-merged: `ssh -p 39314 root@10.100.20.37`.
+- Approved `nodes.json` evidence path: `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`; staged on GPU at `/root/workspace/coding_agent_playground/nodes.json` and `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json`.
+- Dev_4 merged current `origin/main` into PR #14 branch `intern_code_dev_4/session11-pr11-merge-evidence`.
+- Conflict file:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md`
+- Resolution:
+  - preserved dev_4 PR #11 merge facts and no-launch package facts;
+  - preserved PR #15/PM records from `origin/main`, including dev_2 GPU route acquisition evidence and prior unapproved H200 candidate findings;
+  - added PM's newly approved GPU route as the active route for the next SFT smoke.
+- No SFT launch was attempted during conflict resolution; launch remains ordered only after PR #14 is mergeable and self-merged.

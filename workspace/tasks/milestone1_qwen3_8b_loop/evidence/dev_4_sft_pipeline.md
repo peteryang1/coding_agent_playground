@@ -808,3 +808,24 @@ OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground
 ```
 
 Exact next command remains the Session 9 command package above. Real launch remains blocked on GPU endpoint/current Milestone 1 `nodes.json`.
+
+## 2026-05-20 Session 11 PR #11 Merge Evidence
+
+- PM gate input: PR #11 was `MERGEABLE` and passed PM gate for scoped no-launch clean-base SFT smoke package/conflict-resolution evidence.
+- Owner action: dev_4 self-merged PR #11 after local `git diff --check` passed.
+- PR URL: `https://github.com/peteryang1/coding_agent_playground/pull/11`
+- `mergedAt`: `2026-05-20T09:10:26Z`
+- Merge commit: `93c4efaaff3e50220f7bb8583070321e65289efa`
+- Scope merged: no-launch clean-base SFT smoke launch package using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, plus PR #11 conflict-resolution evidence.
+- Session 11 evidence PR: `https://github.com/peteryang1/coding_agent_playground/pull/14`
+- No SFT launch was attempted. Real launch remains blocked on GPU endpoint/current Milestone 1 `nodes.json`.
+
+## 2026-05-20 Session 12 PR #14 Conflict Resolution Before SFT Smoke
+
+- PM order update: PR #14 is conflicting after PR #15 merged; resolve PR #14 first, preserve PR #15 dev_2 GPU route evidence and PM records, push, and self-merge once mergeable.
+- Approved GPU route for subsequent smoke: `ssh -p 39314 root@10.100.20.37`.
+- Approved/local PM `nodes.json`: `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`.
+- GPU-staged `nodes.json`: `/root/workspace/coding_agent_playground/nodes.json` and `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json`.
+- Conflict file after `git merge origin/main`: `workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md`.
+- Resolution preserved PR #15 dev_2 GPU route/PM records and dev_4 PR #11 merge/no-launch package facts.
+- No SFT launch was attempted during this conflict-resolution step.
