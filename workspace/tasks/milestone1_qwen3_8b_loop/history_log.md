@@ -153,3 +153,6 @@
 - PM rechecked PR #1 and found it still `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; PM sent a non-interrupt tmux follow-up to dev_4 to self-merge PR #1 as owner and continue the SFT unblock package.
 - PM rechecked support evidence and found the requested files still missing: `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md`.
 - PM sent non-interrupt tmux follow-ups to dev_1/dev_2/test_1 for the missing support evidence and verified all messages with `capture-pane`.
+- PM opened continuation PR #3 `https://github.com/peteryang1/coding_agent_playground/pull/3`.
+- PR #3 is `OPEN`, non-draft, mergeable `MERGEABLE`, and scoped to PM durable coordination after PR #2 merge; PM gate passes because it records active blockers and does not claim milestone completion.
+- Under the supervisor PR gate rule, PM will self-merge PR #3 as owner after this durable gate record is pushed.

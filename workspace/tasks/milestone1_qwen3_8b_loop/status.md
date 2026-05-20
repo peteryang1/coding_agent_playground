@@ -63,6 +63,7 @@
 - Session 8 PR #2 gate update: PR #2 mergeability resolved to `MERGEABLE`; PM gate passes for the coordination/evidence scope, and PM will self-merge PR #2 as owner after pushing this durable record.
 - Session 8 continuation after PR #2 merge: PR #2 merged at `2026-05-20T07:51:54Z` with merge commit `07b0dd167b9004af1c6994652966b7e1de5f2084`; ongoing PM coordination moved to branch `pm/milestone1-continuation-20260520`.
 - Latest PR/evidence gate: PR #1 remains open/mergeable and awaits dev_4 self-merge; dev_1/dev_2/test_1 support evidence files are still missing, so PM sent non-interrupt tmux reminders and verified with `capture-pane`.
+- Continuation PR #3 is open/non-draft/mergeable and passes PM gate for coordination-only durable updates; PM will self-merge as owner after pushing this record.
 
 ## Next PM Checks
 
@@ -72,3 +73,4 @@
 - Recheck PR #1 merge result from dev_4 durable status/evidence and re-audit PR #2 mergeability after current PM updates are pushed.
 - After PR #2 merge, continue milestone coordination from fresh state while keeping the active goal open for SFT/eval smoke blockers.
 - Open/push a continuation PM coordination PR for the new branch and keep reading durable support evidence for SFT/eval blocker decisions.
+- After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.
