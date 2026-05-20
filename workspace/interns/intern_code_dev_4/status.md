@@ -1,14 +1,14 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
+<!-- METADATA:STATUS=Idle,TASK= -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Working |
-| Current Task | milestone1_qwen3_8b_loop |
-| PR | PR #14 conflict refresh in progress: https://github.com/peteryang1/coding_agent_playground/pull/14 |
-| Session | 12 |
+| Status | Idle |
+| Current Task |  |
+| PR | https://github.com/peteryang1/coding_agent_playground/pull/18; completion record pending |
+| Session | 18 |
 
 ## PM Corrections
 
@@ -25,3 +25,9 @@
 - 2026-05-20 Session 10: Resolved PR #11 conflict by merging current `origin/main` into `intern_code_dev_4/session9-sft-smoke-launch-package`. Conflict file was `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md`; resolution preserved dev_4 Session 9 records and PM/test_1/test_2 post-PR10 gate records. Pushed refreshed PR #11 and GitHub recheck reports `mergeable=MERGEABLE`. No SFT launch attempted; GPU/current `nodes.json` remains blocker.
 - 2026-05-20 Session 11: Self-merged PR #11 after PM gate pass and local `git diff --check`. PR #11 merged at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`. Opened PR #14 to land this merge evidence. No SFT launch attempted; next real launch still requires GPU endpoint/current Milestone 1 `nodes.json`.
 - 2026-05-20 Session 12: PM approved current GPU route `ssh -p 39314 root@10.100.20.37`, but ordered PR #14 conflict resolution first because PR #15 landed. Merged current `origin/main` into PR #14 branch, preserved PR #15 dev_2 GPU route/PM records, and resolved the only conflict in `workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md`. SFT launch is queued until PR #14 becomes mergeable and is self-merged.
+- 2026-05-20 Session 13: Ran the approved short Qwen3-8B clean-base SFT smoke on `ssh -p 39314 root@10.100.20.37` after PR #14 self-merge. GPU/base/data/deps prechecks passed, but no checkpoint was produced: baseline run failed on MCA tiny-data DP=8 `steps_in_epoch=0`, and one bounded TP=8 retry failed Megatron scheduler assertion for 1-step smoke. Evidence is in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_smoke_run.md`; dev_2 should stop the H200 allocation immediately. Opened PR #18 for this evidence.
+- 2026-05-20 Session 15: Applied PM correction for PR #18 task mapping. Merged current `origin/main` as main advanced through dev_2 lifecycle stop and PR #20 post-merge records, preserved PM Session 12 `task_registry.md`/task gate records plus dev_2 GPU lifecycle proof, resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md`, and updated PR/evidence/task docs to use task id `M1-SFT-SMOKE-DEV4`. PR #18 remains open pending GitHub `MERGEABLE` status and PM gate pass before self-merge.
+- 2026-05-20 Session 16: Applied PM gate update after PR #22 advanced main. Merged latest `origin/main`, preserved `M1-SFT-SMOKE-DEV4` and `M1-GPU-LIFECYCLE-DEV2` records, resolved the `task_knowledge.md` conflict, and kept PR #18 open for PM gate rather than self-merging.
+- 2026-05-20 Session 17: Recorded PM task-flow rule update durably. PR #18 is open, non-draft, and GitHub reports `MERGEABLE` / `CLEAN`; task id `M1-SFT-SMOKE-DEV4` remains in PR body/evidence/status/task registry. No self-merge attempted because PM gate pass has not been issued in this update.
+- 2026-05-20 Session 18: PM gate passed for PR #18 / task `M1-SFT-SMOKE-DEV4`. Pre-merge durable status recorded on PR #18 branch before owner self-merge; post-merge completion record will mark the task blocked-with-final-evidence because the scoped SFT smoke produced final failure evidence but no checkpoint/model.
+- 2026-05-20 Session 18 completion: Self-merged PR #18 at `2026-05-20T10:18:04Z` with merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`. Task `M1-SFT-SMOKE-DEV4` is marked blocked-with-final-evidence because the approved SFT smoke ran and produced durable failure evidence with no checkpoint/model output.
