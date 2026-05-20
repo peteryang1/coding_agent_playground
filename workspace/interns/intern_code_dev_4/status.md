@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | Pending |
+| PR | https://github.com/peteryang1/coding_agent_playground/pull/1 |
 | Session | 0 |
 
 ## PM Corrections
