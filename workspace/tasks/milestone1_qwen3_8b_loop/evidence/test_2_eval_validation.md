@@ -538,3 +538,26 @@ Reasoning:
 - Since the active backend is Singularity, this dirty state can affect eval behavior and must be treated as part of the evaluation environment.
 - For Milestone 1 smoke, proceed if PM/dev_4 accepts this provenance note.
 - For a formal final report, either commit/pin the patch, export a diff next to eval artifacts, or rerun on a clean pinned checkout with an equivalent committed Singularity backend.
+
+## 2026-05-20T10:15:36Z - PM Process Update / Task Attachment
+
+Explicit task attachment for this test owner area:
+
+```text
+Task ID: M1-EVAL-SMOKE-TEST2
+Owner: intern_code_test_2
+Registry: /work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md
+Durable evidence: /work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_2_eval_validation.md
+Status: Open / blocked by absent SFT checkpoint or served endpoint
+PR policy: no eval PR until SFT gate resolves; any PR must cite M1-EVAL-SMOKE-TEST2 and this evidence path
+Completion marker: after eval PR/self-merge or final blocked evidence, mark M1-EVAL-SMOKE-TEST2 complete or blocked-with-final-evidence in task_registry.md/status/history/evidence
+```
+
+Current acceptance gate is unchanged from the 2026-05-20T08:47:18Z package and remains active:
+
+- Accepted endpoint form: mini-swe/litellm-compatible `SFT_SMOKE_MODEL` plus `OPENAI_BASE_URL` and required auth/env.
+- Accepted checkpoint form: readable HF-compatible checkpoint path only if it is served first and converted to the endpoint form; raw checkpoint alone is not directly accepted for mini-swe-agent eval.
+- Required env/config checks: corrected host, mini-swe-agent source path, SWE-bench path, runtime config, `uv`, Singularity, `uv run --with datasets mini-extra swebench --help`, model env, endpoint env, and checkpoint readability checks when applicable.
+- Prediction/result/metrics files: output root `/root/workspace/swe-bench-related/output/qwen3_8b_sft_smoke`, trajectory JSON, `preds.json` or equivalent predictions file, optional local SWE-bench `results.json`, and `metrics_readiness.json`.
+- Pass/fail/blocked criteria: pass requires corrected host, endpoint-ready model, env checks, Singularity startup, two predictions for `--slice 0:2`, required SWE-bench prediction fields, and metrics/readiness JSON; fail covers wrong host, raw unserved checkpoint, endpoint/auth/config failures, mini-swe/dataset/Singularity infrastructure failures, missing predictions fields, or missing metrics; blocked covers absent SFT artifact/env or unreachable/unreadable artifact.
+- Dirty checkout provenance decision: acceptable for Milestone 1 smoke only with explicit provenance note (`git sha 0e47fb4`, `M src/minisweagent/environments/apptainer.py`, `?? uv.lock`); formal final report needs pinned diff/commit or clean rerun.

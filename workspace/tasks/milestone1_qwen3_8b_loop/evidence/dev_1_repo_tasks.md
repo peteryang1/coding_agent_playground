@@ -1,6 +1,7 @@
 # Dev 1 Evidence - Repo Validation and Task Seed Design
 
 Owner: `intern_code_dev_1`  
+Task IDs: `M1-PROMPT-QUALITY-DEV1`, historical repo/task-seed support
 Assignment: repo selection validation and coding task seed design for `fastapi`, `scikit-learn`, and `rich`  
 Date: 2026-05-20  
 Status: Completed initial validation and seed design. No active blockers.

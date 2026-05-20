@@ -416,3 +416,15 @@
 - PM gate state: PR #18 remains open and not ready. It now has task id `M1-SFT-SMOKE-DEV4` in the PR body, but GitHub still reports `CONFLICTING` / `DIRTY` after PR #20/#21 advanced `main`.
 - PM action: dev_4 is already resolving PR #18 against current `origin/main`, preserving PM task registry and dev_2 stop-proof records. PM will gate PR #18 only after GitHub reports it mergeable.
 - PM decision: no new GPU retry is authorized from the failed SFT attempts. Any additional SFT retry requires a new explicit task/PR gate with a concrete MCA/Megatron tiny-data config fix plan and resource plan.
+
+## 2026-05-20 Session 12 Task-Flow Reaffirmation
+
+- Supervisor task-flow requirement re-applied to running PM policy: PM must create/maintain explicit tasks before dev/test PR work, and each dev/test PR must map to a task with owner, acceptance criteria, durable evidence path, and completion marker.
+- PM gate rule: a dev/test PR cannot pass until the task mapping exists and GitHub reports the PR ready/mergeable. Ready PRs that pass PM gate are self-merged by their owner immediately, without waiting for the whole milestone.
+- Owner post-merge rule: after self-merge, the PR owner marks the matching task complete or blocked-with-final-evidence in task docs or `task_registry.md`, updates own `status.md`, updates necessary history/evidence, and merges/pushes that completion record.
+- PM refreshed `task_registry.md`: `M1-TASK-PR-GATE-PM` is complete via PR #19/#22, and PR #18 references `M1-SFT-SMOKE-DEV4`.
+- PM notified all six dev/test panes by tmux inject that dev/test PRs must follow task -> PR -> merge -> task completion flow; capture-pane showed the messages in each pane, and PM sent actual `C-m` after an initial literal-Enter submission issue.
+- PM gate for PR #18 passed after GitHub reported open/non-draft `MERGEABLE` / `CLEAN`, the PR body contained task id, owner, acceptance criteria, evidence path, and completion marker, and no required checks were reported.
+- PM notified dev_4 by tmux inject to self-merge PR #18 as owner, then mark `M1-SFT-SMOKE-DEV4` complete or blocked-with-final-evidence with `mergedAt` and merge commit in task docs/task registry and own status/history/evidence.
+- Dev_4 self-merged PR #18 at `2026-05-20T10:18:04Z`, merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`.
+- PM gate state after PR #18 merge: SFT smoke evidence is on main, no checkpoint/model exists, mini-swe remains blocked by absent model/endpoint, and dev_4 owns the post-merge completion record for `M1-SFT-SMOKE-DEV4`.
