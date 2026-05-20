@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=11 -->
+<!-- METADATA:SESSION=12 -->
 
 ## Knowledge Entries
 
@@ -96,3 +96,6 @@
 84. Resource rule: coding_agent_playground interns must use LTP directly for GPU resources instead of routing routine requests through axrd interns. PM only gates/tracks; dev/test owners submit/status/ssh/stop and write durable evidence.
 85. GPU lifecycle fact: active H200 job `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` at `ssh -p 39314 root@10.100.20.37` is tracked in `evidence/gpu_resource_tracking.md`; dev_2 owns lifecycle/stop proof and dev_4 owns SFT workload.
 86. Stop condition: the active H200 node must be stopped after SFT smoke completion/failure, if idle for 15 minutes without owner progress, or by 2026-05-20T10:30:00Z unless dev_2 writes a durable extension reason.
+87. Intern conduct rule: PM must maintain explicit task records, not only scattered assignments. Every dev/test PR must reference a task with owner, acceptance criteria, durable evidence path, and completion marker.
+88. PR gate rule: before PM marks a dev/test PR ready, PM must confirm the PR references a task and that the task docs/status define owner and acceptance criteria. After owner self-merge, the owner must mark the corresponding task complete by updating task README/status, own status, necessary history/evidence, then push/merge those completion records.
+89. Current process gate: task registry for this milestone is `task_registry.md`; PR owners must keep that registry or task-specific docs aligned with PR state and completion state.

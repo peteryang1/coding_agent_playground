@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=11 -->
+<!-- METADATA:SESSION=12 -->
 
 ## Session 1 - 2026-05-20
 
@@ -370,3 +370,15 @@
   - stop conditions and stop proof requirements recorded
 - Updated assignments/status/blockers/task knowledge with the new resource-management rule and owner split.
 - PM sent non-interrupt tmux instructions to dev_2 and dev_4: dev_2 must track/stop the LTP job and write stop proof; dev_4 must run the SFT smoke only after PR #14 conflict resolution and write SFT evidence. No mini-swe execution is authorized yet.
+
+## 2026-05-20 Session 12 Task-To-PR Gate And Resource Stop Gate
+
+- Supervisor conduct rule applied: PM must create and maintain explicit tasks, then assign dev/test work through those tasks rather than only scattered assignment lines.
+- Created `task_registry.md` as the Milestone 1 task -> PR -> merge -> task-complete gate index.
+- PM gate updated: each dev/test PR must reference a task id, owner, acceptance criteria, durable evidence path, and completion marker before PM marks it ready/mergeable for owner self-merge.
+- Owner merge rule updated: when a dev/test intern self-merges a PR, that owner must mark the matching task complete in task README/status or `task_registry.md`, update own `status.md`, update necessary history/evidence, push, and merge the completion record.
+- PM will keep ready/mergeable PRs moving immediately after gate pass; no PR waits for entire milestone completion.
+- Dev_4 reported the real SFT smoke attempt plus one bounded retry both failed: first on MCA/drop_last zero-step with 10 examples under DP=8, then on Megatron LR scheduler assertion with TP=8/DP=1/max_steps=1. No checkpoint/model output exists from these attempts.
+- PM resource gate decision: no more GPU use is authorized for this dev_4 attempt. PM injected dev_2 to stop/release LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` and write stop proof to `evidence/dev_2_gpu_lifecycle.md` and `evidence/gpu_resource_tracking.md`.
+- PM audited dev_4 PR #18 for the new task-to-PR gate. Gate result: not ready because GitHub reports `mergeable=CONFLICTING` and the PR body does not reference task id `M1-SFT-SMOKE-DEV4`.
+- PM injected dev_4 with the required correction: attach PR #18 to task `M1-SFT-SMOKE-DEV4`, resolve conflicts preserving PM Session 12 task registry/gate records, push, self-merge only after mergeable, and then mark the task complete or blocked-with-final-evidence in durable task/status files.
