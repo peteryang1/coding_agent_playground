@@ -115,6 +115,7 @@
 - Workload/SFT owner: `intern_code_dev_4`.
 - Stop target: after SFT smoke completion/failure, if idle for 15 minutes without owner progress, or by `2026-05-20T10:30:00Z` unless dev_2 records a bounded extension reason.
 - Required stop evidence: LTP stop command/action, job frame, UTC timestamp, post-stop status, and proof that output artifacts remain under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
+- PM coordination PR #17 is open for the resource lifecycle tracking update.
 
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
