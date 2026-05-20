@@ -71,3 +71,8 @@
 65. PR fact: PR #9 merged at `2026-05-20T08:39:36Z` with merge commit `e876c755d92f8c39fc862daaec8ac7968dfac845`.
 66. Gate fact: after waiting and rechecking, test_1 completion gate, test_2 eval acceptance/provenance package, and dev_4 clean-base no-launch launch package remain missing or stale.
 67. Coordination fact: PM must keep using durable owner evidence for these remaining gates; do not fill missing test/dev artifacts by writing them as PM or by running SFT/eval directly.
+68. PR fact: PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
+69. Gate fact: test_1 completion audit gate is now present and passes PM gate for criteria definition, but it explicitly proves the milestone is still incomplete until real SFT and mini-swe smoke artifacts exist.
+70. Gate fact: test_2 mini-swe acceptance/provenance package is now present and passes PM gate; mini-swe should use a served OpenAI-compatible endpoint/model string, not a raw checkpoint path alone.
+71. Gate fact: dirty mini-swe checkout state (`M src/minisweagent/environments/apptainer.py`, `?? uv.lock`) is acceptable only for Milestone 1 smoke when recorded in provenance; it must not be silent state in final eval evidence.
+72. Blocker fact: dev_4's no-launch SFT smoke package using clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is still not landed in PM worktree; dev_4 is owner and was observed working through a local status.md conflict.

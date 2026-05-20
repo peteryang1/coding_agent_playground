@@ -86,3 +86,12 @@
 - Open/push a continuation PM coordination PR for the new branch and keep reading durable support evidence for SFT/eval blocker decisions.
 - After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.
 - Recheck test_2 eval acceptance/provenance package before authorizing mini-swe smoke after SFT checkpoint/endpoint exists.
+
+## 2026-05-20 Session 8 Post-PR10 Gate Update
+
+- PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
+- Test_1 wrote `evidence/test_1_sft_eval_completion_gate.md`. PM gate result: sufficient completion audit gate. It explicitly requires real `DRY_RUN=0` SFT smoke, durable checkpoint/model, logs/metrics, mini-swe smoke against that exact model, trajectories/predictions/metrics, and a final PASS/FAIL decision block before PM can mark the loop complete.
+- Test_2 updated `evidence/test_2_eval_validation.md` with the current mini-swe acceptance/provenance package. PM gate result: sufficient eval gate. It accepts an OpenAI-compatible served endpoint/model string plus `OPENAI_BASE_URL`/auth; a raw checkpoint path alone is not acceptable until served, and the dirty mini-swe checkout must be recorded as smoke provenance.
+- Dev_4's requested no-launch clean-base SFT smoke launch package using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is not yet present in PM worktree. PM observed dev_4 working in its own workspace with a local `status.md` conflict after rebasing/stash-pop; dev_4 remains owner for resolving and landing the package.
+- Current PM decision: SFT/eval execution is still not authorized. Data, clean-base candidate, test_1 completion gate, and test_2 eval acceptance gate are ready enough, but real SFT still needs a current GPU endpoint or Milestone 1 `nodes.json`; no real SFT checkpoint/output and no mini-swe eval metrics exist.
+- PM coordination PR #12 is open for these post-PR10 gate records.

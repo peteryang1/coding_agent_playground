@@ -238,3 +238,16 @@
   - there is no real SFT smoke checkpoint/output and no mini-swe eval metrics.
 - PM checked `tmux capture-pane` for `intern_code_test_1`, `intern_code_test_2`, and `intern_code_dev_4`; the required-now messages are present in their panes. PM did not interrupt with `/esc` or `C-c`.
 - PM decision: goal remains active, not complete. Current actionable blocker is owner evidence/execution readiness: test_1/test_2 gates and dev_4 clean-base no-launch package must land before PM can authorize SFT/eval execution, and GPU/current `nodes.json` is still required for real SFT.
+
+## 2026-05-20 Session 8 Post-PR10 Test Gate Landing
+
+- PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
+- `intern_code_test_1` created `evidence/test_1_sft_eval_completion_gate.md`.
+  - PM gate: pass for completion-audit criteria.
+  - The file correctly states current evidence is insufficient for completion and requires real `DRY_RUN=0` SFT, checkpoint/model artifacts, logs/metrics, mini-swe smoke against the resulting model, predictions/trajectories, and metrics before PM can mark the loop complete.
+- `intern_code_test_2` updated `evidence/test_2_eval_validation.md`.
+  - PM gate: pass for mini-swe acceptance/provenance criteria.
+  - The package correctly requires a served OpenAI-compatible endpoint/model string for mini-swe; raw checkpoint paths must first be served and kept as provenance.
+  - The package records the dirty mini-swe checkout as acceptable for smoke only with explicit provenance.
+- `intern_code_dev_4` has not yet landed the requested no-launch clean-base SFT smoke package in PM worktree. PM observed dev_4 working in its own workspace and handling a local `status.md` conflict; dev_4 remains owner for resolving and landing durable evidence.
+- PM decision: no SFT/eval execution authorization yet. The remaining hard blockers are current GPU endpoint or Milestone 1 `nodes.json`, dev_4's no-launch package, real SFT checkpoint/output, and mini-swe eval metrics.

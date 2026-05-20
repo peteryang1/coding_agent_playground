@@ -218,6 +218,14 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
   - updated test_2 eval gate package
 - PM decision: do not mark complete or blocked. Existing evidence still covers 10/10 rollout, 10/10 cleaning, SFT dry-run manifest, and eval readiness, but not real SFT smoke or real mini-swe eval smoke.
 
+## 2026-05-20 Session 8 Post-PR10 Gate Update
+
+- PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`.
+- Test_1 has now landed `evidence/test_1_sft_eval_completion_gate.md`; PM gate passes for completion criteria definition. It requires real `DRY_RUN=0` SFT, checkpoint/model, logs/metrics, mini-swe smoke against that model, predictions/trajectories, and final metrics before completion.
+- Test_2 has now landed the current mini-swe acceptance/provenance package in `evidence/test_2_eval_validation.md`; PM gate passes for eval criteria. A raw checkpoint path alone is not an accepted mini-swe model until served through an OpenAI-compatible endpoint/model string.
+- Dev_4's no-launch clean-base SFT smoke package using `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is still pending.
+- Current blocker remains GPU/current `nodes.json`; no real SFT checkpoint/output and no mini-swe eval metrics exist.
+
 ## 2026-05-20 Session 8 PR Gate Audit
 
 - Supervisor correction applied: PM should not hold ready/mergeable PRs until the whole milestone completes.
