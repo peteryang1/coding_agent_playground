@@ -135,3 +135,102 @@ Current lifecycle decision:
 - Keep watching briefly because the node was just assigned for dev_4 SFT smoke.
 - If no active SFT command or owner progress appears by the 15-minute idle/progress window, stop the LTP job and write stop proof here.
 - Latest hard stop remains `2026-05-20T10:30:00Z` unless a bounded extension is recorded first.
+
+## dev_2 Lifecycle Update - Active Training and Retry
+
+Timestamp: 2026-05-20T09:41Z to 2026-05-20T09:49Z
+
+Summary:
+
+```text
+dev_4 SFT smoke became active on the approved endpoint.
+First real SFT attempt failed after training start due DP=8/drop_last causing 0 steps on 10 examples.
+dev_4 performed one bounded retry on the same node with TP=8/DP=1/max_steps=1.
+dev_2 did not stop while active torchrun/python GPU work and retry artifacts were progressing.
+```
+
+Evidence:
+
+```text
+2026-05-20T09:41Z:
+  LTP state RUNNING / AttemptRunning.
+  8 x python compute processes visible through nvidia-smi, about 17146 MiB each.
+  torchrun and LLamaFactory launcher processes visible.
+  Active run artifacts for milestone1_qwen3_8b_sft_cleanbase_smoke_20260520T094003Z.
+
+2026-05-20T09:45Z to 2026-05-20T09:49Z:
+  latest_dev4_sft_run_id: milestone1_qwen3_8b_sft_cleanbase_smoke_tp8_20260520T094336Z
+  retry run_manifest/config/log artifacts visible.
+  GPU returned to idle after retry activity.
+```
+
+Detailed lifecycle evidence:
+
+```text
+evidence/dev_2_gpu_lifecycle.md
+```
+
+## Final Stop Proof
+
+Stop reason:
+
+```text
+PM RESOURCE GATE reported dev_4's real SFT smoke plus one bounded retry both failed and recommended no further GPU use.
+```
+
+Stop command/action:
+
+```text
+timestamp_utc: 2026-05-20T09:52:39Z to 2026-05-20T09:52:59Z
+frame: xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130
+command: python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py stop xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130
+result: status 202, STOP signal sent successfully
+```
+
+Pre-stop:
+
+```text
+2026-05-20T09:52:39Z:
+  LTP state RUNNING / AttemptRunning.
+  endpoint ssh -p 39314 root@10.100.20.37 reachable.
+  all 8 H200 GPUs idle at 0% util and about 1MB memory used.
+  latest_dev4_sft_run_id: milestone1_qwen3_8b_sft_cleanbase_smoke_tp8_20260520T094336Z.
+```
+
+Post-stop:
+
+```text
+2026-05-20T09:52:59Z:
+  LTP state STOPPING / AttemptDeleting.
+  endpoint still briefly reachable and idle.
+
+2026-05-20T09:53:19Z:
+  LTP state STOPPING / AttemptDeleting.
+  endpoint probe: Connection closed by 10.100.20.37 port 39314.
+
+2026-05-20T09:53:40Z:
+  LTP state STOPPED / Completed.
+  Completed: 2026-05-20 09:53:21.
+  endpoint probe: ssh connect to host 10.100.20.37 port 39314: Connection refused.
+
+2026-05-20T09:54:20Z and 2026-05-20T09:54:40Z:
+  LTP state remains STOPPED / Completed.
+  endpoint remains unavailable with Connection refused.
+```
+
+Artifact preservation:
+
+```text
+Outputs preserved under /mnt/3fs/data/ai4ai/outputs/coding_agent_playground.
+The LTP stop released the GPU job and did not delete shared /mnt/3fs artifacts.
+Preserved run manifests include:
+  /mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_cleanbase_smoke_20260520T093916Z/run_manifest.json
+  /mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_cleanbase_smoke_20260520T094003Z/run_manifest.json
+  /mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_cleanbase_smoke_tp8_20260520T094336Z/run_manifest.json
+```
+
+Current stop proof:
+
+```text
+COMPLETE. Resource released at LTP Completed timestamp 2026-05-20 09:53:21.
+```
