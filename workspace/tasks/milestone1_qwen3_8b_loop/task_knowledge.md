@@ -43,3 +43,4 @@
 37. Gate fact: absence of the new support evidence files means PM cannot yet decide clean-base vs warm-start or GPU routing; keep the goal active and continue collecting durable evidence.
 38. PR gate rule: ready and mergeable PRs that pass PM gate should be merged by their owner without waiting for the whole milestone to complete; PM gates readiness and uses tmux inject to notify the owner to self-merge.
 39. PR audit fact: PR #1 is open, non-draft, mergeable, scoped to Qwen3-8B SFT pipeline artifacts, and passes PM gate for self-merge by dev_4; PR #2 mergeability later resolved to `MERGEABLE`, so PM gate passes for owner self-merge of the coordination/evidence PR without waiting for whole-milestone completion.
+40. PR fact: PR #2 merged at `2026-05-20T07:51:54Z` with merge commit `07b0dd167b9004af1c6994652966b7e1de5f2084`; further PM updates need a continuation branch/PR.
