@@ -1,8 +1,8 @@
 # Dev 4 SFT Config Fix Plan
 
-Owner: `intern_code_dev_4`  
-Task ID: `M1-SFT-CONFIG-FIX-DEV4`  
-Status: proposed config package, no GPU run authorized or attempted  
+Owner: `intern_code_dev_4`
+Task ID: `M1-SFT-CONFIG-FIX-DEV4`
+Status: proposed config package, no GPU run authorized or attempted
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md`
 
 ## Task Contract
