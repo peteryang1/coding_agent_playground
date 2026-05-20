@@ -148,3 +148,11 @@
   - PR #2 remains `OPEN`, non-draft, mergeable `UNKNOWN`, with `mergedAt=null`; PM-owned PR #2 is not self-merge-ready until mergeability resolves to mergeable or a concrete conflict/check blocker is identified.
 - PM rechecked PR #2 again and mergeability resolved to `MERGEABLE`.
 - PM gate pass for PR #2: it is a coordination/evidence PR, remains explicit that SFT/eval smoke is incomplete, and does not claim milestone completion. Under the supervisor PR gate correction, PM-owned PR #2 should be self-merged without waiting for the whole milestone loop to finish.
+- PM self-merged PR #2 as owner. Merge commit `07b0dd167b9004af1c6994652966b7e1de5f2084`, merged at `2026-05-20T07:51:54Z`.
+- PM created continuation branch `pm/milestone1-continuation-20260520` from updated `origin/main` so further coordination updates keep flowing through PR instead of the already-merged PR #2.
+- PM rechecked PR #1 and found it still `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; PM sent a non-interrupt tmux follow-up to dev_4 to self-merge PR #1 as owner and continue the SFT unblock package.
+- PM rechecked support evidence and found the requested files still missing: `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md`.
+- PM sent non-interrupt tmux follow-ups to dev_1/dev_2/test_1 for the missing support evidence and verified all messages with `capture-pane`.
+- PM opened continuation PR #3 `https://github.com/peteryang1/coding_agent_playground/pull/3`.
+- PR #3 is `OPEN`, non-draft, mergeable `MERGEABLE`, and scoped to PM durable coordination after PR #2 merge; PM gate passes because it records active blockers and does not claim milestone completion.
+- Under the supervisor PR gate rule, PM will self-merge PR #3 as owner after this durable gate record is pushed.

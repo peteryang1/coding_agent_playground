@@ -253,3 +253,24 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
   - durable files clearly keep milestone state active and list SFT/eval smoke blockers;
   - merge does not claim full milestone completion.
 - PM action: push this durable gate record, then self-merge PR #2 as the PR owner. PR #1 remains dev_4-owned and PM will not merge it.
+
+## 2026-05-20 Session 8 Continuation After PR #2 Merge
+
+- PR #2 merged:
+  - mergedAt: `2026-05-20T07:51:54Z`
+  - merge commit: `07b0dd167b9004af1c6994652966b7e1de5f2084`
+- PM created continuation branch `pm/milestone1-continuation-20260520` from updated `origin/main` for further PM coordination updates.
+- PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; PM sent a non-interrupt tmux reminder to dev_4 to self-merge as owner.
+- Missing support evidence remains:
+  - `evidence/dev_1_sft_base_path_support.md`
+  - `evidence/dev_2_gpu_nodes_support.md`
+  - `evidence/test_1_sft_eval_completion_gate.md`
+- PM sent non-interrupt tmux reminders to dev_1/dev_2/test_1 and verified delivery with `capture-pane`.
+- SFT/eval smoke remains incomplete and unproven; no goal completion or blocked status was claimed.
+
+## 2026-05-20 Session 8 PR #3 Gate
+
+- PM opened continuation PR #3: `https://github.com/peteryang1/coding_agent_playground/pull/3`.
+- PR #3 is `OPEN`, non-draft, mergeable `MERGEABLE`.
+- PM gate pass: PR #3 is scoped to PM durable coordination after PR #2 merge, records active blockers, and does not claim milestone completion.
+- PM action: push this gate record, then self-merge PR #3 as owner. PR #1 remains dev_4-owned and PM will not merge it.
