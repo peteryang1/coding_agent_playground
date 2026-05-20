@@ -1,6 +1,6 @@
 # Milestone 1 Task Registry
 
-<!-- METADATA:STATUS=Open,SESSION=15 -->
+<!-- METADATA:STATUS=Open,SESSION=16 -->
 
 This registry is the PM gate index for task -> PR -> merge -> task-complete flow.
 

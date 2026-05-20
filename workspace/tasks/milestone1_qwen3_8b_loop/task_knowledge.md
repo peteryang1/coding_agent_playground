@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=15 -->
+<!-- METADATA:SESSION=16 -->
 
 ## Knowledge Entries
 
@@ -104,3 +104,7 @@
 92. Current process gate: task registry for this milestone is `task_registry.md`; PR owners must keep that registry or task-specific docs aligned with PR state and completion state.
 93. PR #18 task mapping fact: dev_4 SFT smoke evidence PR #18 must reference existing PM task id `M1-SFT-SMOKE-DEV4` and must preserve PM's registry.
 94. Resource fact: dev_2 stop proof on main records LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` stopped at 2026-05-20T09:53:21 with endpoint refusal and outputs preserved.
+95. Resource fact: `M1-GPU-LIFECYCLE-DEV2` is complete. PR #20 merged at `2026-05-20T10:02:28Z` with merge commit `3bfcb3781931070b932d138957620dbe9f1d2ee9`; PR #21 merged at `2026-05-20T10:05:06Z` with merge commit `36ee08ae3ad98f7a94b7c5c7155938479333bd37` to backfill merge facts.
+96. SFT blocker fact: PR #18 references task id `M1-SFT-SMOKE-DEV4`, but PM gate cannot pass until dev_4 resolves conflicts after PR #22 and GitHub reports mergeable.
+97. PM decision: no further SFT GPU retry is authorized from the failed DP=8/drop_last and TP=8/max_steps=1 attempts unless a new explicit task documents a concrete config fix and resource plan.
+98. PR #18 conflict fact: after PM PR #22 merged, dev_4 must merge latest `origin/main`, preserve `M1-SFT-SMOKE-DEV4` and `M1-GPU-LIFECYCLE-DEV2` task records, push PR #18, and wait for PM gate before self-merge.

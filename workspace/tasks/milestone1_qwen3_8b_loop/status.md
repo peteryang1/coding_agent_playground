@@ -127,6 +127,14 @@
 - PR #18 gate update: PM audited dev_4's SFT smoke evidence PR and marked it not ready because it is `CONFLICTING` and lacks task id `M1-SFT-SMOKE-DEV4` in the PR body. PM notified dev_4 by tmux inject to attach task id, resolve conflicts, and mark the task complete or blocked-with-final-evidence after owner self-merge.
 - Session 15 dev_4 update: dev_4 merged current `origin/main`, preserved PM Session 12 task registry/gate records, resolved PR #18 conflicts, and updated evidence/task docs to reference task id `M1-SFT-SMOKE-DEV4`. PR #18 remains open pending GitHub `MERGEABLE` status and PM gate pass before owner self-merge.
 
+## 2026-05-20 Session 12 PR #20/#21 Gate Update
+
+- PR #20 for `M1-GPU-LIFECYCLE-DEV2` passed PM gate and was self-merged by dev_2.
+- PR #20 merged at `2026-05-20T10:02:28Z`, merge commit `3bfcb3781931070b932d138957620dbe9f1d2ee9`.
+- PR #21 merged post-merge facts at `2026-05-20T10:05:06Z`, merge commit `36ee08ae3ad98f7a94b7c5c7155938479333bd37`.
+- GPU resource lifecycle is closed: LTP reached `STOPPED (Completed)`, endpoint `ssh -p 39314 root@10.100.20.37` refused connection after stop, and outputs were preserved under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
+- PR #18 remains the active SFT evidence blocker: it references task id `M1-SFT-SMOKE-DEV4` but still reports `CONFLICTING` / `DIRTY`; dev_4 owns conflict resolution and owner self-merge after PM gate.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.

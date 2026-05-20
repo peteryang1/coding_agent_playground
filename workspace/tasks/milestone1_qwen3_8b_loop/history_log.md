@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=15 -->
+<!-- METADATA:SESSION=16 -->
 
 ## Session 1 - 2026-05-20
 
@@ -440,4 +440,26 @@
 - PR #20 PM gate passed and dev_2 self-merged it:
   - `mergedAt`: `2026-05-20T10:02:28Z`
   - merge commit: `3bfcb3781931070b932d138957620dbe9f1d2ee9`
+- PR #21 backfilled PR #20 merge facts into durable task files:
+  - `mergedAt`: `2026-05-20T10:05:06Z`
+  - merge commit: `36ee08ae3ad98f7a94b7c5c7155938479333bd37`
 - dev_2 did not run SFT and did not peer-send PM routine status.
+
+## 2026-05-20 Session 12 PM Gate Sync After PR #20/#21
+
+- PM gate state: GPU lifecycle resource blocker is closed. The active 8xH200 LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` reached `STOPPED (Completed)` and the SSH endpoint refused connection after stop.
+- PM gate state: PR #18 remains open and not ready. It now has task id `M1-SFT-SMOKE-DEV4` in the PR body, but GitHub still reports `CONFLICTING` / `DIRTY` after PR #20/#21 advanced `main`.
+- PM action: dev_4 is already resolving PR #18 against current `origin/main`, preserving PM task registry and dev_2 stop-proof records. PM will gate PR #18 only after GitHub reports it mergeable.
+- PM decision: no new GPU retry is authorized from the failed SFT attempts. Any additional SFT retry requires a new explicit task/PR gate with a concrete MCA/Megatron tiny-data config fix plan and resource plan.
+
+## Session 16 - Dev 4 PR #18 Refresh After PR #22 Gate Sync - 2026-05-20
+
+- PM gate update: after PM PR #22 merged, GitHub reported PR #18 `CONFLICTING` / `DIRTY` again.
+- Dev_4 merged latest `origin/main` into branch `intern_code_dev_4/session12-sft-smoke-run`.
+- Conflict file:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md`
+- Resolution:
+  - preserved `M1-SFT-SMOKE-DEV4` SFT smoke task mapping and evidence facts;
+  - preserved `M1-GPU-LIFECYCLE-DEV2` completion, PR #20 merge, PR #21 backfill, and PM PR #22 gate sync facts;
+  - kept the PM decision that no further SFT GPU retry is authorized without a new explicit task and config/resource plan.
+- No self-merge was attempted; PR #18 remains waiting for GitHub mergeability and PM gate pass.
