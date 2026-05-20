@@ -104,6 +104,14 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_test_1`: task `M1-SFT-RETRY-VALIDATE-TEST1`; validate retry against `test_1_sft_retry_gate.md` and write `evidence/test_1_sft_retry_validation.md`.
   - `intern_code_test_2`: task `M1-EVAL-UNBLOCK-TEST2`; keep mini-swe unblock command/gate ready and run/gate only after checkpoint or served endpoint exists; write `evidence/test_2_eval_unblock.md`.
   PM decision for first retry: use original `/root/workspace/cleaned_m1_sft_10/train.jsonl` unless dev_3 or test_1 records a launch-blocking issue. The repeated x16 dataset remains fallback/supporting smoke data, not the first retry default.
+- 2026-05-20 Session 12 data-format unblock task split:
+  - `intern_code_dev_4`: continue owning PR #30 conflict refresh for `M1-SFT-RETRY-RUN-DEV4`; no SFT rerun.
+  - `intern_code_dev_3`: task `M1-SFT-DATAFORMAT-FIX-DEV3`; produce a no-execution fix plan for LLamaFactory `KeyError: 'from'`, covering OpenAI role/content registration and ShareGPT `from`/`value` fallback; write `evidence/dev_3_sft_dataformat_fix_plan.md`.
+  - `intern_code_dev_1`: task `M1-SFT-DATAFORMAT-REVIEW-DEV1`; independently review retry failure facts and dev_3 fix plan for provenance/schema risks; write `evidence/dev_1_sft_dataformat_review.md`.
+  - `intern_code_test_1`: task `M1-SFT-DATAFORMAT-GATE-TEST1`; define the pre-run/post-run gate for a data-format-fixed retry; write `evidence/test_1_sft_dataformat_gate.md`.
+  - `intern_code_dev_2`: task `M1-GPU-RETRY-PLAN2-DEV2`; prepare next LTP plan and stale-resource proof only; do not submit a GPU job; write `evidence/dev_2_gpu_retry_plan2.md`.
+  - `intern_code_test_2`: task `M1-EVAL-BLOCKED-REFRESH-TEST2`; refresh mini-swe blocked/unblock evidence after the retry failure; write `evidence/test_2_eval_blocked_after_retry_failure.md`.
+  No GPU, SFT, or eval execution is authorized by this split.
 
 ## PM Integration Responsibilities
 

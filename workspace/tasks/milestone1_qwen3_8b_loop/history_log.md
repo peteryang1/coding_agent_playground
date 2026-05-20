@@ -644,3 +644,15 @@
 - Follow-up audit still shows PR #30 open and `CONFLICTING` / `DIRTY`. PM sent a non-interrupt tmux follow-up to dev_4 naming the owner blocker and requiring refresh against current `origin/main`, no SFT rerun, durable evidence/status only, and fresh PM gate before self-merge.
 - PM self-merged coordination PR #35 at `2026-05-20T11:47:59Z`, merge commit `82eef1fb36900b1ddfb4ef57a6f02fe1ce8ff673`, to publish the follow-up blocker.
 - PM fetched PR #30 head and used `git merge-tree` for conflict triage without modifying dev_4 code. The current conflict markers are in `history_log.md`, `task_knowledge.md`, and `task_registry.md`. PM injected file-specific guidance to dev_4: preserve current main PR #33/#34/#35 gate-revocation records, preserve dev_4 retry result evidence and dev_2 stop proof, push, and wait for fresh PM gate before self-merge.
+
+## 2026-05-20 Session 12 Data-Format Unblock Task Split
+
+- PM re-audited PR #30 and dev_4 pane: PR #30 remains `CONFLICTING` / `DIRTY`, and dev_4 has not yet posted a refreshed completion record.
+- PM decided not to authorize any new GPU/SFT/eval run and not to let other interns idle while PR #30 is refreshed.
+- Created explicit no-execution tasks:
+  - `M1-SFT-DATAFORMAT-FIX-DEV3`;
+  - `M1-SFT-DATAFORMAT-REVIEW-DEV1`;
+  - `M1-SFT-DATAFORMAT-GATE-TEST1`;
+  - `M1-GPU-RETRY-PLAN2-DEV2`;
+  - `M1-EVAL-BLOCKED-REFRESH-TEST2`.
+- These tasks address the current `KeyError: 'from'` blocker through durable plan/review/gate evidence only.
