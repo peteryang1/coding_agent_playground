@@ -103,3 +103,4 @@
 91. PR gate rule: before PM marks a dev/test PR ready, PM must confirm the PR references a task and that the task docs/status define owner and acceptance criteria. After owner self-merge, the owner must mark the corresponding task complete by updating task README/status, own status, necessary history/evidence, then push/merge those completion records.
 92. Current process gate: task registry for this milestone is `task_registry.md`; PR owners must keep that registry or task-specific docs aligned with PR state and completion state.
 93. PR #18 task mapping fact: dev_4 SFT smoke evidence PR #18 must reference existing PM task id `M1-SFT-SMOKE-DEV4` and must preserve PM's registry.
+94. Resource fact: dev_2 stop proof on main records LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` stopped at 2026-05-20T09:53:21 with endpoint refusal and outputs preserved.
