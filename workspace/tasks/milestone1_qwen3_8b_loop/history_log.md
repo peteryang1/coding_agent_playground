@@ -143,3 +143,6 @@
   - state `OPEN`, non-draft, mergeable `UNKNOWN` at initial audit;
   - PM branch had current uncommitted durable rule/status updates, so PR #2 was not gate-ready at that point.
   - blocker for PR #2: push current PM durable updates and recheck mergeability before any self-merge decision.
+- After pushing Session 8 durable updates, PM rechecked PR state:
+  - PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, with `mergedAt=null`; owner dev_4 has been notified to self-merge.
+  - PR #2 remains `OPEN`, non-draft, mergeable `UNKNOWN`, with `mergedAt=null`; PM-owned PR #2 is not self-merge-ready until mergeability resolves to mergeable or a concrete conflict/check blocker is identified.

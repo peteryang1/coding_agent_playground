@@ -2,7 +2,7 @@
 
 ## Active
 
-- PR #2 gate: initial Session 8 audit found mergeability `UNKNOWN` while current PM durable updates were local. Push current updates and recheck before deciding whether PM-owned PR #2 can self-merge.
+- PR #2 gate: after pushing current PM durable updates, PR #2 still reports mergeability `UNKNOWN`; PM-owned PR #2 is not self-merge-ready until mergeability resolves or a concrete conflict/check blocker is identified.
 - GPU/SFT workflow: Qwen3-8B SFT GPU allocation and exact training launcher need confirmation from axrd records or compute manager.
 - mini-swe-agent evaluation environment is not installed on the corrected final workspace machine. PM checks found `singularity` present, but `mini`, `mini-extra`, Docker, Apptainer, and `sb-cli` absent, so evaluation is blocked until an install/backend path is provided.
 - Qwen3-8B SFT base/checkpoint path and GPU allocation are not yet validated. Dev_4 is deriving the training plan from axrd records.

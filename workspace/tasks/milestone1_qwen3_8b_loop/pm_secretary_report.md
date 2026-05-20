@@ -237,3 +237,10 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
   - owner: `intern_code_pm`
   - blocker: current PM durable corrections were local and not pushed during initial audit; PR #2 must be pushed and mergeability rechecked before a self-merge decision.
 - PM did not merge any PR in this step and did not run code/tests/remote experiments.
+
+## 2026-05-20 Session 8 PR Gate Recheck
+
+- After pushing Session 8 durable updates, PM rechecked both PRs.
+- PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; dev_4 owner has already been instructed to self-merge.
+- PR #2 remains `OPEN`, non-draft, mergeable `UNKNOWN`, `mergedAt=null`; PM-owned PR #2 is not self-merge-ready because mergeability has not resolved.
+- PM did not merge PR #1 or PR #2. PR #2 blocker is now specifically unresolved GitHub mergeability state; next PM gate is to recheck and identify conflict/check blocker if it does not resolve.
