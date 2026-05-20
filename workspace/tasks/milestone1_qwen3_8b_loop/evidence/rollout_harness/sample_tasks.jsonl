@@ -1,0 +1,3 @@
+{"repo":"fastapi","task_id":"fastapi_smoke_001","prompt":"Inspect the FastAPI repository and report one narrowly scoped documentation-only improvement. Do not edit files."}
+{"repo":"scikit-learn","task_id":"scikit_learn_smoke_001","prompt":"Inspect the scikit-learn repository and report one narrowly scoped test-only improvement. Do not edit files."}
+{"repo":"rich","task_id":"rich_smoke_001","prompt":"Inspect the Rich repository and report one narrowly scoped documentation-only improvement. Do not edit files."}

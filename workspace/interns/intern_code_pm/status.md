@@ -1,11 +1,23 @@
 # intern_code_pm - 状态
 
-<!-- METADATA:STATUS=Idle,TASK= -->
+<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_pm |
-| Status | Idle |
-| Current Task | |
-| PR | N/A |
-| Session | 0 |
+| Status | Working |
+| Current Task | milestone1_qwen3_8b_loop |
+| PR | #2 |
+| Session | 5 |
+
+## Recent Progress
+
+- 2026-05-20 Session 1: organized Milestone 1 through durable files only, selected and cloned `fastapi`, `scikit-learn`, and `rich` on the final workspace machine, assigned all dev/test owners with evidence paths, verified shared Codex CLI preflight at `/mnt/3fs/data/tools/codex`, applied the PM-to-secretary durable-reporting correction, and opened PR #2.
+- 2026-05-20 Session 1 continuation: incorporated test_1 rollout harness dry-run validation, routed dev_2 follow-up through durable assignments, and confirmed PR #1/#2 are open and mergeable.
+- 2026-05-20 Session 2: checked direct zsh Codex path on the final workspace, verified dev_2 harness v2 dry-run schema outputs, ran tiny non-dry rollout attempts, and recorded Codex auth/provider blocker.
+- 2026-05-20 Session 3: updated active PM coordination to the corrected final workspace `ssh -p 31787 root@10.100.194.40`, verified clean repo clones plus `/usr/local/bin/codex`, closed the non-dry harness gate, made full six-intern parallel utilization the top priority, generated `tasks_300.jsonl`, started the 300-run rollout, and observed the first manifest entry passed.
+- 2026-05-20 Session 3 continuation: started independent scikit-learn and rich rollout batches alongside the main run, fixed launcher prepare for full repo ID task records, and deployed a rollout-to-SFT converter with a 3-example clean JSONL smoke.
+- 2026-05-20 Session 4: applied supervisor scope change to 10 total complete coding-process trajectories, stopped/superseded old 300 rollout processes and marked outputs scratch-only, created `tasks_m1_10.jsonl`, deployed complete-process validator, and started real `/root/workspace/rollouts_m1_10` rollout PID `1341184`.
+- 2026-05-20 Session 5: completed the 10-total rollout, validated 10/10 complete-process trajectories, converted 10/10 to `coding_agent_playground_sft_v1`, used `/esc` interrupts to reactivate dev/test, and captured SFT dry-run plus mini-swe eval smoke readiness evidence.
+- 2026-05-20 Session 5 continuation: wrote eval readiness metrics, refreshed `final_report.md` with current rollout/data/SFT/eval evidence, and confirmed remaining blockers are valid Qwen3-8B base/checkpoint plus GPU/model endpoint for real SFT/eval smoke.
+- 2026-05-20 Session 5 continuation: re-audited SFT blockers on the final workspace; no GPU/current nodes.json is available and the clean Qwen3-8B base symlink remains broken, while historical Qwen3-8B checkpoints are warm-start candidates only.

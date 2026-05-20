@@ -1,0 +1,59 @@
+# Milestone 1 Status
+
+<!-- METADATA:STATUS=Open,OWNER=intern_code_pm -->
+
+## 2026-05-20
+
+- PM accepted supervisor Milestone 1 and durable-channel correction.
+- Final workspace SSH verified: `ssh -p 31787 root@10.100.194.40`.
+- Final workspace root verified/created: `/root/workspace`.
+- Selected initial repos: `fastapi/fastapi`, `scikit-learn/scikit-learn`, `Textualize/rich`.
+- Created durable task tracking directory.
+- PM active goal tool blocker recorded: cannot create a second goal in this thread after previous goal completed.
+- Final workspace clones completed:
+  - `/root/workspace/fastapi` at `f4cafbc`.
+  - `/root/workspace/scikit-learn` at `ffc6cdc`.
+  - `/root/workspace/rich` at `46cebbb`.
+- PM assigned all 6 dev/test interns with durable evidence paths in `assignments.md`; no routine peer-send reply was requested.
+- Remote rollout harness dry-run exists under `/root/workspace/rollouts_smoke` with one dry-run trajectory for each selected repo.
+- Remote rollout harness preflight passes when using `CODEX_CMD=/mnt/3fs/data/tools/codex`.
+- PM routed a durable follow-up assignment for `intern_code_test_1` to validate the current rollout harness dry-run artifacts.
+- PM applied the secretary durable-reporting correction: PM will not proactively peer-send secretary for routine milestone reports/status/blockers/summaries/completion; secretary-facing updates live in durable task files.
+- `intern_code_test_1` completed follow-up validation of the dev_2 rollout harness dry-run. Passing checks include JSONL parsing, per-repo dry-run directories, parseable metadata/done files, prompt matching, repo metadata capture, and partial resume evidence.
+- PM routed a durable follow-up for `intern_code_dev_2` to close the rollout harness gate before full 300-trajectory execution.
+- PR status: dev_4 SFT pipeline PR #1 is open/mergeable; PM coordination PR #2 is open/mergeable.
+- Dev_2's rollout harness v2 is present in PM worktree and deployed to the final workspace; PM verified `/root/workspace/rollouts_smoke_v2` has full dry-run artifacts and schema fields that reconcile with `manifest.jsonl`.
+- Session 3 address correction completed: the authoritative final workspace is `ssh -p 31787 root@10.100.194.40`; previous scratch-host outputs are not final evidence.
+- Corrected final workspace verified hostname `lg-cmc-b7r201-k10u23-cpu-000158`, clean repos, `/usr/local/bin/codex`, `codex-cli 0.130.0`, and `~/.codex/auth.json`.
+- Harness deployed to `/root/workspace/rollout_harness` on the corrected final workspace; preflight passed for all three selected repos and dry-run smoke exists under `/root/workspace/rollouts_smoke_v3`.
+- PM ran one real tiny non-dry rollout through the harness on the corrected final workspace. It passed for `fastapi/fastapi`, wrote full raw artifacts under `/root/workspace/rollouts_nondry_new_machine_tiny`, and repo working trees remained clean.
+- PM top priority updated: all six dev/test interns have active non-waiting assignments with durable evidence paths; idle owner areas are treated as PM coordination risk.
+- PM generated `/root/workspace/rollout_harness/tasks_300.jsonl` on the corrected final workspace with 300 records, exactly 100 per selected repo.
+- PM started full 300-trajectory rollout in the background: PID file `/root/workspace/rollout_harness/rollouts_m1_300.pid`, log `/root/workspace/rollout_harness/rollouts_m1_300.log`, output root `/root/workspace/rollouts_m1_300`.
+- Latest PM snapshot after launch: rollout PID `1208139` is alive, `/root/workspace/rollouts_m1_300/manifest.jsonl` has 1 line, and the first `fastapi` trajectory is `passed`.
+- PM attempted a fresh six-intern assignment fanout for this all-hands priority; peer channel returned `undeliverable: unconfirmed` for all six, so durable files remain the authoritative coordination channel.
+- PM observed the remote `tasks_300.jsonl` was upgraded to full repo ID records with `repo_key`; launcher prepare now accepts slug, full repo ID, or `repo_key`.
+- PM started separate parallel scikit-learn and rich rollout batches to avoid waiting behind the sequential main process:
+  - scikit-learn PID `1270557`, output root `/root/workspace/rollouts_m1_300_scikit_learn`;
+  - rich PID `1270562`, output root `/root/workspace/rollouts_m1_300_rich`.
+- Latest rollout snapshot: main PID `1208139` alive with 3 passed FastAPI trajectories; scikit-learn and rich PIDs alive with no manifest entries yet.
+- PM added/deployed `convert_rollouts_to_sft.py` and ran a cleaning smoke over `/root/workspace/rollouts_m1_300`; output `/root/workspace/cleaned_m1_sft_smoke/train.jsonl` has 3 valid `coding_agent_playground_sft_v1` examples, 0 rejects, 0 conversion errors.
+- Updated live conversion after parallel roots produced artifacts: `/root/workspace/cleaned_m1_sft_live/train.jsonl` has 7 valid examples with per-repo counts `fastapi=4`, `scikit-learn=2`, `rich=1`, all `success`, 0 conversion errors.
+- Session 4 scope change applied: Milestone 1 is now an end-to-end smoke loop with 10 total trajectories, not a full 300-result run.
+- PM stopped/superseded old 300/100-per-repo rollout processes. Known old parent PIDs `1208139`, `1270557`, `1270562` and observed codex children are dead; old roots `/root/workspace/rollouts_m1_300*` are scratch-only.
+- PM wrote scratch markers on the final workspace: `/root/workspace/rollout_harness/STOPPED_OLD_300_ROLLOUTS_AT.txt` and `/root/workspace/rollout_harness/OLD_300_OUTPUTS_SCRATCH_ONLY.txt`.
+- PM created `/root/workspace/rollout_harness/tasks_m1_10.jsonl` with exactly 10 total prompts: `fastapi=4`, `scikit-learn=3`, `rich=3`; every prompt requires actual edit/patch attempt and test/check attempt.
+- PM deployed `validate_complete_coding_trajectories.py` and started the real non-dry 10-total rollout: PID `1341184`, log `/root/workspace/rollout_harness/rollouts_m1_10.log`, output root `/root/workspace/rollouts_m1_10`.
+- Latest Session 4 validation snapshot: `/root/workspace/rollouts_m1_10` has 4 manifest entries, rollout PID `1341184` is alive, and `complete_process_validation.json` reports 4 checked / 4 valid / 0 invalid complete-process trajectories.
+- Session 5 completion snapshot: `/root/workspace/rollouts_m1_10` finished with 10 manifest entries; complete-process validator reports 10 checked / 10 valid / 0 invalid; `/root/workspace/cleaned_m1_sft_10/train.jsonl` has 10 kept SFT examples, 0 rejects, 0 conversion errors, split `fastapi=4`, `scikit-learn=3`, `rich=3`.
+- PM used high-priority `/esc` interrupts for dev/test. `/esc` delivered to dev_1/dev_2/dev_3/dev_4/test_1/test_2; follow-up durable assignment messages were delivered to dev_3/test_1/test_2, dev_1 was unconfirmed, and dev_2/dev_4 remained busy, so `assignments.md` remains the authoritative control plane.
+- Dev_4 durable evidence now includes Qwen3-8B SFT dry-run command validation using `/root/workspace/cleaned_m1_sft_10/train.jsonl`; run manifest was written under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_smoke_cmd_20260520/`.
+- Test_2 durable evidence now includes mini-swe-agent eval smoke readiness and exact two-instance/single-instance commands using Singularity, blocked only on the SFT smoke model/checkpoint or endpoint.
+- PM wrote mini-swe-agent machine-readable readiness metrics to `/root/workspace/swe-bench-related/output/qwen3_8b_sft_smoke/metrics_readiness.json`; status is `blocked` because no SFT smoke model/checkpoint or endpoint exists yet.
+- PM updated `final_report.md` from pending placeholders to current evidence: 10/10 rollout valid, 10/10 cleaned, SFT dry-run manifest path, mini-swe readiness metrics, and remaining blockers.
+- PM re-audited SFT real-launch blockers: corrected final workspace still has no `nvidia-smi`; no current Milestone 1 `nodes.json` exists; `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` remains a broken symlink; readable historical Qwen3-8B checkpoints exist but are warm-start candidates, not a clean base unless explicitly accepted.
+
+## Next PM Checks
+
+- Use dev_4 SFT dry-run manifest and blocker list to choose a valid Qwen3-8B base/checkpoint/GPU path.
+- Once an SFT smoke model/checkpoint path exists, run test_2's mini-swe-agent two-instance smoke command and write final report metrics.
