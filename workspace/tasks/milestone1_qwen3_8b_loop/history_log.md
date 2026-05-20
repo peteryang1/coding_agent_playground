@@ -146,3 +146,5 @@
 - After pushing Session 8 durable updates, PM rechecked PR state:
   - PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, with `mergedAt=null`; owner dev_4 has been notified to self-merge.
   - PR #2 remains `OPEN`, non-draft, mergeable `UNKNOWN`, with `mergedAt=null`; PM-owned PR #2 is not self-merge-ready until mergeability resolves to mergeable or a concrete conflict/check blocker is identified.
+- PM rechecked PR #2 again and mergeability resolved to `MERGEABLE`.
+- PM gate pass for PR #2: it is a coordination/evidence PR, remains explicit that SFT/eval smoke is incomplete, and does not claim milestone completion. Under the supervisor PR gate correction, PM-owned PR #2 should be self-merged without waiting for the whole milestone loop to finish.

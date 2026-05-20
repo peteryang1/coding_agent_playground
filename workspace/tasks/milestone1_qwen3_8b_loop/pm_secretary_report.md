@@ -244,3 +244,12 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; dev_4 owner has already been instructed to self-merge.
 - PR #2 remains `OPEN`, non-draft, mergeable `UNKNOWN`, `mergedAt=null`; PM-owned PR #2 is not self-merge-ready because mergeability has not resolved.
 - PM did not merge PR #1 or PR #2. PR #2 blocker is now specifically unresolved GitHub mergeability state; next PM gate is to recheck and identify conflict/check blocker if it does not resolve.
+
+## 2026-05-20 Session 8 PR #2 Gate Pass
+
+- PM rechecked PR #2 again and GitHub mergeability resolved to `MERGEABLE`.
+- PM gate pass for PR #2:
+  - scope is PM coordination/evidence only;
+  - durable files clearly keep milestone state active and list SFT/eval smoke blockers;
+  - merge does not claim full milestone completion.
+- PM action: push this durable gate record, then self-merge PR #2 as the PR owner. PR #1 remains dev_4-owned and PM will not merge it.
