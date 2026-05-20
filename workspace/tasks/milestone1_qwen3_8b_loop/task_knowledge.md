@@ -45,3 +45,4 @@
 39. PR audit fact: PR #1 is open, non-draft, mergeable, scoped to Qwen3-8B SFT pipeline artifacts, and passes PM gate for self-merge by dev_4; PR #2 mergeability later resolved to `MERGEABLE`, so PM gate passes for owner self-merge of the coordination/evidence PR without waiting for whole-milestone completion.
 40. PR fact: PR #2 merged at `2026-05-20T07:51:54Z` with merge commit `07b0dd167b9004af1c6994652966b7e1de5f2084`; further PM updates need a continuation branch/PR.
 41. PR fact: PR #3 was opened for continuation PM durable coordination, is mergeable, and passes PM gate for owner self-merge because it does not claim milestone completion.
+42. Gate fact: after PR #3 merge, PR #1 is still open/mergeable and the SFT/eval support evidence files remain missing, so SFT/eval smoke is still unproven.

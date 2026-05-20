@@ -4,6 +4,7 @@
 
 - PR #1 owner action: PR #1 is gate-passed and mergeable, but still awaits dev_4 owner self-merge confirmation.
 - Continuation PR: after PR #2 merged, PM coordination has moved to branch `pm/milestone1-continuation-20260520`; a new PR is needed for subsequent PM durable updates.
+- Evidence still missing after PR #3 merge: dev_1 clean-base support, dev_2 GPU/nodes support, test_1 completion gate, dev_4 SFT unblock decision package, and test_2 eval gate package.
 - GPU/SFT workflow: Qwen3-8B SFT GPU allocation and exact training launcher need confirmation from axrd records or compute manager.
 - mini-swe-agent evaluation environment is not installed on the corrected final workspace machine. PM checks found `singularity` present, but `mini`, `mini-extra`, Docker, Apptainer, and `sb-cli` absent, so evaluation is blocked until an install/backend path is provided.
 - Qwen3-8B SFT base/checkpoint path and GPU allocation are not yet validated. Dev_4 is deriving the training plan from axrd records.

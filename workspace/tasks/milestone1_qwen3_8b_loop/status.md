@@ -64,6 +64,8 @@
 - Session 8 continuation after PR #2 merge: PR #2 merged at `2026-05-20T07:51:54Z` with merge commit `07b0dd167b9004af1c6994652966b7e1de5f2084`; ongoing PM coordination moved to branch `pm/milestone1-continuation-20260520`.
 - Latest PR/evidence gate: PR #1 remains open/mergeable and awaits dev_4 self-merge; dev_1/dev_2/test_1 support evidence files are still missing, so PM sent non-interrupt tmux reminders and verified with `capture-pane`.
 - Continuation PR #3 is open/non-draft/mergeable and passes PM gate for coordination-only durable updates; PM will self-merge as owner after pushing this record.
+- PR #3 merged at `2026-05-20T07:58:02Z` with merge commit `ba058d3a87831630c232edbe6d8622b1b648ed54`.
+- Latest PM gate check: PR #1 remains open/mergeable and awaits dev_4 owner self-merge; dev_1/dev_2/test_1 support files remain missing; dev_4/test_2 decision packages remain absent; SFT/eval smoke remains unproven.
 
 ## Next PM Checks
 
@@ -74,3 +76,4 @@
 - After PR #2 merge, continue milestone coordination from fresh state while keeping the active goal open for SFT/eval smoke blockers.
 - Open/push a continuation PM coordination PR for the new branch and keep reading durable support evidence for SFT/eval blocker decisions.
 - After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.
+- Recheck PR #1 owner merge and the five SFT/eval evidence paths before deciding clean-base/GPU/warm-start/eval next steps.
