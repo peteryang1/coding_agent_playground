@@ -401,5 +401,8 @@
   - `evidence/dev_2_gpu_lifecycle.md`;
   - `evidence/gpu_resource_tracking.md`;
   - `task_registry.md` completion marker for `M1-GPU-LIFECYCLE-DEV2`.
-- Completion record PR: `https://github.com/peteryang1/coding_agent_playground/pull/20`; dev_2 will self-merge only after PM gate passes.
+- Completion record PR #20: `https://github.com/peteryang1/coding_agent_playground/pull/20`.
+- PR #20 PM gate passed and dev_2 self-merged it:
+  - `mergedAt`: `2026-05-20T10:02:28Z`
+  - merge commit: `3bfcb3781931070b932d138957620dbe9f1d2ee9`
 - dev_2 did not run SFT and did not peer-send PM routine status.
