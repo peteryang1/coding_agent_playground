@@ -66,14 +66,18 @@
 - Continuation PR #3 is open/non-draft/mergeable and passes PM gate for coordination-only durable updates; PM will self-merge as owner after pushing this record.
 - PR #3 merged at `2026-05-20T07:58:02Z` with merge commit `ba058d3a87831630c232edbe6d8622b1b648ed54`.
 - Latest PM gate check: PR #1 remains open/mergeable and awaits dev_4 owner self-merge; dev_1/dev_2/test_1 support files remain missing; dev_4/test_2 decision packages remain absent; SFT/eval smoke remains unproven.
+- Dev_4 self-merged PR #1 for scoped Qwen3-8B SFT pipeline artifacts at `2026-05-20T08:23:54Z`; merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
+- Dev_4 Session 8 decision package is recorded in `evidence/dev_4_sft_pipeline.md`: clean Qwen3-8B base path is still missing/broken on the corrected final workspace; warm-start fallback is recommended only with PM/supervisor approval using `/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final`; GPU endpoint/current `nodes.json` remains required before real SFT smoke.
+- Dev_2 GPU/nodes support evidence is recorded in `evidence/dev_2_gpu_nodes_support.md`: corrected entry host has no visible GPU and there is no current Milestone 1 `nodes.json`; SFT launch requires a new GPU allocation or explicit historical allocation reuse approval.
+- Dev_3 SFT input handoff is recorded in `evidence/dev_3_sft_input_handoff.md`: `/root/workspace/cleaned_m1_sft_10/train.jsonl` is the current data contract for dev_4, format `coding_agent_playground_sft_v1`, 10 examples, SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+- Dev_1 base-path support evidence is recorded in `evidence/dev_1_sft_base_path_support.md`: PM accepts `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` as the preferred local clean-base candidate for the next SFT smoke, while `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` remains a broken alias.
 
 ## Next PM Checks
 
-- Gate dev_4's durable SFT/GPU/model-path decision package and decide whether clean-base repair/location is available or explicit warm-start fallback should be escalated.
+- Route GPU allocation/current `nodes.json`; use dev_1's clean-base candidate as the preferred `BASE_MODEL` once GPU is available.
 - Gate test_2's durable mini-swe-agent smoke gate package, then require real smoke evidence after dev_4 provides a usable model/checkpoint path or endpoint.
-- Gate dev_1/dev_2/test_1 support evidence to decide whether PM can accept a warm-start fallback, needs compute-manager routing, or must escalate to supervisor for base/GPU decision.
-- Recheck PR #1 merge result from dev_4 durable status/evidence and re-audit PR #2 mergeability after current PM updates are pushed.
+- Gate test_1 support evidence when it appears: SFT+mini-swe completion audit gate remains missing.
 - After PR #2 merge, continue milestone coordination from fresh state while keeping the active goal open for SFT/eval smoke blockers.
 - Open/push a continuation PM coordination PR for the new branch and keep reading durable support evidence for SFT/eval blocker decisions.
 - After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.
-- Recheck PR #1 owner merge and the five SFT/eval evidence paths before deciding clean-base/GPU/warm-start/eval next steps.
+- Recheck test_2 eval acceptance/provenance package before authorizing mini-swe smoke after SFT checkpoint/endpoint exists.

@@ -417,3 +417,188 @@ commands[0] cd /root/workspace/coding_agent_playground/code/LLamaFactory && expo
 ```
 
 Conclusion: SFT smoke has a validated dataset and launch manifest, but real training remains blocked by the missing clean base path plus missing GPU allocation/current `nodes.json`.
+
+## 2026-05-20 Session 8 Decision Package and PR Merge Evidence
+
+### PR #1 Merge Result
+
+- PR: https://github.com/peteryang1/coding_agent_playground/pull/1
+- Gate status before merge: open, non-draft, mergeable, PM-gated ready for scoped Qwen3-8B SFT pipeline artifacts.
+- Local final checks before merge:
+  - `bash -n scripts/train_qwen3_8b_sft.sh`
+  - `python3 -m py_compile scripts/write_sft_run_manifest.py`
+  - `OUTPUT_ROOT=/tmp/cap_sft_premerge DRY_RUN=1 RUN_ID=premerge_check bash scripts/train_qwen3_8b_sft.sh`
+- Merge method: merge commit via `gh pr merge 1 --merge --delete-branch`.
+- `mergedAt`: `2026-05-20T08:23:54Z`
+- Merge commit: `882d1642884e82d1a40674266f244a52cf69defc`
+
+### 1. Clean Qwen3-8B Base Path Status
+
+Decision: clean Qwen3-8B base path cannot currently be located or repaired from verified local artifacts on the corrected final workspace.
+
+Evidence:
+
+- Intended symlink remains broken:
+  - `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B -> /mnt/3fs/data/ai4ai/axis_ref/research_hub/models/qwen3-8b/snapshot`
+  - `/mnt/3fs/data/ai4ai/axis_ref/research_hub/models/qwen3-8b` does not exist.
+  - `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B/config.json` is missing.
+- Checked likely cache roots:
+  - `/root/.cache/huggingface/hub/models--Qwen--Qwen3-8B` exists but no usable `config.json`/safetensors were found in the targeted scan.
+  - `/mnt/3fs/data/ai4ai/.cache/huggingface/hub/models--Qwen--Qwen3-8B` missing.
+  - `/mnt/3fs/data/huggingface/hub/models--Qwen--Qwen3-8B` missing.
+
+Repair route if supervisor/compute authorizes it:
+
+```bash
+ssh -p 31787 root@10.100.194.40
+mkdir -p /mnt/3fs/data/ai4ai/axis_ref/research_hub/models/qwen3-8b/snapshot
+# Materialize the official Qwen/Qwen3-8B HF snapshot here from an approved cache,
+# artifact store, or approved download path.
+test -f /mnt/3fs/data/ai4ai/axis_ref/research_hub/models/qwen3-8b/snapshot/config.json
+test -f /mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B/config.json
+python3 - <<'PY'
+import json
+p="/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B/config.json"
+d=json.load(open(p))
+assert d.get("model_type") == "qwen3"
+assert "Qwen3ForCausalLM" in d.get("architectures", [])
+print("clean base verified", d.get("max_position_embeddings"), d.get("vocab_size"))
+PY
+```
+
+This repair is not a dev_4-only action unless an approved source for the clean snapshot is provided.
+
+### 2. Warm-Start Historical Checkpoint Fallback
+
+Decision: warm-start is acceptable only as a smoke-loop fallback if PM/supervisor explicitly approves. It must be labeled as warm-start smoke evidence, not clean-base Qwen3-8B SFT evidence.
+
+Recommended fallback path:
+
+```text
+/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final
+```
+
+Reason for recommendation:
+
+- It is a complete HF-style model directory.
+- Verified files:
+  - `config.json`: present
+  - `tokenizer.json`: present
+  - `generation_config.json`: present
+  - safetensors shards: `4`
+  - `model.safetensors.index.json`: present and references no missing shards
+  - total safetensors bytes: `16381516824`
+- Config shape matches Qwen3-8B family:
+  - `model_type=qwen3`
+  - `architectures=["Qwen3ForCausalLM"]`
+  - `max_position_embeddings=40960`
+  - `vocab_size=151936`
+
+Rejected/less preferred fallback:
+
+- `/mnt/3fs/data/ai4ai/models/ws_20260426_0217_qwen3-8b_1bench_29a2-sft-hf` is not recommended because targeted validation found no `tokenizer.json`, no index, and only 3 safetensors.
+- `/mnt/3fs/data/ai4ai/models/ws_20260428_0325_qwen3-8b_1bench_e46e-sft` is complete enough for a fallback, but lacks `generation_config.json`; it is second choice.
+
+Warm-start fallback launch command, only after PM/supervisor approval and GPU availability:
+
+```bash
+ssh -p 31787 root@10.100.194.40
+cd /root/workspace/coding_agent_playground
+DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl \
+BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final \
+OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground \
+LLAMAFACTORY_DIR=/root/workspace/coding_agent_playground/code/LLamaFactory \
+RUN_ID=milestone1_qwen3_8b_sft_warmstart_smoke_$(date -u +%Y%m%dT%H%M%SZ) \
+DRY_RUN=0 \
+bash scripts/train_qwen3_8b_sft.sh
+```
+
+### 3. GPU or Current `nodes.json` Route
+
+Decision: current corrected entry host is not a GPU training host; GPU path is not ready until compute provides either an allocated GPU shell or a current Milestone 1 `nodes.json`.
+
+Current evidence:
+
+- Corrected final workspace: `ssh -p 31787 root@10.100.194.40`.
+- Hostname observed: `lg-cmc-b7r201-k10u23-cpu-000158`.
+- `nvidia-smi` absent on entry host.
+- Current milestone-specific support evidence files are still missing in merged task evidence:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_1_base_model_path.md`
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_gpu_nodes.md`
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_sft_eval_gate.md`
+- Historical `nodes.json` exists at `/mnt/3fs/data/ai4ai/outputs/ws_20260512_1931_qwen3-4b-thinking-2507_1bench_f327/nodes.json`, but it is not a current Milestone 1 allocation and must not be used.
+
+Verification commands for compute-provided GPU shell:
+
+```bash
+ssh -p <gpu_port> root@<gpu_host>
+hostname
+command -v nvidia-smi
+nvidia-smi -L
+nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader
+test -d /mnt/3fs/data/ai4ai/outputs
+test -f /root/workspace/cleaned_m1_sft_10/train.jsonl
+```
+
+Verification commands for compute-provided `nodes.json`:
+
+```bash
+NODES_JSON=<current-milestone-nodes.json>
+python3 - <<'PY'
+import json, os
+p=os.environ["NODES_JSON"]
+d=json.load(open(p))
+assert d.get("nodes"), d
+for n in d["nodes"]:
+    assert "ip" in n and "port" in n and "node_rank" in n, n
+print("node_count", len(d["nodes"]))
+print("master", d["nodes"][0])
+PY
+python3 - <<'PY'
+import json, os, subprocess
+p=os.environ["NODES_JSON"]
+for n in json.load(open(p))["nodes"]:
+    cmd=["ssh","-p",str(n["port"]),f'{n.get("user","root")}@{n["ip"]}',"hostname; command -v nvidia-smi; nvidia-smi -L | head"]
+    print(" ".join(cmd))
+    subprocess.check_call(cmd)
+PY
+```
+
+### 4. Exact Next Command Once Base and GPU Are Available
+
+If clean base is repaired, run this first GPU smoke command:
+
+```bash
+ssh -p <gpu_port> root@<gpu_host>
+cd /root/workspace/coding_agent_playground
+mkdir -p code/LLamaFactory code/mcore_adapter
+tar -xf /mnt/3fs/data/ai4ai/deps/LLamaFactory_4fa8e1ee_20260507.tar.gz -C code/LLamaFactory --strip-components=1
+rsync -a /mnt/3fs/data/ai4ai/deps/mcore_adapter/ code/mcore_adapter/
+pip install --break-system-packages -e code/LLamaFactory/ --no-deps
+pip install --break-system-packages peft accelerate datasets 'trl<=0.24.0,>=0.18.0'
+pip install --break-system-packages /mnt/3fs/data/ai4ai/deps/flash_attn-2.8.3-cp312-cp312-linux_x86_64.whl
+pip install --break-system-packages -e code/mcore_adapter/ --no-deps
+python3 -c "import flash_attn, mcore_adapter; print('gpu deps ok')"
+llamafactory-cli version
+DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl \
+BASE_MODEL=/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B \
+OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground \
+LLAMAFACTORY_DIR=/root/workspace/coding_agent_playground/code/LLamaFactory \
+RUN_ID=milestone1_qwen3_8b_sft_cleanbase_smoke_$(date -u +%Y%m%dT%H%M%SZ) \
+DRY_RUN=0 \
+bash scripts/train_qwen3_8b_sft.sh
+```
+
+If PM/supervisor approves warm-start fallback instead of waiting for clean base, replace only `BASE_MODEL` with:
+
+```bash
+BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final
+```
+
+### 5. PM/Supervisor Decision Blockers
+
+- Decide whether to repair/materialize the clean `Qwen/Qwen3-8B` snapshot at the broken symlink target, and provide the approved source if dev_4 should execute the repair.
+- Decide whether warm-start fallback is acceptable for the Milestone 1 smoke loop. If yes, recommended fallback is `/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final`.
+- Provide or route a current GPU allocation: either a GPU SSH endpoint or a current Milestone 1 `nodes.json`.
+- Confirm whether the smoke target should be single-node 8-GPU or multi-node. The command above is single-node; multi-node requires `nodes.json` and worker launch setup.
+- Confirm whether mini-swe evaluation may proceed from a warm-start smoke checkpoint if clean-base SFT remains blocked.

@@ -58,3 +58,10 @@
 52. Coordination fact: PM expanded active non-interrupt tmux follow-up to all six dev/test owners so no intern is idle: dev_4 PR/SFT blocker, dev_1 base path, dev_2 GPU/nodes, dev_3 SFT input handoff, test_1 completion gate, and test_2 eval acceptance gate.
 53. Gate fact: current completion remains unproven because PR #1 is still open and evidence for SFT unblock, GPU route, SFT completion gate, and mini-swe acceptance gate is missing or stale.
 54. PM boundary fact: even when support evidence is missing repeatedly, PM must not fill it by running remote probes or experiments directly; PM should assign, gate, collect durable files, and decide from owner evidence.
+55. PR fact: PR #7 merged at `2026-05-20T08:20:50Z` with merge commit `98eb9d3573e24a732a7de354e8ecbf1c0173c2c3`.
+56. PR fact: dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`.
+57. Gate fact: dev_3 SFT input handoff is sufficient for data-side SFT readiness: `/root/workspace/cleaned_m1_sft_10/train.jsonl`, format `coding_agent_playground_sft_v1`, 10 examples, SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+58. Gate fact: dev_2 GPU/nodes evidence is sufficient to prove the corrected entry host has no visible GPU and no current Milestone 1 `nodes.json`; SFT launch still requires a new GPU allocation or explicit reuse approval for historical allocation.
+59. SFT decision fact: dev_4 recommends warm-start fallback `/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final` only if PM/supervisor explicitly accepts warm-start smoke instead of clean-base smoke.
+60. Base-model gate fact: dev_1 found a usable local clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`; PM decision is to prefer this clean-base candidate over warm-start fallback for the next SFT smoke once GPU/current `nodes.json` exists.
+61. Remaining blocker fact: no current GPU endpoint or Milestone 1 `nodes.json`, no real SFT smoke checkpoint/output, and no mini-swe eval smoke metrics exist yet; test_1 completion gate and test_2 eval acceptance package remain missing.
