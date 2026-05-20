@@ -18,6 +18,7 @@
 - Data-format planning gate is complete, but retry authorization remains blocked on concrete dataset_info/ShareGPT artifact evidence, test_1 artifact gate, PR #30 owner refresh/merge, and fresh PM authorization.
 - Data-format artifact gate is complete no-execution: ShareGPT artifact `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl` sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2` passes test_1 compatibility for `messages[*].from/value`. Retry authorization remains blocked on exact future command, concrete future-run `dataset_info.json`, PR #30 owner refresh/merge, fresh LTP allocation, and PM authorization.
 - Post-PR #38 blocker: PM data-format artifact gate PR #38 is merged, but PR #30 still reports `CONFLICTING` / `DIRTY` after the main advance. Dev_4 owns refreshing PR #30 against current `origin/main`, preserving retry failure and dev_2 stop proof, pushing, and waiting for fresh PM gate. No SFT/GPU/eval execution is authorized while this remains open.
+- Active no-execution unblock work: dev_3 owns exact dataset_info package, dev_4 owns exact launch package after PR #30 refresh priority, dev_1 owns independent launch review, dev_2 owns LTP readiness/no-active-resource proof, test_1 owns final launch gate, and test_2 owns mini-swe smoke package. Missing any of these gates blocks a future retry authorization.
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 
 ## Active

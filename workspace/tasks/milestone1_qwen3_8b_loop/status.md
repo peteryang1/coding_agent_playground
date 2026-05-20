@@ -217,6 +217,9 @@
 - Next explicit task: `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` for dev_3 to produce concrete no-GPU data-format artifact/preflight evidence.
 - Dev_3 completed `M1-SFT-DATAFORMAT-ARTIFACT-DEV3`: generated `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, 10 rows, 10 unique `example_id`, 10 unique `trajectory_id`, schema `coding_agent_playground_sft_v1_sharegpt_messages`.
 - Test_1 refreshed `M1-SFT-DATAFORMAT-GATE-TEST1`: artifact passes no-execution compatibility for the observed `messages[*].from/value` LLamaFactory reader. Retry remains blocked on exact future command, concrete future-run `dataset_info.json`, PR #30 owner refresh/merge, fresh LTP allocation, and PM authorization.
+- Post-PR #38 audit: PR #30 is still open, non-draft, `CONFLICTING` / `DIRTY`, with last GitHub update `2026-05-20T11:36:42Z`; dev_4 remains owner for refresh and no self-merge/SFT rerun is allowed until fresh PM gate.
+- PM opened the next no-execution parallel work package so all interns have active task ids while PR #30 is refreshed: `M1-SFT-DATASETINFO-PACKAGE-DEV3`, `M1-SFT-LAUNCH-PACKAGE-DEV4`, `M1-SFT-LAUNCH-REVIEW-DEV1`, `M1-GPU-RETRY-READY-DEV2`, `M1-SFT-LAUNCH-GATE-TEST1`, and `M1-EVAL-SMOKE-PACKAGE-TEST2`.
+- PM decision remains unchanged: no GPU, SFT, or mini-swe execution is authorized. The next execution gate requires PR #30 merge/completion marker, exact dataset_info/command package, test_1 launch gate, dev_2 fresh LTP readiness, and explicit PM authorization.
 
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 

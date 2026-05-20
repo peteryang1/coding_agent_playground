@@ -116,6 +116,14 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_3`: task `M1-SFT-DATAFORMAT-ARTIFACT-DEV3`; produce the concrete no-GPU data-format artifact/preflight package for the chosen fix path and write `evidence/dev_3_sft_dataformat_artifact.md`.
   - PM gate inputs from `M1-SFT-DATAFORMAT-FIX-DEV3`, `M1-SFT-DATAFORMAT-REVIEW-DEV1`, `M1-SFT-DATAFORMAT-GATE-TEST1`, `M1-GPU-RETRY-PLAN2-DEV2`, and `M1-EVAL-BLOCKED-REFRESH-TEST2` are sufficient for planning only; they do not authorize GPU/SFT/eval execution.
   - Concrete launch remains blocked until artifact evidence, PR #30 owner refresh/merge, test_1 artifact gate, and fresh PM authorization are complete.
+- 2026-05-20 Session 12 post-PR #38 parallel launch-package assignments:
+  - `intern_code_dev_4`: immediate priority remains task `M1-SFT-RETRY-RUN-DEV4` PR #30 refresh against current `origin/main`; no self-merge until fresh PM gate and no SFT/GPU rerun. After or while preserving that priority, task `M1-SFT-LAUNCH-PACKAGE-DEV4` may draft exact future command/config/env/output evidence only.
+  - `intern_code_dev_3`: task `M1-SFT-DATASETINFO-PACKAGE-DEV3`; turn the accepted ShareGPT artifact into exact `dataset_info.json`/mapping/package evidence without running SFT/GPU/eval.
+  - `intern_code_dev_1`: task `M1-SFT-LAUNCH-REVIEW-DEV1`; independently review launch inputs and record current missing inputs/blockers without remote experiments.
+  - `intern_code_dev_2`: task `M1-GPU-RETRY-READY-DEV2`; refresh LTP readiness/no-active-GPU proof and templates only; do not submit.
+  - `intern_code_test_1`: task `M1-SFT-LAUNCH-GATE-TEST1`; prepare the final no-execution preflight/post-run gate for the data-format-fixed retry.
+  - `intern_code_test_2`: task `M1-EVAL-SMOKE-PACKAGE-TEST2`; prepare mini-swe smoke command/result package while recording that execution is blocked until a checkpoint/model/endpoint exists.
+  - These tasks keep all interns active but do not authorize GPU, SFT, or mini-swe execution. Any dev/test PR created from these tasks must cite the task id, owner, acceptance criteria, evidence path, and completion marker.
 
 ## PM Integration Responsibilities
 
