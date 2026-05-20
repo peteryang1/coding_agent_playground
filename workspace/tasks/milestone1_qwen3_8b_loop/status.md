@@ -107,6 +107,16 @@
   - output root writable: `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`
 - PM authorized dev_4 to run only the short Qwen3-8B SFT smoke on this route after resolving PR #14 conflict and preserving PR #15 records. Test_2 still owns mini-swe after a real SFT model/checkpoint exists.
 
+## 2026-05-20 Session 11 Resource Tracking Update
+
+- Resource-management rule applied: coding_agent_playground dev/test owners must use LTP directly for GPU submit/status/ssh/stop workflows. Do not route routine GPU requests through axrd interns.
+- Active 8xH200 resource is tracked in `evidence/gpu_resource_tracking.md`.
+- Lifecycle/stop-proof owner: `intern_code_dev_2`.
+- Workload/SFT owner: `intern_code_dev_4`.
+- Stop target: after SFT smoke completion/failure, if idle for 15 minutes without owner progress, or by `2026-05-20T10:30:00Z` unless dev_2 records a bounded extension reason.
+- Required stop evidence: LTP stop command/action, job frame, UTC timestamp, post-stop status, and proof that output artifacts remain under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
+- PM coordination PR #17 is open for the resource lifecycle tracking update.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
