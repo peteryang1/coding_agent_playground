@@ -21,6 +21,7 @@
 - Active no-execution unblock work: dev_3 owns exact dataset_info package, dev_4 owns exact launch package after PR #30 refresh priority, dev_1 owns independent launch review, dev_2 owns LTP readiness/no-active-resource proof, test_1 owns final launch gate, and test_2 owns mini-swe smoke package. Missing any of these gates blocks a future retry authorization.
 - Current owner-evidence blocker: as of `2026-05-20T12:35:10Z`, none of the six launch-package evidence files are present in PM durable evidence, and PR #30 has not been refreshed. PM has re-submitted non-interrupt start commands; future retry authorization remains blocked.
 - Escalated durable blocker requirement: as of `2026-05-20T12:39:01Z`, each owner must either complete the assigned evidence file or record a blocker/missing-input list in that same file and own status. PM cannot gate the next SFT retry until PR #30 is refreshed/merged and these evidence-or-blocker files exist.
+- Active impasse: as of `2026-05-20T12:41:44Z`, repeated audits show no PR #30 refresh and no launch-package evidence-or-blocker files. PM cannot author, run, or substitute these owner tasks; next progress requires owner durable updates.
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 
 ## Active
