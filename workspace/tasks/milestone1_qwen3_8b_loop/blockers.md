@@ -17,6 +17,7 @@
 - Eval blocked refresh is complete for the current state: test_2 evidence confirms mini-swe cannot run until a future accepted checkpoint/model or served endpoint exists.
 - Data-format planning gate is complete, but retry authorization remains blocked on concrete dataset_info/ShareGPT artifact evidence, test_1 artifact gate, PR #30 owner refresh/merge, and fresh PM authorization.
 - Data-format artifact gate is complete no-execution: ShareGPT artifact `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl` sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2` passes test_1 compatibility for `messages[*].from/value`. Retry authorization remains blocked on exact future command, concrete future-run `dataset_info.json`, PR #30 owner refresh/merge, fresh LTP allocation, and PM authorization.
+- Post-PR #38 blocker: PM data-format artifact gate PR #38 is merged, but PR #30 still reports `CONFLICTING` / `DIRTY` after the main advance. Dev_4 owns refreshing PR #30 against current `origin/main`, preserving retry failure and dev_2 stop proof, pushing, and waiting for fresh PM gate. No SFT/GPU/eval execution is authorized while this remains open.
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 
 ## Active

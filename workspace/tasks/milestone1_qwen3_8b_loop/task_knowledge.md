@@ -144,3 +144,5 @@
 130. Retry authorization blocker: no new SFT retry is authorized until concrete data-format artifact evidence, test_1 artifact validation, PR #30 owner refresh/merge, fresh LTP route, and PM authorization are durable.
 131. Concrete data-format artifact fact: dev_3 generated `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, with 10 rows, 10 unique `example_id`, 10 unique `trajectory_id`, and `messages[*].from/value`.
 132. Test_1 artifact gate fact: `messages[*].from/value` is PASS_NO_EXECUTION for the observed LLamaFactory reader that failed on `message["from"]`; future launch still needs exact `dataset_info.json` mapping and command wiring.
+133. PR #38 merge fact: PM self-merged data-format artifact gate PR #38 at `2026-05-20T12:22:32Z`, merge commit `99679f4a1f813b2bc2edeea27013b2266866321a`.
+134. Current PR #30 gate fact: after PR #38 advanced main, GitHub reports PR #30 open, non-draft, `CONFLICTING` / `DIRTY`; the gate is not ready and dev_4 must refresh against current `origin/main` before any self-merge.
