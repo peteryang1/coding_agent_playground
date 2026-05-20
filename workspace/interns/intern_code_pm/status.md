@@ -7,7 +7,7 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | #19 |
+| PR | #22 |
 | Session | 12 |
 
 ## Recent Progress
@@ -50,3 +50,4 @@
 - 2026-05-20 Session 11: applied supervisor resource-process correction. Added team LTP ownership rule, created `evidence/gpu_resource_tracking.md` for the active 8xH200 job, assigned dev_2 as lifecycle/stop-proof owner and dev_4 as SFT workload owner, and set stop conditions so the node cannot idle without proof.
 - 2026-05-20 Session 11: opened PM coordination PR #17 for active GPU resource lifecycle tracking and stop-proof rules.
 - 2026-05-20 Session 12: applied supervisor intern-conduct rule by creating `task_registry.md`, requiring every dev/test PR to map to a task with owner/acceptance/evidence/completion marker, and updating PM gate rules in assignments, task knowledge, status, blockers, and history. PM also instructed dev_2 to stop/release the active H200 after dev_4 reported both SFT attempts failed with no further GPU use recommended, then gated PR #18 as not ready because it is conflicting and lacks task id `M1-SFT-SMOKE-DEV4`.
+- 2026-05-20 Session 12 continuation: gated PR #20 for task `M1-GPU-LIFECYCLE-DEV2` as ready; dev_2 self-merged PR #20 at `2026-05-20T10:02:28Z` with merge commit `3bfcb3781931070b932d138957620dbe9f1d2ee9`, then merged PR #21 at `2026-05-20T10:05:06Z` to backfill merge facts. GPU lifecycle stop proof is complete; PR #18 remains open and conflicting while dev_4 resolves it against the PR #20/#21 main state.
