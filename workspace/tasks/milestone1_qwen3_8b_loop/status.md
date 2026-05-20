@@ -195,6 +195,14 @@
 - Current blocker: SFT retry failed before checkpoint creation because OpenAI-style role/content messages were registered through ShareGPT defaults expecting `from`/`value`.
 - PR #30 has dev_4 run-result evidence but is currently `CONFLICTING` / `DIRTY`; dev_4 owns merging current `origin/main`, preserving stop proof and retry result evidence, then waiting for PM gate before self-merge.
 
+## 2026-05-20 Session 12 Task/PR Flow Reaffirmation And PR #30 Gate
+
+- Supervisor reaffirmed the intern conduct flow: PM must maintain explicit tasks, assign task owners, and gate every dev/test PR against task id, owner, acceptance criteria, durable evidence path, mergeability, and completion marker.
+- Owner rule remains active: after a PM-gated self-merge, the dev/test owner must mark the corresponding task complete, blocked-with-final-evidence, or ready-for-retry in task docs or `task_registry.md`, update their own `status.md`, update needed history/evidence, and push or merge the completion record.
+- PM delivered the reaffirmed task -> PR -> merge -> task-complete rule by tmux inject to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`; routine confirmations/status/results remain durable-file only.
+- Current PR audit: PR #30 for task `M1-SFT-RETRY-RUN-DEV4` is open, non-draft, `MERGEABLE` / `CLEAN`, with no merge commit yet.
+- PM gate decision: PR #30 passes the ready/mergeable gate for owner self-merge because it maps to `M1-SFT-RETRY-RUN-DEV4`, records owner/evidence/completion intent, and contains retry failure plus stop-proof evidence. Dev_4 was instructed by tmux inject to self-merge and then mark the task blocked-with-final-evidence.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.

@@ -630,3 +630,11 @@
 - PM sent a stop order to dev_2 after dev_4 recommended immediate resource release and no further retry was authorized.
 - Dev_2 stopped LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`; final state is `STOPPED (Completed)`, completed `2026-05-20 11:23:29`, endpoint refused connection, and `/mnt/3fs` artifacts were preserved.
 - PM gate for PR #30: not ready while GitHub reports `CONFLICTING` / `DIRTY`; dev_4 must merge current main and preserve both dev_2 stop proof and retry result evidence.
+
+## 2026-05-20 Session 12 Task/PR Flow Reaffirmation And PR #30 Gate
+
+- PM recorded the supervisor reaffirmation that PM must maintain explicit tasks and assign work through task records, not scattered assignments.
+- PM gate rule remains: every dev/test PR must reference a task id with owner, acceptance criteria, durable evidence path, and completion marker before PM can mark it ready.
+- Owner self-merge rule remains: after self-merge, the owner marks the task complete, blocked-with-final-evidence, or ready-for-retry in task docs or `task_registry.md`, updates own `status.md`, updates required history/evidence, and pushes or merges the completion record.
+- PM delivered the reaffirmed flow by tmux inject to all six dev/test owners and verified submitted text with `capture-pane`; no routine peer-send reply to PM was requested.
+- PM re-audited PR #30: it is open, non-draft, `MERGEABLE` / `CLEAN`, maps to task `M1-SFT-RETRY-RUN-DEV4`, and passes PM gate for dev_4 owner self-merge. The required completion marker after merge is blocked-with-final-evidence because no checkpoint/model was produced.
