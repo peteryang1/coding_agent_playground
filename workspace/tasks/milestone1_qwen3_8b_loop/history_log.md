@@ -188,3 +188,17 @@
   - `intern_code_dev_2`: write GPU/current `nodes.json`/compute workflow support evidence.
   - `intern_code_test_1`: write SFT+mini-swe completion audit gate.
 - PM decision remains unchanged: active goal stays open because SFT/eval smoke completion is unproven; continue collecting owner evidence rather than running experiments directly as PM.
+- PM self-merged PR #6 as owner after it passed coordination-only gate. Merge commit `9f43d16932098010b12a138d661f90a383ff2d0a`, merged at `2026-05-20T08:14:18Z`.
+- PM re-audited current state after PR #6:
+  - PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, with `mergedAt=null`; dev_4 remains responsible for self-merge or writing a concrete blocker.
+  - The requested support files remain absent from the PM worktree: `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md`.
+  - dev_4 evidence remains at the earlier dry-run/blocker state and does not yet include a new SFT unblock decision package.
+  - test_2 evidence remains at eval readiness/blocker state and does not yet include the requested current acceptance gate package.
+- PM expanded the non-interrupt tmux follow-up to keep all six dev/test owners active and verified delivery with `capture-pane`:
+  - `intern_code_dev_4`: self-merge PR #1 or write blocker; write SFT unblock package.
+  - `intern_code_dev_1`: write clean Qwen3-8B base/model registry support evidence.
+  - `intern_code_dev_2`: write GPU/current `nodes.json`/compute route support evidence.
+  - `intern_code_dev_3`: write SFT input handoff package for dev_4.
+  - `intern_code_test_1`: write SFT+mini-swe smoke completion audit gate.
+  - `intern_code_test_2`: write mini-swe eval acceptance gate package and dirty-checkout provenance decision.
+- PM decision: do not mark complete or blocked. Completion is unproven; the PM still has meaningful coordination work by collecting owner evidence and making gate decisions.
