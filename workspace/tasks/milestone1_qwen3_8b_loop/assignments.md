@@ -94,6 +94,14 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_4`: after resolving PR #14 conflict, run the short SFT smoke on the approved node only, write `evidence/dev_4_sft_smoke_run.md`, and record whether dev_2 should stop the node immediately or keep it for a bounded retry.
   - `intern_code_test_2`: prepare mini-swe eval for the produced SFT model/checkpoint or endpoint only after dev_4 writes SFT smoke evidence. Do not use the SFT GPU node by default.
 - 2026-05-20 Session 12 task/PR conduct reaffirmation delivered by tmux inject to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`: all future dev/test work must follow task -> PR -> merge -> task-complete. Routine confirmations, status, blockers, and test results must be written to durable evidence/status files, not peer-sent to PM.
+- 2026-05-20 Session 12 retry authorization task split:
+  - `intern_code_dev_2`: task `M1-GPU-RETRY-SUBMIT-DEV2`; submit or block a fresh LTP H200 retry job only, write resource/lifecycle evidence to `evidence/dev_2_gpu_retry_submit.md` and `evidence/gpu_retry_resource_tracking.md`; do not run SFT.
+  - `intern_code_dev_4`: task `M1-SFT-RETRY-RUN-DEV4`; after dev_2 provides endpoint/node, run one SFT retry using `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` and the PM-approved dataset; write `evidence/dev_4_sft_retry_run.md`.
+  - `intern_code_dev_3`: task `M1-SFT-RETRY-DATA-GATE-DEV3`; gate retry data choice and write checksum/schema/limits to `evidence/dev_3_sft_retry_data_gate.md`.
+  - `intern_code_dev_1`: task `M1-SFT-RETRY-PREGATE-DEV1`; independently sanity-check config/resource/test/data package and write `evidence/dev_1_sft_retry_pregate.md`.
+  - `intern_code_test_1`: task `M1-SFT-RETRY-VALIDATE-TEST1`; validate retry against `test_1_sft_retry_gate.md` and write `evidence/test_1_sft_retry_validation.md`.
+  - `intern_code_test_2`: task `M1-EVAL-UNBLOCK-TEST2`; keep mini-swe unblock command/gate ready and run/gate only after checkpoint or served endpoint exists; write `evidence/test_2_eval_unblock.md`.
+  PM decision for first retry: use original `/root/workspace/cleaned_m1_sft_10/train.jsonl` unless dev_3 or test_1 records a launch-blocking issue. The repeated x16 dataset remains fallback/supporting smoke data, not the first retry default.
 
 ## PM Integration Responsibilities
 

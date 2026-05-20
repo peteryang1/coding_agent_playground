@@ -545,3 +545,10 @@
   - merge commit: `6a704f842c992f83a8d86167dfe870fa6ff72440`
 - Completion state: `M1-SFT-CONFIG-FIX-DEV4` is ready-for-retry. The config package is landed and durable, but no GPU run is authorized until PM also gates test/resource plans.
 - No peer-send PM routine confirmation was used.
+
+## 2026-05-20 Session 12 SFT Retry Authorization Split
+
+- PM self-merged coordination PR #28 after it passed gate: non-draft, `MERGEABLE` / `CLEAN`, no required checks. Merge commit `d6d1092b8cf72eb6210502da0b058cd9bf9abab6`.
+- PM decision: support evidence is durable enough to authorize the next owner-executed retry path through explicit tasks. PM will not run LTP, SFT, eval, or GPU stop commands.
+- New task split: dev_2 fresh LTP submit/lifecycle, dev_4 one SFT retry after endpoint exists, dev_3 data gate, dev_1 pre-run package sanity check, test_1 retry validation, and test_2 mini-swe unblock readiness.
+- First retry defaults: config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`; data `/root/workspace/cleaned_m1_sft_10/train.jsonl`; repeated x16 data remains fallback/supporting evidence only.
