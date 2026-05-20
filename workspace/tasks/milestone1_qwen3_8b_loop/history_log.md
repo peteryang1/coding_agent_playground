@@ -405,14 +405,14 @@
 ## Session 15 - Dev 4 PR #18 Task ID And Conflict Refresh - 2026-05-20
 
 - PM correction applied: PR #18 must use existing PM task id `M1-SFT-SMOKE-DEV4`.
-- Dev_4 merged current `origin/main` into branch `intern_code_dev_4/session12-sft-smoke-run`; after main advanced with dev_2 lifecycle evidence, dev_4 merged `origin/main` again and preserved dev_2 stop-proof records.
+- Dev_4 merged current `origin/main` into branch `intern_code_dev_4/session12-sft-smoke-run`; after main advanced with dev_2 lifecycle evidence and then PR #20 post-merge evidence, dev_4 merged `origin/main` again and preserved dev_2 stop-proof records.
 - Conflict files:
   - `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md`
   - `workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md`
   - `workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md`
 - Resolution:
   - preserved PM Session 12 `task_registry.md` and task-to-PR gate records from PR #19;
-  - preserved dev_2 GPU lifecycle stop proof from PR #20 branch state on `origin/main`;
+  - preserved dev_2 GPU lifecycle stop proof and PR #20 merge evidence from `origin/main`;
   - preserved dev_4 Session 13 SFT smoke run evidence and no-checkpoint result;
   - updated dev_4 evidence/status/history/task knowledge to reference task id `M1-SFT-SMOKE-DEV4`.
 - PR #18 body was updated to reference task id `M1-SFT-SMOKE-DEV4`, owner, acceptance criteria, durable evidence path, and completion marker.
@@ -436,5 +436,8 @@
   - `evidence/dev_2_gpu_lifecycle.md`;
   - `evidence/gpu_resource_tracking.md`;
   - `task_registry.md` completion marker for `M1-GPU-LIFECYCLE-DEV2`.
-- Completion record PR: `https://github.com/peteryang1/coding_agent_playground/pull/20`; dev_2 will self-merge only after PM gate passes.
+- Completion record PR #20: `https://github.com/peteryang1/coding_agent_playground/pull/20`.
+- PR #20 PM gate passed and dev_2 self-merged it:
+  - `mergedAt`: `2026-05-20T10:02:28Z`
+  - merge commit: `3bfcb3781931070b932d138957620dbe9f1d2ee9`
 - dev_2 did not run SFT and did not peer-send PM routine status.
