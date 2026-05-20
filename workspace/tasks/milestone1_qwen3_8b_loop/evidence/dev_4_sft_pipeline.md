@@ -817,4 +817,5 @@ Exact next command remains the Session 9 command package above. Real launch rema
 - `mergedAt`: `2026-05-20T09:10:26Z`
 - Merge commit: `93c4efaaff3e50220f7bb8583070321e65289efa`
 - Scope merged: no-launch clean-base SFT smoke launch package using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, plus PR #11 conflict-resolution evidence.
+- Session 11 evidence PR: `https://github.com/peteryang1/coding_agent_playground/pull/14`
 - No SFT launch was attempted. Real launch remains blocked on GPU endpoint/current Milestone 1 `nodes.json`.
