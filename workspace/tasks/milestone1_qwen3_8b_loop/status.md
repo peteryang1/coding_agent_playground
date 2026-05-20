@@ -80,6 +80,7 @@
 - Dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`. PM gate: no-launch clean-base SFT smoke package and conflict-resolution evidence are now on main.
 - Dev_2 GPU route acquisition evidence is recorded in `evidence/dev_2_gpu_route_attempt.md`. PM gate: sufficient route-attempt evidence. Compute manager peer route was undeliverable; no current Milestone 1 `nodes.json` exists; two live H200 candidates were discovered but are not approved Milestone 1 allocation, show high memory use, and lack local SFT paths.
 - Current PM decision: SFT launch remains unauthorized until compute approves one discovered endpoint or provides a fresh GPU endpoint/current `nodes.json`. If approval lands, dev_4 owns staging/verifying paths and running the SFT smoke; PM will only gate durable evidence.
+- PM coordination PR #15 is open to record PR #11 merge and dev_2 GPU route evidence.
 
 ## Next PM Checks
 
