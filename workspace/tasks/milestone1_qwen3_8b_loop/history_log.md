@@ -483,3 +483,9 @@
 - Gate facts: PR body cites task id, owner, acceptance criteria, durable evidence path, and completion marker; GitHub reports `MERGEABLE` / `CLEAN`; no required checks are reported.
 - Dev_4 recorded this gate pass durably before owner self-merge.
 - Planned completion state after PR #18 merge: `M1-SFT-SMOKE-DEV4` will be marked blocked-with-final-evidence because the SFT smoke was attempted under the approved route and produced final failure evidence without checkpoint/model output.
+- Owner self-merge completed:
+  - PR: `https://github.com/peteryang1/coding_agent_playground/pull/18`
+  - `mergedAt`: `2026-05-20T10:18:04Z`
+  - merge commit: `1c3a3e23921dd3fc91b340f9b67f83c747d42948`
+- Completion record: task `M1-SFT-SMOKE-DEV4` marked blocked-with-final-evidence because the approved SFT smoke reached real launch/failure evidence but produced no checkpoint/model, `trainer_state.json`, or `all_results.json`.
+- No peer-send PM routine confirmation was used.
