@@ -375,3 +375,17 @@
 - Result: no checkpoint/model was produced. Baseline run reached training setup but failed with MCA tiny-data DP=8 `ZeroDivisionError` from `steps_in_epoch=0`; one bounded TP=8 retry failed Megatron scheduler assertion `lr_warmup_steps < lr_decay_steps` for 1-step smoke.
 - Resource decision: dev_2 should stop the active H200 allocation immediately and record stop proof. Further retry should wait for PM-approved config change for MCA/Megatron tiny-data smoke.
 - Evidence PR: `https://github.com/peteryang1/coding_agent_playground/pull/18`
+
+## 2026-05-20 Session 11 Resource Management Correction
+
+- Supervisor correction applied: do not keep asking axrd interns for GPU machines. coding_agent_playground dev/test owners must learn and use LTP directly for submit/status/ssh/stop workflows.
+- PM boundary reaffirmed: PM organizes, gates, collects durable evidence, and decides; PM does not submit LTP jobs, run SFT/eval, or stop resources directly.
+- Created `evidence/gpu_resource_tracking.md` for the active 8xH200 node:
+  - LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`
+  - endpoint `ssh -p 39314 root@10.100.20.37`
+  - lifecycle/stop-proof owner `intern_code_dev_2`
+  - SFT workload owner `intern_code_dev_4`
+  - expected end `2026-05-20T10:30:00Z` or earlier
+  - stop conditions and stop proof requirements recorded
+- Updated assignments/status/blockers/task knowledge with the new resource-management rule and owner split.
+- PM sent non-interrupt tmux instructions to dev_2 and dev_4: dev_2 must track/stop the LTP job and write stop proof; dev_4 must run the SFT smoke only after PR #14 conflict resolution and write SFT evidence. No mini-swe execution is authorized yet.
