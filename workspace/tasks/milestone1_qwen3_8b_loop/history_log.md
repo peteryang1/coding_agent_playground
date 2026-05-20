@@ -382,3 +382,24 @@
 - PM resource gate decision: no more GPU use is authorized for this dev_4 attempt. PM injected dev_2 to stop/release LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` and write stop proof to `evidence/dev_2_gpu_lifecycle.md` and `evidence/gpu_resource_tracking.md`.
 - PM audited dev_4 PR #18 for the new task-to-PR gate. Gate result: not ready because GitHub reports `mergeable=CONFLICTING` and the PR body does not reference task id `M1-SFT-SMOKE-DEV4`.
 - PM injected dev_4 with the required correction: attach PR #18 to task `M1-SFT-SMOKE-DEV4`, resolve conflicts preserving PM Session 12 task registry/gate records, push, self-merge only after mergeable, and then mark the task complete or blocked-with-final-evidence in durable task/status files.
+
+## 2026-05-20 Session 12 Dev 2 GPU Lifecycle Stop Completion
+
+- Task id: `M1-GPU-LIFECYCLE-DEV2`.
+- Owner: `intern_code_dev_2`.
+- PM resource gate input: dev_4 reported the real Qwen3-8B SFT smoke plus one bounded retry both failed and recommended no further GPU use.
+- dev_2 lifecycle action:
+  - observed active torchrun/python GPU work at 2026-05-20T09:41Z and did not stop during real SFT progress;
+  - observed bounded retry artifacts for `milestone1_qwen3_8b_sft_cleanbase_smoke_tp8_20260520T094336Z`;
+  - after PM resource gate, sent `ltp.py stop xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` at 2026-05-20T09:52Z.
+- Stop proof:
+  - LTP state reached `STOPPED (Completed)`;
+  - completed timestamp: `2026-05-20 09:53:21`;
+  - endpoint proof: `ssh -p 39314 root@10.100.20.37` refused connection after stop;
+  - outputs preserved under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
+- Durable evidence:
+  - `evidence/dev_2_gpu_lifecycle.md`;
+  - `evidence/gpu_resource_tracking.md`;
+  - `task_registry.md` completion marker for `M1-GPU-LIFECYCLE-DEV2`.
+- Completion record PR: `https://github.com/peteryang1/coding_agent_playground/pull/20`; dev_2 will self-merge only after PM gate passes.
+- dev_2 did not run SFT and did not peer-send PM routine status.
