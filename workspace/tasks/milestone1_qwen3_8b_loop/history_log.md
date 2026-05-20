@@ -156,3 +156,9 @@
 - PM opened continuation PR #3 `https://github.com/peteryang1/coding_agent_playground/pull/3`.
 - PR #3 is `OPEN`, non-draft, mergeable `MERGEABLE`, and scoped to PM durable coordination after PR #2 merge; PM gate passes because it records active blockers and does not claim milestone completion.
 - Under the supervisor PR gate rule, PM will self-merge PR #3 as owner after this durable gate record is pushed.
+- PM self-merged PR #3 as owner. Merge commit `ba058d3a87831630c232edbe6d8622b1b648ed54`, merged at `2026-05-20T07:58:02Z`.
+- Latest gate check after PR #3 merge:
+  - PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`, and still awaits dev_4 owner self-merge.
+  - `dev_1_sft_base_path_support.md`, `dev_2_gpu_nodes_support.md`, and `test_1_sft_eval_completion_gate.md` are still missing.
+  - dev_4/test_2 evidence still has no new SFT unblock decision package or eval gate package.
+- PM keeps the active goal open because current evidence still does not prove real SFT smoke or mini-swe eval smoke.

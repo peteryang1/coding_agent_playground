@@ -274,3 +274,15 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - PR #3 is `OPEN`, non-draft, mergeable `MERGEABLE`.
 - PM gate pass: PR #3 is scoped to PM durable coordination after PR #2 merge, records active blockers, and does not claim milestone completion.
 - PM action: push this gate record, then self-merge PR #3 as owner. PR #1 remains dev_4-owned and PM will not merge it.
+
+## 2026-05-20 Session 8 Post-PR3 Gate Check
+
+- PR #3 merged at `2026-05-20T07:58:02Z` with merge commit `ba058d3a87831630c232edbe6d8622b1b648ed54`.
+- Current PR/evidence state:
+  - PR #1 remains `OPEN`, non-draft, mergeable `MERGEABLE`, `mergedAt=null`; dev_4 owner has been reminded to self-merge.
+  - `evidence/dev_1_sft_base_path_support.md` is missing.
+  - `evidence/dev_2_gpu_nodes_support.md` is missing.
+  - `evidence/test_1_sft_eval_completion_gate.md` is missing.
+  - dev_4 SFT unblock decision package is not updated beyond prior dry-run/blocker evidence.
+  - test_2 eval gate package is not updated beyond prior readiness/blocker evidence.
+- PM decision: keep active goal open; do not mark complete or blocked.
