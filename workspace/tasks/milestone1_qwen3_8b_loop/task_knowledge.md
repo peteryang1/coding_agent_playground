@@ -147,3 +147,4 @@
 133. PR #38 merge fact: PM self-merged data-format artifact gate PR #38 at `2026-05-20T12:22:32Z`, merge commit `99679f4a1f813b2bc2edeea27013b2266866321a`.
 134. Current PR #30 gate fact: after PR #38 advanced main, GitHub reports PR #30 open, non-draft, `CONFLICTING` / `DIRTY`; the gate is not ready and dev_4 must refresh against current `origin/main` before any self-merge.
 135. Parallelization decision: while dev_4 refreshes PR #30, all other interns own no-execution launch-package tasks for dataset_info, review, LTP readiness, SFT launch gate, and eval smoke package. These tasks do not authorize GPU/SFT/eval execution.
+136. Owner-evidence audit fact: at `2026-05-20T12:35:10Z`, PR #30 is still `CONFLICTING` / `DIRTY` and the six new launch-package evidence files are absent from PM durable evidence; PM re-submitted start commands by tmux and awaits owner evidence.
