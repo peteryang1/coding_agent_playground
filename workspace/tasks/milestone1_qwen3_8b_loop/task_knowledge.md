@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=12 -->
+<!-- METADATA:SESSION=13 -->
 
 ## Knowledge Entries
 
@@ -93,3 +93,6 @@
 81. PM decision update: use the approved current GPU route `ssh -p 39314 root@10.100.20.37` with `nodes.json` at `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/compute_gpu_route_nodes.json`, staged remotely at `/root/workspace/coding_agent_playground/nodes.json` and `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_nodes.json`.
 82. PM decision: dev_4 is authorized to run only the short Qwen3-8B SFT smoke on the approved route after resolving PR #14 conflict; test_2 owns mini-swe after SFT model/checkpoint exists.
 83. PR conflict fact: PR #14 conflicted after PR #15 merged and again after GPU-route authorization records landed; dev_4 must merge current `origin/main`, preserve PR #15 GPU route evidence and PM records, push PR #14, and self-merge only after PR #14 is mergeable.
+84. PR fact: dev_4 self-merged PR #14 at `2026-05-20T09:33:27Z` with merge commit `e21d6ba8c94ca4561777ec22444e9c1dd3d61b7a`.
+85. SFT smoke fact: approved H200 route, clean-base path, cleaned SFT dataset, output root, and LLamaFactory/MCA dependencies were usable, but no checkpoint was produced because MCA/Megatron tiny-data config failed: baseline DP=8 hit `steps_in_epoch=0`, and one bounded TP=8/max_steps=1 retry hit scheduler assertion `lr_warmup_steps < lr_decay_steps`.
+86. Resource fact: dev_4 recommends dev_2 stop the active H200 allocation immediately; another retry should wait for PM-approved config changes for tiny-data MCA/Megatron smoke.

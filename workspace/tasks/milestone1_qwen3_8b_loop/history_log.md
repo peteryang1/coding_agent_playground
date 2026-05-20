@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=12 -->
+<!-- METADATA:SESSION=13 -->
 
 ## Session 1 - 2026-05-20
 
@@ -356,3 +356,21 @@
   - preserved PR #15/PM records from `origin/main`, including dev_2 GPU route acquisition evidence and prior unapproved H200 candidate findings;
   - added PM's newly approved GPU route as the active route for the next SFT smoke.
 - No SFT launch was attempted during conflict resolution; launch remains ordered only after PR #14 is mergeable and self-merged.
+
+## Session 13 - Dev 4 Qwen3-8B SFT Smoke Run - 2026-05-20
+
+- Resource rule update: active H200 resource is tracked by PM/dev_2; dev_4 owns only SFT workload evidence, and dev_2 owns LTP lifecycle/stop proof.
+- Dev_4 did not ask axrd interns for GPU and did not run mini-swe.
+- PR #14 was self-merged before SFT execution:
+  - mergedAt: `2026-05-20T09:33:27Z`
+  - merge commit: `e21d6ba8c94ca4561777ec22444e9c1dd3d61b7a`
+- Approved endpoint used: `ssh -p 39314 root@10.100.20.37`.
+- Prechecks passed for H200 GPUs, staged `nodes.json`, repo, dataset, clean base, output root, and LLamaFactory/MCA dependencies.
+- Dev_4 ran the approved short clean-base SFT smoke with:
+  - `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`
+  - `DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl`
+  - `OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`
+  - `DRY_RUN=0`
+- Result evidence: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_smoke_run.md`.
+- Result: no checkpoint/model was produced. Baseline run reached training setup but failed with MCA tiny-data DP=8 `ZeroDivisionError` from `steps_in_epoch=0`; one bounded TP=8 retry failed Megatron scheduler assertion `lr_warmup_steps < lr_decay_steps` for 1-step smoke.
+- Resource decision: dev_2 should stop the active H200 allocation immediately and record stop proof. Further retry should wait for PM-approved config change for MCA/Megatron tiny-data smoke.
