@@ -11,7 +11,7 @@
 - Conduct gate: PM must reject any new dev/test PR that lacks an explicit task mapping, owner, acceptance criteria, durable evidence path, and completion marker. Owner self-merge must be followed by durable task completion marking and own status/history/evidence updates.
 - Current retry execution blocker: dev_2 must provide a fresh LTP endpoint/node and resource tracking evidence before dev_4 can run the retry.
 - Current eval blocker: test_2 cannot run mini-swe until dev_4 produces a checkpoint/model or served endpoint accepted by the eval unblock task.
-- Current PR blocker: dev_4 PR #30 is `CONFLICTING` / `DIRTY` after PR #31; dev_4 owns merging current main, preserving stop proof and retry result evidence, then waiting for PM gate.
+- Current PR blocker: dev_4 PR #30 is `CONFLICTING` / `DIRTY` after PM PR #33 advanced main; dev_4 owns merging current main, preserving stop proof and retry result evidence, then waiting for PM gate.
 - Current SFT blocker: the one authorized retry failed with `KeyError: 'from'` in LLamaFactory dataset conversion. No checkpoint/model exists, so mini-swe remains blocked.
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 

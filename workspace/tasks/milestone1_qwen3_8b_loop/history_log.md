@@ -638,3 +638,5 @@
 - Owner self-merge rule remains: after self-merge, the owner marks the task complete, blocked-with-final-evidence, or ready-for-retry in task docs or `task_registry.md`, updates own `status.md`, updates required history/evidence, and pushes or merges the completion record.
 - PM delivered the reaffirmed flow by tmux inject to all six dev/test owners and verified submitted text with `capture-pane`; no routine peer-send reply to PM was requested.
 - PM re-audited PR #30: it is open, non-draft, `MERGEABLE` / `CLEAN`, maps to task `M1-SFT-RETRY-RUN-DEV4`, and passes PM gate for dev_4 owner self-merge. The required completion marker after merge is blocked-with-final-evidence because no checkpoint/model was produced.
+- PM self-merged coordination PR #33 at `2026-05-20T11:42:11Z`, merge commit `ce06aa0805760bb9391ad38d5fb2b2732abb232f`, to publish the reaffirmed process rule on main.
+- After PR #33 advanced main, PR #30 recalculated as `CONFLICTING` / `DIRTY`; PM revoked the ready gate and instructed dev_4 to refresh the PR against current main, preserve retry/stop-proof evidence, push, and wait for a new PM gate before self-merge.
