@@ -640,3 +640,5 @@
 - PM re-audited PR #30: it is open, non-draft, `MERGEABLE` / `CLEAN`, maps to task `M1-SFT-RETRY-RUN-DEV4`, and passes PM gate for dev_4 owner self-merge. The required completion marker after merge is blocked-with-final-evidence because no checkpoint/model was produced.
 - PM self-merged coordination PR #33 at `2026-05-20T11:42:11Z`, merge commit `ce06aa0805760bb9391ad38d5fb2b2732abb232f`, to publish the reaffirmed process rule on main.
 - After PR #33 advanced main, PR #30 recalculated as `CONFLICTING` / `DIRTY`; PM revoked the ready gate and instructed dev_4 to refresh the PR against current main, preserve retry/stop-proof evidence, push, and wait for a new PM gate before self-merge.
+- PM self-merged coordination PR #34 at `2026-05-20T11:44:37Z`, merge commit `62c60e367baaa60ca3935d78e0405b63f5a19366`, to publish the PR #30 gate revocation.
+- Follow-up audit still shows PR #30 open and `CONFLICTING` / `DIRTY`. PM sent a non-interrupt tmux follow-up to dev_4 naming the owner blocker and requiring refresh against current `origin/main`, no SFT rerun, durable evidence/status only, and fresh PM gate before self-merge.
