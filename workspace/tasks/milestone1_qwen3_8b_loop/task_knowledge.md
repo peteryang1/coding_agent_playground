@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=19 -->
+<!-- METADATA:SESSION=20 -->
 
 ## Knowledge Entries
 
@@ -112,6 +112,7 @@
 100. PM gate fact: PR #18 for task `M1-SFT-SMOKE-DEV4` passed PM gate after GitHub reported `MERGEABLE` / `CLEAN`; after owner self-merge, completion should be recorded as blocked-with-final-evidence because the scoped SFT smoke produced durable failure evidence and no checkpoint/model.
 101. PR fact: dev_4 self-merged PR #18 at `2026-05-20T10:18:04Z` with merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`; task `M1-SFT-SMOKE-DEV4` is blocked-with-final-evidence rather than complete because no checkpoint/model was produced.
 102. Config-fix fact: for the next SFT retry package, dev_4 proposes `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` with TP=8/DP=1, `max_steps: 2`, `warmup_steps: 0`, `gradient_accumulation_steps: 1`, and `save_steps: 1` to target the prior DP=8 zero-step and TP=8 one-step scheduler failures.
+103. PR fact: dev_4 self-merged PR #26 at `2026-05-20T10:44:55Z` with merge commit `6a704f842c992f83a8d86167dfe870fa6ff72440`; task `M1-SFT-CONFIG-FIX-DEV4` is ready-for-retry but no GPU run is authorized until PM gates the remaining test/resource plans.
 102. PM notification fact: PM re-notified all six dev/test panes by tmux inject to follow task -> PR -> merge -> task completion flow, using durable status/evidence rather than routine peer-send replies.
 103. Session 19 decision: no further SFT GPU retry is authorized until dev_4 lands a config-fix package, dev_3 records any data-side mitigation/rejection, test_1 defines retry acceptance, and dev_2 records a fresh LTP resource plan.
 104. Eval blocker fact: mini-swe cannot run for Milestone 1 until an SFT checkpoint/model or served endpoint exists; test_2 owns explicit blocked-after-SFT-failure evidence.
