@@ -529,6 +529,12 @@
 - PM delivered these task assignments by tmux inject to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`; `capture-pane` verified each pane showed the submitted task text.
 - PM remains within role boundary: task assignment, gate, durable evidence collection, and decisions only.
 
+## 2026-05-20 Session 12 Conduct Reaffirmation And PR Audit
+
+- Supervisor required PM and all interns to follow the intern conduct rule using explicit tasks, not scattered assignments. PM updated durable task/PR gate records so every dev/test PR must map to a task id, owner, acceptance criteria, evidence path, and completion marker before PM marks it ready.
+- PM delivered the task -> PR -> merge -> task-complete rule to all six dev/test panes by tmux inject and capture-pane verification. The notification instructed owners to write confirmations, status, blockers, and completion proof to durable files rather than peer-send PM.
+- PR #26 for `M1-SFT-CONFIG-FIX-DEV4` and PR #27 completion record are merged; latest open-PR audit returned no open PRs. PM gate now focuses on whether support evidence is merged and whether a fresh GPU retry task can be authorized without PM running experiments.
+
 ## Session 20 - Dev 4 PR #26 Config Fix Package Merge - 2026-05-20
 
 - PM gate pass received for PR #26 / task `M1-SFT-CONFIG-FIX-DEV4`.

@@ -36,6 +36,8 @@ PM gate for a ready PR includes:
 
 When an owner self-merges a PR, that owner must mark the corresponding task complete in the task README/status or `task_registry.md`, update their own `status.md`, update history/evidence when needed, push, and merge that completion record. Ready/mergeable owner PRs should still be self-merged as soon as they pass PM gate; do not wait for the whole milestone.
 
+2026-05-20 Session 12 reaffirmation: no dev/test PR should be opened or marked ready without a task id first. If a work item needs a PR, the owner must either use an existing task id from `task_registry.md` or PM must create/update the task record before the PR is gated. PM gate checks task id, owner, acceptance criteria, evidence path, mergeability, and the post-merge completion marker. Owner self-merge remains the owner responsibility; PM does not merge dev/test PRs.
+
 ## Assignments
 
 | Intern | Role | Owner Area | Durable Evidence Path |
@@ -91,6 +93,7 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_2`: own LTP lifecycle for the active H200 job `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130` at `ssh -p 39314 root@10.100.20.37`. Track status, idle time, stop conditions, and final stop proof in `evidence/gpu_resource_tracking.md` or `evidence/dev_2_gpu_lifecycle.md`. Do not run SFT.
   - `intern_code_dev_4`: after resolving PR #14 conflict, run the short SFT smoke on the approved node only, write `evidence/dev_4_sft_smoke_run.md`, and record whether dev_2 should stop the node immediately or keep it for a bounded retry.
   - `intern_code_test_2`: prepare mini-swe eval for the produced SFT model/checkpoint or endpoint only after dev_4 writes SFT smoke evidence. Do not use the SFT GPU node by default.
+- 2026-05-20 Session 12 task/PR conduct reaffirmation delivered by tmux inject to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`: all future dev/test work must follow task -> PR -> merge -> task-complete. Routine confirmations, status, blockers, and test results must be written to durable evidence/status files, not peer-sent to PM.
 
 ## PM Integration Responsibilities
 
