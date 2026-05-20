@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | https://github.com/peteryang1/coding_agent_playground/pull/18 |
-| Session | 16 |
+| Session | 18 |
 
 ## PM Corrections
 
@@ -28,3 +28,5 @@
 - 2026-05-20 Session 13: Ran the approved short Qwen3-8B clean-base SFT smoke on `ssh -p 39314 root@10.100.20.37` after PR #14 self-merge. GPU/base/data/deps prechecks passed, but no checkpoint was produced: baseline run failed on MCA tiny-data DP=8 `steps_in_epoch=0`, and one bounded TP=8 retry failed Megatron scheduler assertion for 1-step smoke. Evidence is in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_smoke_run.md`; dev_2 should stop the H200 allocation immediately. Opened PR #18 for this evidence.
 - 2026-05-20 Session 15: Applied PM correction for PR #18 task mapping. Merged current `origin/main` as main advanced through dev_2 lifecycle stop and PR #20 post-merge records, preserved PM Session 12 `task_registry.md`/task gate records plus dev_2 GPU lifecycle proof, resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md`, and updated PR/evidence/task docs to use task id `M1-SFT-SMOKE-DEV4`. PR #18 remains open pending GitHub `MERGEABLE` status and PM gate pass before self-merge.
 - 2026-05-20 Session 16: Applied PM gate update after PR #22 advanced main. Merged latest `origin/main`, preserved `M1-SFT-SMOKE-DEV4` and `M1-GPU-LIFECYCLE-DEV2` records, resolved the `task_knowledge.md` conflict, and kept PR #18 open for PM gate rather than self-merging.
+- 2026-05-20 Session 17: Recorded PM task-flow rule update durably. PR #18 is open, non-draft, and GitHub reports `MERGEABLE` / `CLEAN`; task id `M1-SFT-SMOKE-DEV4` remains in PR body/evidence/status/task registry. No self-merge attempted because PM gate pass has not been issued in this update.
+- 2026-05-20 Session 18: PM gate passed for PR #18 / task `M1-SFT-SMOKE-DEV4`. Pre-merge durable status recorded on PR #18 branch before owner self-merge; post-merge completion record will mark the task blocked-with-final-evidence because the scoped SFT smoke produced final failure evidence but no checkpoint/model.

@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=16 -->
+<!-- METADATA:SESSION=18 -->
 
 ## Session 1 - 2026-05-20
 
@@ -463,3 +463,23 @@
   - preserved `M1-GPU-LIFECYCLE-DEV2` completion, PR #20 merge, PR #21 backfill, and PM PR #22 gate sync facts;
   - kept the PM decision that no further SFT GPU retry is authorized without a new explicit task and config/resource plan.
 - No self-merge was attempted; PR #18 remains waiting for GitHub mergeability and PM gate pass.
+
+## Session 17 - Dev 4 Task-Flow Rule Receipt For PR #18 - 2026-05-20
+
+- PM task-flow rule update received: every dev/test PR must map to an explicit task with owner, acceptance criteria, durable evidence path, and completion marker.
+- PR #18 task id remains `M1-SFT-SMOKE-DEV4`.
+- Durable mapping locations:
+  - PR #18 body;
+  - `workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md`;
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_smoke_run.md`;
+  - `workspace/interns/intern_code_dev_4/status.md`.
+- Current PR #18 gate state: GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
+- Dev_4 did not self-merge because this update restates the flow and says to wait for PM gate; owner self-merge remains pending PM gate pass.
+- Required post-merge action after PM gate pass and self-merge: mark `M1-SFT-SMOKE-DEV4` complete or blocked-with-final-evidence with `mergedAt` and merge commit in task docs/task registry, then update status/history/evidence and push/merge that completion record.
+
+## Session 18 - Dev 4 PR #18 PM Gate Pass And Owner Merge - 2026-05-20
+
+- PM gate pass received for PR #18 / task `M1-SFT-SMOKE-DEV4`.
+- Gate facts: PR body cites task id, owner, acceptance criteria, durable evidence path, and completion marker; GitHub reports `MERGEABLE` / `CLEAN`; no required checks are reported.
+- Dev_4 recorded this gate pass durably before owner self-merge.
+- Planned completion state after PR #18 merge: `M1-SFT-SMOKE-DEV4` will be marked blocked-with-final-evidence because the SFT smoke was attempted under the approved route and produced final failure evidence without checkpoint/model output.

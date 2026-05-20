@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=16 -->
+<!-- METADATA:SESSION=18 -->
 
 ## Knowledge Entries
 
@@ -108,3 +108,5 @@
 96. SFT blocker fact: PR #18 references task id `M1-SFT-SMOKE-DEV4`, but PM gate cannot pass until dev_4 resolves conflicts after PR #22 and GitHub reports mergeable.
 97. PM decision: no further SFT GPU retry is authorized from the failed DP=8/drop_last and TP=8/max_steps=1 attempts unless a new explicit task documents a concrete config fix and resource plan.
 98. PR #18 conflict fact: after PM PR #22 merged, dev_4 must merge latest `origin/main`, preserve `M1-SFT-SMOKE-DEV4` and `M1-GPU-LIFECYCLE-DEV2` task records, push PR #18, and wait for PM gate before self-merge.
+99. Task-flow rule: PR #18 must keep task id `M1-SFT-SMOKE-DEV4` in PR body/evidence/status/task registry; after PM-gated self-merge, dev_4 must mark the task complete or blocked-with-final-evidence with `mergedAt` and merge commit, update status/history/evidence, and push/merge that completion record.
+100. PM gate fact: PR #18 for task `M1-SFT-SMOKE-DEV4` passed PM gate after GitHub reported `MERGEABLE` / `CLEAN`; after owner self-merge, completion should be recorded as blocked-with-final-evidence because the scoped SFT smoke produced durable failure evidence and no checkpoint/model.
