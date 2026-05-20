@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop / M1-SFT-CONFIG-FIX-DEV4 |
-| PR | pending |
+| PR | https://github.com/peteryang1/coding_agent_playground/pull/26 |
 | Session | 19 |
 
 ## PM Corrections
@@ -31,4 +31,4 @@
 - 2026-05-20 Session 17: Recorded PM task-flow rule update durably. PR #18 is open, non-draft, and GitHub reports `MERGEABLE` / `CLEAN`; task id `M1-SFT-SMOKE-DEV4` remains in PR body/evidence/status/task registry. No self-merge attempted because PM gate pass has not been issued in this update.
 - 2026-05-20 Session 18: PM gate passed for PR #18 / task `M1-SFT-SMOKE-DEV4`. Pre-merge durable status recorded on PR #18 branch before owner self-merge; post-merge completion record will mark the task blocked-with-final-evidence because the scoped SFT smoke produced final failure evidence but no checkpoint/model.
 - 2026-05-20 Session 18 completion: Self-merged PR #18 at `2026-05-20T10:18:04Z` with merge commit `1c3a3e23921dd3fc91b340f9b67f83c747d42948`. Task `M1-SFT-SMOKE-DEV4` is marked blocked-with-final-evidence because the approved SFT smoke ran and produced durable failure evidence with no checkpoint/model output.
-- 2026-05-20 Session 19: Accepted task `M1-SFT-CONFIG-FIX-DEV4`. Created durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md` and proposed tiny-data-safe config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`. No GPU run attempted; next execution requires PM gate plus test/resource plans.
+- 2026-05-20 Session 19: Accepted task `M1-SFT-CONFIG-FIX-DEV4`. Created durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md` and proposed tiny-data-safe config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`. Opened PR #26 for the package. No GPU run attempted; next execution requires PM gate plus test/resource plans.

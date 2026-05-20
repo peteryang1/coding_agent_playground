@@ -507,6 +507,8 @@
   - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_config_fix_plan.md`
 - Config patch created:
   - `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`
+- PR opened:
+  - `https://github.com/peteryang1/coding_agent_playground/pull/26`
 - Plan summary:
   - use TP=8 / DP=1 to avoid MCA/drop-last zero-step behavior on 10 examples;
   - use `max_steps: 2` plus `warmup_steps: 0` to avoid the Megatron one-step scheduler assertion;
