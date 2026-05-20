@@ -94,6 +94,19 @@
 - After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.
 - Recheck test_2 eval acceptance/provenance package before authorizing mini-swe smoke after SFT checkpoint/endpoint exists.
 
+## 2026-05-20 Session 8 Approved GPU Route
+
+- PR #15 merged at `2026-05-20T09:19:31Z` with merge commit `21c59cd013e6d8c1a736483cc91864b11325f417`.
+- Compute GPU route decision is recorded in `evidence/compute_gpu_route_decision.md`; one-node route file is `evidence/compute_gpu_route_nodes.json`.
+- Approved SFT smoke route:
+  - SSH: `ssh -p 39314 root@10.100.20.37`
+  - LTP frame: `xu.yang~coding-agent-playground-m1-qwen3-8b-smoke-gpu-agentic-fixed-20260520-092130`
+  - Node: `lg-cmc-b7r202-o09u26-h200-000667`
+  - GPU: 8 x NVIDIA H200, idle at verification
+  - repo/data staged: `/root/workspace/coding_agent_playground` and `/root/workspace/cleaned_m1_sft_10/train.jsonl`
+  - output root writable: `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`
+- PM authorized dev_4 to run only the short Qwen3-8B SFT smoke on this route after resolving PR #14 conflict and preserving PR #15 records. Test_2 still owns mini-swe after a real SFT model/checkpoint exists.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.

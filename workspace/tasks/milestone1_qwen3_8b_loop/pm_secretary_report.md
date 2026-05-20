@@ -240,6 +240,17 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - Current route decision: no approved Milestone 1 GPU route yet. Candidate H200 endpoints `ssh -p 27094 root@10.100.10.20` and `ssh -p 31403 root@10.100.8.24` exist but need compute/PM approval and staging; preferred route remains fresh single-node H200 allocation or current `nodes.json`.
 - SFT/eval remains incomplete: no real SFT checkpoint/output and no mini-swe eval metrics exist.
 
+## 2026-05-20 Session 8 Approved GPU Route
+
+- PR #15 merged at `2026-05-20T09:19:31Z` with merge commit `21c59cd013e6d8c1a736483cc91864b11325f417`.
+- Compute manager approved fresh route `ssh -p 39314 root@10.100.20.37` for the short Qwen3-8B SFT smoke only.
+- Route evidence:
+  - `evidence/compute_gpu_route_decision.md`
+  - `evidence/compute_gpu_route_nodes.json`
+- The route has 8 x NVIDIA H200, CephFS mounted, output root writable, and repo/data staged.
+- PM instructed dev_4 to resolve PR #14 conflict first, then run only the SFT smoke and write `evidence/dev_4_sft_smoke_run.md`.
+- SFT/eval remains incomplete until that real SFT smoke produces checkpoint/model artifacts and test_2 runs mini-swe against the resulting model.
+
 ## 2026-05-20 Session 8 PR Gate Audit
 
 - Supervisor correction applied: PM should not hold ready/mergeable PRs until the whole milestone completes.
