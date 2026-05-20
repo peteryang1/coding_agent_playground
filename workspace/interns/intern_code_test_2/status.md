@@ -1,0 +1,11 @@
+# intern_code_test_2 - 状态
+
+<!-- METADATA:STATUS=Idle,TASK= -->
+
+| 字段 | 值 |
+|------|-----|
+| Name | intern_code_test_2 |
+| Status | Idle |
+| Current Task | |
+| PR | N/A |
+| Session | 0 |
