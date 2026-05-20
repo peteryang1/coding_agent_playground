@@ -8,6 +8,7 @@
 - SFT real launch is blocked on a valid Qwen3-8B base/checkpoint path and GPU allocation/current milestone `nodes.json`. Dev_4 validated dry-run command/manifest with the cleaned 10-example dataset.
 - mini-swe-agent real smoke is blocked on the SFT smoke model/checkpoint or endpoint. Test_2 validated the Singularity/mini-swe-agent command path.
 - PM execution boundary: PM must not personally run additional code/experiments or remote workspace commands for this milestone. This is not a technical blocker, but it means dev_4/test_2 must provide the next SFT/eval execution evidence and PM will gate their durable outputs.
+- PM gate: current dry-run manifest and eval readiness metrics do not prove loop completion; dev_4 must provide a base/checkpoint/GPU decision package, and test_2 must provide checkpoint/endpoint eval gate evidence before real smoke can proceed.
 
 ## Watch Items
 

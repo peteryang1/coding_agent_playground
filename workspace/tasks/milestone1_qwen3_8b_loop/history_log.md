@@ -110,6 +110,11 @@
 - PM should not casually interrupt: avoid `C-c`, `/esc`, or equivalent unless the supervisor explicitly requires urgent interruption, or the target's current behavior would keep wasting resources or continue incorrect execution.
 - After each tmux injection, PM must run `tmux capture-pane` to verify the message was submitted and did not remain parked on the input line.
 - This communication change was recorded in PM personal knowledge, task knowledge, status, and assignments; durable evidence files remain the route for dev/test routine status/results.
+- PM gated the current SFT/eval evidence and did not mark the loop complete: dev_4 evidence still shows no valid clean Qwen3-8B base path, no GPU/current `nodes.json`, and only a dry-run manifest; test_2 evidence still shows mini-swe-agent readiness but no SFT model/checkpoint/endpoint.
+- PM used the new non-interrupt tmux flow to assign:
+  - `intern_code_dev_4`: write a current SFT unblock decision package covering clean base repair/location, warm-start fallback recommendation, GPU/current `nodes.json` acquisition/verification, exact next command after base+GPU, and blockers requiring PM/supervisor decision.
+  - `intern_code_test_2`: write a current mini-swe gate package covering exact checkpoint/endpoint acceptance checks, prediction/results/metrics verification, and dirty checkout provenance.
+- `tmux capture-pane` verified both dev_4 and test_2 messages were submitted to the target panes; PM did not use `/esc` or `C-c` for this assignment.
 
 ## Active Next Steps
 

@@ -37,3 +37,5 @@
 31. Communication rule: PM -> dev/test task and correction messages should now default to direct tmux injection into the target intern pane with Enter; `peer_send` is not the primary notification channel.
 32. Communication rule: PM should avoid interrupts by default; use `C-c`, `/esc`, or equivalent only when the supervisor explicitly requires urgent interruption or when the target's current behavior would keep wasting resources or continue an incorrect execution.
 33. Communication rule: after tmux injection, PM must run `tmux capture-pane` to verify the message was submitted and is not just sitting in the target input line.
+34. Gate decision: Milestone 1 is not complete until there is durable evidence of real SFT smoke output or an explicit accepted fallback plus mini-swe-agent smoke output/metrics; current dry-run manifest and readiness metrics alone are insufficient.
+35. PM decision: do not silently treat historical Qwen3-8B checkpoints as clean base; dev_4 must document whether clean base can be repaired/located or recommend a warm-start fallback for explicit PM/supervisor acceptance.

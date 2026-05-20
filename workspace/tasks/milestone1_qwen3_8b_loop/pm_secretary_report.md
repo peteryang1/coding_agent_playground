@@ -187,3 +187,13 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - `peer_send` is no longer the primary PM -> dev/test notification channel.
 - PM should avoid interrupts by default; `/esc`, `C-c`, or equivalent interruption is reserved for supervisor-explicit urgent interruption or active resource-waste/error-continuation cases.
 - This rule is recorded in PM personal knowledge, milestone task knowledge, status, history, and assignments.
+
+## 2026-05-20 Session 7 Continuation Gate
+
+- PM inspected current dev_4/test_2 durable evidence only; PM did not run remote workspace code or experiments.
+- Gate result: Milestone 1 loop is not complete because SFT real smoke has no valid clean base/GPU/current `nodes.json` or accepted warm-start fallback, and mini-swe eval smoke has no SFT model/checkpoint/endpoint.
+- PM decision: dry-run manifest plus readiness metrics are useful evidence but do not prove the SFT/eval smoke loop is complete.
+- Non-interrupt tmux assignments were submitted and verified with `capture-pane`:
+  - dev_4 must produce the SFT unblock decision package for clean base vs warm-start, GPU/current `nodes.json`, exact next command, and PM/supervisor decision blockers.
+  - test_2 must produce the eval gate package for checkpoint/endpoint acceptance, output predictions/results/metrics verification, and dirty checkout provenance.
+- No PM -> secretary peer report was sent; this durable report is the secretary-facing update.

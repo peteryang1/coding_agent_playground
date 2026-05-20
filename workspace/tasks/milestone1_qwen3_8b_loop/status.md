@@ -55,8 +55,9 @@
 - Session 6 PM role correction applied: PM now only assigns, gates, collects information, and decides. PM will not directly execute further remote workspace code, code changes, SFT/GPU probing, or mini-swe-agent eval; assigned dev/test owners must execute and record durable evidence.
 - Session 6 activation update: dev_3/test_1 received peer assignments; dev_1/dev_2/dev_4/test_2 required `/esc` plus tmux direct assignment because normal peer delivery stayed busy/unconfirmed. `assignments.md` is the authoritative source for all six owners and evidence paths.
 - Session 7 notification-channel change applied: PM -> dev/test task/correction messages now default to tmux injection plus Enter and `capture-pane` verification. `peer_send` is not the primary channel; interrupts are reserved for supervisor-explicit urgent cases or active resource-waste/error-continuation cases.
+- Session 7 continuation gate: PM inspected dev_4/test_2 durable evidence and judged SFT/eval smoke still incomplete. Dev_4 must produce the base/checkpoint/GPU decision package; test_2 must produce the checkpoint/endpoint eval gate package. Both assignments were delivered by non-interrupt tmux inject and verified with `capture-pane`.
 
 ## Next PM Checks
 
-- Gate dev_4's durable SFT/GPU/model-path decision package and choose whether clean-base or explicit warm-start is acceptable.
-- Gate test_2's durable mini-swe-agent smoke evidence after dev_4 provides a usable model/checkpoint path or endpoint.
+- Gate dev_4's durable SFT/GPU/model-path decision package and decide whether clean-base repair/location is available or explicit warm-start fallback should be escalated.
+- Gate test_2's durable mini-swe-agent smoke gate package, then require real smoke evidence after dev_4 provides a usable model/checkpoint path or endpoint.

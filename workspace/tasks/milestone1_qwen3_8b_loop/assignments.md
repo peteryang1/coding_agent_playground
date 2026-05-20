@@ -54,6 +54,10 @@ Every dev/test intern must have active, non-waiting work. If an upstream artifac
   - `intern_code_test_1`: validate the 10 trajectories for complete coding process including actual edit/patch attempt and test/check attempt; write to `evidence/test_1_validation.md` and own `status.md`.
   - `intern_code_test_2`: own mini-swe-agent eval smoke readiness and execution after dev_4 supplies a model/checkpoint/endpoint; write readiness, blockers, commands, and results to `evidence/test_2_eval_validation.md` and own `status.md`.
   Routine status and results go to durable files only. No routine peer-send reply to PM is requested.
+- 2026-05-20 Session 7 continuation, non-interrupt tmux assignment verified by `capture-pane`:
+  - `intern_code_dev_4`: produce a current SFT unblock decision package in `evidence/dev_4_sft_pipeline.md`, covering clean Qwen3-8B base path repair/location, warm-start historical checkpoint fallback recommendation, GPU/current `nodes.json` acquisition/verification, exact next command once base+GPU are available, and blockers requiring PM/supervisor decision.
+  - `intern_code_test_2`: produce a current eval gate package in `evidence/test_2_eval_validation.md`, covering exact acceptance checks for SFT checkpoint path or endpoint, prediction/results/metrics verification, and whether the dirty mini-swe-agent checkout is acceptable or needs provenance note.
+  PM used tmux inject plus Enter and capture-pane verification; no interrupt was used for this assignment.
 
 ## PM Integration Responsibilities
 
