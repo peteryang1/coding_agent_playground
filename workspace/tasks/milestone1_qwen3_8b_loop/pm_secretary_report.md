@@ -232,6 +232,14 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - Dev_4 PR #11 (`https://github.com/peteryang1/coding_agent_playground/pull/11`) is open/non-draft but `CONFLICTING`.
 - PM gate: not ready for owner self-merge. Dev_4 has been notified by tmux inject to rebase/resolve against current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push again, and record durable conflict resolution.
 
+## 2026-05-20 Session 8 PR #11 Merge And GPU Route Update
+
+- PR #13 merged at `2026-05-20T09:00:25Z` with merge commit `9a6de432919102c17fdd839e5544d46c98a8f1f7`.
+- Dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; no-launch clean-base SFT package is on main.
+- Dev_2 wrote `evidence/dev_2_gpu_route_attempt.md`; PM gate passes for route-attempt evidence.
+- Current route decision: no approved Milestone 1 GPU route yet. Candidate H200 endpoints `ssh -p 27094 root@10.100.10.20` and `ssh -p 31403 root@10.100.8.24` exist but need compute/PM approval and staging; preferred route remains fresh single-node H200 allocation or current `nodes.json`.
+- SFT/eval remains incomplete: no real SFT checkpoint/output and no mini-swe eval metrics exist.
+
 ## 2026-05-20 Session 8 PR Gate Audit
 
 - Supervisor correction applied: PM should not hold ready/mergeable PRs until the whole milestone completes.

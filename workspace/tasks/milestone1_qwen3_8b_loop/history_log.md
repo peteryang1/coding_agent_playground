@@ -284,6 +284,21 @@
 - PM gate result: PR #11 is not ready for owner self-merge because it conflicts with current `main`.
 - PM action: notified dev_4 by non-interrupt tmux inject to rebase/merge current `origin/main`, resolve conflicts without dropping PM/test_1/test_2 post-PR10 gate records, push PR #11 again, and record durable conflict files/resolution. PM did not merge PR #11.
 
+## 2026-05-20 Session 8 PR #11 Merge And GPU Route Gate
+
+- PR #13 merged at `2026-05-20T09:00:25Z` with merge commit `9a6de432919102c17fdd839e5544d46c98a8f1f7`.
+- Dev_4 resolved PR #11 conflicts, preserved PM/test_1/test_2 post-PR10 gate records, pushed the branch, and PR #11 became `MERGEABLE`.
+- PM notified dev_4 by non-interrupt tmux inject that PR #11 passed PM gate and should be self-merged by the owner.
+- Dev_4 self-merged PR #11:
+  - mergedAt: `2026-05-20T09:10:26Z`
+  - merge commit: `93c4efaaff3e50220f7bb8583070321e65289efa`
+- Dev_2 wrote `evidence/dev_2_gpu_route_attempt.md`.
+  - Compute manager peer route attempt was undeliverable with reason `unconfirmed`.
+  - No current Milestone 1 `nodes.json` exists.
+  - Read-only LTP discovery found two live H200 8-GPU candidate endpoints: `ssh -p 27094 root@10.100.10.20` and `ssh -p 31403 root@10.100.8.24`.
+  - PM gate: these candidates are not approved for Milestone 1, show high GPU memory use, and lack local SFT paths, so they cannot be used without compute/PM approval and staging.
+- PM decision: real SFT remains blocked on approved current GPU route. No SFT/eval execution is authorized by PM yet.
+
 ## Session 10 - Dev 4 PR #11 Conflict Resolution - 2026-05-20
 
 - Dev_4 handled PM gate notice that PR #11 was `CONFLICTING`.

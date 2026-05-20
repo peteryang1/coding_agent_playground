@@ -7,7 +7,7 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | #13 |
+| PR | #15 |
 | Session | 8 |
 
 ## Recent Progress
@@ -43,3 +43,6 @@
 - 2026-05-20 Session 8 continuation: opened PM coordination PR #12 for the post-PR10 gate evidence and durable status updates.
 - 2026-05-20 Session 8 continuation: PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`. Audited dev_4 PR #11; it is open/non-draft but `CONFLICTING`, so PM notified dev_4 by tmux inject to rebase/resolve and push before self-merge.
 - 2026-05-20 Session 8 continuation: opened PM coordination PR #13 to record the PR #11 conflict gate and dev_4 owner blocker.
+- 2026-05-20 Session 8 continuation: PR #13 merged at `2026-05-20T09:00:25Z` with merge commit `9a6de432919102c17fdd839e5544d46c98a8f1f7`. Dev_4 resolved PR #11 conflicts, PR #11 became mergeable, PM notified dev_4 to self-merge, and dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`.
+- 2026-05-20 Session 8 continuation: Dev_2 landed `evidence/dev_2_gpu_route_attempt.md`. PM gate result: route evidence is sufficient; no approved current Milestone 1 GPU route exists yet. Two live H200 candidates were found, but both are unapproved, occupied/high-memory, and lack local SFT paths, so real SFT remains blocked pending compute approval or fresh allocation.
+- 2026-05-20 Session 8 continuation: opened PM coordination PR #15 to record PR #11 merge and dev_2 GPU route evidence.
