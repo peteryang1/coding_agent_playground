@@ -95,3 +95,6 @@
 - Dev_4's requested no-launch clean-base SFT smoke launch package using `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is not yet present in PM worktree. PM observed dev_4 working in its own workspace with a local `status.md` conflict after rebasing/stash-pop; dev_4 remains owner for resolving and landing the package.
 - Current PM decision: SFT/eval execution is still not authorized. Data, clean-base candidate, test_1 completion gate, and test_2 eval acceptance gate are ready enough, but real SFT still needs a current GPU endpoint or Milestone 1 `nodes.json`; no real SFT checkpoint/output and no mini-swe eval metrics exist.
 - PM coordination PR #12 is open for these post-PR10 gate records.
+- PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
+- PR #11 gate audit: dev_4's no-launch clean-base SFT package PR is open/non-draft but mergeability resolved to `CONFLICTING`, so it is not ready for owner self-merge. PM notified dev_4 by tmux inject to rebase/resolve against current `origin/main`, preserve PM/test_1/test_2 post-PR10 gate records, push again, and record durable conflict resolution.
+- PM coordination PR #13 is open to record the PR #11 conflict gate.

@@ -76,3 +76,5 @@
 70. Gate fact: test_2 mini-swe acceptance/provenance package is now present and passes PM gate; mini-swe should use a served OpenAI-compatible endpoint/model string, not a raw checkpoint path alone.
 71. Gate fact: dirty mini-swe checkout state (`M src/minisweagent/environments/apptainer.py`, `?? uv.lock`) is acceptable only for Milestone 1 smoke when recorded in provenance; it must not be silent state in final eval evidence.
 72. Blocker fact: dev_4's no-launch SFT smoke package using clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` is still not landed in PM worktree; dev_4 is owner and was observed working through a local status.md conflict.
+73. PR fact: PR #12 merged at `2026-05-20T08:56:29Z` with merge commit `1e32de047754e376f107b727ddf7349417696db9`.
+74. PR gate fact: dev_4 PR #11 is open/non-draft but `CONFLICTING`, so it is not ready for owner self-merge; dev_4 must rebase/resolve against current `origin/main` and preserve PM/test_1/test_2 gate records.
