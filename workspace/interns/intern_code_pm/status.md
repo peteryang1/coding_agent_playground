@@ -7,7 +7,7 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | #7 |
+| PR | pending |
 | Session | 8 |
 
 ## Recent Progress
@@ -36,3 +36,4 @@
 - 2026-05-20 Session 8 continuation: PR #4 merged at `2026-05-20T08:01:24Z` with merge commit `002155e6295461871544cfc267863facc5570dd5`; re-audited PR #1 as `OPEN`/`MERGEABLE` and again notified dev_4 by non-interrupt tmux inject to self-merge as owner. Support evidence files from dev_1/dev_2/test_1 are still missing, so PM keeps the goal active and does not mark SFT/eval complete.
 - 2026-05-20 Session 8 continuation: PR #5 merged at `2026-05-20T08:07:31Z` with merge commit `8f5b7736939453c15ffb802c42a0ee9c875b531d`; rechecked PR #1 as still `OPEN`/`MERGEABLE` with no merge commit, and rechecked evidence directory showing no new dev_1/dev_2/test_1 support files. PM sent non-interrupt tmux active-gate follow-ups to dev_4/dev_1/dev_2/test_1 and verified messages with `capture-pane`.
 - 2026-05-20 Session 8 continuation: PR #6 merged at `2026-05-20T08:14:18Z` with merge commit `9f43d16932098010b12a138d661f90a383ff2d0a`; PR #1 is still `OPEN`/`MERGEABLE`, the three support files remain missing, and PM expanded non-interrupt tmux follow-up to all six dev/test owners: dev_4 PR/SFT blocker, dev_1 base path, dev_2 GPU/nodes, dev_3 SFT input handoff, test_1 completion gate, and test_2 eval acceptance gate.
+- 2026-05-20 Session 8 continuation: PR #7 merged at `2026-05-20T08:20:50Z` with merge commit `98eb9d3573e24a732a7de354e8ecbf1c0173c2c3`; dev_4 self-merged PR #1 at `2026-05-20T08:23:54Z` with merge commit `882d1642884e82d1a40674266f244a52cf69defc`. New owner evidence from dev_1/dev_2/dev_3 is now present; dev_4 added an SFT decision package. PM gate decision: use dev_1 clean-base candidate `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` ahead of warm-start fallback; remaining gate gaps are GPU/current `nodes.json`, test_1 completion gate, test_2 eval acceptance/provenance, and actual SFT/eval output.

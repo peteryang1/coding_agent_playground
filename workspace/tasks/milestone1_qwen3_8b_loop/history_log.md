@@ -202,3 +202,20 @@
   - `intern_code_test_1`: write SFT+mini-swe smoke completion audit gate.
   - `intern_code_test_2`: write mini-swe eval acceptance gate package and dirty-checkout provenance decision.
 - PM decision: do not mark complete or blocked. Completion is unproven; the PM still has meaningful coordination work by collecting owner evidence and making gate decisions.
+- PM self-merged PR #7 as owner after it passed coordination-only gate. Merge commit `98eb9d3573e24a732a7de354e8ecbf1c0173c2c3`, merged at `2026-05-20T08:20:50Z`.
+- Dev_4 self-merged PR #1 as owner. Merge commit `882d1642884e82d1a40674266f244a52cf69defc`, merged at `2026-05-20T08:23:54Z`.
+- Dev_4 appended a Session 8 SFT decision package to `evidence/dev_4_sft_pipeline.md`:
+  - clean `Qwen/Qwen3-8B` base path remains broken and cannot be repaired without an approved source;
+  - warm-start fallback is only acceptable with explicit PM/supervisor approval, recommended path `/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final`;
+  - GPU route is not ready until compute provides a GPU shell or current Milestone 1 `nodes.json`;
+  - exact clean-base and warm-start launch commands are documented.
+- Dev_2 wrote `evidence/dev_2_gpu_nodes_support.md`. PM gate result: evidence is sufficient to prove there is no current live GPU route on `ssh -p 31787 root@10.100.194.40`; current Milestone 1 `nodes.json` is missing; historical nodes.json must not be reused without explicit approval.
+- Dev_3 wrote `evidence/dev_3_sft_input_handoff.md`. PM gate result: data-side SFT handoff is sufficient for dev_4, using `/root/workspace/cleaned_m1_sft_10/train.jsonl`, format `coding_agent_playground_sft_v1`, 10 examples, 10/10 validation, and SHA-256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`.
+- Dev_1 wrote `evidence/dev_1_sft_base_path_support.md`. PM gate result: evidence is sufficient to identify a usable local clean-base candidate at `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`; the broken registry symlink remains invalid, but base-model selection no longer needs warm-start fallback unless the clean-base candidate is rejected later.
+- PM sent a non-interrupt tmux decision update to dev_4: prefer dev_1's clean-base candidate as `BASE_MODEL` once GPU/current `nodes.json` exists; keep warm-start fallback only for explicit approval.
+- Remaining PM gate gaps:
+  - `test_1_sft_eval_completion_gate.md` is still missing;
+  - test_2 has not yet appended the current eval acceptance/provenance gate package to `test_2_eval_validation.md`;
+  - no current GPU endpoint or Milestone 1 `nodes.json` exists;
+  - no real SFT smoke output/checkpoint and no mini-swe eval output/metrics exist yet.
+- PM decision: milestone remains active and incomplete. Next decision point is GPU allocation/current `nodes.json`; with current evidence, the preferred SFT base is dev_1's clean-base candidate, not warm-start fallback.

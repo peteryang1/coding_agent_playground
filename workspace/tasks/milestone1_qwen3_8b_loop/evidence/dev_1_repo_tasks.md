@@ -189,6 +189,35 @@ Blockers:
 
 - No active blocker for prompt-quality review.
 
+## PM Session 6 - 10-Task Prompt/Task Quality Review Owner Confirmation
+
+Supervisor correction accepted: PM assigns/gates/collects/decides; dev owns prompt/task quality review work and evidence.
+
+Reviewed artifact on corrected host:
+
+```text
+ssh -p 31787 root@10.100.194.40
+/root/workspace/rollout_harness/tasks_m1_10.jsonl
+```
+
+Re-check results:
+
+- Total rows: `10`.
+- Repo distribution: `fastapi=4`, `scikit-learn=3`, `rich=3`.
+- Task ids: `fastapi_complete_edit_001`, `fastapi_complete_edit_002`, `fastapi_complete_edit_003`, `sklearn_complete_edit_001`, `sklearn_complete_edit_002`, `sklearn_complete_edit_003`, `rich_complete_edit_001`, `rich_complete_edit_002`, `rich_complete_edit_003`, `fastapi_complete_edit_004`.
+- All 10 prompts include language requiring requirements understanding, files localized, code inspected, actual edit/patch attempted, test/check command attempted with observed result, changed files, tests, and blockers.
+- All 10 prompts explicitly require a minimal real code edit and say not to stop after reading code.
+
+Session 6 verdict:
+
+- **Pass for Milestone 1 10-total complete coding trajectory prompt gate.**
+- No prompt blocks rollout on edit/test/process suitability.
+- Quality risk remains that prompts are broad and allow a "focused test/comment change" fallback; if rollout quality is weak, tighten fallback to "focused test change or minimal source/docs-code patch" and disallow pure comment-only changes.
+
+Blockers:
+
+- No active blocker for 10-task prompt/task quality review.
+
 ## Repo Selection Validation
 
 Observed through GitHub API and `git ls-remote` on 2026-05-20.

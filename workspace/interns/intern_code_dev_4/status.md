@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | https://github.com/peteryang1/coding_agent_playground/pull/1 |
+| PR | https://github.com/peteryang1/coding_agent_playground/pull/1 (MERGED 2026-05-20T08:23:54Z, 882d1642884e82d1a40674266f244a52cf69defc) |
 | Session | 0 |
 
 ## PM Corrections
@@ -20,3 +20,4 @@
 - 2026-05-20: Implemented initial SFT pipeline artifacts on branch `intern_code_dev_4/milestone1_qwen3_8b_loop`: Qwen3-8B LLamaFactory/MCA config, training launch wrapper, run manifest writer, and checkpoint/GPU workflow doc. Current blockers: GPU node or milestone `nodes.json` not confirmed; final SFT dataset pending dev_3 output.
 - 2026-05-20: Applied PM critical address correction. Correct final workspace is `ssh -p 31787 root@10.100.194.40`; old `20087/root@10.100.193.54` probes are scratch-only. Re-probed new machine and recorded findings in PM evidence. Current blockers remain: corrected entry host has no `nvidia-smi`, milestone GPU `nodes.json` is not confirmed, and `/root/workspace/coding_agent_playground` is missing on the corrected machine.
 - 2026-05-20: Completed PM Session 3 SFT planning update in durable evidence. Validated axrd registry facts for `Qwen/Qwen3-8B`, LLamaFactory/MCA deps and archive hash, historical Qwen3-8B checkpoint shapes, GPU-machine options, launcher templates, and output manifest/checkpoint layout. New critical blocker: `/mnt/3fs/data/ai4ai/models/Qwen/Qwen3-8B` is a broken symlink on corrected machine, so clean base model path must be materialized or explicitly replaced before real SFT.
+- 2026-05-20: Self-merged PR #1 after scoped local checks passed. Merge commit `882d1642884e82d1a40674266f244a52cf69defc`, mergedAt `2026-05-20T08:23:54Z`. Wrote Session 8 SFT unblock decision package to durable evidence: clean base cannot currently be located/repaired from verified local artifacts; warm-start fallback recommended only if PM/supervisor approves `/mnt/3fs/data/ai4ai/models/ws_20260425_0208_qwen3-8b_1bench_3fdf-final`; GPU/current nodes.json remains required.
