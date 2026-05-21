@@ -942,3 +942,22 @@
 - Self-merged PR #63 at `2026-05-21T18:08:48Z`; merge commit `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`.
 - Task `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` is complete/ready-for-runtime-gate.
 - This gate and completion do not authorize LTP/GPU/transfer/preflight/SFT/eval/runtime.
+
+## Session 59 - Dev 4 PR63 Alternate-Node Launch Support Standby - 2026-05-21
+
+- Accepted PM task `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4`.
+- Read PM authorization `evidence/pm_s23_pr63_altnode_preflight_sft_authorization.md`.
+- Read dev_2 altnode runtime/tracking evidence: `evidence/dev_2_s23_pr63_altnode_preflight_sft_runtime.md` and `evidence/gpu_s23_pr63_altnode_tracking.md`.
+- Current dev_2 evidence is pre-submit/package-ready only: `LOCAL_PACKAGE_READY_PRE_SUBMIT`, LTP submit pending, placement pending, structured preflight pending, conditional SFT pending.
+- dev_4 classification is `WAITING_ON_DEV2_FINAL_SIGNATURE`; no code/config/launcher blocker is present in current durable evidence.
+- Wrote evidence `evidence/dev_4_s23_pr63_altnode_launch_support.md`.
+- No LTP/GPU/preflight/SFT/eval/remote command was run by dev_4.
+
+## Session 60 - Dev 4 PR63 Alternate-Node Final Classification - 2026-05-21
+
+- PM reported PR #65 was not ready because the prior evidence was written against pre-submit `LOCAL_PACKAGE_READY` state.
+- Re-read final dev_2 altnode evidence.
+- Final signature: assigned forbidden node `lg-cmc-b7r202-k07u06-h200-000580`, stopped before transfer/preflight/SFT/eval, no checkpoint/model/trainer/eval artifacts.
+- Updated `evidence/dev_4_s23_pr63_altnode_launch_support.md` classification to `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.
+- No dev_4 code/config/launcher issue was found; no launch fix PR is needed for this final signature.
+- No LTP/GPU/preflight/SFT/eval/remote command was run by dev_4.
