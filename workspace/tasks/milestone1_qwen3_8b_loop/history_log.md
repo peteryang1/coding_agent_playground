@@ -33,6 +33,7 @@
 - SFT reached ShareGPT conversion, mcore model load, MPU init, and training start, then exited `EXIT_STATUS=1` at `2026-05-21T18:42:28Z` with `CUDA error: Invalid access of peer GPU memory over nvlink or a hardware error`; torch elastic root cause rank 4 local_rank 4 SIGABRT. No checkpoint/model, `trainer_state.json`, `all_results.json`, or eval exists.
 - dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 18:43:25`, endpoint refused, and running-list proof is `No jobs found`.
 - PM classifies this as node/runtime hardware blocker rather than PR63 code/data/package blocker, and authorizes only dev_2 for one bounded alternate-node attempt under `M1-S23-PR63-ALTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`. Forbidden nodes are `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`; eval remains unauthorized.
+- PM also created parallel no-execution support tasks so other owners do not idle during dev_2's only authorized runtime: `M1-S23-PR63-ALTNODE-REVIEW-DEV1`, `M1-S23-PR63-ALTNODE-DATA-CONFIRM-DEV3`, `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4`, `M1-S23-PR63-ALTNODE-GATE-TEST1`, and `M1-S23-PR63-ALTNODE-EVAL-READY-TEST2`. These tasks do not authorize LTP/GPU/preflight/SFT/eval for those owners.
 
 ## Session 1 - 2026-05-20
 
