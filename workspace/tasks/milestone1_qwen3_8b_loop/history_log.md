@@ -752,6 +752,17 @@
   - mini-swe remains blocked until PM gates a complete checkpoint/model or served endpoint.
 - PM assigned test_1 to record the post-run gate as `BLOCKED_FINAL_RUNTIME` and test_2 to record eval as post-run blocked. PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
 
+## 2026-05-21 Session 21 ENOSPC Follow-Up Task Split
+
+- PM decision: checkpoint is not complete, so the active goal continues from the fresh ENOSPC runtime blocker.
+- Created no-execution follow-up tasks:
+  - `M1-S21-ENOSPC-CONFIG-FIX-DEV4`;
+  - `M1-S21-ENOSPC-RESOURCE-DEV2`;
+  - `M1-S21-ENOSPC-DATA-CONFIRM-DEV3`;
+  - `M1-S21-ENOSPC-REVIEW-DEV1`;
+  - `M1-S21-ENOSPC-GATE-TEST1`.
+- Gate rule: no new GPU/LTP/SFT/eval retry is authorized until the fix/resource/data/review/test-gate evidence passes PM gate.
+
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 
 - Task id: `M1-S21-RUNTIME-DEV2`.
