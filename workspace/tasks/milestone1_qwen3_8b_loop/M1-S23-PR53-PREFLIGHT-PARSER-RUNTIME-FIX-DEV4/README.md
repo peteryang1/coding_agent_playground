@@ -6,7 +6,7 @@ Owner: `intern_code_dev_4`
 
 Evidence: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md`
 
-PR: #55 `https://github.com/peteryang1/coding_agent_playground/pull/55` (open, non-draft, `MERGEABLE` / `CLEAN` at head `b6deabeda9342bd3341fefb25b9f15e99e3903df`)
+PR: #55 `https://github.com/peteryang1/coding_agent_playground/pull/55` (open, non-draft, `MERGEABLE` / `CLEAN` when checked after branch push)
 
 Acceptance:
 
