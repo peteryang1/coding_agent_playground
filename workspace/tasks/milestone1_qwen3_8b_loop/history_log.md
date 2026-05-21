@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=3 -->
+<!-- METADATA:SESSION=4 -->
 
 ## Session 1 - 2026-05-21
 
@@ -19,3 +19,9 @@
 - Created the no-execution runtime validation gate for `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2` in PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_parserfixed_runtime_gate.md`.
 - Current result is `WAITING_DEV2_FINAL_RUNTIME_EVIDENCE`: dev_2 runtime/tracking files exist but only record authorization, allocation/bootstrap, endpoint, node, initial GPU sample, `/home/xu.yang` storage contract, and SFT not started.
 - The final gate requires parser-fixed preflight fields, `/home/xu.yang` artifact paths, capacity/topology/NVLink/NCCL all-reduce, conditional SFT rule, checkpoint/model plus `trainer_state.json`/`all_results.json` or exact blocker, and stop proof. No SFT/GPU/eval/dry-run/parser execution was run by `intern_code_test_1`.
+
+## Session 4 - 2026-05-21
+
+- Refreshed the parser-fixed runtime gate after dev_2 final evidence landed; result is `PASS_FOR_NEXT_PM_DECISION` and eval handoff remains `EVAL_HANDOFF_BLOCKED`.
+- Verified from durable evidence that exact PR45 merge commit staging passed, capacity/topology/NVLink evidence exists, torch NCCL all-reduce exited 0, structured parser-fixed preflight failed with `FAIL_HEALTH_SIGNATURE` and `HOME_XU_YANG_STORAGE_STATUS=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS`, `sft_allowed=false`, SFT was correctly skipped, checkpoint/model/`trainer_state.json`/`all_results.json` are absent, and stop proof passed with `STOPPED (Completed)` plus endpoint refused.
+- No GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`; routine result was recorded durably only.

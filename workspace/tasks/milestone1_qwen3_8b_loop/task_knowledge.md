@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=3 -->
+<!-- METADATA:SESSION=4 -->
 
 ## Knowledge Entries
 
@@ -12,3 +12,5 @@
 6. PR #45 latest-head fact: dev_4 added the required top-level compatibility fields and `home_xu_yang_storage_status`; `sft_allowed` remains false unless parser status is PASS, and eval handoff remains blocked until checkpoint/model plus `trainer_state.json` and `all_results.json` or accepted replacements exist.
 7. Parser-fixed runtime gate fact: `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2` must prove parser-fixed preflight PASS and `sft_allowed=true` before SFT; if preflight fails or is incomplete, SFT must not run and the valid outcome is a complete blocker record plus stop proof.
 8. Parser-fixed runtime artifact rule: all generated preflight, parser health, capacity/topology/NVLink/NCCL, SFT log/config/manifest/tmp/intermediate/checkpoint/run metadata artifacts must remain under `/home/xu.yang/coding_agent_playground/outputs`; base model, source dataset, and dependency archives are the only accepted read-only path exceptions.
+9. Parser-fixed runtime result fact: dev_2's final parser-fixed preflight reached capacity/topology/NVLink and torch NCCL all-reduce exit 0, but structured health result was `FAIL_HEALTH_SIGNATURE` with `HOME_XU_YANG_STORAGE_STATUS=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS`; since `sft_allowed=false`, SFT skip was correct and eval handoff remains blocked.
+10. Stop proof fact: parser-fixed runtime frame `xu.yang~coding-agent-playground-m1-s22-parserfixed-preflight-sft-20260521T114448Z` reached `STOPPED (Completed)` and endpoint `ssh -p 22662 root@10.100.22.14` refused connection after stop.
