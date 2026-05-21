@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=25 -->
+<!-- METADATA:SESSION=26 -->
 
 ## Session 1 - 2026-05-20
 
@@ -734,4 +734,16 @@
 - Wrote no-execution fix evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_enospc_config_fix.md` and the PM durable path.
 - Primary recommendation: keep `coding_agent_m1_sft_10_sharegpt`, use a fresh capacity-verified output/checkpoint path, and change the retry template from step-1 checkpointing to `save_steps: 2` with `save_total_limit: 1` for the `max_steps: 2` smoke so it targets one complete eval-usable final checkpoint/model.
 - Cited files/PR scope if PM requests a code/config PR: add `configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml`, harden `scripts/train_qwen3_8b_sft.sh` to rewrite `dataset:` from `DATASET_NAME`, and update `scripts/write_sft_run_manifest.py` to record runtime save strategy from the generated config.
+- No SFT/GPU/eval command was run.
+
+## Session 26 - Dev 4 ENOSPC Storage Rule Refresh - 2026-05-21
+
+- Applied supervisor storage rule to task `M1-S21-ENOSPC-CONFIG-FIX-DEV4`.
+- Updated `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_enospc_config_fix.md` and the PM durable copy.
+- Superseded the prior future output-root recommendation `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
+- Current recommendation: future SFT launch outputs, logs, checkpoints, run metadata, temporary converted datasets, and intermediates default under CephFS `/home/xu.yang/coding_agent_playground/outputs`.
+- Required-path exceptions documented in evidence:
+  - clean base model remains `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` because it is an existing PM-selected input path;
+  - historical failed-run `/mnt/3fs` run/checkpoint paths remain audit evidence only and must not be reused for future outputs.
+- Refreshed command and capacity-probe templates to target `/home/xu.yang`.
 - No SFT/GPU/eval command was run.

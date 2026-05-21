@@ -17,6 +17,36 @@ No eval command was run.
 This package is a proposed config/save-strategy and output-path fix only.
 ```
 
+## Session 26 Storage Rule Refresh
+
+Supervisor storage rule now applies to this task:
+
+```text
+Future SFT launch outputs, logs, checkpoints, run metadata, temporary converted datasets, and intermediates default to CephFS under /home/xu.yang.
+Use /mnt/3fs only for existing required paths, with explicit justification in evidence.
+```
+
+This refresh supersedes the Session 25 recommendation that used `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground` as the future output root.
+
+Required-path exceptions that remain valid:
+
+```text
+/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
+  Justification: PM/dev_1 selected clean Qwen3-8B base model candidate; it is an existing required input path, not a new launch output.
+
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z
+/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z
+  Justification: historical failed-run evidence already exists there; preserve for audit only and do not reuse for future outputs.
+```
+
+The ShareGPT training data path remains an existing staged input path:
+
+```text
+/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl
+```
+
+Future temporary converted datasets or copied training intermediates should be written under the CephFS run tree, not under `/mnt/3fs`.
+
 ## Source Failure
 
 Failed run:
@@ -153,17 +183,21 @@ Do not reuse or append to milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_2026052
 Do not delete the failed partial checkpoint unless PM explicitly approves cleanup.
 ```
 
-Preferred durable output root:
+Preferred durable output root, superseding the prior `/mnt/3fs` recommendation:
 
 ```text
-/mnt/3fs/data/ai4ai/outputs/coding_agent_playground
+/home/xu.yang/coding_agent_playground/outputs
 ```
 
-Fallback output root only if dev_2 proves durability/visibility and PM accepts it:
+CephFS run tree:
 
 ```text
-/mnt/3fs2/data/ai4ai/outputs/coding_agent_playground
+/home/xu.yang/coding_agent_playground/outputs/runs/train/<RUN_ID>
+/home/xu.yang/coding_agent_playground/outputs/training_summary/sft_output/<RUN_ID>
+/home/xu.yang/coding_agent_playground/outputs/tmp/<RUN_ID>
 ```
+
+`/mnt/3fs` and `/mnt/3fs2` are not recommended future output roots for this retry. Use them only for the required-path exceptions listed above or after a new PM/supervisor storage decision.
 
 ## Exact Future Command Template
 
@@ -171,8 +205,9 @@ This is a no-execution command package. Run only after PM retry authorization, f
 
 ```bash
 RUN_ID="milestone1_qwen3_8b_s21_enospcfix_sharegpt_tp8_$(date -u +%Y%m%dT%H%M%SZ)"
-OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground
+OUTPUT_ROOT=/home/xu.yang/coding_agent_playground/outputs
 CHECKPOINT_DIR="${OUTPUT_ROOT}/training_summary/sft_output/${RUN_ID}"
+TMPDIR="${OUTPUT_ROOT}/tmp/${RUN_ID}"
 
 CONFIG_TEMPLATE=/root/workspace/coding_agent_playground/configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml \
 DATASET_JSONL=/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl \
@@ -180,6 +215,7 @@ DATASET_NAME=coding_agent_m1_sft_10_sharegpt \
 BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6 \
 OUTPUT_ROOT="${OUTPUT_ROOT}" \
 CHECKPOINT_DIR="${CHECKPOINT_DIR}" \
+TMPDIR="${TMPDIR}" \
 RUN_ID="${RUN_ID}" \
 LLAMAFACTORY_DIR=/root/workspace/coding_agent_playground/code/LLamaFactory \
 DRY_RUN=0 \
@@ -189,7 +225,7 @@ bash scripts/train_qwen3_8b_sft.sh
 Expected generated runtime config proof:
 
 ```text
-/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/<RUN_ID>/config/qwen3_8b_sft.yaml
+/home/xu.yang/coding_agent_playground/outputs/runs/train/<RUN_ID>/config/qwen3_8b_sft.yaml
 ```
 
 Required config assertions:
@@ -197,7 +233,7 @@ Required config assertions:
 ```text
 model_name_or_path: /mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
 dataset: coding_agent_m1_sft_10_sharegpt
-output_dir: /mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/<RUN_ID>
+output_dir: /home/xu.yang/coding_agent_playground/outputs/training_summary/sft_output/<RUN_ID>
 save_steps: 2
 save_total_limit: 1
 max_steps: 2
@@ -214,18 +250,20 @@ Minimum required commands on the future allocated node:
 ```bash
 set -euo pipefail
 RUN_ID="milestone1_qwen3_8b_s21_enospcfix_sharegpt_tp8_<UTC>"
-OUT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground
+OUT=/home/xu.yang/coding_agent_playground/outputs
 CKPT="${OUT}/training_summary/sft_output/${RUN_ID}"
 PROBE="${OUT}/capacity_probes/${RUN_ID}"
+TMP="${OUT}/tmp/${RUN_ID}"
 
 date -u +%Y-%m-%dT%H:%M:%SZ
-findmnt -n -o FSTYPE,SOURCE -T /mnt/3fs
-df -h /mnt/3fs "${OUT}"
-df -i /mnt/3fs "${OUT}" || true
-mkdir -p "${CKPT}" "${PROBE}"
+findmnt -n -o FSTYPE,SOURCE -T /home/xu.yang
+df -h /home/xu.yang "${OUT}"
+df -i /home/xu.yang "${OUT}" || true
+mkdir -p "${CKPT}" "${PROBE}" "${TMP}"
 test -w "${OUT}"
 test -w "${CKPT}"
 test -w "${PROBE}"
+test -w "${TMP}"
 
 for i in 0 1 2 3; do
   dd if=/dev/zero of="${PROBE}/probe_${i}.bin" bs=1G count=6 status=progress conv=fsync
@@ -239,7 +277,7 @@ rmdir "${PROBE}" || true
 Capacity gate:
 
 ```text
-The 24G real-write probe must pass in the same output tree before SFT launch. If PM/test require stronger proof, use the dev_2 48G probe variant before launch.
+The 24G real-write probe must pass in the CephFS output tree before SFT launch. If PM/test require stronger proof, use the dev_2 48G probe variant before launch, but target /home/xu.yang rather than /mnt/3fs.
 ```
 
 ## Files / PR Needed
@@ -329,4 +367,12 @@ runtime exceeds the PM/test bounded window
 
 ```text
 Complete-for-plan: M1-S21-ENOSPC-CONFIG-FIX-DEV4 records a no-execution fix package. Recommended primary fix is a capacity-verified durable output path with a fresh RUN_ID plus save_steps=2/save_total_limit=1 so the max_steps=2 smoke avoids the step-1 full checkpoint save and still targets one complete eval-usable checkpoint/model. Dataset entry coding_agent_m1_sft_10_sharegpt is preserved. No SFT/GPU/eval command was run.
+```
+
+Session 26 storage-rule refresh:
+
+```text
+Superseded output root: /mnt/3fs/data/ai4ai/outputs/coding_agent_playground
+Current output root recommendation: /home/xu.yang/coding_agent_playground/outputs
+Future logs/checkpoints/run metadata/tmp converted datasets/intermediates must default under /home/xu.yang. /mnt/3fs remains allowed only for existing required input/audit paths with the justifications recorded above.
 ```

@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=25 -->
+<!-- METADATA:SESSION=26 -->
 
 ## Knowledge Entries
 
@@ -136,3 +136,4 @@
 122. Session 21 ENOSPC fact: run `milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z` cleared the ShareGPT data-format blocker and reached step 1/2, but failed during `checkpoint-1` safetensors serialization with `No space left on device (os error 28)`. The checkpoint is partial only and not eval-usable.
 123. Session 25 config recommendation: preserve dataset entry `coding_agent_m1_sft_10_sharegpt`; use a fresh capacity-verified checkpoint directory; for the `max_steps: 2` Qwen3-8B ShareGPT smoke, set `save_steps: 2` and `save_total_limit: 1` to avoid the step-1 full checkpoint save while still targeting one complete checkpoint/model.
 124. Session 25 implementation note: if a PR is requested for `M1-S21-ENOSPC-CONFIG-FIX-DEV4`, add a final-save ShareGPT config template and harden `scripts/train_qwen3_8b_sft.sh` so `DATASET_NAME` rewrites the generated config's `dataset:` field; `scripts/write_sft_run_manifest.py` should record save strategy from the runtime config instead of stale static checkpoint policy values.
+125. Session 26 storage rule: future SFT launch outputs, logs, checkpoints, run metadata, temporary converted datasets, and intermediates default under CephFS `/home/xu.yang/coding_agent_playground/outputs`. `/mnt/3fs` is allowed only for existing required paths with justification, such as the PM-selected base model input and historical failed-run audit artifacts.
