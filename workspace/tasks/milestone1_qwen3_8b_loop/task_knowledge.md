@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=2 -->
+<!-- METADATA:SESSION=3 -->
 
 ## Knowledge Entries
 
@@ -10,3 +10,5 @@
 4. Runtime gate rule: future SFT remains forbidden unless parser-fixed preflight emits a clear PASS with structured fields and `/home/xu.yang/coding_agent_playground/outputs` artifact preservation. Eval handoff remains blocked until checkpoint/model plus `trainer_state.json` and `all_results.json` or accepted replacements exist.
 5. Superseded PR #45 review fact: earlier head `84959deac17560995a51a8f9a7be9093624cdf16` was blocked because test_1 required explicit structured fields or compatibility aliases for `different_node_gate`, `home_xu_yang_storage_status`, direct `sft_allowed`/`sft_skip_reason`, and preflight/capacity/topology/NVLink/NCCL status before `PASS_FOR_PM_RETRY`.
 6. PR #45 latest-head fact: dev_4 added the required top-level compatibility fields and `home_xu_yang_storage_status`; `sft_allowed` remains false unless parser status is PASS, and eval handoff remains blocked until checkpoint/model plus `trainer_state.json` and `all_results.json` or accepted replacements exist.
+7. Parser-fixed runtime gate fact: `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2` must prove parser-fixed preflight PASS and `sft_allowed=true` before SFT; if preflight fails or is incomplete, SFT must not run and the valid outcome is a complete blocker record plus stop proof.
+8. Parser-fixed runtime artifact rule: all generated preflight, parser health, capacity/topology/NVLink/NCCL, SFT log/config/manifest/tmp/intermediate/checkpoint/run metadata artifacts must remain under `/home/xu.yang/coding_agent_playground/outputs`; base model, source dataset, and dependency archives are the only accepted read-only path exceptions.
