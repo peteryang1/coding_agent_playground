@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=18 -->
+<!-- METADATA:SESSION=19 -->
 
 ## Knowledge Entries
 
@@ -39,3 +39,5 @@
 33. PR57 retry boundary: `PASS_FOR_PM_RETRY` does not authorize runtime. Future PM authorization must still require non-forbidden node, `/home/xu.yang/coding_agent_playground/outputs` for generated artifacts, local bundle/checksum transfer, no remote source/dependency network, structured preflight PASS plus `sft_allowed=true`, no `DEP_TARGET: unbound variable` regression, checkpoint/model plus `trainer_state.json` and `all_results.json` for eval handoff, and stop proof.
 34. PR57 runtime gate fact: `M1-S23-PR57-RUNTIME-GATE-TEST1` is currently `WAITING_DEV2_PR57_RUNTIME_EVIDENCE`; PM authorized only dev_2 for one fresh runtime at `origin/main` commit `b4ac31ef1e3772953108348bf099818326ed65cc`, and eval remains unauthorized until checkpoint/model or served endpoint evidence is accepted.
 35. Session 23 no-external-network rule for PR57: all remote GPU/LTP nodes must be treated as no-external-network for project code/dependency staging. Runtime evidence is not gateable unless it shows local/provided workspace preparation, exact commit/file list/checksums, exact `rsync`/`scp`/tar-over-SSH transfer command, destination and post-transfer verification, and no remote GitHub/source/dependency clone/fetch/download.
+36. PR57 mcore runtime fact: dev_2's PR57 runtime passed preflight with `PREFLIGHT_RESULT=PASS` and `SFT_ALLOWED=true`, then the single authorized SFT attempt failed before checkpoint with `ImportError: mcore_adapter is required when USE_MCA=1`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists, and stop proof is complete.
+37. PR57 mcore retry rule: next runtime is blocked until dev_4 provides a no-execution mcore/USE_MCA fix package or PR that either packages `mcore_adapter` and dependencies via local/provided transfer with checksums and no remote downloads, or selects a PM-approved non-MCA path; dev_1/test_1 must gate it before PM authorizes another LTP/GPU/SFT attempt.

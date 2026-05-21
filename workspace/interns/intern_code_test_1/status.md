@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | N/A |
-| Session | 18 |
+| Session | 19 |
 
 ## Acknowledgements
 
@@ -69,3 +69,4 @@
 - 2026-05-21: Completed current gate for `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1`: created PM durable `evidence/test_1_s23_pr55_sft_blocker_gate.md` with result `BLOCKED_MISSING_DEV4_WRAPPER_FIX`. Validated dev_2 PR55 runtime evidence: node/storage/transfer/preflight PASS, one SFT attempt after preflight PASS, failure before checkpoint on `environment: DEP_TARGET: unbound variable`, no checkpoint/model/trainer/eval artifacts, and stop/no-running-job proof complete. dev_4 wrapper fix evidence is missing. No LTP/GPU/preflight/SFT/eval run by test_1; no peer_send used.
 - 2026-05-21: Re-gated `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1` against PR #57 and `dev_4_s23_pr55_sft_wrapper_fix.md`. Updated PM durable evidence to `PASS_FOR_PM_RETRY`: PR #57 functional head `0253ff99cb1bd595bc68bda5a7a4bf7d5983162c` fixes the `DEP_TARGET` wrapper environment blocker by defaulting/exporting `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`, preserves `/home/xu.yang` outputs and no remote source/dependency network, and dev_4 reports static tests passing. Fresh PM runtime authorization is still required and eval remains blocked until model/checkpoint outputs exist. No LTP/GPU/preflight/SFT/eval run by test_1; no peer_send used.
 - 2026-05-21: Started `M1-S23-PR57-RUNTIME-GATE-TEST1` and created PM durable `evidence/test_1_s23_pr57_runtime_gate.md` with result `WAITING_DEV2_PR57_RUNTIME_EVIDENCE`. Recorded supervisor no-external-network rule as a hard gate: dev_2 evidence must show local/provided bundle preparation, exact commit/file list/checksums, `rsync`/`scp`/tar-over-SSH transfer command, destination, post-transfer verification, `/home/xu.yang` artifacts, preflight PASS + `SFT_ALLOWED`, SFT command/env if run, checkpoint/model/trainer/eval state or exact blocker, and stop/no-running-job proof. No LTP/GPU/preflight/SFT/eval/transfer/remote command run by test_1; no peer_send used.
+- 2026-05-21: Completed current gate for `M1-S23-PR57-MCORE-GATE-TEST1`: created PM durable `evidence/test_1_s23_pr57_mcore_gate.md` with result `BLOCKED_MISSING_DEV4_MCORE_FIX_PACKAGE`. Validated dev_2 PR57 runtime evidence: local bundle/no-remote-network transfer proof passes, `/home/xu.yang` artifacts and capacity proof pass, structured preflight is durable PASS with `SFT_ALLOWED=true`, exactly one SFT attempt failed before checkpoint on `ImportError: mcore_adapter is required when USE_MCA=1`, no checkpoint/model/trainer/eval artifacts exist, and stop/no-running-job proof is complete. No LTP/GPU/preflight/SFT/eval run by test_1; no peer_send used.

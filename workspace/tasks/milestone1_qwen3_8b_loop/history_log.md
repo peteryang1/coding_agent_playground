@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=18 -->
+<!-- METADATA:SESSION=19 -->
 
 ## Session 1 - 2026-05-21
 
@@ -111,3 +111,9 @@
 - Created `M1-S23-PR57-RUNTIME-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr57_runtime_gate.md`.
 - Current result is `WAITING_DEV2_PR57_RUNTIME_EVIDENCE`: PM authorization exists for dev_2 exactly one fresh PR57 runtime at `origin/main` commit `b4ac31ef1e3772953108348bf099818326ed65cc`, but `evidence/dev_2_s23_pr57_preflight_sft_runtime.md` and `evidence/gpu_s23_pr57_preflight_sft_tracking.md` are not present yet.
 - Recorded supervisor no-external-network rule as a hard final gate: dev_2 must prove local/provided workspace bundle preparation, exact commit/file list/checksums, exact `rsync`/`scp`/tar-over-SSH transfer command, destination, post-transfer verification, no remote project code/dependency clone/fetch/download, `/home/xu.yang` outputs, preflight PASS plus `SFT_ALLOWED`, SFT command/env if run, checkpoint/model/trainer/eval state or exact blocker, and stop/no-running-job proof. No LTP/GPU/preflight/SFT/eval/transfer/remote command was run by `intern_code_test_1`.
+
+## Session 19 - 2026-05-21
+
+- Created `M1-S23-PR57-MCORE-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr57_mcore_gate.md`.
+- Result is `BLOCKED_MISSING_DEV4_MCORE_FIX_PACKAGE`: dev_2's PR57 runtime passed local/provided bundle and no-remote-network transfer proof, `/home/xu.yang` storage/capacity proof, structured preflight `PASS`, and `SFT_ALLOWED=true`; the single authorized SFT attempt then failed before checkpoint with `ImportError: mcore_adapter is required when USE_MCA=1`.
+- Recorded that no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists; stop/no-running-job proof is complete; current dev_4 launch-support evidence is standby only and does not fix mcore/USE_MCA. No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`.
