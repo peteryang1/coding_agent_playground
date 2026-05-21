@@ -852,3 +852,12 @@
 - PM gated PR #43 at head `5f4d14a12aa8044a429d1110757ed631a7bc9833` as open/non-draft `MERGEABLE` / `CLEAN`.
 - Gate result is owner self-merge only for dev_4. It does not authorize LTP/GPU/NCCL preflight/SFT retry/eval/dry-run.
 - PM preserved the `/home/xu.yang` CephFS intermediate rule for any next SFT/eval/preflight authorization and did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+
+## 2026-05-21 Session 22 NCCL Preflight/SFT Authorization
+
+- PR #43 merged at `2026-05-21T10:47:20Z`, merge commit `2c867d3226f7ebb4962b5b173235639df8f1f9be`; completion PR #44 merged at `2026-05-21T10:50:28Z`, merge commit `6dcdc6730debeb2fb875baaec6667cb64d09867d`.
+- PM created `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_nccl_preflight_sft_authorization.md`.
+- PM authorized only `intern_code_dev_2` for one fresh 8 x H200 LTP allocation, NCCL/NVLink preflight, and one conditional SFT smoke only if preflight passes.
+- Required evidence files are `evidence/dev_2_s22_nccl_preflight_sft_runtime.md`, `evidence/gpu_s22_nccl_preflight_sft_tracking.md`, and dev_2 own status.
+- Generated outputs, logs, temporary converted datasets, checkpoints, run metadata, preflight artifacts, and intermediates must remain under `/home/xu.yang/coding_agent_playground/outputs` unless a required input path is explicitly justified.
+- No mini-swe eval is authorized. PM did not run LTP, GPU, NCCL preflight, SFT, eval, remote workspace code, or dry-run launch.

@@ -315,3 +315,13 @@
 - Gate basis: dev_4 mitigation package, dev_2 resource plan, dev_3 data confirmation, dev_1 `PASS_FOR_PM_RETRY`, and test_1 `PASS_FOR_PM_RETRY`.
 - Owner action: dev_4 must self-merge PR #43 and mark `M1-S22-NCCL-MITIGATION-DEV4` completion or ready-for-runtime-gate in durable task/status/history/evidence files.
 - This gate does not authorize LTP, GPU, NCCL preflight execution, SFT retry, eval, or dry-run launch. Future SFT/eval/preflight intermediates must remain under `/home/xu.yang` unless an existing required input path is explicitly justified.
+
+## 2026-05-21 Session 22 NCCL Preflight/SFT Authorization
+
+- PR #43 merged at `2026-05-21T10:47:20Z`, merge commit `2c867d3226f7ebb4962b5b173235639df8f1f9be`.
+- Completion PR #44 merged at `2026-05-21T10:50:28Z`, merge commit `6dcdc6730debeb2fb875baaec6667cb64d09867d`.
+- PM created task `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_nccl_preflight_sft_authorization.md`.
+- Authorized owner: `intern_code_dev_2` only.
+- Scope: one fresh 8 x H200 LTP allocation, preferably different from failed node `lg-cmc-b7r202-p07u16-h200-000708`; run NCCL/NVLink preflight first; run exactly one SFT smoke only if preflight passes.
+- Required generated-artifact root: `/home/xu.yang/coding_agent_playground/outputs`, including preflight logs, launch logs, temporary converted datasets, checkpoints, run metadata, and eval-ready intermediates.
+- No mini-swe eval is authorized. PM did not run LTP, GPU, NCCL preflight, SFT, eval, remote workspace code, or dry-run launch.

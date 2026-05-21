@@ -39,6 +39,7 @@
 - Post-PR41 final blocker: `M1-S22-POSTPR41-SFT-RUNTIME-DEV2` is blocked-with-final-runtime-evidence. The run cleared the prior dataset-map blocker and reached training startup, then failed with fresh CUDA/NCCL `Invalid access of peer GPU memory over nvlink or a hardware error` / local_rank 5 SIGABRT before checkpoint save. No checkpoint/model, `trainer_state.json`, or `all_results.json`; eval handoff blocked.
 - Next authorization blocker: no fresh runtime is authorized until dev_4/dev_2/dev_3/dev_1/test_1 complete the NCCL/NVLink mitigation/resource/data/review/test gates and PM decides whether to use a different H200 node, adjusted NCCL/NVL settings, or a minimal hardware/NCCL preflight.
 - PR #43 owner action: NCCL/NVLink no-execution mitigation gates now pass for owner self-merge only. dev_4 must self-merge PR #43 and record completion before PM considers any separate NCCL preflight/SFT retry authorization. No LTP/GPU/SFT/eval/dry-run is currently authorized.
+- Current runtime authorization: dev_2 is authorized under `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2` for one fresh 8 x H200 allocation, NCCL/NVLink preflight, and one conditional SFT smoke only if preflight passes. Active blocker is now owner runtime outcome: checkpoint/model with trainer_state/all_results and stop proof, or fresh exact blocker with preflight/logs/node/status/stop proof. mini-swe eval remains blocked until PM gates a checkpoint/model or served endpoint.
 
 ## Active
 
