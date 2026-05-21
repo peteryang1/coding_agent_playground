@@ -203,6 +203,13 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_test_1`: gate dev_4 parser-hygiene PR if opened and later gate dev_2 runtime evidence. Do not run LTP/GPU/SFT/eval.
   - `intern_code_test_2`: eval remains blocked until PM gates a complete checkpoint/model or endpoint.
 
+- 2026-05-21 Session 23 same-node placement blocker follow-up:
+  - `intern_code_dev_2`: task `M1-S23-LTP-PLACEMENT-PLAN-DEV2`; write no-submit placement/resource plan in `evidence/dev_2_s23_ltp_placement_plan.md`. Include how to avoid `lg-cmc-b7r202-q03u26-h200-000730` and prior failed nodes before another allocation, whether LTP supports node/anti-affinity/VC/image constraints, exact submit/status/stop templates if a future PM gate authorizes, and explicit no-submit/no-GPU/no-preflight/no-SFT/no-eval boundary.
+  - `intern_code_test_1`: task `M1-S23-SAME-NODE-RUNTIME-GATE-TEST1`; gate dev_2 same-node stopped runtime evidence and the placement acceptance criteria in `evidence/test_1_s23_same_node_runtime_gate.md`. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_1`: task `M1-S23-SAME-NODE-REVIEW-DEV1`; review dev_2 same-node stopped runtime evidence and dev_2 placement plan in `evidence/dev_1_s23_same_node_review.md`; output PASS_FOR_PM_NEXT_RUNTIME or exact blocker. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_1`: task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-REVIEW-DEV1`; review PR #53 and `evidence/dev_4_s23_nccl_warning_parser_hygiene.md` in `evidence/dev_1_s23_nccl_warning_parser_hygiene_review.md`. Verify warning suppression is narrow and real Xid/SXid/ECC/NVLink/NCCL failures remain actionable. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_test_1`: task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-GATE-TEST1`; gate PR #53 and owner test evidence in `evidence/test_1_s23_nccl_warning_parser_hygiene_gate.md`. Do not run LTP/GPU/preflight/SFT/eval.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.

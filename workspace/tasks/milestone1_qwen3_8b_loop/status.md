@@ -356,3 +356,10 @@
 - Follow-up owner evidence is now present. PM decision: current ceph-fuse fixed run is a node-health blocker, not a storage/data/checkpoint/eval blocker. Primary signal is `SXid 20009` / NVLink RX Short Error Rate on `lg-cmc-b7r202-q03u26-h200-000730`; NCCL deprecation warning classification is parser noise but does not unblock this run.
 - PM authorized exactly one fresh different-node dev_2 runtime under `M1-S23-SXID-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`. The new attempt must avoid the SXid node and prior failed nodes if selectable, use `/home/xu.yang`, use local bundle/data transfer with checksums, avoid remote source/dependency network, and run SFT only after structured preflight PASS plus `sft_allowed=true`. Eval remains unauthorized.
 - In parallel, dev_4 owns `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` for no-execution parser hygiene around benign `NCCL_ASYNC_ERROR_HANDLING` warnings.
+
+## 2026-05-21 Session 23 Same-Node Placement Blocker
+
+- dev_2 completed the single authorized different-node attempt, but the LTP scheduler assigned the forbidden SXid node `lg-cmc-b7r202-q03u26-h200-000730` again. Frame: `xu.yang~coding-agent-playground-m1-s23-sxid-differentnode-preflight-sft-20260521T140155Z`; endpoint while active: `ssh -p 39629 root@10.100.22.36`.
+- dev_2 stopped/released before source/data transfer, structured preflight, SFT, or eval. Final state: `STOPPED (Completed)`, completed `2026-05-21 14:04:32`; endpoint refused after stop; no running `coding-agent-playground` LTP jobs were visible.
+- Current blocker: placement/resource routing. No fresh LTP/GPU/preflight/SFT/eval retry is authorized until a placement plan and same-node gate pass.
+- PR #53 for dev_4 parser hygiene is open/non-draft and reported `MERGEABLE` / `CLEAN`, but PM gate is pending dev_1 review and test_1 gate. PR #53 is not authorized for owner self-merge yet.
