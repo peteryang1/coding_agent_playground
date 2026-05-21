@@ -724,3 +724,12 @@
 - GitHub reported PR #41 head `fc0b6062664e3eb5283e89c22a152427ca47fc3c` open, non-draft, `MERGEABLE` / `CLEAN`.
 - Dev_4 self-merged PR #41 at `2026-05-21T10:00:25Z`; merge commit `2fc4b797a85c9375c6c5e1171963abe67aab35e8`.
 - Task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` is marked complete/ready-for-runtime-gate. This does not authorize LTP/SFT/GPU/eval or dry-run launch.
+
+## Session 35 - Dev 4 NCCL/NVLink Mitigation Package - 2026-05-21
+
+- Accepted PM task `M1-S22-NCCL-MITIGATION-DEV4`.
+- Reviewed dev_2/test_1/PM evidence for fresh blocker `BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY`.
+- Facts preserved: PR39 diagnostics passed, PR41 `preprocessing_num_workers: null` passed, ShareGPT conversion completed 10/10, and training startup was reached.
+- Fresh failure: CUDA/NCCL invalid access of peer GPU memory over NVLink or hardware error; torch elastic root cause local_rank 5, exitcode -6 / SIGABRT; no checkpoint/model, `trainer_state.json`, or `all_results.json`.
+- Wrote no-execution evidence `evidence/dev_4_s22_nccl_mitigation.md`, recommending a different H200 node plus NCCL/NVLink hardware preflight before any future SFT attempt.
+- No LTP/SFT/GPU/eval or dry-run launch command was run.
