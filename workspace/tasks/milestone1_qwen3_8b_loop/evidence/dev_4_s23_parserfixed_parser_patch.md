@@ -136,7 +136,6 @@ draft: false
 mergeable: MERGEABLE
 mergeStateStatus: CLEAN
 status checks: none reported
-latest head commit: 1ddfe31d8345418572a6d70d1ba15da424fd7aef
 ```
 
 PR cites:
