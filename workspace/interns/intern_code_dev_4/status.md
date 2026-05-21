@@ -1,14 +1,14 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Idle,TASK=none -->
+<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop/M1-S23-PR55-SFT-WRAPPER-FIX-DEV4 -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Idle |
-| Current Task | none |
-| PR | #55 merged |
-| Session | 2 |
+| Status | Working |
+| Current Task | milestone1_qwen3_8b_loop/M1-S23-PR55-SFT-WRAPPER-FIX-DEV4 |
+| PR | #57 open, MERGEABLE/CLEAN |
+| Session | 1 |
 
 ## PM Corrections
 
@@ -69,3 +69,4 @@
 - 2026-05-21 Session 23 completion: PM gate passed for PR #53 and dev_4 self-merged it at `2026-05-21T14:20:56Z`; merge commit `e29c93736be3384663cad953cd18da68c30070fb`. Task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` is complete as a parser hygiene patch; runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23: Accepted task `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4`. Diagnosed PR #53 runtime blocker from dev_2 evidence: non-forbidden node, `/home/xu.yang`, transfer, topology/NVLink, capacity, and torch all-reduce passed, but parser still treated `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings as actionable because the successful `TORCHRUN_EXIT=0` / `ALLREDUCE_OK` proof can be split across torch/NCCL preflight artifacts instead of appearing in the same source file as every warning line. Patched parser to use preflight-level torch/NCCL/allreduce success context for deprecation-warning suppression only, preserving real Xid/SXid/ECC/NVLink/NCCL failures. Added split-artifact synthetic test; local `py_compile` and pytest passed. Opened PR #55 `https://github.com/peteryang1/coding_agent_playground/pull/55`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23 completion: PM gate passed for PR #55 and dev_4 self-merged it at `2026-05-21T14:49:25Z`; merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`. Task `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4` is complete as a parser runtime fix; runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 23: Accepted task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4`. Reviewed dev_2 PR55 runtime evidence: PR55 preflight passed and SFT launched once, then exited before GPU training with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer_state/all_results/eval artifacts were produced and LTP was stopped. Patched `scripts/train_qwen3_8b_sft.sh` to provide an explicit LLamaFactory wrapper env contract by defaulting/exporting `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`, preserving `/home/xu.yang/coding_agent_playground/outputs` and local bundle/no-remote-network rules. Added static pytest coverage in `tests/test_train_qwen3_8b_sft_static.py`. Opened PR #57 `https://github.com/peteryang1/coding_agent_playground/pull/57`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
