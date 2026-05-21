@@ -127,7 +127,13 @@ export S21_SFT_MODEL="<served-litellm-model-id>"
 export OPENAI_BASE_URL="<openai-compatible-base-url>/v1"
 export OPENAI_API_KEY="<token-or-dummy-if-no-auth>"
 export S21_SFT_CHECKPOINT_PATH="<optional-checkpoint-path-for-provenance>"
-OUT=/root/workspace/swe-bench-related/output/qwen3_8b_s21_eval_smoke
+EVAL_ROOT=/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2
+OUT="$EVAL_ROOT/output/qwen3_8b_s21_eval_smoke"
+export TMPDIR="$EVAL_ROOT/tmp"
+export HF_HOME="$EVAL_ROOT/hf_home"
+export HF_DATASETS_CACHE="$EVAL_ROOT/hf_datasets_cache"
+export UV_CACHE_DIR="$EVAL_ROOT/uv_cache"
+export APPTAINER_CACHEDIR="$EVAL_ROOT/apptainer_cache"
 mkdir -p "$OUT"
 uv run --with datasets mini-extra swebench \
   --config /root/workspace/swe-bench-related/.runtime/swebench_lite_config.yaml \
@@ -148,7 +154,13 @@ cd /root/workspace/swe-bench-related/mini-swe-agent
 export S21_SFT_MODEL="<served-litellm-model-id>"
 export OPENAI_BASE_URL="<openai-compatible-base-url>/v1"
 export OPENAI_API_KEY="<token-or-dummy-if-no-auth>"
-OUT=/root/workspace/swe-bench-related/output/qwen3_8b_s21_eval_smoke
+EVAL_ROOT=/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2
+OUT="$EVAL_ROOT/output/qwen3_8b_s21_eval_smoke"
+export TMPDIR="$EVAL_ROOT/tmp"
+export HF_HOME="$EVAL_ROOT/hf_home"
+export HF_DATASETS_CACHE="$EVAL_ROOT/hf_datasets_cache"
+export UV_CACHE_DIR="$EVAL_ROOT/uv_cache"
+export APPTAINER_CACHEDIR="$EVAL_ROOT/apptainer_cache"
 mkdir -p "$OUT"
 uv run --with datasets mini-extra swebench-single \
   --config /root/workspace/swe-bench-related/.runtime/swebench_lite_config.yaml \
@@ -163,18 +175,26 @@ uv run --with datasets mini-extra swebench-single \
 
 ## Predictions / Results / Metrics Paths
 
+Storage rule effective immediately:
+
+- Default all future mini-swe eval logs, predictions, metrics, run metadata, temporary datasets, caches, and intermediates to CephFS under `/home/xu.yang`.
+- Current default eval root for this task: `/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2`.
+- Existing required path exception: `/root/workspace/swe-bench-related/mini-swe-agent` remains the required mini-swe source checkout for command execution.
+- Existing required path exception: `/root/workspace/swe-bench-related/.runtime/swebench_lite_config.yaml` remains the required mini-swe/SWE-bench config path.
+- Exception justification: those `/root/workspace/...` paths are pre-existing required source/config inputs on the corrected final workspace; generated eval artifacts, logs, predictions, metrics, metadata, temporary datasets, and caches must not default there.
+
 Expected output root:
 
 ```text
-/root/workspace/swe-bench-related/output/qwen3_8b_s21_eval_smoke
+/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2/output/qwen3_8b_s21_eval_smoke
 ```
 
 Verify after run:
 
 ```text
-/root/workspace/swe-bench-related/output/qwen3_8b_s21_eval_smoke/preds.json
-/root/workspace/swe-bench-related/output/qwen3_8b_s21_eval_smoke/metrics_readiness.json
-/root/workspace/swe-bench-related/output/qwen3_8b_s21_eval_smoke/results.json, if SWE-bench scoring runs
+/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2/output/qwen3_8b_s21_eval_smoke/preds.json
+/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2/output/qwen3_8b_s21_eval_smoke/metrics_readiness.json
+/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2/output/qwen3_8b_s21_eval_smoke/results.json, if SWE-bench scoring runs
 trajectory JSON files under output root or per-instance subdirectories
 mini-swe logs with no infrastructure/auth/Singularity traceback
 ```
@@ -318,3 +338,16 @@ Fields/files to verify once a model exists:
 - Checkpoint: config files, tokenizer files, complete weight shards or adapter files, shard index if present, no interrupted save marker, readable path on corrected final workspace.
 - Runtime completion: `trainer_state.json`, `all_results.json` or PM-approved replacement metrics, final exit status, run id, source task id.
 - Eval outputs: `preds.json`, `metrics_readiness.json`, optional `results.json`, per-instance trajectory/log files, and prediction fields `instance_id`, `model_name_or_path`, `model_patch`.
+
+## 2026-05-21T08:06:07Z - Storage Rule Update
+
+Supervisor storage rule now applies to this task:
+
+- Future mini-swe eval logs, predictions, metrics, run metadata, temporary datasets, caches, and intermediates default to CephFS under `/home/xu.yang`.
+- Updated command templates now use `/home/xu.yang/milestone1_qwen3_8b_loop/m1_s21_eval_package_test2` as the task eval root.
+- Updated command templates set `TMPDIR`, `HF_HOME`, `HF_DATASETS_CACHE`, `UV_CACHE_DIR`, and `APPTAINER_CACHEDIR` under that CephFS eval root.
+- Existing required path exception: use `/root/workspace/swe-bench-related/mini-swe-agent` only for the pre-existing mini-swe source checkout.
+- Existing required path exception: use `/root/workspace/swe-bench-related/.runtime/swebench_lite_config.yaml` only for the pre-existing runtime config.
+- Exception justification: these `/root/workspace/...` paths are required source/config inputs on the corrected final workspace; generated eval artifacts and temporary data must default to CephFS.
+
+Execution status remains `POST_RUN_BLOCKED`: no PM-gated complete checkpoint/model or served endpoint exists, partial `checkpoint-1` remains rejected, and no eval was run.

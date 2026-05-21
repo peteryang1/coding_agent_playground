@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=21 -->
+<!-- METADATA:SESSION=22 -->
 
 ## Session 1 - 2026-05-20
 
@@ -762,6 +762,24 @@
   - `M1-S21-ENOSPC-REVIEW-DEV1`;
   - `M1-S21-ENOSPC-GATE-TEST1`.
 - Gate rule: no new GPU/LTP/SFT/eval retry is authorized until the fix/resource/data/review/test-gate evidence passes PM gate.
+
+## 2026-05-21 Session 22 CephFS Storage Rule
+
+- Supervisor directive applied: Milestone 1 SFT/eval intermediate results must use CephFS under `/home/xu.yang` unless an existing required path is explicitly needed and justified.
+- Scope recorded for gate checks: SFT launch outputs, temporary converted datasets, logs, checkpoints, run metadata, eval predictions/results/metrics, and eval intermediates.
+- PM updated `task_registry.md`, `task_knowledge.md`, `assignments.md`, `blockers.md`, and PM status so future dev/test evidence must name `/home/xu.yang` paths before any retry authorization.
+- PM used tmux inject to route the storage-rule refresh to dev_1, dev_2, dev_3, dev_4, test_1, and test_2; owners must update their assigned evidence/status durable files rather than peer-send PM.
+- PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+
+## 2026-05-21 Session 22 ENOSPC-Fixed Retry Authorization
+
+- PM gate result: dev_4 config/save fix, dev_2 resource plan, dev_3 data confirmation, dev_1 review, and test_1 retry gate are now sufficient for one owner-executed retry.
+- dev_1 evidence records `PASS_FOR_PM_RETRY`; test_1 evidence records `PASS_FOR_PM_RETRY`.
+- PM created task `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_enospc_retry_authorization.md`.
+- Authorized owner: `intern_code_dev_2` only.
+- Runtime constraints: use `coding_agent_m1_sft_10_sharegpt`, save strategy `save_steps=2` / `save_total_limit=1` / `max_steps=2`, and `/home/xu.yang/coding_agent_playground/outputs` for outputs, logs, checkpoints, run metadata, capacity probes, and intermediates.
+- Required next durable outcome: complete checkpoint/model with runtime evidence and stop proof, or fresh exact runtime blocker with command, logs, node status, owner, and next fix.
+- PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
 
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 

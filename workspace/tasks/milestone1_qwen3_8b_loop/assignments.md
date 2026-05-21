@@ -132,10 +132,24 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_2`: task `M1-S21-RUNTIME-DEV2`; acting resource/runtime owner. Prepare LTP and, after PM gate on dev_3/test_1/dev_1 evidence, submit/run ShareGPT-fixed SFT smoke and write `evidence/dev_2_s21_sft_runtime.md` plus `evidence/gpu_s21_resource_tracking.md`. Target checkpoint/model or fresh exact runtime blocker with logs and next fix.
   - `intern_code_test_2`: task `M1-S21-EVAL-PACKAGE-TEST2`; prepare mini-swe package in `evidence/test_2_s21_eval_package.md`; do not run eval until checkpoint/endpoint exists and PM gates it.
   - `intern_code_dev_4`: task `M1-S21-PR30-CLEANUP-DEV4`; refresh, merge, close, or supersede PR #30 as archival evidence; this must not block Session 21 runtime path.
+- 2026-05-21 Session 22 CephFS storage-rule refresh:
+  - All Milestone 1 SFT/eval intermediate results must be stored under CephFS `/home/xu.yang` unless an existing required path is explicitly needed and justified in the assigned evidence.
+  - `intern_code_dev_4`: refresh `M1-S21-ENOSPC-CONFIG-FIX-DEV4` so future SFT launch outputs, logs, checkpoints, run metadata, and config paths use `/home/xu.yang` or explicitly justify any required non-`/home/xu.yang` path; no SFT/GPU.
+  - `intern_code_dev_2`: refresh `M1-S21-ENOSPC-RESOURCE-DEV2` so future LTP/GPU capacity probes, output roots, checkpoint dirs, logs, run metadata, and stop-proof evidence use `/home/xu.yang`; no LTP submit/SFT/GPU until PM gate.
+  - `intern_code_dev_3`: refresh `M1-S21-ENOSPC-DATA-CONFIRM-DEV3` with the rule that future temporary converted datasets or staging copies use `/home/xu.yang`; no SFT/GPU/eval.
+  - `intern_code_dev_1`: refresh `M1-S21-ENOSPC-REVIEW-DEV1` after owner package refreshes and treat missing `/home/xu.yang` paths as a blocker; no remote experiments.
+  - `intern_code_test_1`: refresh `M1-S21-ENOSPC-GATE-TEST1` so retry gate fails unless SFT intermediates are under `/home/xu.yang` or justified; no SFT/GPU/eval.
+  - `intern_code_test_2`: refresh `M1-S21-EVAL-PACKAGE-TEST2` so eval logs, predictions, metrics, run metadata, and temporary intermediates use `/home/xu.yang`; no eval until PM-gated model/endpoint exists.
+- 2026-05-21 Session 22 ENOSPC-fixed retry authorization:
+  - `intern_code_dev_2`: task `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2`; authorized for exactly one owner-run after dev_1 and test_1 recorded `PASS_FOR_PM_RETRY`.
+  - Required storage root for outputs/logs/checkpoints/run metadata/capacity probes/intermediates: `/home/xu.yang/coding_agent_playground/outputs`.
+  - Required evidence files: `evidence/dev_2_s22_enospc_retry_runtime.md`, `evidence/gpu_s22_enospc_retry_tracking.md`, and own `status.md`.
+  - dev_2 must stop/release the LTP node after checkpoint, failure, failed probe, idle/health limit, or PM/test stop instruction. No other owner may run eval until PM gates a complete checkpoint/model or served endpoint.
 
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.
 - Keep `blockers.md` updated with active blockers and routing.
 - Ensure largest-scale rollout/training/eval owner assignments point to `ssh -p 31787 root@10.100.194.40`; PM gates evidence but does not execute code or experiments directly.
+- Ensure any future SFT/GPU/eval owner evidence stores intermediates under CephFS `/home/xu.yang`, including logs/checkpoints/run metadata/eval outputs, unless a required-path exception is recorded.
 - Write secretary/supervisor-readable task split, tracking paths, and blockers to durable task files such as `pm_secretary_report.md`, `status.md`, and `blockers.md`; do not send routine PM -> secretary peer messages.

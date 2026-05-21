@@ -239,3 +239,13 @@
 - Dev_4 self-merged PR #11 at `2026-05-20T09:10:26Z` with merge commit `93c4efaaff3e50220f7bb8583070321e65289efa`; PR #11 landed the no-launch clean-base SFT smoke package plus conflict-resolution evidence. Dev_4 opened Session 11 evidence PR #14: `https://github.com/peteryang1/coding_agent_playground/pull/14`. No SFT launch was attempted, and the remaining hard blocker is GPU endpoint/current Milestone 1 `nodes.json`.
 - Session 12 dev_4 update: PM approved GPU route `ssh -p 39314 root@10.100.20.37` and ordered PR #14 conflict resolution first. Dev_4 merged current `origin/main` into PR #14 branch, preserved PR #15 dev_2 GPU route evidence/PM records, resolved the only conflict in `task_knowledge.md`, and did not launch SFT before PR #14 self-merge.
 - Session 13 dev_4 SFT smoke result: approved GPU route/base/data/deps were usable, but no checkpoint/model was produced. Baseline clean-base run failed with MCA tiny-data DP=8 `steps_in_epoch=0`; one bounded TP=8 retry failed Megatron scheduler assertion for 1-step smoke. Evidence is in `evidence/dev_4_sft_smoke_run.md`. Dev_4 recommends dev_2 stop the active H200 allocation immediately.
+
+## 2026-05-21 Session 22 CephFS Storage And Retry Gate
+
+- Supervisor storage directive applied: SFT/eval intermediates must use CephFS `/home/xu.yang` unless an existing required path is explicitly justified.
+- Owner evidence refreshed: dev_4 config/save fix, dev_2 resource plan, dev_3 data confirmation, test_2 eval package, dev_1 review, and test_1 retry gate now record `/home/xu.yang` defaults or required-path exceptions.
+- Gate result: dev_1 and test_1 both record `PASS_FOR_PM_RETRY`.
+- PM authorization: only `intern_code_dev_2` may run one ENOSPC-fixed ShareGPT SFT smoke under task `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2`.
+- Required runtime output root: `/home/xu.yang/coding_agent_playground/outputs`.
+- Required next outcome: complete checkpoint/model with stop proof, or fresh exact runtime blocker with command, logs, node status, owner, and next fix.
+- PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.

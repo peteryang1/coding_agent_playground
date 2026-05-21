@@ -24,6 +24,8 @@
 - Active impasse: as of `2026-05-20T12:41:44Z`, repeated audits show no PR #30 refresh and no launch-package evidence-or-blocker files. PM cannot author, run, or substitute these owner tasks; next progress requires owner durable updates.
 - 2026-05-21 Session 21 route change: supervisor directed PM not to stay blocked on stale owners. PR #30 is no longer the critical blocker for the next checkpoint attempt; it is an archival cleanup task for dev_4. Critical blockers are now the replacement package/gate/runtime evidence: dev_3 dataset_info package, test_1 launch gate, dev_1 review, and dev_2 runtime/resource evidence.
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
+- 2026-05-21 Session 22 storage gate resolved for pre-run authorization: dev_4/dev_2/dev_3/dev_1/test_1/test_2 evidence now records `/home/xu.yang` defaults or required-path exceptions, and dev_1/test_1 both record `PASS_FOR_PM_RETRY`.
+- Active runtime blocker: checkpoint is still absent. dev_2 is authorized under `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2` for one owner-executed ENOSPC-fixed SFT smoke, with required `/home/xu.yang` storage, capacity proof, runtime logs, checkpoint-or-blocker evidence, and stop proof. mini-swe remains blocked until PM gates a complete checkpoint/model or served endpoint.
 
 ## Active
 

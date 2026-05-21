@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=21 -->
+<!-- METADATA:SESSION=22 -->
 
 ## Knowledge Entries
 
@@ -159,3 +159,6 @@
 145. Session 21 runtime outcome: dev_2's authorized run `milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z` cleared the prior data-format blocker, reached ShareGPT conversion 10/10 and training step 1/2, then failed during checkpoint save with safetensors ENOSPC. The only checkpoint is partial `checkpoint-1`; no complete checkpoint/model, `trainer_state.json`, or `all_results.json` exists, so mini-swe remains blocked.
 146. Session 21 resource outcome: LTP frame `xu.yang~coding-agent-playground-m1-s21-qwen3-8b-runtime-20260521T072638Z` was stopped/released by dev_2; final state is `STOPPED (Completed)` and endpoint `ssh -p 16126 root@10.100.16.54` refuses connection after stop.
 147. Session 21 next gate: no retry is authorized from the ENOSPC blocker until dev_4 provides a config/save-strategy fix, dev_2 provides a resource/capacity plan, dev_3 confirms data does not need to change, dev_1 reviews, test_1 defines retry gate, and PM gates all evidence.
+148. Session 22 storage rule: all Milestone 1 SFT/eval intermediate results must be stored on CephFS under `/home/xu.yang` unless an existing required path is explicitly needed and justified in evidence. This includes SFT launch outputs, temporary converted datasets, logs, checkpoints, run metadata, eval predictions/results/metrics, and eval intermediates.
+149. Session 22 gate rule: any future GPU/LTP/SFT/eval owner evidence must name the `/home/xu.yang` output/log/checkpoint/metadata/eval paths and capacity/probe plan before PM can authorize a retry. Existing Session 21 `/mnt/3fs` artifacts remain historical scratch/evidence; they are not the default for the next SFT/eval intermediates.
+150. Session 22 authorization fact: after dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`, PM authorized only `intern_code_dev_2` for one ENOSPC-fixed ShareGPT SFT retry under task `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2`. Required output root is `/home/xu.yang/coding_agent_playground/outputs`; mini-swe remains blocked until a complete checkpoint/model or served endpoint is PM-gated.
