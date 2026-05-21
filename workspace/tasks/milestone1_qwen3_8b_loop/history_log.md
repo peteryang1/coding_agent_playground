@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=24 -->
+<!-- METADATA:SESSION=25 -->
 
 ## Session 1 - 2026-05-20
 
@@ -725,3 +725,13 @@
   - endpoint refused connection after stop;
   - `/mnt/3fs` artifacts preserved.
 - Replacement path: Session 21 replacement/runtime tasks own any future launch package and runtime. This cleanup task does not authorize SFT/GPU work.
+
+## Session 25 - Dev 4 ENOSPC Config Fix Package - 2026-05-21
+
+- Accepted task `M1-S21-ENOSPC-CONFIG-FIX-DEV4`.
+- Reviewed Session 21 final runtime blocker from run `milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z`: ShareGPT conversion reached 10/10 and training reached step 1/2, then checkpoint save failed with `safetensors_rust.SafetensorError` / `No space left on device (os error 28)`.
+- Recorded that `checkpoint-1` is partial only and must not be handed to eval; no complete checkpoint/model, `trainer_state.json`, or `all_results.json` exists for that failed run.
+- Wrote no-execution fix evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_enospc_config_fix.md` and the PM durable path.
+- Primary recommendation: keep `coding_agent_m1_sft_10_sharegpt`, use a fresh capacity-verified output/checkpoint path, and change the retry template from step-1 checkpointing to `save_steps: 2` with `save_total_limit: 1` for the `max_steps: 2` smoke so it targets one complete eval-usable final checkpoint/model.
+- Cited files/PR scope if PM requests a code/config PR: add `configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml`, harden `scripts/train_qwen3_8b_sft.sh` to rewrite `dataset:` from `DATASET_NAME`, and update `scripts/write_sft_run_manifest.py` to record runtime save strategy from the generated config.
+- No SFT/GPU/eval command was run.

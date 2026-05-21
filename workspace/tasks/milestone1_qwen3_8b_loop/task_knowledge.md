@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=24 -->
+<!-- METADATA:SESSION=25 -->
 
 ## Knowledge Entries
 
@@ -133,3 +133,6 @@
 119. Current SFT blocker fact: another retry is not authorized; a future PM-gated retry must fix LLamaFactory dataset registration for `coding_agent_playground_sft_v1` OpenAI-style role/content messages or use a PM-approved ShareGPT-format training JSONL.
 120. PR #30 conflict refresh fact: after PR #32 stop-proof commit `5afb945bbfd97faca7af3e56b0765baa48632aa1`, dev_4 merged latest `origin/main` into PR #30 and preserved both dev_2 final stop proof and dev_4 retry failure evidence; PR #30 remains open and must wait for PM gate before self-merge.
 121. Session 24 cleanup fact: task `M1-S21-PR30-CLEANUP-DEV4` supersedes PR #30 as archival cleanup. dev_4 closed PR #30 at `2026-05-21T07:23:06Z` with `mergedAt=null`; retry failure evidence and dev_2 stop proof are preserved in `evidence/dev_4_s21_pr30_cleanup.md`, and future runtime is owned by replacement tasks, not PR #30.
+122. Session 21 ENOSPC fact: run `milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z` cleared the ShareGPT data-format blocker and reached step 1/2, but failed during `checkpoint-1` safetensors serialization with `No space left on device (os error 28)`. The checkpoint is partial only and not eval-usable.
+123. Session 25 config recommendation: preserve dataset entry `coding_agent_m1_sft_10_sharegpt`; use a fresh capacity-verified checkpoint directory; for the `max_steps: 2` Qwen3-8B ShareGPT smoke, set `save_steps: 2` and `save_total_limit: 1` to avoid the step-1 full checkpoint save while still targeting one complete checkpoint/model.
+124. Session 25 implementation note: if a PR is requested for `M1-S21-ENOSPC-CONFIG-FIX-DEV4`, add a final-save ShareGPT config template and harden `scripts/train_qwen3_8b_sft.sh` so `DATASET_NAME` rewrites the generated config's `dataset:` field; `scripts/write_sft_run_manifest.py` should record save strategy from the runtime config instead of stale static checkpoint policy values.
