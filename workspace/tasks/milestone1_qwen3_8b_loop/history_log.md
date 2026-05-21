@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=20 -->
+<!-- METADATA:SESSION=31 -->
 
 ## Session 1 - 2026-05-20
 
@@ -661,3 +661,42 @@
 - PM created `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` for concrete no-GPU artifact/preflight evidence before any future retry can be authorized.
 - Dev_3 completed `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` by generating a ShareGPT `from`/`value` artifact at `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, preserving 10 rows and 10 unique trajectory ids.
 - Test_1 refreshed `M1-SFT-DATAFORMAT-GATE-TEST1` and marked the concrete artifact PASS_NO_EXECUTION for the observed `messages[*].from/value` reader. Launch remains blocked until dev_4 records exact command/dataset_info wiring, PR #30 is refreshed/merged, fresh LTP resource is gated, and PM authorizes retry.
+
+## Session 28 - Dev 4 Early-Exit Wrapper Patch PR - 2026-05-21
+
+- Continued task `M1-S22-EARLY-EXIT-FIX-DEV4` by implementing the no-execution wrapper fix package on branch `intern_code_dev_4/M1-S22-EARLY-EXIT-FIX-DEV4`.
+- Opened PR #39: `https://github.com/peteryang1/coding_agent_playground/pull/39`.
+- Initial GitHub mergeability for PR #39 was `CONFLICTING` / `DIRTY`, so dev_4 merged current `origin/main` and resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md` by preserving PM's current main records and re-applying Session 28 task evidence.
+- After conflict resolution and push, GitHub reports PR #39 `MERGEABLE` / `CLEAN`; no required checks are reported.
+- Patched `scripts/train_qwen3_8b_sft.sh` so future runs default to `/home/xu.yang/coding_agent_playground/outputs`, create run/log/config/checkpoint/tmp directories early, tee stdout/stderr into durable logs, write xtrace separately, write `preflight.json`, and write `early_exit_diagnostics.txt` plus `exit_status.txt` through traps.
+- Patched runtime config rewrite so `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` updates top-level `dataset:` in the generated config.
+- Removed direct `exec llamafactory-cli` so shell traps can record nonzero trainer status.
+- Patched `scripts/write_sft_run_manifest.py` so the manifest records actual save policy fields from the generated config and records preflight/log paths.
+- Added `configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml` with ShareGPT dataset, CephFS output path, `save_steps: 2`, `save_total_limit: 1`, `max_steps: 2`, and TP=8 settings.
+- Local checks run: `bash -n scripts/train_qwen3_8b_sft.sh`; `python3 -m py_compile scripts/write_sft_run_manifest.py`.
+- No SFT/GPU/eval or dry-run launch command was run.
+
+## Session 29 - Dev 4 PR #39 Follow-Up Verification - 2026-05-21
+
+- Continued task `M1-S22-EARLY-EXIT-FIX-DEV4` as a no-execution patch PR task.
+- Re-checked PR #39: `https://github.com/peteryang1/coding_agent_playground/pull/39`.
+- PR #39 body includes task id `M1-S22-EARLY-EXIT-FIX-DEV4`, owner `intern_code_dev_4`, acceptance criteria, evidence path `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md`, completion marker, and no-execution boundary.
+- GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
+- Durable evidence/status updated to record the PM follow-up verification.
+- Future SFT intermediates, logs, checkpoints, and run metadata remain defaulted to `/home/xu.yang/coding_agent_playground/outputs`.
+- No SFT/GPU/eval command was run.
+
+## Session 30 - Dev 4 PR #39 PM Gate Hold - 2026-05-21
+
+- Recorded PM gate note for task `M1-S22-EARLY-EXIT-FIX-DEV4` and PR #39.
+- PR #39 is open, non-draft, and GitHub reports `MERGEABLE` / `CLEAN`, but PM gate is not passed.
+- Dev_4 must not self-merge PR #39 until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge.
+- No SFT/GPU/eval or dry-run launch command was run.
+
+## Session 31 - Dev 4 PR #39 Gate Fix Update - 2026-05-21
+
+- PM gate result for PR #39 was NOT READY.
+- Addressed dev_1 blocker `BLOCKER_MANIFEST_ENV_CAPTURE`: `scripts/train_qwen3_8b_sft.sh` now exports resolved `DATASET_NAME`, `OUTPUT_ROOT`, `RUN_DIR`, `CHECKPOINT_DIR`, `TMPDIR`, `LOG_FILE`, `XTRACE_FILE`, and `DIAG_FILE` before invoking `scripts/write_sft_run_manifest.py`, and passes those values as explicit manifest-writer arguments.
+- Updated `scripts/write_sft_run_manifest.py` to accept the explicit runtime values and record them in `preflight`, so future `run_manifest.json` can capture `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` and `/home/xu.yang/coding_agent_playground/outputs` paths.
+- Addressed test_1 blocker `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` by recording archival justification in `evidence/dev_4_s22_early_exit_fix.md`; the PR retains directly required durable conflict/gate records to preserve PM/main provenance.
+- No self-merge was performed. No SFT/GPU/eval or dry-run launch command was run.

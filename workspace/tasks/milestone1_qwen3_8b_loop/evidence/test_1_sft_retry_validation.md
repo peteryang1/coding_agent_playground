@@ -296,4 +296,3 @@ blocking_reason: no retry run artifact/checkpoint/model yet
 This file completes the pre-run validation portion of `M1-SFT-RETRY-VALIDATE-TEST1`.
 
 The task should remain open or marked `pre-run-pass/post-run-pending` in `task_registry.md` until dev_4 produces retry run evidence and test_1 records the post-run PASS/FAIL result.
-

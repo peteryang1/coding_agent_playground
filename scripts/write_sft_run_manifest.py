@@ -34,6 +34,22 @@ def git_commit(repo: Path) -> str | None:
         return None
 
 
+def read_simple_yaml_scalars(path: Path) -> dict[str, str]:
+    if not path.is_file():
+        return {}
+    values: dict[str, str] = {}
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip().strip("'\"")
+        if key:
+            values[key] = value
+    return values
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-id", required=True)
@@ -43,6 +59,12 @@ def main() -> int:
     parser.add_argument("--base-model", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--checkpoint-dir", required=True)
+    parser.add_argument("--dataset-name", default=None)
+    parser.add_argument("--output-root", default=None)
+    parser.add_argument("--tmpdir", default=None)
+    parser.add_argument("--log-file", default=None)
+    parser.add_argument("--xtrace-file", default=None)
+    parser.add_argument("--diag-file", default=None)
     parser.add_argument("--repo-root", default=".")
     parser.add_argument("--launcher", default="llamafactory-cli train")
     parser.add_argument("--command", action="append", default=[])
@@ -55,6 +77,15 @@ def main() -> int:
     dataset = Path(args.dataset).resolve()
     out = Path(args.out).resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
+    config_values = read_simple_yaml_scalars(config)
+    run_dir = Path(args.run_dir).resolve()
+    output_dir = Path(args.output_dir).resolve()
+    checkpoint_dir = Path(args.checkpoint_dir).resolve()
+    output_root = Path(args.output_root).resolve() if args.output_root else None
+    tmpdir = Path(args.tmpdir).resolve() if args.tmpdir else None
+    log_file = Path(args.log_file).resolve() if args.log_file else run_dir / "logs" / "train_stdout_stderr.log"
+    xtrace_file = Path(args.xtrace_file).resolve() if args.xtrace_file else run_dir / "logs" / "train_xtrace.log"
+    diag_file = Path(args.diag_file).resolve() if args.diag_file else run_dir / "early_exit_diagnostics.txt"
 
     manifest = {
         "run_id": args.run_id,
@@ -81,19 +112,34 @@ def main() -> int:
             "sha256": sha256_file(config),
         },
         "artifacts": {
-            "run_dir": str(Path(args.run_dir).resolve()),
-            "output_dir": str(Path(args.output_dir).resolve()),
-            "checkpoint_dir": str(Path(args.checkpoint_dir).resolve()),
+            "run_dir": str(run_dir),
+            "output_dir": str(output_dir),
+            "checkpoint_dir": str(checkpoint_dir),
             "manifest": str(out),
-            "logs": str(Path(args.run_dir).resolve() / "logs"),
-            "metrics": str(Path(args.run_dir).resolve() / "metrics.json"),
-            "tensorboard": str(Path(args.output_dir).resolve() / "runs"),
+            "logs": str(run_dir / "logs"),
+            "metrics": str(run_dir / "metrics.json"),
+            "tensorboard": str(output_dir / "runs"),
         },
         "checkpoint_policy": {
-            "save_steps": 150,
-            "save_total_limit": 4,
+            "save_steps": config_values.get("save_steps"),
+            "save_total_limit": config_values.get("save_total_limit"),
+            "save_only_model": config_values.get("save_only_model"),
+            "save_hf_model": config_values.get("save_hf_model"),
+            "output_dir": config_values.get("output_dir"),
             "pin_best_before_resume": True,
             "final_model_symlink": "training_summary/model",
+        },
+        "preflight": {
+            "config_exists": config.is_file(),
+            "dataset_exists": dataset.is_file(),
+            "output_root": str(output_root) if output_root else os.environ.get("OUTPUT_ROOT"),
+            "run_dir": str(run_dir),
+            "checkpoint_dir": str(checkpoint_dir),
+            "tmpdir": str(tmpdir) if tmpdir else os.environ.get("TMPDIR"),
+            "dataset_name": args.dataset_name if args.dataset_name is not None else os.environ.get("DATASET_NAME"),
+            "log_file": str(log_file),
+            "xtrace_file": str(xtrace_file),
+            "early_exit_diagnostics": str(diag_file),
         },
         "environment": {
             "USE_MCA": os.environ.get("USE_MCA"),

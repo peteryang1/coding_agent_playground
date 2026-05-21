@@ -1,8 +1,8 @@
 # Dev 1 SFT Retry Pregate Review
 
-Owner: `intern_code_dev_1`  
-Task ID: `M1-SFT-RETRY-PREGATE-DEV1`  
-Date: 2026-05-20  
+Owner: `intern_code_dev_1`
+Task ID: `M1-SFT-RETRY-PREGATE-DEV1`
+Date: 2026-05-20
 Scope: independent pre-run sanity review of PR #26/#27 config fix, test_1 retry gate, dev_2 resource plan, and dev_3 data gate. No remote experiments were run.
 
 ## Sources Reviewed
