@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=19 -->
+<!-- METADATA:SESSION=20 -->
 
 ## Knowledge Entries
 
@@ -41,3 +41,5 @@
 35. Session 23 no-external-network rule for PR57: all remote GPU/LTP nodes must be treated as no-external-network for project code/dependency staging. Runtime evidence is not gateable unless it shows local/provided workspace preparation, exact commit/file list/checksums, exact `rsync`/`scp`/tar-over-SSH transfer command, destination and post-transfer verification, and no remote GitHub/source/dependency clone/fetch/download.
 36. PR57 mcore runtime fact: dev_2's PR57 runtime passed preflight with `PREFLIGHT_RESULT=PASS` and `SFT_ALLOWED=true`, then the single authorized SFT attempt failed before checkpoint with `ImportError: mcore_adapter is required when USE_MCA=1`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists, and stop proof is complete.
 37. PR57 mcore retry rule: next runtime is blocked until dev_4 provides a no-execution mcore/USE_MCA fix package or PR that either packages `mcore_adapter` and dependencies via local/provided transfer with checksums and no remote downloads, or selects a PM-approved non-MCA path; dev_1/test_1 must gate it before PM authorizes another LTP/GPU/SFT attempt.
+38. PR59 mcore fix gate fact: test_1 re-gated `M1-S23-PR57-MCORE-GATE-TEST1` to `PASS_FOR_PM_RETRY` after PR #59 functional commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`; the patch adds `MCORE_ADAPTER_DIR`, `PYTHONPATH_PREFIX`, manifest/log fields, and a `USE_MCA=1` import gate for `mcore_adapter` with local/provided bundle and no-remote-download instructions. Observed fetched PR head `6b92490d0e9db32da3380a38ada27d75ed529970` only adds docs/evidence/status/history after the functional commit.
+39. PR59 runtime boundary: `PASS_FOR_PM_RETRY` does not authorize runtime. A retry must stage `mcore_adapter` from local/provided workspace, record provenance/file list/checksums/transfer/post-transfer verification, keep generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`, pass structured preflight with `SFT_ALLOWED=true`, pass the `USE_MCA=1` import gate, and still produce checkpoint/model plus `trainer_state.json` and `all_results.json` before eval handoff.

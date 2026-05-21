@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=19 -->
+<!-- METADATA:SESSION=20 -->
 
 ## Session 1 - 2026-05-21
 
@@ -117,3 +117,9 @@
 - Created `M1-S23-PR57-MCORE-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr57_mcore_gate.md`.
 - Result is `BLOCKED_MISSING_DEV4_MCORE_FIX_PACKAGE`: dev_2's PR57 runtime passed local/provided bundle and no-remote-network transfer proof, `/home/xu.yang` storage/capacity proof, structured preflight `PASS`, and `SFT_ALLOWED=true`; the single authorized SFT attempt then failed before checkpoint with `ImportError: mcore_adapter is required when USE_MCA=1`.
 - Recorded that no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists; stop/no-running-job proof is complete; current dev_4 launch-support evidence is standby only and does not fix mcore/USE_MCA. No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`.
+
+## Session 20 - 2026-05-21
+
+- Re-gated `M1-S23-PR57-MCORE-GATE-TEST1` against PR #59 and `evidence/dev_4_s23_pr57_mcore_fix.md`.
+- Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr57_mcore_gate.md` to `PASS_FOR_PM_RETRY`: functional commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6` adds `MCORE_ADAPTER_DIR`, `PYTHONPATH_PREFIX`, manifest/log capture, and a `USE_MCA=1` import gate for `mcore_adapter` with explicit local/provided bundle and no remote dependency-download instructions.
+- Observed PR #59 fetched head `6b92490d0e9db32da3380a38ada27d75ed529970`; diff after `92e437cf690b68121b9ad9d2f76b18a60a10a2d6` is docs/evidence/status/history only. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
