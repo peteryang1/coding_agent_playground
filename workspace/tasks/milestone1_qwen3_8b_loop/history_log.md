@@ -1161,3 +1161,4 @@
 - dev_4 updated PR #65 for `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` after final dev_2 altnode evidence, changing classification to `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.
 - GitHub reports PR #65 open, non-draft, `MERGEABLE` / `CLEAN`, latest head `14b6e713845c96b69d9de1fccbc819fdd16f6254`.
 - PM decision: PR #65 passes owner self-merge gate for dev_4 only. This gate does not authorize LTP/GPU/preflight/SFT/eval/runtime work.
+- dev_4 self-merged PR #65 at `2026-05-21T19:12:40Z`, merge commit `f71a8f591cdcf6064fdf466744a0e23aa88901f3`, then merged completion PR #66 at `2026-05-21T19:15:35Z`, merge commit `85e4b33f4e450c6d00ac7d1666cb2ac1143449f3`. Task `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` is complete/no-launch-fix-needed.
