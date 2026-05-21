@@ -854,3 +854,12 @@
 - Self-merged PR #55 at `2026-05-21T14:49:25Z`; merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`.
 - Task `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4` is complete as a parser runtime fix.
 - Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 50 - Dev 4 PR55 SFT Wrapper Fix - 2026-05-21
+
+- Accepted PM task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4`.
+- Reviewed dev_2 PR55 runtime and GPU tracking evidence: non-forbidden node, `/home/xu.yang` storage/capacity, local source/data transfer, structured preflight PASS, and one conditional SFT launch; SFT exited before GPU training with `environment: DEP_TARGET: unbound variable`.
+- Patched `scripts/train_qwen3_8b_sft.sh` to default/export `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI` before manifest generation and before invoking LLamaFactory.
+- Added static pytest coverage in `tests/test_train_qwen3_8b_sft_static.py`.
+- Wrote evidence `evidence/dev_4_s23_pr55_sft_wrapper_fix.md`.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.

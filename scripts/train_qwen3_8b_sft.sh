@@ -12,8 +12,11 @@ OUTPUT_ROOT="${OUTPUT_ROOT:-/home/xu.yang/coding_agent_playground/outputs}"
 RUN_DIR="${RUN_DIR:-${OUTPUT_ROOT}/runs/train/${RUN_ID}}"
 CHECKPOINT_DIR="${CHECKPOINT_DIR:-${OUTPUT_ROOT}/training_summary/sft_output/${RUN_ID}}"
 LLAMAFACTORY_DIR="${LLAMAFACTORY_DIR:-${REPO_ROOT}/code/LLamaFactory}"
+LLAMAFACTORY_CLI="${LLAMAFACTORY_CLI:-llamafactory-cli}"
 DRY_RUN="${DRY_RUN:-1}"
 TMPDIR="${TMPDIR:-${OUTPUT_ROOT}/tmp/${RUN_ID}}"
+DEP_TARGET="${DEP_TARGET:-${PYTHON_DEPS_DIR:-${RUN_DIR}/python_deps}}"
+LF="${LF:-${LLAMAFACTORY_DIR}}"
 
 mkdir -p "${RUN_DIR}/logs" "${RUN_DIR}/config" "${CHECKPOINT_DIR}" "${TMPDIR}"
 
@@ -24,6 +27,7 @@ EXIT_STATUS_FILE="${EXIT_STATUS_FILE:-${RUN_DIR}/exit_status.txt}"
 PREFLIGHT_FILE="${PREFLIGHT_FILE:-${RUN_DIR}/preflight.json}"
 
 export DATASET_NAME PREPROCESSING_NUM_WORKERS OUTPUT_ROOT RUN_DIR CHECKPOINT_DIR TMPDIR LOG_FILE XTRACE_FILE DIAG_FILE
+export DEP_TARGET LF LLAMAFACTORY_CLI
 
 exec > >(tee -a "${LOG_FILE}") 2>&1
 exec 9>>"${XTRACE_FILE}"
@@ -85,6 +89,7 @@ printf 'RUN_ID=%s\nREPO_ROOT=%s\nOUTPUT_ROOT=%s\nRUN_DIR=%s\nCHECKPOINT_DIR=%s\n
   "${RUN_ID}" "${REPO_ROOT}" "${OUTPUT_ROOT}" "${RUN_DIR}" "${CHECKPOINT_DIR}" "${TMPDIR}"
 printf 'CONFIG_TEMPLATE=%s\nDATASET_JSONL=%s\nDATASET_NAME=%s\nPREPROCESSING_NUM_WORKERS=%s\nBASE_MODEL=%s\nLLAMAFACTORY_DIR=%s\nDRY_RUN=%s\n' \
   "${CONFIG_TEMPLATE}" "${DATASET_JSONL}" "${DATASET_NAME}" "${PREPROCESSING_NUM_WORKERS}" "${BASE_MODEL}" "${LLAMAFACTORY_DIR}" "${DRY_RUN}"
+printf 'LLAMAFACTORY_CLI=%s\nDEP_TARGET=%s\nLF=%s\n' "${LLAMAFACTORY_CLI}" "${DEP_TARGET}" "${LF}"
 printf 'Mount proof for OUTPUT_ROOT:\n'
 findmnt -T "${OUTPUT_ROOT}" || true
 df -h "${OUTPUT_ROOT}" || true
@@ -161,7 +166,7 @@ export NVTE_FLASH_ATTN="${NVTE_FLASH_ATTN:-1}"
 export NVTE_FUSED_ATTN="${NVTE_FUSED_ATTN:-0}"
 export NVTE_UNFUSED_ATTN="${NVTE_UNFUSED_ATTN:-0}"
 
-LAUNCH_COMMAND="cd ${LLAMAFACTORY_DIR} && export PYTHONPATH=\"${LLAMAFACTORY_DIR}/src:\${PYTHONPATH:-}\" && llamafactory-cli train ${RUNTIME_CONFIG}"
+LAUNCH_COMMAND="cd ${LLAMAFACTORY_DIR} && export DEP_TARGET=\"${DEP_TARGET}\" LF=\"${LF}\" PYTHONPATH=\"${LLAMAFACTORY_DIR}/src:\${PYTHONPATH:-}\" && ${LLAMAFACTORY_CLI} train ${RUNTIME_CONFIG}"
 
 python3 "${REPO_ROOT}/scripts/write_sft_run_manifest.py" \
   --run-id "${RUN_ID}" \
@@ -208,5 +213,7 @@ if [[ ! -d "${LLAMAFACTORY_DIR}" ]]; then
 fi
 
 cd "${LLAMAFACTORY_DIR}"
+export DEP_TARGET="${DEP_TARGET}"
+export LF="${LF}"
 export PYTHONPATH="${LLAMAFACTORY_DIR}/src:${PYTHONPATH:-}"
-llamafactory-cli train "${RUNTIME_CONFIG}"
+"${LLAMAFACTORY_CLI}" train "${RUNTIME_CONFIG}"
