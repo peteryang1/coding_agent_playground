@@ -1,0 +1,7 @@
+# Task Knowledge - M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4
+
+1. PM authorized only dev_2 for one bounded alternate-node preflight plus conditional SFT runtime.
+2. dev_4 is not authorized to run LTP/GPU/preflight/SFT/eval/remote commands for this task.
+3. Current dev_2 altnode evidence is pre-submit/package-ready only and has no final checkpoint-or-blocker signature.
+4. No dev_4 code/config/launcher action is justified until a final signature appears.
+5. If a future final signature is hardware, node-health, or checkpoint-success, dev_4 should record no code action. If it is launcher/config/code, dev_4 should prepare a no-execution fix PR with this task id.
