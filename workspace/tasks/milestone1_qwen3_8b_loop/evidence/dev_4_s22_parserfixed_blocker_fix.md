@@ -288,6 +288,7 @@ runtime_review_inputs:
 recommended_pr_files:
   - scripts/parse_s22_preflight_health.py
   - workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_parserfixed_blocker_fix.md
+current_pr: https://github.com/peteryang1/coding_agent_playground/pull/47
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
 ```
