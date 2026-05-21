@@ -17,6 +17,14 @@
 - PM created `M1-S23-PR63-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr63_preflight_sft_authorization.md`.
 - PM authorizes only dev_2 for exactly one fresh owner-executed runtime using `origin/main` commit `7ad24ae328a350c0be596f41ea143affb4034486`. Dev_2 must prepare local/provided bundles, transfer them with checksums and file lists, use no remote source/dependency network, store generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`, run structured preflight, and run SFT only if `PREFLIGHT_RESULT=PASS` plus `SFT_ALLOWED=true`. Eval remains unauthorized.
 
+## 2026-05-21 Session 23 PR63 Preflight Health Blocker and Different-Node Authorization
+
+- dev_2 completed exactly one authorized PR63 runtime attempt on frame `xu.yang~coding-agent-playground-m1-s23-pr63-preflight-sft-20260521T181207Z`, endpoint `ssh -p 17408 root@10.100.18.14`, node `lg-cmc-b7r202-k07u06-h200-000580`.
+- Source/data/`mcore_adapter`/dependency local bundle transfer, `/home/xu.yang` CephFS proof, 24GiB capacity probe, checksum verification, `mcore_adapter import OK for USE_MCA=1`, and torch all-reduce passed.
+- Structured preflight failed with `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`, `SFT_ALLOWED=false`; actionable signature is SXid 22013 in `dmesg_gpu_fault_scan.txt`. SFT/eval did not run and no checkpoint/model/trainer_state/all_results exists.
+- dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 18:26:03`, endpoint refused, and running-list proof is `No jobs found`.
+- PM classifies this as a node-health/placement blocker, not a PR63 code/data/transfer/import blocker, and authorizes only dev_2 for one bounded different-node attempt under `M1-S23-PR63-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`. The forbidden node is `lg-cmc-b7r202-k07u06-h200-000580`; eval remains unauthorized.
+
 ## Session 1 - 2026-05-20
 
 - Accepted Milestone 1 under `secretary_pm_dev_test_intern_team_pattern_skill`.

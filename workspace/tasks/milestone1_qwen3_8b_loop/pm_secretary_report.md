@@ -5,7 +5,8 @@
 - PM gated PR #63 for `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` as `PASS_OWNER_SELF_MERGE_ONLY`.
 - Basis: PR #63 is open/non-draft `MERGEABLE` / `CLEAN` at head `a0ab039278198a6c1b0cd40009038d89cd602922`; dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`; dev_4 evidence records local static checks and no runtime execution.
 - PR #63 merged at `2026-05-21T18:08:48Z`, merge commit `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`; completion PR #64 merged at `2026-05-21T18:12:07Z`, merge commit `7ad24ae328a350c0be596f41ea143affb4034486`.
-- PM authorized only dev_2 for one fresh owner-executed post-PR63 preflight/SFT attempt using `origin/main` commit `7ad24ae328a350c0be596f41ea143affb4034486`. Eval remains unauthorized.
+- dev_2 completed the first post-PR63 attempt with final preflight blocker `BLOCKED_PR63_PREFLIGHT_HEALTH_SIGNATURE_SXID_22013` on node `lg-cmc-b7r202-k07u06-h200-000580`; no SFT/checkpoint/eval was produced and resource is stopped/released.
+- PM authorized only dev_2 for one bounded different-node attempt excluding node `lg-cmc-b7r202-k07u06-h200-000580`. Eval remains unauthorized.
 
 ## 2026-05-20 Initial Organization
 

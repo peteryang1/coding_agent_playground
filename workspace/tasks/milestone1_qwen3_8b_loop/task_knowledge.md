@@ -8,6 +8,7 @@
 - Preserve the PR61 command-array parsing fix; do not regress to executing a space-containing `LLAMAFACTORY_CLI` as one quoted path.
 - Runtime remains a separate PM decision after merge/completion. Required runtime evidence remains local/provided bundle preparation, exact transfer command/checksum/file list, no remote source/dependency network, `/home/xu.yang/coding_agent_playground/outputs`, structured preflight PASS, `SFT_ALLOWED=true`, and stop/no-running-job proof.
 - PR63/PR64 post-merge runtime source commit is `origin/main` `7ad24ae328a350c0be596f41ea143affb4034486`; this runtime authorization is single-use for dev_2 and does not authorize eval.
+- First PR63 post-merge attempt failed before SFT on node health signature SXid 22013 at node `lg-cmc-b7r202-k07u06-h200-000580`; code/data/transfer/import/storage/all-reduce passed. Next bounded attempt must exclude that node and stop before transfer if LTP assigns it again.
 
 ## Knowledge Entries
 
