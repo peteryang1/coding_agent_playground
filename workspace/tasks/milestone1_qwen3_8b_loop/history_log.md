@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=11 -->
+<!-- METADATA:SESSION=12 -->
 
 ## Session 1 - 2026-05-21
 
@@ -68,3 +68,9 @@
 - Created `M1-S23-CEPHFUSE-RUNTIME-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_runtime_gate.md`.
 - Result is `BLOCKED_FINAL_RUNTIME_PREFLIGHT_HEALTH_SIGNATURE_NO_SFT`: dev_2's final runtime proved source/data transfer, `/home/xu.yang` CephFS storage, 24 GiB capacity probe, no remote source/dependency downloads, and stop/no-running-job cleanup, but structured preflight returned `FAIL_HEALTH_SIGNATURE` with `sft_allowed=false`.
 - Recorded that SFT was correctly skipped under the PM authorization and prior test gate; no checkpoint/model, `trainer_state.json`, `all_results.json`, or eval handoff exists. No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`.
+
+## Session 12 - 2026-05-21
+
+- Created standby evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_sxid_standby_gate.md` for the PM assignment to watch dev_4 parser hygiene and dev_2 SXid different-node runtime evidence.
+- Current result is `STANDBY_WAITING_DEV4_PR_OR_DEV2_RUNTIME_EVIDENCE`: `evidence/pm_s23_sxid_differentnode_preflight_sft_authorization.md` is present, but `evidence/dev_4_s23_nccl_warning_parser_hygiene.md`, any open dev_4 PR, `evidence/dev_2_s23_sxid_differentnode_preflight_sft_runtime.md`, and `evidence/gpu_s23_sxid_differentnode_preflight_sft_tracking.md` are absent at this check.
+- Recorded future gate criteria for parser hygiene, source/data transfer, `/home/xu.yang` storage, structured preflight/SFT decision, checkpoint/model or exact blocker, stop proof, and eval handoff. No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`.

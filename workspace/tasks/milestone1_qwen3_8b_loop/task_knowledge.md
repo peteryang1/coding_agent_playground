@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=11 -->
+<!-- METADATA:SESSION=12 -->
 
 ## Knowledge Entries
 
@@ -25,3 +25,5 @@
 19. Ceph-fuse retry boundary: `PASS_FOR_PM_RETRY` is no-execution approval for PM decision only. Fresh PM runtime authorization remains required, SFT is still conditional on structured preflight PASS plus `sft_allowed=true`, and eval remains blocked until a complete checkpoint/model plus `trainer_state.json`/`all_results.json` or a PM-approved served endpoint exists.
 20. Ceph-fuse runtime result fact: `M1-S23-CEPHFUSE-PREFLIGHT-SFT-RUNTIME-DEV2` resolved the earlier `ceph-fuse: command not found` blocker for this run and passed source/data transfer, `/home/xu.yang` CephFS storage, and capacity proof, but final runtime remains `BLOCKED_FINAL_RUNTIME_PREFLIGHT_HEALTH_SIGNATURE_NO_SFT` because structured preflight returned `FAIL_HEALTH_SIGNATURE` and `sft_allowed=false`.
 21. Ceph-fuse runtime acceptance rule: when structured preflight is not PASS or `sft_allowed=false`, SFT must be skipped, checkpoint/model and eval handoff remain blocked, and the next PM decision must address the live health signatures or parser classification before any new authorized runtime.
+22. SXid standby fact: PM authorized exactly one fresh different-node dev_2 runtime under `M1-S23-SXID-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`; test_1 standby gate currently waits for `evidence/dev_2_s23_sxid_differentnode_preflight_sft_runtime.md` and `evidence/gpu_s23_sxid_differentnode_preflight_sft_tracking.md`.
+23. Parser hygiene standby fact: dev_4 owns `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4`; test_1 should gate its PR/evidence only when present, requiring benign `NCCL_ASYNC_ERROR_HANDLING` warning suppression without weakening real NCCL/CUDA/SIGABRT/ChildFailedError/Xid/SXid/ECC/NVLink detection.
