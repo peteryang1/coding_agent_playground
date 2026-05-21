@@ -777,3 +777,10 @@
 - Wrote no-execution evidence `evidence/dev_4_s22_parserfixed_blocker_fix.md`, recommending a parser PR for Xid/SXid freshness classification and `/home/xu.yang` / `/mnt/cephfs/home/xu.yang` path normalization.
 - Opened PR #47 `https://github.com/peteryang1/coding_agent_playground/pull/47`.
 - No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 41 - Dev 4 PR #47 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #47 / `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`.
+- Gate facts: GitHub reports PR #47 open, non-draft, `MERGEABLE` / `CLEAN`; PR body includes task id, owner, acceptance criteria, durable evidence path, and completion marker.
+- Marked task completion-ready and dev status Idle before owner self-merge per playbook.
+- Runtime remains separately gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.

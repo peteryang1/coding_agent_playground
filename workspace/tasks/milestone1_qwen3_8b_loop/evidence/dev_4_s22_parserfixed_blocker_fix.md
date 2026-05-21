@@ -278,7 +278,7 @@ CephFS mirror path is acceptable only as the resolved form of that `/home/xu.yan
 ```yaml
 task_id: M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4
 owner: intern_code_dev_4
-result: READY_FOR_REVIEW
+result: COMPLETE_PENDING_SELF_MERGE
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_parserfixed_blocker_fix.md
 runtime_review_inputs:
   - evidence/dev_2_s22_parserfixed_preflight_sft_runtime.md
@@ -289,6 +289,7 @@ recommended_pr_files:
   - scripts/parse_s22_preflight_health.py
   - workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_parserfixed_blocker_fix.md
 current_pr: https://github.com/peteryang1/coding_agent_playground/pull/47
+pm_gate: PASS_OWNER_SELF_MERGE_ONLY
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
 ```
