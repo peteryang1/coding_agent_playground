@@ -7,8 +7,8 @@
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
-| PR | #22 |
-| Session | 21 |
+| PR | coordination branch only |
+| Session | 22 |
 
 ## Recent Progress
 
@@ -79,3 +79,4 @@
 - 2026-05-21 Session 22 retry authorization: dev_1 and test_1 now record `PASS_FOR_PM_RETRY`; PM authorized only dev_2 for one ENOSPC-fixed SFT smoke under task `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2`, with outputs/checkpoints/logs/run metadata/probes under `/home/xu.yang/coding_agent_playground/outputs`.
 - 2026-05-21 Session 22 runtime blocker: dev_2 completed the one authorized retry and stop proof. `/home/xu.yang` CephFS and 24GiB probe passed, but SFT exited `EXIT_STATUS=1` before manifest/config/checkpoint artifacts; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists. PM assigned no-execution early-exit fix/review/gate/eval-blocked tasks; no new retry is authorized.
 - 2026-05-21 Session 22 early-exit follow-up: dev_4 produced the no-execution early-exit fix package; PM instructed dev_4 to turn it into a patch PR and asked dev_1/test_1 to refresh review/gate. No GPU/SFT/eval retry is authorized.
+- 2026-05-21 Session 22 patch-gate coordination: dev_4 opened PR #39 for `M1-S22-EARLY-EXIT-FIX-DEV4`; it is open/non-draft and `MERGEABLE` / `CLEAN`, but PM gate is pending dev_1/test_1 review because the diff includes both the wrapper patch and older dev_4 historical evidence files. No owner self-merge or runtime retry is authorized yet.

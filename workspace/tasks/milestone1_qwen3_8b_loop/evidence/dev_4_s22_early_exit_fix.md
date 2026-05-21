@@ -315,3 +315,103 @@ no complete checkpoint/model is produced within the PM/test bounded window.
 ```text
 Complete-for-plan: M1-S22-EARLY-EXIT-FIX-DEV4 records a no-execution diagnosis and fix package. The current blocker is earlier than LLamaFactory data conversion/training/checkpointing; future work should patch the launcher/training wrapper to own durable logging, xtrace, config/manifest preflight, DATASET_NAME rewrite, and exit diagnostics under /home/xu.yang/coding_agent_playground/outputs before any PM-authorized retry. No SFT/GPU/eval command was run.
 ```
+
+## Session 28 No-Execution Patch PR Package
+
+Patch branch:
+
+```text
+intern_code_dev_4/M1-S22-EARLY-EXIT-FIX-DEV4
+```
+
+Files changed:
+
+```text
+scripts/train_qwen3_8b_sft.sh
+scripts/write_sft_run_manifest.py
+configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml
+workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md
+workspace/interns/intern_code_dev_4/status.md
+workspace/tasks/milestone1_qwen3_8b_loop/history_log.md
+workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md
+workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md
+```
+
+Implemented wrapper changes:
+
+```text
+default OUTPUT_ROOT is /home/xu.yang/coding_agent_playground/outputs
+TMPDIR defaults under /home/xu.yang/coding_agent_playground/outputs/tmp/<RUN_ID>
+script creates run/log/config/checkpoint/tmp directories before fragile work
+script redirects stdout/stderr through tee to logs/train_stdout_stderr.log from the first durable point
+script writes xtrace to logs/train_xtrace.log by default
+ERR trap writes early_exit_diagnostics.txt and exit_status.txt with failing command, line, paths, and artifact summary
+EXIT trap writes exit_status.txt for success or non-ERR exits
+preflight.json records config/dataset/path/log facts before config rewrite
+runtime config rewrite supports DATASET_NAME for top-level dataset:
+runtime config and run_manifest paths plus sha256 are printed before training
+llamafactory-cli is no longer invoked through exec, allowing traps to record trainer failure status
+```
+
+Implemented manifest changes:
+
+```text
+scripts/write_sft_run_manifest.py reads simple top-level runtime config scalars.
+Manifest checkpoint_policy records actual save_steps, save_total_limit, save_only_model, save_hf_model, and output_dir from generated config.
+Manifest preflight section records config/dataset existence, output root, run dir, checkpoint dir, tmpdir, DATASET_NAME, log path, xtrace path, and early_exit_diagnostics path.
+```
+
+Implemented config/template addition:
+
+```text
+configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml
+dataset: coding_agent_m1_sft_10_sharegpt
+output_dir: /home/xu.yang/coding_agent_playground/outputs/training_summary/sft_output/qwen3_8b_milestone1_s21_sharegpt_tiny_smoke
+save_steps: 2
+save_total_limit: 1
+max_steps: 2
+warmup_steps: 0
+tensor_model_parallel_size: 8
+pipeline_model_parallel_size: 1
+context_parallel_size: 1
+sequence_parallel: false
+```
+
+Local checks performed:
+
+```text
+bash -n scripts/train_qwen3_8b_sft.sh
+python3 -m py_compile scripts/write_sft_run_manifest.py
+```
+
+Execution boundary for patch PR:
+
+```text
+No SFT command was run.
+No GPU command was run.
+No eval command was run.
+No dry-run launch command was run.
+```
+
+PR metadata requirement:
+
+```text
+Task ID: M1-S22-EARLY-EXIT-FIX-DEV4
+Owner: intern_code_dev_4
+Acceptance criteria: wrapper captures stdout/stderr/xtrace from the first durable point; early failures produce early_exit_diagnostics.txt and exit_status.txt; generated config preserves DATASET_NAME=coding_agent_m1_sft_10_sharegpt; future outputs remain under /home/xu.yang/coding_agent_playground/outputs; no SFT/GPU/eval execution in PR.
+Evidence path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md
+Completion marker: Ready-for-review after PR opens; future retry still requires PM/test/resource gate.
+```
+
+PR status:
+
+```text
+PR #39: https://github.com/peteryang1/coding_agent_playground/pull/39
+state: OPEN
+draft: false
+initial mergeability after open: CONFLICTING / DIRTY
+conflict files after merging origin/main locally: history_log.md, task_knowledge.md, task_registry.md
+resolution: preserved current origin/main PM/data-format/Session 21/22 records and re-applied Session 28 task evidence/status entries
+latest GitHub mergeability after push: MERGEABLE / CLEAN
+required checks: none reported
+```

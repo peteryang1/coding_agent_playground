@@ -259,3 +259,5 @@
 - LTP frame reached `STOPPED (Completed)` and endpoint refused connection after stop.
 - Current state: no checkpoint/model; mini-swe blocked; no new retry authorized.
 - New owner tasks: dev_4 early-exit fix package, dev_1 review, test_1 post-run gate, and test_2 eval-blocked refresh.
+- Patch-gate update: dev_4 opened PR #39 for `M1-S22-EARLY-EXIT-FIX-DEV4`; GitHub reports it open, non-draft, `MERGEABLE` / `CLEAN`. PM gate remains pending dev_1/test_1 review because the diff includes both the needed wrapper patch and older dev_4 historical evidence files; dev_4 is not authorized to self-merge yet.
+- PM follow-up split: dev_1 owns `M1-S22-EARLY-EXIT-PATCH-REVIEW-DEV1`, test_1 owns `M1-S22-EARLY-EXIT-PATCH-GATE-TEST1`, dev_2 owns `M1-S22-POSTPATCH-LTP-READY-DEV2`, and test_2 owns `M1-S22-POSTPATCH-EVAL-READY-TEST2`. These are no-execution readiness/gate tasks only.

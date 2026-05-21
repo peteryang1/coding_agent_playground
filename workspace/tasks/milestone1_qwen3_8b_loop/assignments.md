@@ -150,6 +150,13 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_1`: task `M1-S22-RUNTIME-BLOCKER-REVIEW-DEV1`; review dev_2 final runtime blocker and dev_4 fix when present; no remote experiments/SFT/GPU/eval.
   - `intern_code_test_1`: task `M1-S22-POSTRUN-GATE-TEST1`; record post-run gate and next acceptance criteria; no SFT/GPU/eval.
   - `intern_code_test_2`: task `M1-S22-EVAL-BLOCKED-TEST2`; refresh mini-swe blocked evidence with `/home/xu.yang` eval intermediate rule; no eval.
+- 2026-05-21 Session 22 early-exit patch gate split:
+  - `intern_code_dev_4`: continue `M1-S22-EARLY-EXIT-FIX-DEV4` as a no-execution patch PR. Open/push the PR with task id, owner, acceptance criteria, evidence path, and completion marker; do not run SFT/GPU/eval.
+  - `intern_code_dev_1`: task `M1-S22-EARLY-EXIT-PATCH-REVIEW-DEV1`; once the dev_4 PR or staged patch evidence exists, review the patch against first-durable-point logging, xtrace, ERR/EXIT diagnostics, preflight artifact, `DATASET_NAME` rewrite, and `/home/xu.yang` output preservation. Write `evidence/dev_1_s22_early_exit_patch_review.md`; no remote experiments/SFT/GPU/eval.
+  - `intern_code_test_1`: task `M1-S22-EARLY-EXIT-PATCH-GATE-TEST1`; once the dev_4 PR or staged patch evidence exists, apply the no-execution gate and write `evidence/test_1_s22_early_exit_patch_gate.md`. Do not authorize or run SFT/GPU/eval.
+  - `intern_code_dev_3`: task `M1-S22-POSTPATCH-DATA-STAGING-DEV3`; refresh the ShareGPT data staging/readiness package for any post-patch retry, requiring temporary converted datasets or staging copies under `/home/xu.yang` unless an existing required input path is justified. Write `evidence/dev_3_s22_postpatch_data_staging.md`; no SFT/GPU/eval.
+  - `intern_code_dev_2`: task `M1-S22-POSTPATCH-LTP-READY-DEV2`; refresh only the post-patch LTP readiness and `/home/xu.yang` capacity/probe templates in `evidence/dev_2_s22_postpatch_ltp_ready.md`. Do not submit a job until a fresh PM authorization exists.
+  - `intern_code_test_2`: task `M1-S22-POSTPATCH-EVAL-READY-TEST2`; refresh eval blocked/readiness evidence for the `/home/xu.yang` eval-intermediate rule in `evidence/test_2_s22_postpatch_eval_ready.md`. Do not run eval until checkpoint/model or endpoint exists and PM gates it.
 
 ## PM Integration Responsibilities
 

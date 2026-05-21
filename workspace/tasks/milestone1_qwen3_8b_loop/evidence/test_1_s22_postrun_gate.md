@@ -144,6 +144,30 @@ eval_run: false
 
 No further retry is authorized by this post-run gate. Before PM can authorize any future SFT retry, durable no-execution evidence must satisfy all criteria below.
 
+Current next pre-run gate status after dev_4 package refresh: **BLOCKED_WAITING_DEV1_REFRESH**
+
+Reviewed refresh inputs:
+
+```text
+dev_4_fix_package: evidence/dev_4_s22_early_exit_fix.md
+dev_4_fix_status: PRESENT_COMPLETE_FOR_PLAN
+dev_1_review: evidence/dev_1_s22_runtime_blocker_review.md
+dev_1_review_status: STALE_BLOCKED_MISSING_DEV4_FIX
+```
+
+test_1 interpretation:
+
+- `evidence/dev_4_s22_early_exit_fix.md` now exists and satisfies the package-presence portion of the next pre-run gate: it diagnoses the early exit as before useful durable capture, distinguishes it from `KeyError: 'from'` and ENOSPC, preserves `/home/xu.yang/coding_agent_playground/outputs`, preserves `coding_agent_m1_sft_10_sharegpt`, and proposes durable stdout/stderr/xtrace/ERR-trap/preflight manifest fixes.
+- The dev_4 package is no-execution planning evidence. A future retry still needs the proposed wrapper/logging fix landed in code or explicitly staged on the worker before launch.
+- `evidence/dev_1_s22_runtime_blocker_review.md` is not refreshed against the current dev_4 package. It still reports `review_status: BLOCKED_MISSING_DEV4_FIX` and says `evidence/dev_4_s22_early_exit_fix.md` is missing.
+- Therefore test_1 cannot mark the next pre-run gate `PASS_FOR_PM_RETRY` yet.
+
+Exact current blockers:
+
+1. `BLOCKED_WAITING_DEV1_REFRESH`: dev_1 must re-read current `evidence/dev_4_s22_early_exit_fix.md`, dev_2 Session 22 runtime/stop proof, and this test_1 post-run gate, then output `PASS_FOR_PM_RETRY` or exact remaining blockers.
+2. Before any actual retry launch, the early-exit logging fix must be landed or staged so `scripts/train_qwen3_8b_sft.sh` owns durable logging/xtrace/ERR-trap diagnostics from the first safe point and writes config/manifest/preflight evidence before training starts.
+3. PM must explicitly authorize any future LTP/GPU/SFT attempt. This test gate does not authorize execution.
+
 ### Early-Exit / Pre-Redirection Logging Fix
 
 Required owner package:
@@ -223,6 +247,7 @@ Future post-run PASS requires:
 ```text
 task_id: M1-S22-POSTRUN-GATE-TEST1
 post_run_status: BLOCKED_FINAL_RUNTIME
+next_pre_run_gate_status: BLOCKED_WAITING_DEV1_REFRESH
 checkpoint_model_status: ABSENT
 trainer_state_json: ABSENT
 all_results_json: ABSENT
@@ -232,5 +257,7 @@ stop_proof: PASS
 mini_swe_can_proceed: false
 next_pre_run_requires_home_xu_yang: true
 next_pre_run_requires_pre_redirection_logging_fix: true
+dev_4_early_exit_fix_package: PRESENT_COMPLETE_FOR_PLAN
+dev_1_runtime_blocker_review: STALE_BLOCKED_MISSING_DEV4_FIX
 sft_gpu_eval_executed_by_test1: false
 ```

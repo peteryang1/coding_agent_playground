@@ -792,6 +792,11 @@
 - dev_2 stopped/released the LTP frame; state reached `STOPPED (Completed)`, endpoint refused connection, and CephFS artifacts are preserved.
 - PM created next no-execution tasks for dev_4 early-exit fix, dev_1 review, test_1 post-run gate, and test_2 eval-blocked refresh. No new GPU/SFT/eval retry is authorized.
 - dev_4 completed `evidence/dev_4_s22_early_exit_fix.md` as a no-execution fix package. PM instructed dev_4 to open/update a patch PR under task `M1-S22-EARLY-EXIT-FIX-DEV4`; dev_1 and test_1 were asked to refresh review/gate against the fix package. No new GPU/SFT/eval retry is authorized.
+- dev_4 opened PR #39 for `M1-S22-EARLY-EXIT-FIX-DEV4`; GitHub reports it open, non-draft, `MERGEABLE` / `CLEAN`.
+- PM gate for PR #39 is pending dev_1/test_1 no-execution review because the diff includes both the needed wrapper patch and older dev_4 historical evidence files. Owner self-merge is not authorized yet.
+- dev_1 refreshed `M1-S22-RUNTIME-BLOCKER-REVIEW-DEV1` to `BLOCKED_PENDING_EARLY_EXIT_PATCH_GATE`: the dev_4 package is directionally correct, but no PASS is possible until wrapper/logging patch PR or staged completion evidence is gated.
+- test_1 refreshed `M1-S22-POSTRUN-GATE-TEST1`; its durable status still blocks retry until the early-exit/pre-redirection logging fix is landed or staged and dev_1/test_1 gates it.
+- PM created follow-up no-execution tasks for dev_1 patch review, test_1 patch gate, dev_2 post-patch LTP readiness, and test_2 post-patch eval readiness; no LTP/SFT/GPU/eval execution is authorized.
 
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 
