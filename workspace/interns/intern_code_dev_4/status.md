@@ -1,14 +1,14 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Idle,TASK= -->
+<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop/M1-S22-NCCL-MITIGATION-DEV4 -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Idle |
-| Current Task |  |
-| PR | PR #41 merged |
-| Session | 1 |
+| Status | Working |
+| Current Task | milestone1_qwen3_8b_loop / M1-S22-NCCL-MITIGATION-DEV4 |
+| PR | PR #43 open |
+| Session | 35 |
 
 ## PM Corrections
 
@@ -49,3 +49,4 @@
 - 2026-05-21 Session 32: PM gate passed for PR #39 and dev_4 self-merged it. PR #39 merged at `2026-05-21T09:17:15Z` with merge commit `4a6c2968e1290d30415460b464eee638110958bc`; task `M1-S22-EARLY-EXIT-FIX-DEV4` is complete/ready-for-runtime-gate. This merge does not authorize LTP/SFT/GPU/eval or dry-run launch.
 - 2026-05-21 Session 33: Accepted task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4`. Reviewed dev_2 post-PR39 runtime evidence: PR39 diagnostics worked, but the single authorized SFT attempt failed during LLamaFactory dataset conversion at `datasets.map(num_proc=4)` / `SyncManager EOFError` before training/checkpoint; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists and LTP was stopped. Prepared no-execution patch package to force the 10-row ShareGPT smoke to single-process preprocessing while preserving `/home/xu.yang/coding_agent_playground/outputs`. No LTP/SFT/GPU/eval/dry-run launch was run.
 - 2026-05-21 Session 34: PM gate passed for PR #41 and dev_4 self-merged it. PR #41 merged at `2026-05-21T10:00:25Z` with merge commit `2fc4b797a85c9375c6c5e1171963abe67aab35e8`; task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` is complete/ready-for-runtime-gate. This merge does not authorize LTP/SFT/GPU/eval or dry-run launch.
+- 2026-05-21 Session 35: Accepted task `M1-S22-NCCL-MITIGATION-DEV4`. Reviewed dev_2/test_1/PM final evidence for `BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY`: PR39 diagnostics and PR41 single-process preprocessing passed, ShareGPT conversion 10/10 and training startup were reached, then local_rank 5 failed with CUDA/NCCL invalid peer GPU memory over NVLink / SIGABRT before checkpoint save. Wrote no-execution mitigation package recommending a different H200 node plus NCCL/NVLink preflight, preserving `/home/xu.yang/coding_agent_playground/outputs`. No LTP/SFT/GPU/eval/dry-run launch was run.
