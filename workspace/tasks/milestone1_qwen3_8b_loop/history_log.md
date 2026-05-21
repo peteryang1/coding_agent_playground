@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=29 -->
+<!-- METADATA:SESSION=30 -->
 
 ## Session 1 - 2026-05-20
 
@@ -685,3 +685,10 @@
 - Durable evidence/status updated to record the PM follow-up verification.
 - Future SFT intermediates, logs, checkpoints, and run metadata remain defaulted to `/home/xu.yang/coding_agent_playground/outputs`.
 - No SFT/GPU/eval command was run.
+
+## Session 30 - Dev 4 PR #39 PM Gate Hold - 2026-05-21
+
+- Recorded PM gate note for task `M1-S22-EARLY-EXIT-FIX-DEV4` and PR #39.
+- PR #39 is open, non-draft, and GitHub reports `MERGEABLE` / `CLEAN`, but PM gate is not passed.
+- Dev_4 must not self-merge PR #39 until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge.
+- No SFT/GPU/eval or dry-run launch command was run.

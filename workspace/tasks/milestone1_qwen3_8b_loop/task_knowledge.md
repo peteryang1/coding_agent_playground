@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=29 -->
+<!-- METADATA:SESSION=30 -->
 
 ## Knowledge Entries
 
@@ -166,3 +166,4 @@
 152. Session 28 implementation fact: dev_4 opened PR #39 for `M1-S22-EARLY-EXIT-FIX-DEV4`; it patches `scripts/train_qwen3_8b_sft.sh` for first-durable-point logging, xtrace, ERR/EXIT diagnostics, preflight artifact, CephFS default output root, `DATASET_NAME` config rewrite, and non-`exec` trainer launch. `scripts/write_sft_run_manifest.py` records runtime save policy and preflight paths from generated config/environment.
 153. PR #39 gate fact: after dev_4 merged current `origin/main` and resolved durable-file conflicts, GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 154. Session 29 PR #39 follow-up fact: PR #39 body cites task id, owner, acceptance criteria, evidence path, completion marker, and no-execution boundary; future SFT intermediates/logs/checkpoints/run metadata remain defaulted to `/home/xu.yang/coding_agent_playground/outputs`.
+155. Session 30 PR #39 PM gate fact: GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, but PM gate has not passed; dev_4 must not self-merge until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge. No SFT/GPU/eval or dry-run launch is authorized.

@@ -455,3 +455,19 @@ Current durable status:
 ```text
 Ready-for-PM-gate: PR #39 is open, pushed, non-draft, and MERGEABLE/CLEAN. No SFT/GPU/eval command was run in this follow-up.
 ```
+
+## Session 30 PM Gate Hold
+
+PM gate note:
+
+```text
+PR #39 is open, non-draft, and GitHub reports MERGEABLE/CLEAN, but PM gate is not passed yet.
+Do not self-merge PR #39 until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge.
+No SFT/GPU/eval or dry-run launch is authorized.
+```
+
+Current owner status:
+
+```text
+Waiting for PM gate. No self-merge performed. No SFT/GPU/eval or dry-run launch performed.
+```
