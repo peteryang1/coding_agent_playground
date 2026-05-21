@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop / M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4 |
-| PR | Pending |
+| PR | PR #41 open |
 | Session | 33 |
 
 ## PM Corrections
