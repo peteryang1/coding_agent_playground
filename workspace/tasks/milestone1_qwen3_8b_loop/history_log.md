@@ -803,3 +803,11 @@
 - Self-merged PR #49 at `2026-05-21T12:44:14Z`; merge commit `2de4bab2248f052d09f118eb6c28c48231f3d719`.
 - Task `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4` is complete as a parser implementation patch.
 - Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 44 - Dev 4 CephFS Launch Package - 2026-05-21
+
+- Accepted PM task `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4`.
+- Prepared no-execution launch/spec package `evidence/dev_4_s23_cephfuse_launch_package.md`.
+- Decision: dev_4 SFT launcher should not invoke `ceph-fuse`; resource handoff must provide already-mounted `/home/xu.yang/coding_agent_playground/outputs`, and dev_4 launch package should verify mount/path/writability/capacity before SFT.
+- Preserved local bundle transfer/checksum rule and no remote GitHub/source/dependency network on GPU nodes.
+- No LTP/GPU/preflight/SFT/eval command was run.
