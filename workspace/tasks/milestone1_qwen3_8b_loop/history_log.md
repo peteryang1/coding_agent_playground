@@ -911,4 +911,5 @@
 - Patched `scripts/train_qwen3_8b_sft.sh` to parse `LLAMAFACTORY_CLI` into a Bash array, render the parsed command for logs/manifests with `%q`, and execute `"${LLAMAFACTORY_CMD[@]}" train "${RUNTIME_CONFIG}"`.
 - Added static launcher tests in `tests/test_train_qwen3_8b_sft_static.py`.
 - Wrote evidence `evidence/dev_4_s23_pr59_llamafactory_cli_fix.md`.
+- Opened PR #61 `https://github.com/peteryang1/coding_agent_playground/pull/61`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
 - No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run by dev_4.

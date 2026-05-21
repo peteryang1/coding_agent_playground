@@ -140,6 +140,8 @@ python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q: 4 passed in 0.01s
 task_id: M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4
 owner: intern_code_dev_4
 result: PATCH_READY_FOR_REVIEW
+pr: https://github.com/peteryang1/coding_agent_playground/pull/61
+pr_state: open_non_draft_mergeable_clean_waiting_for_pm_gate
 runtime_authorized_for_dev4: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
 recommended_next_gate: dev_1_review_and_test_1_gate_before_any_new_runtime

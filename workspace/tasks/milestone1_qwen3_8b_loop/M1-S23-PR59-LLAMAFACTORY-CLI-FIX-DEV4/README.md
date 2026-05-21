@@ -16,3 +16,7 @@ Acceptance:
 - Do not run LTP/GPU/preflight/SFT/eval/dry-run/runtime.
 
 Completion marker: patch PR open and waiting for PM gate; complete only after PM-gated owner self-merge plus durable completion record.
+
+PR: https://github.com/peteryang1/coding_agent_playground/pull/61
+
+PR state at recording check: open, non-draft, `MERGEABLE` / `CLEAN`; waiting for PM gate before any owner self-merge.
