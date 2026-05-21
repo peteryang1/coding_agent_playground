@@ -145,6 +145,11 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - Required storage root for outputs/logs/checkpoints/run metadata/capacity probes/intermediates: `/home/xu.yang/coding_agent_playground/outputs`.
   - Required evidence files: `evidence/dev_2_s22_enospc_retry_runtime.md`, `evidence/gpu_s22_enospc_retry_tracking.md`, and own `status.md`.
   - dev_2 must stop/release the LTP node after checkpoint, failure, failed probe, idle/health limit, or PM/test stop instruction. No other owner may run eval until PM gates a complete checkpoint/model or served endpoint.
+- 2026-05-21 Session 22 post-runtime blocker split:
+  - `intern_code_dev_4`: task `M1-S22-EARLY-EXIT-FIX-DEV4`; diagnose/propose a no-execution fix for the training script returning `EXIT_STATUS=1` before durable stderr/stdout, manifest, config, or checkpoint artifacts; keep `/home/xu.yang` output root; no SFT/GPU/eval.
+  - `intern_code_dev_1`: task `M1-S22-RUNTIME-BLOCKER-REVIEW-DEV1`; review dev_2 final runtime blocker and dev_4 fix when present; no remote experiments/SFT/GPU/eval.
+  - `intern_code_test_1`: task `M1-S22-POSTRUN-GATE-TEST1`; record post-run gate and next acceptance criteria; no SFT/GPU/eval.
+  - `intern_code_test_2`: task `M1-S22-EVAL-BLOCKED-TEST2`; refresh mini-swe blocked evidence with `/home/xu.yang` eval intermediate rule; no eval.
 
 ## PM Integration Responsibilities
 

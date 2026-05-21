@@ -249,3 +249,13 @@
 - Required runtime output root: `/home/xu.yang/coding_agent_playground/outputs`.
 - Required next outcome: complete checkpoint/model with stop proof, or fresh exact runtime blocker with command, logs, node status, owner, and next fix.
 - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+
+## 2026-05-21 Session 22 Runtime Result
+
+- dev_2 completed the single authorized owner-run and stop proof.
+- `/home/xu.yang` CephFS path proof passed and 24GiB real-write capacity probe passed under `/home/xu.yang/coding_agent_playground/outputs/capacity_probes`.
+- SFT attempt result: `EXIT_STATUS=1` before useful runtime log, `run_manifest.json`, generated runtime config, checkpoint/model, `trainer_state.json`, or `all_results.json` existed.
+- Old failure signatures were not observed because the durable log only contains `START_UTC`.
+- LTP frame reached `STOPPED (Completed)` and endpoint refused connection after stop.
+- Current state: no checkpoint/model; mini-swe blocked; no new retry authorized.
+- New owner tasks: dev_4 early-exit fix package, dev_1 review, test_1 post-run gate, and test_2 eval-blocked refresh.

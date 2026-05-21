@@ -781,6 +781,17 @@
 - Required next durable outcome: complete checkpoint/model with runtime evidence and stop proof, or fresh exact runtime blocker with command, logs, node status, owner, and next fix.
 - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
 
+## 2026-05-21 Session 22 Runtime Blocker
+
+- dev_2 completed the single authorized owner-run and stop proof under `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2`.
+- LTP frame: `xu.yang~coding-agent-playground-m1-s22-enospc-qwen3-8b-runtime-20260521T082037Z`; endpoint was `ssh -p 31346 root@10.100.16.69`.
+- `/home/xu.yang` was proven as CephFS path via `/mnt/cephfs/home/xu.yang`; 24GiB real-write capacity probe passed and was cleaned.
+- One SFT attempt started with `coding_agent_m1_sft_10_sharegpt`, `save_steps=2`, `save_total_limit=1`, `max_steps=2`, and output root `/home/xu.yang/coding_agent_playground/outputs`.
+- Runtime result: `EXIT_STATUS=1`; log contains only `START_UTC`; no `run_manifest.json`, generated runtime config, checkpoint/model, `trainer_state.json`, or `all_results.json` exists.
+- Old signatures were not observed: no `KeyError: from`, no ENOSPC, no safetensors error, no ShareGPT conversion progress, and no training step progress.
+- dev_2 stopped/released the LTP frame; state reached `STOPPED (Completed)`, endpoint refused connection, and CephFS artifacts are preserved.
+- PM created next no-execution tasks for dev_4 early-exit fix, dev_1 review, test_1 post-run gate, and test_2 eval-blocked refresh. No new GPU/SFT/eval retry is authorized.
+
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 
 - Task id: `M1-S21-RUNTIME-DEV2`.
