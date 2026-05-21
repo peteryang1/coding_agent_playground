@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=4 -->
+<!-- METADATA:SESSION=5 -->
 
 ## Knowledge Entries
 
@@ -14,3 +14,5 @@
 8. Parser-fixed runtime artifact rule: all generated preflight, parser health, capacity/topology/NVLink/NCCL, SFT log/config/manifest/tmp/intermediate/checkpoint/run metadata artifacts must remain under `/home/xu.yang/coding_agent_playground/outputs`; base model, source dataset, and dependency archives are the only accepted read-only path exceptions.
 9. Parser-fixed runtime result fact: dev_2's final parser-fixed preflight reached capacity/topology/NVLink and torch NCCL all-reduce exit 0, but structured health result was `FAIL_HEALTH_SIGNATURE` with `HOME_XU_YANG_STORAGE_STATUS=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS`; since `sft_allowed=false`, SFT skip was correct and eval handoff remains blocked.
 10. Stop proof fact: parser-fixed runtime frame `xu.yang~coding-agent-playground-m1-s22-parserfixed-preflight-sft-20260521T114448Z` reached `STOPPED (Completed)` and endpoint `ssh -p 22662 root@10.100.22.14` refused connection after stop.
+11. Session 23 parser patch gate fact: `M1-S23-PARSERPATCH-GATE-TEST1` is currently blocked on missing dev_4 parser patch PR; PR #48 is not the patch PR and does not contain `evidence/dev_4_s23_parserfixed_parser_patch.md` or actual parser code changes.
+12. Parser patch acceptance fact: future dev_4 parser patch must preserve required structured fields, accept raw `/home/xu.yang/coding_agent_playground/outputs` and resolved `/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs`, classify Xid/SXid as fresh/current, stale historical, or unknown-time, and include local non-runtime tests/test attempts for storage and Xid/SXid behavior.

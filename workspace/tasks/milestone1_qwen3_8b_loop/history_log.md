@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=4 -->
+<!-- METADATA:SESSION=5 -->
 
 ## Session 1 - 2026-05-21
 
@@ -25,3 +25,9 @@
 - Refreshed the parser-fixed runtime gate after dev_2 final evidence landed; result is `PASS_FOR_NEXT_PM_DECISION` and eval handoff remains `EVAL_HANDOFF_BLOCKED`.
 - Verified from durable evidence that exact PR45 merge commit staging passed, capacity/topology/NVLink evidence exists, torch NCCL all-reduce exited 0, structured parser-fixed preflight failed with `FAIL_HEALTH_SIGNATURE` and `HOME_XU_YANG_STORAGE_STATUS=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS`, `sft_allowed=false`, SFT was correctly skipped, checkpoint/model/`trainer_state.json`/`all_results.json` are absent, and stop proof passed with `STOPPED (Completed)` plus endpoint refused.
 - No GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`; routine result was recorded durably only.
+
+## Session 5 - 2026-05-21
+
+- Created the Session 23 no-execution parser patch gate at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_parserpatch_gate.md`.
+- Current result is `BLOCKED_MISSING_DEV4_PARSER_PATCH_PR`: GitHub currently reports no open PRs, and reviewed PR #48 is PR #47 merge-completion evidence rather than the required `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4` parser patch PR.
+- Recorded gate criteria for structured fields, `/home` and CephFS storage normalization, Xid/SXid stale-vs-actionable behavior, local non-runtime tests/test attempts, real-fault preservation, and future post-run PASS/FAIL conditions. No LTP/GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`.
