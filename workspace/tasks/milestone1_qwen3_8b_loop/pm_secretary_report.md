@@ -343,3 +343,5 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - Only `intern_code_dev_2` is authorized for one post-patch ShareGPT-fixed Qwen3-8B SFT smoke. Required output/intermediate root: `/home/xu.yang/coding_agent_playground/outputs`.
 - Required next durable outcome: complete checkpoint/model with stop proof, or fresh exact runtime blocker with command, logs, node status, stop proof, owner, and next fix.
 - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+- Runtime outcome: dev_2 completed the one authorized post-PR39 SFT smoke and stop proof. The run produced PR #39 diagnostics but failed before training/checkpoint save at `datasets.map(num_proc=4)` / `SyncManager EOFError`. No checkpoint/model, `trainer_state.json`, or `all_results.json` exists. LTP reached `STOPPED (Completed)`, endpoint refused connection, and artifacts remain under `/home/xu.yang/coding_agent_playground/outputs`.
+- PM decision: no new runtime authorization. Next durable work is the no-execution single-process dataset preprocessing fix/gate chain assigned to dev_4/dev_3/dev_1/test_1/dev_2/test_2.

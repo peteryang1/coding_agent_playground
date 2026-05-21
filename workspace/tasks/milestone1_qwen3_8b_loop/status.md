@@ -269,3 +269,5 @@
 - PM authorized only `intern_code_dev_2` for exactly one post-PR39 ShareGPT-fixed Qwen3-8B SFT smoke attempt, with all outputs/logs/checkpoints/run metadata/capacity probes/intermediates under `/home/xu.yang/coding_agent_playground/outputs`.
 - Required next durable outcome: complete checkpoint/model with stop proof, or fresh exact runtime blocker with command, logs, node status, stop proof, owner, and next fix.
 - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+- Runtime outcome: dev_2 completed the one authorized post-PR39 attempt and stop proof. The run produced PR #39 diagnostics and failed before training/checkpoint save with `datasets.map(num_proc=4)` / `SyncManager EOFError`; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists; LTP reached `STOPPED (Completed)`.
+- PM opened the no-execution dataset-map EOF fix chain: dev_4 single-process config/launcher package, dev_3 data confirmation, dev_1 review, test_1 gate, dev_2 no-active-resource readiness, and test_2 eval blocked. No new runtime authorization is open.

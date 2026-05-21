@@ -353,3 +353,44 @@ PM gate names a complete checkpoint/model or served endpoint from M1-S22-POSTPAT
 ```
 
 Until that gate exists, no eval command should be run. No mini-swe eval was run for this watch update.
+
+## 2026-05-21T09:41:37Z - Post-PR39 SFT Runtime Blocker Refresh
+
+Source runtime evidence:
+
+```text
+workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_s22_postpatch_sft_runtime.md
+workspace/tasks/milestone1_qwen3_8b_loop/evidence/pm_s22_dataset_map_eof_gate.md
+```
+
+Runtime task:
+
+```text
+M1-S22-POSTPATCH-SFT-RUNTIME-DEV2
+```
+
+Latest blocker facts:
+
+- The one authorized post-PR39 SFT smoke did not produce a checkpoint/model.
+- The run failed before training/checkpoint save during dataset conversion.
+- Failure location/signature: `datasets.map(num_proc=4)` / multiprocessing `SyncManager` `EOFError`.
+- `trainer_state.json` is absent.
+- `all_results.json` is absent.
+- No served endpoint or model id exists.
+- LTP frame reached `STOPPED (Completed)`.
+- No mini-swe eval is authorized.
+
+Eval decision:
+
+- M1 mini-swe eval remains blocked.
+- Status remains `READY_PACKAGE_BLOCKED_NO_MODEL`.
+- Do not run mini-swe until PM gates a complete checkpoint/model or served endpoint.
+- Future eval logs, predictions, results, metrics, run metadata, temporary datasets, caches, and intermediates remain defaulted to `/home/xu.yang`.
+
+Why eval cannot proceed:
+
+- mini-swe requires a model target: either a reachable served endpoint or a complete checkpoint/model plus serving handoff.
+- The post-PR39 SFT runtime produced neither accepted form.
+- Running mini-swe now would only exercise missing-model/infrastructure failure and would not evaluate a milestone SFT artifact.
+
+No mini-swe eval was run for this blocker refresh.

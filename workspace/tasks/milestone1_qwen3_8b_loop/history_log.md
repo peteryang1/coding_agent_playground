@@ -807,6 +807,8 @@
 - Dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`.
 - PM created `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_postpatch_runtime_authorization.md`.
 - PM authorized only `intern_code_dev_2` for one post-patch ShareGPT-fixed SFT smoke. Required output/intermediate root is `/home/xu.yang/coding_agent_playground/outputs`; required next result is checkpoint/model or fresh exact runtime blocker with stop proof. PM did not run LTP/SFT/GPU/eval.
+- Dev_2 completed the one authorized post-PR39 runtime and stop proof. PR #39 diagnostics produced preflight/config/manifest/xtrace/diagnostics/exit_status; SFT failed with `EXIT_STATUS=1` before training/checkpoint save at `datasets.map(num_proc=4)` / `SyncManager EOFError`; no checkpoint/model, `trainer_state.json`, or `all_results.json`; LTP reached `STOPPED (Completed)`.
+- PM created no-execution next tasks for dataset-map EOF: dev_4 single-process config/launcher fix, dev_3 data confirmation, dev_1 review, test_1 gate, dev_2 no-active-resource readiness, and test_2 eval blocked. No new runtime authorization is open.
 
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 

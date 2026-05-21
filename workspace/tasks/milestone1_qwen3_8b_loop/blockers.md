@@ -32,6 +32,7 @@
 - PR #39 patch-gate blocker resolved for merge: dev_4 pushed head `f81c7da`; dev_1 re-gate is `PASS_FOR_PM_RETRY`, test_1 re-gate is `PASS_FOR_PM_PATCH_GATE`, and GitHub reports `MERGEABLE` / `CLEAN`. Remaining action is dev_4 owner self-merge plus completion marker. Runtime remains blocked until PR #39 is merged/completion-marked and PM separately gates dev_2 runtime authorization.
 - PR #39 merge blocker resolved: dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`. PM opened task `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2` and authorized only dev_2 for one post-patch runtime attempt.
 - Current active blocker is runtime outcome, not authorization: dev_2 must produce either a complete checkpoint/model or fresh exact runtime blocker. All SFT intermediates must be under `/home/xu.yang/coding_agent_playground/outputs`; mini-swe remains blocked until PM gates a model/checkpoint or served endpoint.
+- Runtime outcome blocker: dev_2 produced a fresh exact runtime blocker with stop proof. PR #39 diagnostics worked, but SFT failed before training at `datasets.map(num_proc=4)` / `SyncManager EOFError`; no checkpoint/model, `trainer_state.json`, or `all_results.json`; LTP `STOPPED (Completed)`. Next blocker is no-execution single-process dataset preprocessing fix/gate. No new GPU/SFT/eval is authorized.
 
 ## Active
 

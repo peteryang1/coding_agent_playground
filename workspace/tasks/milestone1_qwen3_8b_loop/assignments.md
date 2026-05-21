@@ -165,6 +165,15 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_test_1`: after dev_2 evidence appears, apply the post-run gate and record whether checkpoint/model evidence is sufficient for eval handoff; no SFT/GPU/eval execution by test_1.
   - `intern_code_test_2`: remain ready for mini-swe, but do not run eval until PM gates a complete checkpoint/model or served endpoint. Eval intermediates must use `/home/xu.yang`.
   - No other owner may run LTP/SFT/GPU/eval from this authorization.
+- 2026-05-21 Session 22 dataset-map EOF fix split:
+  - Runtime result: dev_2's one authorized SFT attempt failed before training/checkpoint save with `datasets.map(num_proc=4)` / `SyncManager EOFError`; PR #39 diagnostics and `/home/xu.yang` storage worked; LTP is stopped.
+  - No new LTP/SFT/GPU/eval retry is authorized.
+  - `intern_code_dev_4`: task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4`; prepare a no-execution config/launcher patch or package to force single-process dataset preprocessing for the 10-row smoke. Write `evidence/dev_4_s22_dataset_map_singleproc_fix.md`.
+  - `intern_code_dev_3`: task `M1-S22-DATASET-MAP-DATA-CONFIRM-DEV3`; confirm whether the ShareGPT data artifact needs any content/schema change for this blocker. Write `evidence/dev_3_s22_dataset_map_data_confirm.md`.
+  - `intern_code_dev_1`: task `M1-S22-DATASET-MAP-REVIEW-DEV1`; review dev_4/dev_3 package and record PASS_FOR_PM_RETRY or exact blockers. Write `evidence/dev_1_s22_dataset_map_review.md`.
+  - `intern_code_test_1`: task `M1-S22-DATASET-MAP-GATE-TEST1`; finalize current post-run gate and next single-process pre-run/post-run gate in `evidence/test_1_s22_postpatch_sft_runtime_gate.md`.
+  - `intern_code_dev_2`: task `M1-S22-DATASET-MAP-RESOURCE-DEV2`; keep GPU released and record no-active-resource/readiness only if updated. No submit without fresh PM authorization.
+  - `intern_code_test_2`: keep eval blocked; no checkpoint/model or served endpoint exists.
 
 ## PM Integration Responsibilities
 
