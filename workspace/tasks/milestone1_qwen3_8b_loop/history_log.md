@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=31 -->
+<!-- METADATA:SESSION=32 -->
 
 ## Session 1 - 2026-05-20
 
@@ -700,3 +700,10 @@
 - Updated `scripts/write_sft_run_manifest.py` to accept the explicit runtime values and record them in `preflight`, so future `run_manifest.json` can capture `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` and `/home/xu.yang/coding_agent_playground/outputs` paths.
 - Addressed test_1 blocker `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` by recording archival justification in `evidence/dev_4_s22_early_exit_fix.md`; the PR retains directly required durable conflict/gate records to preserve PM/main provenance.
 - No self-merge was performed. No SFT/GPU/eval or dry-run launch command was run.
+
+## Session 32 - Dev 4 PR #39 Self-Merge Completion - 2026-05-21
+
+- PM gate passed for PR #39 owner self-merge only: dev_1 `M1-S22-EARLY-EXIT-PATCH-REVIEW-DEV1` recorded `PASS_FOR_PM_RETRY`, test_1 `M1-S22-EARLY-EXIT-PATCH-GATE-TEST1` recorded `PASS_FOR_PM_PATCH_GATE`, and GitHub reported PR #39 head `f81c7da` open, non-draft, `MERGEABLE` / `CLEAN`.
+- Dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`; merge commit is `4a6c2968e1290d30415460b464eee638110958bc`.
+- Task `M1-S22-EARLY-EXIT-FIX-DEV4` is marked complete/ready-for-runtime-gate: the wrapper/config/manifest patch is merged, while LTP/SFT/GPU/eval and dry-run launch remain unauthorized.
+- Completion record branch updates status/history/task knowledge/task registry/evidence only; no runtime command was run.
