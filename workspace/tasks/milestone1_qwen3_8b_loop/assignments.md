@@ -210,6 +210,9 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_1`: task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-REVIEW-DEV1`; review PR #53 and `evidence/dev_4_s23_nccl_warning_parser_hygiene.md` in `evidence/dev_1_s23_nccl_warning_parser_hygiene_review.md`. Verify warning suppression is narrow and real Xid/SXid/ECC/NVLink/NCCL failures remain actionable. Do not run LTP/GPU/preflight/SFT/eval.
   - `intern_code_test_1`: task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-GATE-TEST1`; gate PR #53 and owner test evidence in `evidence/test_1_s23_nccl_warning_parser_hygiene_gate.md`. Do not run LTP/GPU/preflight/SFT/eval.
 
+- 2026-05-21 Session 23 PR53 placement-probe runtime authorization:
+  - `intern_code_dev_2`: task `M1-S23-PR53-PLACEMENTPROBE-PREFLIGHT-SFT-RUNTIME-DEV2`; authorized for exactly one bounded placement-probe LTP allocation using PR #53 merge commit `e29c93736be3384663cad953cd18da68c30070fb`. Evidence files: `evidence/dev_2_s23_pr53_placementprobe_preflight_sft_runtime.md`, `evidence/gpu_s23_pr53_placementprobe_preflight_sft_tracking.md`, and own status. If assigned a forbidden node, stop/release before transfer/preflight/SFT/eval. If assigned a non-forbidden node, proceed with no-remote-source/dependency-network local bundle transfer, `/home/xu.yang` storage proof, structured preflight, and SFT only if preflight PASS plus `sft_allowed=true`. Eval is not authorized.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.
