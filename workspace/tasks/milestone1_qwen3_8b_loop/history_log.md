@@ -836,3 +836,12 @@
 - Self-merged PR #53 at `2026-05-21T14:20:56Z`; merge commit `e29c93736be3384663cad953cd18da68c30070fb`.
 - Task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` is complete as a parser hygiene implementation.
 - Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 48 - Dev 4 PR53 Preflight Parser Runtime Fix - 2026-05-21
+
+- Accepted PM task `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4`.
+- Reviewed dev_2 PR53 runtime evidence: non-forbidden node `lg-cmc-b7r401-a05u06-h200-000770`, `/home/xu.yang` storage/capacity PASS, local transfer/checksum PASS, topology/NVLink present, and torch/NCCL all-reduce `TORCHRUN_EXIT=0` with `ALLREDUCE_OK`, but structured preflight still returned `FAIL_HEALTH_SIGNATURE` because `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings in `torch_nccl_allreduce.log` were actionable.
+- Patched `scripts/parse_s22_preflight_health.py` to compute preflight-level torch/NCCL/allreduce success context across actionable torch/NCCL/allreduce artifacts and use it only to suppress `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings.
+- Added split-artifact synthetic pytest coverage in `tests/test_parse_s22_preflight_health.py`; local `py_compile` and pytest passed.
+- Wrote evidence `evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md`.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
