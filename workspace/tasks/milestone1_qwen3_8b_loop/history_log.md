@@ -740,3 +740,29 @@
 - GitHub reported PR #43 head `5f4d14a12aa8044a429d1110757ed631a7bc9833` open, non-draft, `MERGEABLE` / `CLEAN`.
 - Dev_4 self-merged PR #43 at `2026-05-21T10:47:20Z`; merge commit `2c867d3226f7ebb4962b5b173235639df8f1f9be`.
 - Task `M1-S22-NCCL-MITIGATION-DEV4` is marked complete/ready-for-runtime-gate. This does not authorize LTP/SFT/GPU/NCCL preflight/eval/dry-run launch or runtime retry.
+
+## Session 37 - Dev 4 Preflight Parser Fix Package - 2026-05-21
+
+- Accepted PM task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`.
+- Reviewed dev_2/test_1 final preflight evidence: fresh different H200 node, capacity probe, topology/NVLink capture, and 8-rank torch NCCL all-reduce passed, but SFT was not run because a broad recursive health scan wrote `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`.
+- Diagnosed parser-policy false fail: generated command text, process scan output, durable evidence text, and generic captured NVRM text were scanned as actionable health signatures.
+- Added no-execution parser package `scripts/parse_s22_preflight_health.py` and evidence `evidence/dev_4_s22_preflight_parser_fix.md`.
+- The parser excludes generated command/process/evidence/summary text from actionable matching, records ignored matches for audit, and preserves detection for real Xid/ECC/NVLink/NCCL invalid peer memory/SIGABRT/collective failures.
+- Opened PR #45 `https://github.com/peteryang1/coding_agent_playground/pull/45`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
+- No LTP/GPU/SFT/eval/dry-run launch command was run.
+
+## Session 38 - Dev 4 PR #45 Gate Fix Update - 2026-05-21
+
+- PM gate result for PR #45 was NOT READY.
+- Addressed dev_1 blocker `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`: ECC parsing now treats fatal ECC as actionable and detects nonzero uncorrected ECC counters without being suppressed by unrelated standalone zero tokens such as GPU 0 or timestamp fields.
+- Addressed test_1 blocker `BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`: parser output now includes stable top-level `preflight_result`, `health_result`, `non_actionable_matches`, `torch_nccl_allreduce_exit`, `capacity_probe_status`, `different_node_gate`, `home_xu_yang_storage_status`, `topology_capture_status`, `nvlink_capture_status`, `sft_allowed`, and `sft_skip_reason`.
+- `/home/xu.yang/coding_agent_playground/outputs` storage status is emitted and blocks `sft_allowed` when the parsed preflight root is outside that path.
+- Pushed PR #45 update; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
+- No LTP/GPU/SFT/eval/dry-run/runtime command was run.
+
+## Session 39 - Dev 4 PR #45 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #45 / `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`.
+- Gate facts: latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`, GitHub open/non-draft `MERGEABLE` / `CLEAN`, dev_1 `PASS_FOR_PM_RETRY`, and test_1 `PASS_FOR_PM_RETRY`.
+- Marked task completion-ready and dev status Idle before owner self-merge per playbook.
+- Runtime remains separately gated; no LTP/GPU/SFT/eval/dry-run/runtime command was run.
