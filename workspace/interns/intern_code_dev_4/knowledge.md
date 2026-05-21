@@ -1,6 +1,6 @@
 # intern_code_dev_4 - 个人知识库
 
-<!-- METADATA:SESSION=2 -->
+<!-- METADATA:SESSION=3 -->
 
 ---
 
@@ -14,3 +14,4 @@
 6. SFT parser-fixed blocker pattern: distinguish stale historical Xid/SXid from fresh or timestamp-unknown actionable Xid/SXid, and normalize `/home/xu.yang/coding_agent_playground/outputs` with its CephFS resolved mirror when evaluating generated artifact storage.
 7. SFT parser patch completion: PM-gated parser implementation PRs can land without runtime authorization; record mergedAt and merge commit separately while keeping LTP/GPU/preflight/SFT/eval/dry-run blocked until PM authorizes runtime.
 8. SFT CephFS launch contract: dev launchers should verify an already-mounted `/home/xu.yang/coding_agent_playground/outputs` path and local checksum-verified bundles, not invoke `ceph-fuse` or perform remote source/dependency network fetches on GPU nodes.
+9. SFT MCA dependency contract: when `USE_MCA=1`, the launcher must make `mcore_adapter` importable from a local/provided checksum-verified bundle such as `code/mcore_adapter`, record the resolved path in manifest evidence, and fail before distributed training if the import gate fails.

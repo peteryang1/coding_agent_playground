@@ -1,6 +1,6 @@
 # M1-S23-PR57-MCORE-FIX-DEV4 History
 
-<!-- METADATA:SESSION=2 -->
+<!-- METADATA:SESSION=3 -->
 
 ## Session 1 - MCORE Dependency Fix Package - 2026-05-21
 
@@ -18,3 +18,10 @@
 - Confirmed PR #59 remains the active PR for `M1-S23-PR57-MCORE-FIX-DEV4`.
 - No code, config, runtime behavior, or evidence conclusion changed in this compliance update.
 - No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 3 - PM Gate Pass and Owner Self-Merge Prep - 2026-05-21
+
+- PM gate passed for PR #59 / `M1-S23-PR57-MCORE-FIX-DEV4`; PM observed GitHub open, non-draft, `MERGEABLE` / `CLEAN` at head `b0b54279bcf87add7e617b0c08686c40fac41b48`, with functional patch commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`.
+- PM reported dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY` in durable evidence.
+- Recorded pre-merge completion state before owner self-merge per playbook.
+- This gate authorizes PR #59 owner self-merge only; it does not authorize LTP/GPU/preflight/SFT/eval/runtime retry.
