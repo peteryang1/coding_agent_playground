@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=16 -->
+<!-- METADATA:SESSION=17 -->
 
 ## Knowledge Entries
 
@@ -35,3 +35,5 @@
 29. PR55 retry boundary: PR #55 fixes the split all-reduce success context for benign `NCCL_ASYNC_ERROR_HANDLING` warnings, but does not authorize runtime. Future PM authorization must still require non-forbidden node, `/home/xu.yang` storage/capacity, local bundle transfer/checksums, no remote source/dependency network, structured preflight PASS plus `sft_allowed=true` before SFT, checkpoint/trainer/all_results if SFT succeeds, and stop proof.
 30. PR55 SFT runtime fact: dev_2's PR55 runtime passed structured preflight and correctly attempted one SFT, but failed before checkpoint with `environment: DEP_TARGET: unbound variable`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists, and the frame is stopped/released.
 31. PR55 wrapper fix gate rule: test_1 result is `BLOCKED_MISSING_DEV4_WRAPPER_FIX` until `evidence/dev_4_s23_pr55_sft_wrapper_fix.md` exists and proves the wrapper/export strategy covers `DEP_TARGET` without weakening `/home/xu.yang`, no-remote-source/dependency-network, manifest/logging, and future runtime acceptance guarantees.
+32. PR57 wrapper fix gate fact: test_1 re-gated `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1` to `PASS_FOR_PM_RETRY` after PR #57 functional head `0253ff99cb1bd595bc68bda5a7a4bf7d5983162c`; the patch defaults and exports `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`, records them in logs/manifest command, and uses configurable `LLAMAFACTORY_CLI`. Current fetched PR ref `b94dd93c131b9a6472919c14ae71684d71683a60` adds docs/status/evidence/task updates only after the functional head.
+33. PR57 retry boundary: `PASS_FOR_PM_RETRY` does not authorize runtime. Future PM authorization must still require non-forbidden node, `/home/xu.yang/coding_agent_playground/outputs` for generated artifacts, local bundle/checksum transfer, no remote source/dependency network, structured preflight PASS plus `sft_allowed=true`, no `DEP_TARGET: unbound variable` regression, checkpoint/model plus `trainer_state.json` and `all_results.json` for eval handoff, and stop proof.

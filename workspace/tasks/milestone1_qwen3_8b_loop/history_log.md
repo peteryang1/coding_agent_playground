@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=16 -->
+<!-- METADATA:SESSION=17 -->
 
 ## Session 1 - 2026-05-21
 
@@ -99,3 +99,9 @@
 - Created `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr55_sft_blocker_gate.md`.
 - Result is `BLOCKED_MISSING_DEV4_WRAPPER_FIX`: dev_2's PR55 runtime passed non-forbidden node placement, `/home/xu.yang` storage/capacity, local source/data/dependency transfer, structured preflight `PASS`, and `SFT_ALLOWED=true`; exactly one SFT attempt then failed before checkpoint with `environment: DEP_TARGET: unbound variable`.
 - Recorded that checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, and eval artifacts are absent as expected under the wrapper blocker; stop/no-running-job proof is complete; required dev_4 wrapper fix evidence `evidence/dev_4_s23_pr55_sft_wrapper_fix.md` is missing. No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`.
+
+## Session 17 - 2026-05-21
+
+- Re-gated `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1` against PR #57 and `evidence/dev_4_s23_pr55_sft_wrapper_fix.md`.
+- Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr55_sft_blocker_gate.md` to `PASS_FOR_PM_RETRY`: functional head `0253ff99cb1bd595bc68bda5a7a4bf7d5983162c` defaults and exports `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`, records them in logs/manifest command, uses configurable `LLAMAFACTORY_CLI`, preserves `/home/xu.yang/coding_agent_playground/outputs`, and adds no remote source/dependency network behavior.
+- Noted that fetched PR ref `b94dd93c131b9a6472919c14ae71684d71683a60` only changes docs/status/evidence/task files after `0253ff99cb1bd595bc68bda5a7a4bf7d5983162c`; no wrapper/test source changed. No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`.
