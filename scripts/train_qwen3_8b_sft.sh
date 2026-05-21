@@ -6,6 +6,7 @@ RUN_ID="${RUN_ID:-milestone1_qwen3_8b_sft_$(date -u +%Y%m%dT%H%M%SZ)}"
 BASE_MODEL="${BASE_MODEL:-Qwen/Qwen3-8B}"
 DATASET_JSONL="${DATASET_JSONL:-${REPO_ROOT}/data/sft/milestone1_coding_agent_sft.jsonl}"
 DATASET_NAME="${DATASET_NAME:-}"
+PREPROCESSING_NUM_WORKERS="${PREPROCESSING_NUM_WORKERS:-}"
 CONFIG_TEMPLATE="${CONFIG_TEMPLATE:-${REPO_ROOT}/configs/train/qwen3_8b_sft.yaml}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-/home/xu.yang/coding_agent_playground/outputs}"
 RUN_DIR="${RUN_DIR:-${OUTPUT_ROOT}/runs/train/${RUN_ID}}"
@@ -22,7 +23,7 @@ DIAG_FILE="${DIAG_FILE:-${RUN_DIR}/early_exit_diagnostics.txt}"
 EXIT_STATUS_FILE="${EXIT_STATUS_FILE:-${RUN_DIR}/exit_status.txt}"
 PREFLIGHT_FILE="${PREFLIGHT_FILE:-${RUN_DIR}/preflight.json}"
 
-export DATASET_NAME OUTPUT_ROOT RUN_DIR CHECKPOINT_DIR TMPDIR LOG_FILE XTRACE_FILE DIAG_FILE
+export DATASET_NAME PREPROCESSING_NUM_WORKERS OUTPUT_ROOT RUN_DIR CHECKPOINT_DIR TMPDIR LOG_FILE XTRACE_FILE DIAG_FILE
 
 exec > >(tee -a "${LOG_FILE}") 2>&1
 exec 9>>"${XTRACE_FILE}"
@@ -82,8 +83,8 @@ fi
 printf 'START_UTC=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 printf 'RUN_ID=%s\nREPO_ROOT=%s\nOUTPUT_ROOT=%s\nRUN_DIR=%s\nCHECKPOINT_DIR=%s\nTMPDIR=%s\n' \
   "${RUN_ID}" "${REPO_ROOT}" "${OUTPUT_ROOT}" "${RUN_DIR}" "${CHECKPOINT_DIR}" "${TMPDIR}"
-printf 'CONFIG_TEMPLATE=%s\nDATASET_JSONL=%s\nDATASET_NAME=%s\nBASE_MODEL=%s\nLLAMAFACTORY_DIR=%s\nDRY_RUN=%s\n' \
-  "${CONFIG_TEMPLATE}" "${DATASET_JSONL}" "${DATASET_NAME}" "${BASE_MODEL}" "${LLAMAFACTORY_DIR}" "${DRY_RUN}"
+printf 'CONFIG_TEMPLATE=%s\nDATASET_JSONL=%s\nDATASET_NAME=%s\nPREPROCESSING_NUM_WORKERS=%s\nBASE_MODEL=%s\nLLAMAFACTORY_DIR=%s\nDRY_RUN=%s\n' \
+  "${CONFIG_TEMPLATE}" "${DATASET_JSONL}" "${DATASET_NAME}" "${PREPROCESSING_NUM_WORKERS}" "${BASE_MODEL}" "${LLAMAFACTORY_DIR}" "${DRY_RUN}"
 printf 'Mount proof for OUTPUT_ROOT:\n'
 findmnt -T "${OUTPUT_ROOT}" || true
 df -h "${OUTPUT_ROOT}" || true
@@ -127,11 +128,11 @@ print(f"Preflight: {out}")
 PY
 
 RUNTIME_CONFIG="${RUN_DIR}/config/qwen3_8b_sft.yaml"
-python3 - "${CONFIG_TEMPLATE}" "${RUNTIME_CONFIG}" "${BASE_MODEL}" "${CHECKPOINT_DIR}" "${DATASET_NAME}" <<'PY'
+python3 - "${CONFIG_TEMPLATE}" "${RUNTIME_CONFIG}" "${BASE_MODEL}" "${CHECKPOINT_DIR}" "${DATASET_NAME}" "${PREPROCESSING_NUM_WORKERS}" <<'PY'
 from pathlib import Path
 import sys
 
-template, out, base_model, output_dir, dataset_name = sys.argv[1:]
+template, out, base_model, output_dir, dataset_name, preprocessing_num_workers = sys.argv[1:]
 lines = Path(template).read_text(encoding="utf-8").splitlines()
 rewritten = []
 for line in lines:
@@ -139,6 +140,8 @@ for line in lines:
         rewritten.append(f"model_name_or_path: {base_model}")
     elif dataset_name and line.startswith("dataset:"):
         rewritten.append(f"dataset: {dataset_name}")
+    elif preprocessing_num_workers and line.startswith("preprocessing_num_workers:"):
+        rewritten.append(f"preprocessing_num_workers: {preprocessing_num_workers}")
     elif line.startswith("output_dir:"):
         rewritten.append(f"output_dir: {output_dir}")
     else:

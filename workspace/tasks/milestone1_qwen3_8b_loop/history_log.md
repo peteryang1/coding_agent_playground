@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=32 -->
+<!-- METADATA:SESSION=33 -->
 
 ## Session 1 - 2026-05-20
 
@@ -707,3 +707,13 @@
 - Dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`; merge commit is `4a6c2968e1290d30415460b464eee638110958bc`.
 - Task `M1-S22-EARLY-EXIT-FIX-DEV4` is marked complete/ready-for-runtime-gate: the wrapper/config/manifest patch is merged, while LTP/SFT/GPU/eval and dry-run launch remain unauthorized.
 - Completion record branch updates status/history/task knowledge/task registry/evidence only; no runtime command was run.
+
+## Session 33 - Dev 4 Dataset Map Single-Process Fix Package - 2026-05-21
+
+- Accepted PM task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4`.
+- Reviewed dev_2 post-PR39 runtime evidence: PR39 diagnostics produced preflight/config/manifest/log/xtrace/diagnostics/exit status under `/home/xu.yang/coding_agent_playground/outputs`, but the single authorized SFT attempt failed before training/checkpoint at `datasets.map(num_proc=4)` / `SyncManager EOFError`.
+- No checkpoint/model, `trainer_state.json`, or `all_results.json` exists; dev_2 stopped the LTP node and no eval was run.
+- Patched the ShareGPT max_steps=2 smoke config to force in-process dataset preprocessing with `preprocessing_num_workers: null`.
+- Patched `scripts/train_qwen3_8b_sft.sh` to support explicit `PREPROCESSING_NUM_WORKERS` runtime config rewrite while preserving PR39 diagnostics.
+- Patched `scripts/write_sft_run_manifest.py` to record generated-config `preprocessing_num_workers` in manifest preflight and environment override evidence.
+- Wrote no-execution evidence to `evidence/dev_4_s22_dataset_map_singleproc_fix.md`. No LTP/SFT/GPU/eval or dry-run launch command was run.

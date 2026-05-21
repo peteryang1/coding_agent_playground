@@ -17,7 +17,9 @@ template: qwen3
 cutoff_len: 32768
 neat_packing: true
 neat_packing_pad_to_multiple_of: 2
-preprocessing_num_workers: 4
+# Keep the 10-row smoke preprocessing in-process. The post-PR39 runtime failed
+# in datasets.map(num_proc=4) / SyncManager EOFError before training.
+preprocessing_num_workers: null
 dataloader_num_workers: 0
 
 ### output
