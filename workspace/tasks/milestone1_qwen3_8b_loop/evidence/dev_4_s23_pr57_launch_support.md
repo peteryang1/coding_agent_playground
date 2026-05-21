@@ -95,7 +95,7 @@ result: READY_SUPPORT_NO_NEW_FIX
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr57_launch_support.md
 pr: https://github.com/peteryang1/coding_agent_playground/pull/59
 pr_state: open_non_draft_mergeable_clean_waiting_for_pm_gate
-pr_head_commit: f218468e224584c0df37af3163aebe47c951562c
+pr_head_commit: see_pr_latest_head
 pr57_merged: true
 pr57_merge_commit: c450429c2e3369adc723d132396399cd17dba684
 pr58_merged: true
