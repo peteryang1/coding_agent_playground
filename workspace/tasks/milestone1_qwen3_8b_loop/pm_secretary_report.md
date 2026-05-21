@@ -67,6 +67,7 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - dev_2's authorized PR55 runtime passed structured preflight and reached the SFT launch gate.
 - The one SFT attempt exited `EXIT_STATUS=1` at `2026-05-21T15:08:25Z` with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer outputs were produced.
 - PM created follow-up tasks `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4`, `M1-S23-PR55-SFT-BLOCKER-REVIEW-DEV1`, `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1`, `M1-S23-PR55-RESOURCE-RECOVERY-DEV2`, `M1-S23-PR55-DATA-CONFIRM-DEV3`, and `M1-S23-PR55-EVAL-REBLOCK-TEST2`.
+- PM delivered all six follow-up assignments by tmux inject plus Enter and capture-pane verification. First audit shows the follow-up evidence files are still pending and no PR is open; runtime remains unauthorized.
 - No PM -> secretary peer message is needed; this report, status, blockers, task registry, and evidence files are the durable reporting channel.
 
 ## 2026-05-21 Session 22 PR #45 Re-Gate Update
