@@ -733,3 +733,10 @@
 - Fresh failure: CUDA/NCCL invalid access of peer GPU memory over NVLink or hardware error; torch elastic root cause local_rank 5, exitcode -6 / SIGABRT; no checkpoint/model, `trainer_state.json`, or `all_results.json`.
 - Wrote no-execution evidence `evidence/dev_4_s22_nccl_mitigation.md`, recommending a different H200 node plus NCCL/NVLink hardware preflight before any future SFT attempt.
 - No LTP/SFT/GPU/eval or dry-run launch command was run.
+
+## Session 36 - Dev 4 PR #43 Self-Merge Completion - 2026-05-21
+
+- PM gate passed for PR #43 owner self-merge only: PM gate evidence `evidence/pm_s22_pr43_gate.md` was pushed on `pm/session12-pr30-after-pr38-gate` at commit `5e4cfab`, dev_1 `evidence/dev_1_s22_nccl_review.md` recorded `PASS_FOR_PM_RETRY`, test_1 `evidence/test_1_s22_nccl_retry_gate.md` recorded `PASS_FOR_PM_RETRY`, and dev_2 resource plan plus dev_3 data confirmation passed.
+- GitHub reported PR #43 head `5f4d14a12aa8044a429d1110757ed631a7bc9833` open, non-draft, `MERGEABLE` / `CLEAN`.
+- Dev_4 self-merged PR #43 at `2026-05-21T10:47:20Z`; merge commit `2c867d3226f7ebb4962b5b173235639df8f1f9be`.
+- Task `M1-S22-NCCL-MITIGATION-DEV4` is marked complete/ready-for-runtime-gate. This does not authorize LTP/SFT/GPU/NCCL preflight/eval/dry-run launch or runtime retry.
