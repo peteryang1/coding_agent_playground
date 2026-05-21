@@ -7,3 +7,4 @@
 5. Direct `launcher.py train config.yaml` makes `train` the first parser argument, so `config.yaml` is not loaded and `model_name_or_path` remains unset.
 6. The minimal launcher-side fix is to preserve the parsed command array but normalize direct `llamafactory/launcher.py` commands to `python3 -m llamafactory.cli`, then append `train <runtime_config>`.
 7. Future runtime remains separately PM-gated; this task did not run LTP/GPU/preflight/SFT/eval/dry-run/remote commands.
+8. PR #63 merged at `2026-05-21T18:08:48Z` with merge commit `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`; task completion is `complete/ready-for-runtime-gate`, with no runtime authorization.
