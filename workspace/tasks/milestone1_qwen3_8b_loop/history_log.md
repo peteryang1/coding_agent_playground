@@ -872,3 +872,32 @@
 - Self-merged PR #57 at `2026-05-21T15:45:10Z`; merge commit `c450429c2e3369adc723d132396399cd17dba684`.
 - Task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4` is complete as a wrapper env fix.
 - Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 52 - Dev 4 PR57 Launch Support Standby - 2026-05-21
+
+- Accepted PM task `M1-S23-PR57-LAUNCH-SUPPORT-DEV4`.
+- Recorded supervisor correction: remote GPU/LTP nodes must be treated as no-external-network for project code and dependency staging. Project code/config/scripts/data/dependencies must be prepared in local/provided workspace, locally verified with commit/file list/checksums, transferred by `rsync`, `scp`, or tar-over-SSH, and post-transfer verified in evidence.
+- Recorded PR57/PR58 landed state: PR #57 merged at `2026-05-21T15:45:10Z` with merge commit `c450429c2e3369adc723d132396399cd17dba684`; PR #58 merged at `2026-05-21T15:48:30Z` with merge commit `b4ac31ef1e3772953108348bf099818326ed65cc`.
+- Wrote support evidence `evidence/dev_4_s23_pr57_launch_support.md`.
+- No additional wrapper/launch blocker from dev_2 is present in durable evidence at this recording point, so dev_4 recommends no further code change unless dev_2 reports a concrete blocker.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run by dev_4.
+- Opened PR #59 `https://github.com/peteryang1/coding_agent_playground/pull/59`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
+- Waiting for PM gate before any owner self-merge.
+
+## Session 53 - Dev 4 PR57 MCORE Fix Package - 2026-05-21
+
+- Accepted PM task `M1-S23-PR57-MCORE-FIX-DEV4`.
+- Reviewed PM durable dev_2 PR57 runtime evidence: structured preflight passed, one SFT attempt launched, and the run failed before checkpoint creation with `ImportError: mcore_adapter is required when USE_MCA=1`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
+- Patched `scripts/train_qwen3_8b_sft.sh` to default/export `MCORE_ADAPTER_DIR`, include local `code/mcore_adapter` in `PYTHONPATH`, record MCORE env in the manifest launch command, and fail before LLamaFactory train with a no-remote-network dependency-bundle diagnostic if `USE_MCA=1` cannot import `mcore_adapter`.
+- Patched `scripts/write_sft_run_manifest.py` to record `MCORE_ADAPTER_DIR` and `PYTHONPATH_PREFIX`.
+- Added static test coverage in `tests/test_train_qwen3_8b_sft_static.py`.
+- Wrote evidence `evidence/dev_4_s23_pr57_mcore_fix.md`.
+- Updated PR #59 `https://github.com/peteryang1/coding_agent_playground/pull/59` to include task id `M1-S23-PR57-MCORE-FIX-DEV4`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run by dev_4.
+
+## Session 54 - Dev 4 PR #59 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #59 / `M1-S23-PR57-MCORE-FIX-DEV4`; PM observed GitHub open, non-draft, `MERGEABLE` / `CLEAN` at head `b0b54279bcf87add7e617b0c08686c40fac41b48`, with functional patch commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`.
+- Gate basis: dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY` in durable evidence.
+- Dev_4 recorded pre-merge completion state before owner self-merge per playbook.
+- This gate authorizes PR #59 owner self-merge only; no LTP/GPU/preflight/SFT/eval/runtime retry is authorized.

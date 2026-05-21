@@ -141,6 +141,7 @@ def main() -> int:
             "log_file": str(log_file),
             "xtrace_file": str(xtrace_file),
             "early_exit_diagnostics": str(diag_file),
+            "mcore_adapter_dir": os.environ.get("MCORE_ADAPTER_DIR"),
         },
         "environment": {
             "USE_MCA": os.environ.get("USE_MCA"),
@@ -150,6 +151,8 @@ def main() -> int:
             "DISABLE_VERSION_CHECK": os.environ.get("DISABLE_VERSION_CHECK"),
             "NVTE_FLASH_ATTN": os.environ.get("NVTE_FLASH_ATTN"),
             "PREPROCESSING_NUM_WORKERS": os.environ.get("PREPROCESSING_NUM_WORKERS"),
+            "MCORE_ADAPTER_DIR": os.environ.get("MCORE_ADAPTER_DIR"),
+            "PYTHONPATH_PREFIX": os.environ.get("PYTHONPATH_PREFIX"),
         },
         "commands": args.command,
         "notes": args.notes,

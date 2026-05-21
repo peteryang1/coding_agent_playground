@@ -1,14 +1,14 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Idle,TASK=none -->
+<!-- METADATA:STATUS=Idle,TASK= -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
 | Status | Idle |
-| Current Task | none |
-| PR | #57 merged |
-| Session | 2 |
+| Current Task |  |
+| PR | #59 PM-gated for owner self-merge; pre-merge completion recorded |
+| Session | 3 |
 
 ## PM Corrections
 
@@ -71,3 +71,6 @@
 - 2026-05-21 Session 23 completion: PM gate passed for PR #55 and dev_4 self-merged it at `2026-05-21T14:49:25Z`; merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`. Task `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4` is complete as a parser runtime fix; runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23: Accepted task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4`. Reviewed dev_2 PR55 runtime evidence: PR55 preflight passed and SFT launched once, then exited before GPU training with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer_state/all_results/eval artifacts were produced and LTP was stopped. Patched `scripts/train_qwen3_8b_sft.sh` to provide an explicit LLamaFactory wrapper env contract by defaulting/exporting `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`, preserving `/home/xu.yang/coding_agent_playground/outputs` and local bundle/no-remote-network rules. Added static pytest coverage in `tests/test_train_qwen3_8b_sft_static.py`. Opened PR #57 `https://github.com/peteryang1/coding_agent_playground/pull/57`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23 completion: PM gate passed for PR #57 and dev_4 self-merged it at `2026-05-21T15:45:10Z`; merge commit `c450429c2e3369adc723d132396399cd17dba684`. Task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4` is complete as a wrapper env fix; runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 23: Accepted task `M1-S23-PR57-LAUNCH-SUPPORT-DEV4`. Recorded no-execution launch support evidence for the PR57 path: PR #57 merged at `2026-05-21T15:45:10Z` (`c450429c2e3369adc723d132396399cd17dba684`), PR #58 completion record merged at `2026-05-21T15:48:30Z` (`b4ac31ef1e3772953108348bf099818326ed65cc`), static wrapper tests were `bash -n` plus `pytest tests/test_train_qwen3_8b_sft_static.py -q` with `2 passed`, and the supervisor remote no-external-network rule is now explicit for future GPU/LTP staging. Opened PR #59 `https://github.com/peteryang1/coding_agent_playground/pull/59`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`. No new dev_2 wrapper/launch blocker is reported in durable evidence at this time, so no additional code fix is recommended by dev_4. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 23 MCORE follow-up: Accepted task `M1-S23-PR57-MCORE-FIX-DEV4` after dev_2 PR57 runtime produced final blocker `ImportError: mcore_adapter is required when USE_MCA=1`. Patched `scripts/train_qwen3_8b_sft.sh` to default/export `MCORE_ADAPTER_DIR`, include local `code/mcore_adapter` in `PYTHONPATH`, and fail early with a local-bundle/no-remote-network diagnostic if `USE_MCA=1` cannot import `mcore_adapter`; patched `scripts/write_sft_run_manifest.py` to record MCORE path/env; added static test coverage. Evidence is in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr57_mcore_fix.md`. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 23 MCORE gate: PM gate passed for PR #59 / `M1-S23-PR57-MCORE-FIX-DEV4` with dev_1 and test_1 `PASS_FOR_PM_RETRY`; GitHub observed open, non-draft, `MERGEABLE` / `CLEAN` at head `b0b54279bcf87add7e617b0c08686c40fac41b48`. Recorded pre-merge completion state for owner self-merge. This gate authorizes PR #59 self-merge only and does not authorize LTP/GPU/preflight/SFT/eval/runtime retry.
