@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | #59 PM-gated for owner self-merge; pre-merge completion recorded |
+| PR | #59 merged; completion record branch active |
 | Session | 3 |
 
 ## PM Corrections
@@ -74,3 +74,4 @@
 - 2026-05-21 Session 23: Accepted task `M1-S23-PR57-LAUNCH-SUPPORT-DEV4`. Recorded no-execution launch support evidence for the PR57 path: PR #57 merged at `2026-05-21T15:45:10Z` (`c450429c2e3369adc723d132396399cd17dba684`), PR #58 completion record merged at `2026-05-21T15:48:30Z` (`b4ac31ef1e3772953108348bf099818326ed65cc`), static wrapper tests were `bash -n` plus `pytest tests/test_train_qwen3_8b_sft_static.py -q` with `2 passed`, and the supervisor remote no-external-network rule is now explicit for future GPU/LTP staging. Opened PR #59 `https://github.com/peteryang1/coding_agent_playground/pull/59`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`. No new dev_2 wrapper/launch blocker is reported in durable evidence at this time, so no additional code fix is recommended by dev_4. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23 MCORE follow-up: Accepted task `M1-S23-PR57-MCORE-FIX-DEV4` after dev_2 PR57 runtime produced final blocker `ImportError: mcore_adapter is required when USE_MCA=1`. Patched `scripts/train_qwen3_8b_sft.sh` to default/export `MCORE_ADAPTER_DIR`, include local `code/mcore_adapter` in `PYTHONPATH`, and fail early with a local-bundle/no-remote-network diagnostic if `USE_MCA=1` cannot import `mcore_adapter`; patched `scripts/write_sft_run_manifest.py` to record MCORE path/env; added static test coverage. Evidence is in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr57_mcore_fix.md`. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23 MCORE gate: PM gate passed for PR #59 / `M1-S23-PR57-MCORE-FIX-DEV4` with dev_1 and test_1 `PASS_FOR_PM_RETRY`; GitHub observed open, non-draft, `MERGEABLE` / `CLEAN` at head `b0b54279bcf87add7e617b0c08686c40fac41b48`. Recorded pre-merge completion state for owner self-merge. This gate authorizes PR #59 self-merge only and does not authorize LTP/GPU/preflight/SFT/eval/runtime retry.
+- 2026-05-21 Session 23 MCORE completion: Self-merged PR #59 at `2026-05-21T16:34:13Z`; merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`. Task `M1-S23-PR57-MCORE-FIX-DEV4` is complete as a no-execution launcher/dependency fix package. Runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/runtime retry was run.

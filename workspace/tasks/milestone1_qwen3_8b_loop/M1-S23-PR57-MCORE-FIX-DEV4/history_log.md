@@ -25,3 +25,6 @@
 - PM reported dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY` in durable evidence.
 - Recorded pre-merge completion state before owner self-merge per playbook.
 - This gate authorizes PR #59 owner self-merge only; it does not authorize LTP/GPU/preflight/SFT/eval/runtime retry.
+- Self-merged PR #59 at `2026-05-21T16:34:13Z`; merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`.
+- Task `M1-S23-PR57-MCORE-FIX-DEV4` is complete as a no-execution launcher/dependency fix package.
+- Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/runtime retry was run.
