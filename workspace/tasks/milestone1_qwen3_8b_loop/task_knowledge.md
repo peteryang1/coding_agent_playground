@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=15 -->
+<!-- METADATA:SESSION=16 -->
 
 ## Knowledge Entries
 
@@ -33,3 +33,5 @@
 27. PR53 future retry rule: no future runtime should be authorized until dev_4 provides `evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md` and dev_1/test_1 gate it, preserving real Xid/SXid/ECC/NVLink/NCCL failure detection while making the observed benign NCCL warning class non-actionable in the real preflight artifact shape.
 28. PR55 parser/runtime fix gate fact: test_1 re-gated `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1` to `PASS_FOR_PM_RETRY` after PR #55 functional commit `6c959e89a75ce162076292ad6d6c317f421cd45f`; current PR head observed is `b6deabeda9342bd3341fefb25b9f15e99e3903df` with docs/status/evidence-only follow-up.
 29. PR55 retry boundary: PR #55 fixes the split all-reduce success context for benign `NCCL_ASYNC_ERROR_HANDLING` warnings, but does not authorize runtime. Future PM authorization must still require non-forbidden node, `/home/xu.yang` storage/capacity, local bundle transfer/checksums, no remote source/dependency network, structured preflight PASS plus `sft_allowed=true` before SFT, checkpoint/trainer/all_results if SFT succeeds, and stop proof.
+30. PR55 SFT runtime fact: dev_2's PR55 runtime passed structured preflight and correctly attempted one SFT, but failed before checkpoint with `environment: DEP_TARGET: unbound variable`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists, and the frame is stopped/released.
+31. PR55 wrapper fix gate rule: test_1 result is `BLOCKED_MISSING_DEV4_WRAPPER_FIX` until `evidence/dev_4_s23_pr55_sft_wrapper_fix.md` exists and proves the wrapper/export strategy covers `DEP_TARGET` without weakening `/home/xu.yang`, no-remote-source/dependency-network, manifest/logging, and future runtime acceptance guarantees.
