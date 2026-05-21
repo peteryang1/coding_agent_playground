@@ -883,3 +883,13 @@
 - No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run by dev_4.
 - Opened PR #59 `https://github.com/peteryang1/coding_agent_playground/pull/59`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
 - Waiting for PM gate before any owner self-merge.
+
+## Session 53 - Dev 4 PR57 MCORE Fix Package - 2026-05-21
+
+- Accepted PM task `M1-S23-PR57-MCORE-FIX-DEV4`.
+- Reviewed PM durable dev_2 PR57 runtime evidence: structured preflight passed, one SFT attempt launched, and the run failed before checkpoint creation with `ImportError: mcore_adapter is required when USE_MCA=1`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
+- Patched `scripts/train_qwen3_8b_sft.sh` to default/export `MCORE_ADAPTER_DIR`, include local `code/mcore_adapter` in `PYTHONPATH`, record MCORE env in the manifest launch command, and fail before LLamaFactory train with a no-remote-network dependency-bundle diagnostic if `USE_MCA=1` cannot import `mcore_adapter`.
+- Patched `scripts/write_sft_run_manifest.py` to record `MCORE_ADAPTER_DIR` and `PYTHONPATH_PREFIX`.
+- Added static test coverage in `tests/test_train_qwen3_8b_sft_static.py`.
+- Wrote evidence `evidence/dev_4_s23_pr57_mcore_fix.md`.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run by dev_4.

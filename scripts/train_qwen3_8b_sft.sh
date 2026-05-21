@@ -13,6 +13,7 @@ RUN_DIR="${RUN_DIR:-${OUTPUT_ROOT}/runs/train/${RUN_ID}}"
 CHECKPOINT_DIR="${CHECKPOINT_DIR:-${OUTPUT_ROOT}/training_summary/sft_output/${RUN_ID}}"
 LLAMAFACTORY_DIR="${LLAMAFACTORY_DIR:-${REPO_ROOT}/code/LLamaFactory}"
 LLAMAFACTORY_CLI="${LLAMAFACTORY_CLI:-llamafactory-cli}"
+MCORE_ADAPTER_DIR="${MCORE_ADAPTER_DIR:-${REPO_ROOT}/code/mcore_adapter}"
 DRY_RUN="${DRY_RUN:-1}"
 TMPDIR="${TMPDIR:-${OUTPUT_ROOT}/tmp/${RUN_ID}}"
 DEP_TARGET="${DEP_TARGET:-${PYTHON_DEPS_DIR:-${RUN_DIR}/python_deps}}"
@@ -27,7 +28,7 @@ EXIT_STATUS_FILE="${EXIT_STATUS_FILE:-${RUN_DIR}/exit_status.txt}"
 PREFLIGHT_FILE="${PREFLIGHT_FILE:-${RUN_DIR}/preflight.json}"
 
 export DATASET_NAME PREPROCESSING_NUM_WORKERS OUTPUT_ROOT RUN_DIR CHECKPOINT_DIR TMPDIR LOG_FILE XTRACE_FILE DIAG_FILE
-export DEP_TARGET LF LLAMAFACTORY_CLI
+export DEP_TARGET LF LLAMAFACTORY_CLI MCORE_ADAPTER_DIR
 
 exec > >(tee -a "${LOG_FILE}") 2>&1
 exec 9>>"${XTRACE_FILE}"
@@ -87,8 +88,8 @@ fi
 printf 'START_UTC=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 printf 'RUN_ID=%s\nREPO_ROOT=%s\nOUTPUT_ROOT=%s\nRUN_DIR=%s\nCHECKPOINT_DIR=%s\nTMPDIR=%s\n' \
   "${RUN_ID}" "${REPO_ROOT}" "${OUTPUT_ROOT}" "${RUN_DIR}" "${CHECKPOINT_DIR}" "${TMPDIR}"
-printf 'CONFIG_TEMPLATE=%s\nDATASET_JSONL=%s\nDATASET_NAME=%s\nPREPROCESSING_NUM_WORKERS=%s\nBASE_MODEL=%s\nLLAMAFACTORY_DIR=%s\nDRY_RUN=%s\n' \
-  "${CONFIG_TEMPLATE}" "${DATASET_JSONL}" "${DATASET_NAME}" "${PREPROCESSING_NUM_WORKERS}" "${BASE_MODEL}" "${LLAMAFACTORY_DIR}" "${DRY_RUN}"
+printf 'CONFIG_TEMPLATE=%s\nDATASET_JSONL=%s\nDATASET_NAME=%s\nPREPROCESSING_NUM_WORKERS=%s\nBASE_MODEL=%s\nLLAMAFACTORY_DIR=%s\nMCORE_ADAPTER_DIR=%s\nDRY_RUN=%s\n' \
+  "${CONFIG_TEMPLATE}" "${DATASET_JSONL}" "${DATASET_NAME}" "${PREPROCESSING_NUM_WORKERS}" "${BASE_MODEL}" "${LLAMAFACTORY_DIR}" "${MCORE_ADAPTER_DIR}" "${DRY_RUN}"
 printf 'LLAMAFACTORY_CLI=%s\nDEP_TARGET=%s\nLF=%s\n' "${LLAMAFACTORY_CLI}" "${DEP_TARGET}" "${LF}"
 printf 'Mount proof for OUTPUT_ROOT:\n'
 findmnt -T "${OUTPUT_ROOT}" || true
@@ -166,7 +167,13 @@ export NVTE_FLASH_ATTN="${NVTE_FLASH_ATTN:-1}"
 export NVTE_FUSED_ATTN="${NVTE_FUSED_ATTN:-0}"
 export NVTE_UNFUSED_ATTN="${NVTE_UNFUSED_ATTN:-0}"
 
-LAUNCH_COMMAND="cd ${LLAMAFACTORY_DIR} && export DEP_TARGET=\"${DEP_TARGET}\" LF=\"${LF}\" PYTHONPATH=\"${LLAMAFACTORY_DIR}/src:\${PYTHONPATH:-}\" && ${LLAMAFACTORY_CLI} train ${RUNTIME_CONFIG}"
+PYTHONPATH_PREFIX="${LLAMAFACTORY_DIR}/src"
+if [[ -d "${MCORE_ADAPTER_DIR}" ]]; then
+  PYTHONPATH_PREFIX="${MCORE_ADAPTER_DIR}:${PYTHONPATH_PREFIX}"
+fi
+export PYTHONPATH_PREFIX
+
+LAUNCH_COMMAND="cd ${LLAMAFACTORY_DIR} && export DEP_TARGET=\"${DEP_TARGET}\" LF=\"${LF}\" MCORE_ADAPTER_DIR=\"${MCORE_ADAPTER_DIR}\" PYTHONPATH=\"${PYTHONPATH_PREFIX}:\${PYTHONPATH:-}\" && ${LLAMAFACTORY_CLI} train ${RUNTIME_CONFIG}"
 
 python3 "${REPO_ROOT}/scripts/write_sft_run_manifest.py" \
   --run-id "${RUN_ID}" \
@@ -211,9 +218,27 @@ if [[ ! -d "${LLAMAFACTORY_DIR}" ]]; then
   printf 'Missing LLamaFactory directory: %s\n' "${LLAMAFACTORY_DIR}" >&2
   exit 4
 fi
+if [[ "${USE_MCA}" == "1" ]]; then
+  export PYTHONPATH="${PYTHONPATH_PREFIX}:${PYTHONPATH:-}"
+  if ! python3 - <<'PY'
+import importlib.util
+import sys
+
+if importlib.util.find_spec("mcore_adapter") is None:
+    sys.exit(1)
+PY
+  then
+    printf 'mcore_adapter import failed while USE_MCA=1.\n' >&2
+    printf 'Provide mcore_adapter via a local/provided dependency bundle, for example code/mcore_adapter or an installed package in the transferred environment.\n' >&2
+    printf 'Remote GPU/LTP nodes must not git clone/fetch or download dependencies; prepare and checksum the bundle locally, transfer it, then verify on-node before launching SFT.\n' >&2
+    exit 5
+  fi
+  printf 'mcore_adapter import OK for USE_MCA=1.\n'
+fi
 
 cd "${LLAMAFACTORY_DIR}"
 export DEP_TARGET="${DEP_TARGET}"
 export LF="${LF}"
-export PYTHONPATH="${LLAMAFACTORY_DIR}/src:${PYTHONPATH:-}"
+export MCORE_ADAPTER_DIR="${MCORE_ADAPTER_DIR}"
+export PYTHONPATH="${PYTHONPATH_PREFIX}:${PYTHONPATH:-}"
 "${LLAMAFACTORY_CLI}" train "${RUNTIME_CONFIG}"
