@@ -194,6 +194,11 @@ Runtime is blocked until PM separately authorizes it and resource/test gates pro
 task_id: M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4
 owner: intern_code_dev_4
 result: READY_FOR_PM_REVIEW
+pr: 51
+pr_url: https://github.com/peteryang1/coding_agent_playground/pull/51
+pr_state: OPEN
+pr_mergeable: MERGEABLE
+pr_merge_state_status: CLEAN
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_cephfuse_launch_package.md
 code_changes_required: false
 config_changes_required: false
