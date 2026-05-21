@@ -31,22 +31,47 @@ export DATASET_NAME PREPROCESSING_NUM_WORKERS OUTPUT_ROOT RUN_DIR CHECKPOINT_DIR
 export DEP_TARGET LF LLAMAFACTORY_CLI MCORE_ADAPTER_DIR
 
 read_llamafactory_command() {
+  LLAMAFACTORY_CMD_ORIGINAL=()
   LLAMAFACTORY_CMD=()
   read -r -a LLAMAFACTORY_CMD <<< "${LLAMAFACTORY_CLI}"
   if [[ "${#LLAMAFACTORY_CMD[@]}" -eq 0 ]]; then
     printf 'LLAMAFACTORY_CLI resolved to an empty command.\n' >&2
     exit 6
   fi
+  LLAMAFACTORY_CMD_ORIGINAL=("${LLAMAFACTORY_CMD[@]}")
+  LLAMAFACTORY_CMD_NORMALIZATION="none"
+  normalize_llamafactory_command
 }
 
-format_llamafactory_command_for_log() {
+normalize_llamafactory_command() {
+  local idx
+  local part
+  for idx in "${!LLAMAFACTORY_CMD[@]}"; do
+    part="${LLAMAFACTORY_CMD[${idx}]}"
+    if [[ "${part}" == */llamafactory/launcher.py ]]; then
+      if [[ "${idx}" -eq 0 ]]; then
+        LLAMAFACTORY_CMD=(python3 -m llamafactory.cli "${LLAMAFACTORY_CMD[@]:1}")
+      else
+        LLAMAFACTORY_CMD=("${LLAMAFACTORY_CMD[@]:0:${idx}}" -m llamafactory.cli "${LLAMAFACTORY_CMD[@]:$((idx + 1))}")
+      fi
+      LLAMAFACTORY_CMD_NORMALIZATION="direct_launcher_py_to_module_cli"
+      return
+    fi
+  done
+}
+
+format_shell_words() {
   local rendered=""
   local part
-  for part in "${LLAMAFACTORY_CMD[@]}"; do
+  for part in "$@"; do
     printf -v part '%q' "${part}"
     rendered+="${rendered:+ }${part}"
   done
   printf '%s' "${rendered}"
+}
+
+format_llamafactory_command_for_log() {
+  format_shell_words "${LLAMAFACTORY_CMD[@]}"
 }
 
 read_llamafactory_command
@@ -112,6 +137,8 @@ printf 'RUN_ID=%s\nREPO_ROOT=%s\nOUTPUT_ROOT=%s\nRUN_DIR=%s\nCHECKPOINT_DIR=%s\n
 printf 'CONFIG_TEMPLATE=%s\nDATASET_JSONL=%s\nDATASET_NAME=%s\nPREPROCESSING_NUM_WORKERS=%s\nBASE_MODEL=%s\nLLAMAFACTORY_DIR=%s\nMCORE_ADAPTER_DIR=%s\nDRY_RUN=%s\n' \
   "${CONFIG_TEMPLATE}" "${DATASET_JSONL}" "${DATASET_NAME}" "${PREPROCESSING_NUM_WORKERS}" "${BASE_MODEL}" "${LLAMAFACTORY_DIR}" "${MCORE_ADAPTER_DIR}" "${DRY_RUN}"
 printf 'LLAMAFACTORY_CLI=%s\nDEP_TARGET=%s\nLF=%s\n' "${LLAMAFACTORY_CLI}" "${DEP_TARGET}" "${LF}"
+printf 'LLAMAFACTORY_CMD_ORIGINAL=%s\n' "$(format_shell_words "${LLAMAFACTORY_CMD_ORIGINAL[@]}")"
+printf 'LLAMAFACTORY_CMD_NORMALIZATION=%s\n' "${LLAMAFACTORY_CMD_NORMALIZATION}"
 printf 'LLAMAFACTORY_CMD=%s\n' "$(format_llamafactory_command_for_log)"
 printf 'Mount proof for OUTPUT_ROOT:\n'
 findmnt -T "${OUTPUT_ROOT}" || true

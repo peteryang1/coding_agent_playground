@@ -20,6 +20,7 @@ def test_sft_launcher_uses_configurable_llamafactory_cli() -> None:
 
     assert 'LLAMAFACTORY_CLI="${LLAMAFACTORY_CLI:-llamafactory-cli}"' in text
     assert "read -r -a LLAMAFACTORY_CMD <<< " in text
+    assert "normalize_llamafactory_command" in text
     assert "$(format_llamafactory_command_for_log) train ${RUNTIME_CONFIG}" in text
     assert '"${LLAMAFACTORY_CMD[@]}" train "${RUNTIME_CONFIG}"' in text
 
@@ -30,6 +31,15 @@ def test_sft_launcher_does_not_quote_llamafactory_cli_as_single_path() -> None:
     assert '"${LLAMAFACTORY_CLI}" train "${RUNTIME_CONFIG}"' not in text
     assert "LLAMAFACTORY_CMD=()" in text
     assert "format_llamafactory_command_for_log" in text
+
+
+def test_sft_launcher_normalizes_direct_launcher_py_to_cli_module() -> None:
+    text = SCRIPT.read_text(encoding="utf-8")
+
+    assert 'LLAMAFACTORY_CMD_NORMALIZATION="direct_launcher_py_to_module_cli"' in text
+    assert 'LLAMAFACTORY_CMD=(python3 -m llamafactory.cli "${LLAMAFACTORY_CMD[@]:1}")' in text
+    assert 'LLAMAFACTORY_CMD=("${LLAMAFACTORY_CMD[@]:0:${idx}}" -m llamafactory.cli "${LLAMAFACTORY_CMD[@]:$((idx + 1))}")' in text
+    assert "LLAMAFACTORY_CMD_ORIGINAL" in text
 
 
 def test_sft_launcher_gates_mcore_adapter_when_mca_enabled() -> None:
