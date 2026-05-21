@@ -1,5 +1,18 @@
 # Milestone 1 Blockers
 
+## 2026-05-21 Session 23 Active Blocker
+
+- Blocker: `FINAL_BLOCKED_PLACEMENT_FORBIDDEN_NODE_STOPPED_NO_TRANSFER_NO_PREFLIGHT_NO_SFT`.
+- Owner/evidence: dev_2, `evidence/dev_2_s23_pr63_placementretry3_preflight_sft_runtime.md`, `evidence/gpu_s23_pr63_placementretry3_tracking.md`.
+- Repeated placement sequence:
+  - `M1-S23-PR63-ALTNODE-PREFLIGHT-SFT-RUNTIME-DEV2` assigned forbidden node `lg-cmc-b7r202-k07u06-h200-000580`, stopped before transfer/preflight/SFT/eval.
+  - `M1-S23-PR63-PLACEMENTRETRY2-PREFLIGHT-SFT-RUNTIME-DEV2` assigned forbidden node `lg-cmc-b7r202-q04u06-h200-000725`, stopped before transfer/preflight/SFT/eval.
+  - `M1-S23-PR63-PLACEMENTRETRY3-PREFLIGHT-SFT-RUNTIME-DEV2` assigned forbidden node `lg-cmc-b7r202-k07u06-h200-000580`, stopped before transfer/preflight/SFT/eval.
+- LTP placement constraint finding: current local LTP client/spec physical-node exclusion, hostname pinning, anti-affinity, rack/zone constraint, or not-in-node-list placement support is unsupported/unknown; only VC/sku/image/resource shape were verified.
+- Resource state: latest frame `STOPPED (Completed)`, completed `2026-05-21 19:13:29`; endpoint refused; no running `coding-agent-playground` jobs.
+- Impact: SFT did not run in the last three placement attempts, so no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
+- Unblock needed: a schedulable LTP path that avoids `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`, or an explicit alternate resource allocation path with owner evidence and stop conditions. PM should not authorize another blind retry without that placement/resource change.
+
 ## Current Superseding Active Blockers
 
 - Task-to-PR conduct gate: every dev/test PR must map to an explicit task in `task_registry.md` or task docs with owner, acceptance criteria, evidence path, and completion marker. PM must not gate a dev/test PR as ready without that mapping.

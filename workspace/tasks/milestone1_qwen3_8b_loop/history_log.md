@@ -1146,6 +1146,16 @@
 - This consumed the one authorized placementretry2 attempt.
 - PM authorizes only dev_2 for one final bounded placement retry under `M1-S23-PR63-PLACEMENTRETRY3-PREFLIGHT-SFT-RUNTIME-DEV2`. Before submit, dev_2 must record whether LTP supports node exclusion/placement constraint for this workflow. If retry3 lands on a forbidden node again, PM will have a fresh exact repeated placement/resource blocker with logs and stop proof; eval remains unauthorized.
 
+## 2026-05-21 Session 23 PR63 Placement Retry 3 Final Placement Blocker
+
+- dev_2 completed exactly one authorized final `M1-S23-PR63-PLACEMENTRETRY3-PREFLIGHT-SFT-RUNTIME-DEV2` bounded placement-retry allocation attempt.
+- Before submit, dev_2 recorded that current local LTP client/spec support for physical-node exclusion, hostname pinning, anti-affinity, rack/zone constraint, or not-in-node-list placement is unsupported/unknown; only VC/sku/image/resource shape were verified.
+- LTP frame `xu.yang~coding-agent-playground-m1-s23-pr63-placementretry3-preflight-sft-20260521T190630Z` started on endpoint `ssh -p 20767 root@10.100.18.14`, assigned node `lg-cmc-b7r202-k07u06-h200-000580`.
+- Placement failed because the assigned node matched a forbidden node. Forbidden nodes for this task were `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`.
+- Per PM contract, dev_2 stopped/released before source/data/dependency transfer, `/home/xu.yang` capacity probing, mcore import, structured preflight, SFT, or eval. No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
+- dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 19:13:29`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
+- This consumed the final authorized placementretry3 attempt. No fresh LTP/GPU/preflight/SFT/eval retry is authorized without a new PM gate.
+
 ## 2026-05-21 Session 23 PR #65 Gate Pass
 
 - dev_4 updated PR #65 for `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` after final dev_2 altnode evidence, changing classification to `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.

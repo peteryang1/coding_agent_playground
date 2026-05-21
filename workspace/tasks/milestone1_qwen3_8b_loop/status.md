@@ -1,5 +1,16 @@
 # Milestone 1 Status
 
+## 2026-05-21 Session 23 Current Status
+
+- SFT checkpoint is not produced yet.
+- Current exact blocker: `FINAL_BLOCKED_PLACEMENT_FORBIDDEN_NODE_STOPPED_NO_TRANSFER_NO_PREFLIGHT_NO_SFT`.
+- Evidence: `evidence/dev_2_s23_pr63_placementretry3_preflight_sft_runtime.md` and `evidence/gpu_s23_pr63_placementretry3_tracking.md`.
+- dev_2 completed the final PM-authorized placement retry on frame `xu.yang~coding-agent-playground-m1-s23-pr63-placementretry3-preflight-sft-20260521T190630Z`; endpoint `ssh -p 20767 root@10.100.18.14`; assigned forbidden node `lg-cmc-b7r202-k07u06-h200-000580`.
+- Prior renewed attempts in the same PR63 chain also landed on forbidden nodes: altnode on `lg-cmc-b7r202-k07u06-h200-000580` and placementretry2 on `lg-cmc-b7r202-q04u06-h200-000725`.
+- dev_2 recorded that current local LTP client/spec support for physical-node exclusion, hostname pinning, anti-affinity, rack/zone constraint, or not-in-node-list placement is unsupported/unknown; only VC/sku/image/resource shape were verified.
+- All three placement-blocker frames were stopped/released before transfer, `/home/xu.yang` capacity probe, mcore import, structured preflight, SFT, or eval. Latest final state is `STOPPED (Completed)`, completed `2026-05-21 19:13:29`, endpoint refused, and no running `coding-agent-playground` jobs remain.
+- No fresh LTP/GPU/preflight/SFT/eval authorization is open.
+
 <!-- METADATA:STATUS=Open,OWNER=intern_code_pm -->
 
 ## 2026-05-21 Session 23 PR63 Gate Status
