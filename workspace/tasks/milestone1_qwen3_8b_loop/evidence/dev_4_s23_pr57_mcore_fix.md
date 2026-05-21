@@ -190,9 +190,13 @@ python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q: 3 passed in 0.01s
 ```yaml
 task_id: M1-S23-PR57-MCORE-FIX-DEV4
 owner: intern_code_dev_4
-result: PATCH_READY_FOR_REVIEW
+result: COMPLETE
 pr: https://github.com/peteryang1/coding_agent_playground/pull/59
-pr_state: open_non_draft_mergeable_clean_waiting_for_pm_gate
+pr_state: merged
+merged_at: 2026-05-21T16:34:13Z
+merge_commit: 8ed6248cd7bd56b89ac1124689fed0b56e4eba02
+pm_gate_head: b0b54279bcf87add7e617b0c08686c40fac41b48
+functional_patch_commit: 92e437cf690b68121b9ad9d2f76b18a60a10a2d6
 runtime_authorized_for_dev4: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
 recommended_next_gate: dev_1_review_and_test_1_gate_before_any_new_runtime

@@ -78,6 +78,7 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY` for the PR #59 mcore fix package.
 - PM gate decision: notify dev_4 to owner self-merge PR #59 and mark `M1-S23-PR57-MCORE-FIX-DEV4` complete. This is not a runtime authorization.
 - Next runtime remains blocked until PR #59 is merged/completion-marked and PM separately authorizes dev_2. Future runtime must include local/provided `mcore_adapter` bundle provenance, file list, checksum, exact transfer command, post-transfer verification, no remote source/dependency downloads, `/home/xu.yang` outputs, and successful `mcore_adapter` import gate before SFT.
+- PR #59 is now merged at `2026-05-21T16:34:13Z`, merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`. PM authorized only dev_2 for one fresh PR59 runtime under `M1-S23-PR59-PREFLIGHT-SFT-RUNTIME-DEV2`; eval remains unauthorized and PM will not run remote/LTP/SFT commands personally.
 
 ## 2026-05-21 Session 22 PR #45 Re-Gate Update
 

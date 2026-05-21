@@ -241,6 +241,13 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_3`: task `M1-S23-PR59-DATA-RECONFIRM-DEV3`; confirm the accepted ShareGPT data/dataset_info package remains unchanged for PR59 and note any transfer staging requirements under `/home/xu.yang`. Evidence path: `evidence/dev_3_s23_pr59_data_reconfirm.md`. Do not run SFT/GPU/eval.
   - `intern_code_test_2`: task `M1-S23-PR59-EVAL-READY-REBLOCK-TEST2`; keep mini-swe eval blocked but ready for the first PM-gated checkpoint/model or endpoint, with future eval intermediates under `/home/xu.yang`. Evidence path: `evidence/test_2_s23_pr59_eval_ready_reblock.md`. Do not run eval.
 
+- 2026-05-21 Session 23 PR59 runtime authorization:
+  - PR #59 merged at `2026-05-21T16:34:13Z`, merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`.
+  - `intern_code_dev_2`: task `M1-S23-PR59-PREFLIGHT-SFT-RUNTIME-DEV2`; authorized for exactly one fresh owner-executed runtime using PR #59 merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`. Evidence files: `evidence/dev_2_s23_pr59_preflight_sft_runtime.md`, `evidence/gpu_s23_pr59_preflight_sft_tracking.md`, and own status. Must prepare source/data/`mcore_adapter` bundles locally/provided workspace, verify file lists/checksums, transfer with exact evidence and no remote source/dependency downloads, store all generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`, prove `mcore_adapter import OK for USE_MCA=1`, run structured preflight, and run SFT only if all gates pass and `SFT_ALLOWED=true`. Stop/release with proof after success or failure.
+  - `intern_code_test_1`: gate dev_2 final runtime evidence after it lands; do not run LTP/GPU/SFT/eval.
+  - `intern_code_test_2`: eval remains unauthorized until PM gates a complete checkpoint/model or served endpoint.
+  - No other owner may run LTP/GPU/transfer/preflight/SFT/eval from this authorization.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.

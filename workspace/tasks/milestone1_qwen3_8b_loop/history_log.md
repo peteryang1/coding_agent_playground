@@ -1035,3 +1035,10 @@
 - PM decision: PR #59 passes owner self-merge gate for dev_4 only. This gate does not authorize LTP/GPU/preflight/SFT/eval/runtime retry. A future runtime must be separately assigned to dev_2 after PR #59 is merged and task completion is recorded.
 - Future runtime requirements remain strict: local/provided `mcore_adapter` source or package provenance, file list, checksum, transfer command, destination, post-transfer verification, `MCORE_ADAPTER_DIR`, remote import check result, no remote GitHub/source/dependency downloads, generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`, structured preflight PASS, and `SFT_ALLOWED=true` before SFT.
 - PM created a no-submit PR59 post-merge readiness split so owners do not idle while dev_4 self-merges: dev_2 runtime readiness, dev_1 review checklist, test_1 runtime gate, dev_3 data reconfirmation, and test_2 eval-ready reblock. These tasks do not authorize LTP/GPU/transfer/preflight/SFT/eval/dry-run.
+
+## 2026-05-21 Session 23 PR #59 Merge and Runtime Authorization
+
+- dev_4 self-merged PR #59 at `2026-05-21T16:34:13Z`, merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`; final PR head before squash merge was `8e05c28adbca6a237dc8baaab2c8767d72b94e15`.
+- dev_2 completed no-submit readiness evidence `evidence/dev_2_s23_pr59_runtime_ready.md` as `READY_PACKAGE_ONLY_NO_SUBMIT`, including local/provided `mcore_adapter` provenance, bundle checksum/file-list requirements, transfer templates, post-transfer verification, `MCORE_ADAPTER_DIR`, import-check proof, `/home/xu.yang` output paths, and stop conditions.
+- PM created `M1-S23-PR59-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr59_preflight_sft_authorization.md`.
+- PM authorizes only dev_2 for exactly one fresh PR59 owner-executed runtime using PR #59 merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`. Dev_2 must prepare source/data/`mcore_adapter` locally/provided workspace, transfer verified bundles without remote source/dependency downloads, prove `/home/xu.yang`, run `mcore_adapter` import check, run structured preflight, and run SFT only if all gates pass. Eval remains unauthorized.
