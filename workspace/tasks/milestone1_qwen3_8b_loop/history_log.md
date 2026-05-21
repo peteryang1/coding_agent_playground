@@ -25,6 +25,15 @@
 - dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 18:26:03`, endpoint refused, and running-list proof is `No jobs found`.
 - PM classifies this as a node-health/placement blocker, not a PR63 code/data/transfer/import blocker, and authorizes only dev_2 for one bounded different-node attempt under `M1-S23-PR63-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`. The forbidden node is `lg-cmc-b7r202-k07u06-h200-000580`; eval remains unauthorized.
 
+## 2026-05-21 Session 23 PR63 Different-Node Runtime Blocker and Alternate-Node Authorization
+
+- dev_2 completed exactly one authorized different-node attempt on frame `xu.yang~coding-agent-playground-m1-s23-pr63-differentnode-preflight-sft-20260521T181207Z`, endpoint `ssh -p 27957 root@10.100.22.31`, node `lg-cmc-b7r202-q04u06-h200-000725`.
+- Placement passed against forbidden node `lg-cmc-b7r202-k07u06-h200-000580`; `/home/xu.yang` CephFS proof, 24GiB capacity probe, transfer/checksums, no remote source/dependency network, `mcore_adapter import OK for USE_MCA=1`, structured preflight, and all-reduce passed.
+- Structured preflight returned `PREFLIGHT_RESULT=PASS` and `SFT_ALLOWED=true`, so dev_2 ran the single authorized SFT attempt.
+- SFT reached ShareGPT conversion, mcore model load, MPU init, and training start, then exited `EXIT_STATUS=1` at `2026-05-21T18:42:28Z` with `CUDA error: Invalid access of peer GPU memory over nvlink or a hardware error`; torch elastic root cause rank 4 local_rank 4 SIGABRT. No checkpoint/model, `trainer_state.json`, `all_results.json`, or eval exists.
+- dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 18:43:25`, endpoint refused, and running-list proof is `No jobs found`.
+- PM classifies this as node/runtime hardware blocker rather than PR63 code/data/package blocker, and authorizes only dev_2 for one bounded alternate-node attempt under `M1-S23-PR63-ALTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`. Forbidden nodes are `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`; eval remains unauthorized.
+
 ## Session 1 - 2026-05-20
 
 - Accepted Milestone 1 under `secretary_pm_dev_test_intern_team_pattern_skill`.
@@ -1104,3 +1113,14 @@
 - No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists. Eval was not authorized and was not run.
 - dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 17:32:52`; endpoint refused after stop and no running coding-agent-playground job remains.
 - PM created no-execution follow-up tasks for dev_4 MCA/model path fix, dev_1 review, test_1 gate, dev_2 recovery/readiness, dev_3 data confirmation, and test_2 eval re-block. No fresh LTP/GPU/preflight/SFT/eval retry is authorized.
+
+## 2026-05-21 Session 23 PR63 Different-Node Runtime Final Blocker
+
+- dev_2 completed exactly one authorized `M1-S23-PR63-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2` bounded different-node runtime after the first PR63 attempt hit node-health blocker SXid 22013.
+- LTP frame `xu.yang~coding-agent-playground-m1-s23-pr63-differentnode-preflight-sft-20260521T181207Z` ran on endpoint `ssh -p 27957 root@10.100.22.31`, assigned node `lg-cmc-b7r202-q04u06-h200-000725`; placement passed because it differs from forbidden node `lg-cmc-b7r202-k07u06-h200-000580`.
+- dev_2 proved `/home/xu.yang/coding_agent_playground/outputs` on CephFS after bootstrap correction, passed a 24GiB capacity probe, transferred local/provided PR63/PR64 source/data/`mcore_adapter`/dependency bundles, verified checksums, and did not use remote source/dependency network.
+- Structured preflight passed with `PREFLIGHT_RESULT=PASS`, `SFT_ALLOWED=true`, torch all-reduce exit 0, capacity/home-storage PASS, and topology/NVLink present.
+- Exactly one SFT attempt ran, reached ShareGPT conversion, mcore model load, MPU initialization, and training start, then failed `EXIT_STATUS=1` at `2026-05-21T18:42:28Z` with `CUDA error: Invalid access of peer GPU memory over nvlink or a hardware error`; torch elastic root cause was rank 4 local_rank 4 SIGABRT.
+- Final blocker is `BLOCKED_PR63_DIFFERENTNODE_RUNTIME_NCCL_NVLINK_PEER_MEMORY`. No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists. Eval was not authorized and was not run.
+- dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 18:43:25`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
+- No fresh LTP/GPU/preflight/SFT/eval retry is authorized without a new PM gate.

@@ -9,6 +9,7 @@
 - Runtime remains a separate PM decision after merge/completion. Required runtime evidence remains local/provided bundle preparation, exact transfer command/checksum/file list, no remote source/dependency network, `/home/xu.yang/coding_agent_playground/outputs`, structured preflight PASS, `SFT_ALLOWED=true`, and stop/no-running-job proof.
 - PR63/PR64 post-merge runtime source commit is `origin/main` `7ad24ae328a350c0be596f41ea143affb4034486`; this runtime authorization is single-use for dev_2 and does not authorize eval.
 - First PR63 post-merge attempt failed before SFT on node health signature SXid 22013 at node `lg-cmc-b7r202-k07u06-h200-000580`; code/data/transfer/import/storage/all-reduce passed. Next bounded attempt must exclude that node and stop before transfer if LTP assigns it again.
+- PR63 different-node attempt on `lg-cmc-b7r202-q04u06-h200-000725` passed placement/storage/transfer/import/preflight and reached SFT training, but failed with NCCL/NVLink peer-memory hardware error. Next bounded attempt must exclude both `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`.
 
 ## Knowledge Entries
 

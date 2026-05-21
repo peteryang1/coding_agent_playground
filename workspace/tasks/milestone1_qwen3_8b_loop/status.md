@@ -9,7 +9,8 @@
 - Review inputs: dev_1 `PASS_FOR_PM_RETRY`, test_1 `PASS_FOR_PM_RETRY`, and dev_4 evidence/static checks are present in durable evidence.
 - PR #63 is merged (`2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`) and completion PR #64 is merged (`7ad24ae328a350c0be596f41ea143affb4034486`).
 - Runtime status: the first post-PR63 attempt completed with final preflight blocker `BLOCKED_PR63_PREFLIGHT_HEALTH_SIGNATURE_SXID_22013` on node `lg-cmc-b7r202-k07u06-h200-000580`; transfer/import/storage/all-reduce passed, SFT/eval did not run, and resource is stopped/released.
-- Next action: PM authorized only dev_2 for one bounded different-node attempt under `M1-S23-PR63-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`; forbidden node is `lg-cmc-b7r202-k07u06-h200-000580`, and eval remains unauthorized.
+- Different-node attempt reached SFT after preflight PASS but failed with `BLOCKED_PR63_DIFFERENTNODE_RUNTIME_NCCL_NVLINK_PEER_MEMORY` on node `lg-cmc-b7r202-q04u06-h200-000725`; no checkpoint/model/trainer_state/all_results exists and resource is stopped/released.
+- Next action: PM authorized only dev_2 for one bounded alternate-node attempt under `M1-S23-PR63-ALTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`; forbidden nodes are `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`, and eval remains unauthorized.
 
 ## 2026-05-20
 
