@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=9 -->
+<!-- METADATA:SESSION=10 -->
 
 ## Knowledge Entries
 
@@ -21,3 +21,5 @@
 15. Ceph-fuse retry acceptance fact: any next runtime plan must prove `/home/xu.yang`, avoid remote GitHub/source/dependency downloads, preserve local bundle transfer/checksum evidence, require node/job/endpoint/stop proof, and keep SFT forbidden unless structured preflight is PASS and `sft_allowed=true`.
 16. Ceph-fuse resource refresh fact: PR #51 head `326b769acb33cfa53de184e640196353c1d00a07` contains a dev_4 launch package that passes source/evidence-only checks, but `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` remains `BLOCKED_MISSING_REQUIRED_DURABLE_INPUTS` because `evidence/dev_2_s23_cephfuse_resource_fix.md`, `evidence/gpu_s23_cephfuse_resource_plan.md`, `evidence/dev_3_s23_cephfuse_data_transfer_staging.md`, and `evidence/test_2_s23_cephfuse_eval_blocked.md` were absent in PM worktree, `origin/main`, and fetched PR refs checked by test_1.
 17. Ceph-fuse gate rule: dev_4 launch package evidence alone is insufficient for `PASS_FOR_PM_RETRY`; full pass requires durable dev_2 storage-bootstrap/image/resource evidence, dev_3 local bundle/data transfer staging with checksums, test_2 eval-blocked/readiness evidence, node/job/endpoint/stop proof, and PM authorization before any runtime.
+18. Ceph-fuse final refresh fact: PM durable commit `88e0482` supplied the missing dev_2 resource fix, GPU resource plan, dev_3 data transfer staging, and test_2 eval-blocked evidence; PR #51 latest head `972c91f7da4aa5b89877023fcff3b6c1d0b9fe9b` remains open/non-draft MERGEABLE/CLEAN. Test_1 updated the resource gate to `PASS_FOR_PM_RETRY`.
+19. Ceph-fuse retry boundary: `PASS_FOR_PM_RETRY` is no-execution approval for PM decision only. Fresh PM runtime authorization remains required, SFT is still conditional on structured preflight PASS plus `sft_allowed=true`, and eval remains blocked until a complete checkpoint/model plus `trainer_state.json`/`all_results.json` or a PM-approved served endpoint exists.

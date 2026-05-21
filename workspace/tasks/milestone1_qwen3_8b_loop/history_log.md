@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=9 -->
+<!-- METADATA:SESSION=10 -->
 
 ## Session 1 - 2026-05-21
 
@@ -56,3 +56,9 @@
 - Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_resource_gate.md` to `BLOCKED_MISSING_REQUIRED_DURABLE_INPUTS`: `evidence/dev_2_s23_cephfuse_resource_fix.md`, `evidence/gpu_s23_cephfuse_resource_plan.md`, `evidence/dev_3_s23_cephfuse_data_transfer_staging.md`, and `evidence/test_2_s23_cephfuse_eval_blocked.md` were not found in the PM worktree, `origin/main`, or fetched PR refs checked by test_1.
 - PR #51 dev_4 launch package is reviewable and passes source/evidence-only checks for no-execution boundary, no launcher-side `ceph-fuse`, `/home/xu.yang/coding_agent_playground/outputs` storage intent, no remote source/dependency network, mount/output verification skeleton, and SFT only after structured preflight PASS plus `sft_allowed=true`; dev_4-only evidence is insufficient for `PASS_FOR_PM_RETRY`.
 - No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`; routine result was recorded durably only.
+
+## Session 10 - 2026-05-21
+
+- Refreshed `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` after PM durable branch commit `88e0482` made the previously missing dev_2/dev_3/test_2 inputs available and PR #51 advanced to head `972c91f7da4aa5b89877023fcff3b6c1d0b9fe9b`.
+- Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_resource_gate.md` to `PASS_FOR_PM_RETRY`: dev_2 storage bootstrap/resource plan, dev_3 data transfer staging, test_2 eval-blocked readiness, and dev_4 launch package satisfy the no-execution retry gate for `/home/xu.yang` proof, no remote source/dependency downloads, local bundle/checksum transfer, node/job/endpoint/stop proof, and SFT only after structured preflight PASS plus `sft_allowed=true`.
+- Recorded that the gate does not authorize runtime by itself; PM must explicitly authorize any fresh allocation/run, and eval remains blocked until checkpoint/model plus `trainer_state.json`/`all_results.json` or a PM-approved served endpoint exists. No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`.
