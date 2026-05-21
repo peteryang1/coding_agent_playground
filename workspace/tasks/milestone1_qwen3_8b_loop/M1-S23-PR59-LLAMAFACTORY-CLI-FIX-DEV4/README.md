@@ -1,6 +1,6 @@
 # M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4
 
-<!-- METADATA:STATUS=InProgress,ASSIGNEE=intern_code_dev_4 -->
+<!-- METADATA:STATUS=Completed,ASSIGNEE=intern_code_dev_4 -->
 
 Owner: `intern_code_dev_4`
 
@@ -15,8 +15,8 @@ Acceptance:
 - Include static/unit evidence if code changes.
 - Do not run LTP/GPU/preflight/SFT/eval/dry-run/runtime.
 
-Completion marker: patch PR open and waiting for PM gate; complete only after PM-gated owner self-merge plus durable completion record.
+Completion marker: complete after PM-gated PR #61 owner self-merge; runtime remains separately PM-gated.
 
 PR: https://github.com/peteryang1/coding_agent_playground/pull/61
 
-PR state at recording check: open, non-draft, `MERGEABLE` / `CLEAN`; waiting for PM gate before any owner self-merge.
+PR state at PM gate: open, non-draft, `MERGEABLE` / `CLEAN`; PM authorized owner self-merge only.
