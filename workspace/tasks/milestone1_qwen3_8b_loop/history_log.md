@@ -768,3 +768,11 @@
 - Runtime remains separately gated; no LTP/GPU/SFT/eval/dry-run/runtime command was run.
 - Self-merged PR #45 at `2026-05-21T11:42:20Z`; merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`.
 - Task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` is complete as a no-execution parser package; future runtime requires separate PM authorization and `/home/xu.yang/coding_agent_playground/outputs` storage.
+
+## Session 40 - Dev 4 Parser-Fixed Blocker Fix Package - 2026-05-21
+
+- Accepted PM task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`.
+- Reviewed dev_2 parser-fixed preflight runtime evidence, GPU tracking, dev_1 runtime review, and test_1 runtime gate.
+- Current blocker: structured preflight `FAIL_HEALTH_SIGNATURE` with Xid/SXid matches in `dmesg_gpu_fault_scan.txt`, plus `HOME_XU_YANG_STORAGE_STATUS=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS` despite artifacts recorded under `/home/xu.yang/coding_agent_playground/outputs` and preserved under the CephFS mirror.
+- Wrote no-execution evidence `evidence/dev_4_s22_parserfixed_blocker_fix.md`, recommending a parser PR for Xid/SXid freshness classification and `/home/xu.yang` / `/mnt/cephfs/home/xu.yang` path normalization.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
