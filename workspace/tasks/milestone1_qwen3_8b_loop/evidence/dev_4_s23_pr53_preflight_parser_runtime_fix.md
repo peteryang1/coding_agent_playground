@@ -151,18 +151,42 @@ Observed result:
 ```yaml
 task_id: M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4
 owner: intern_code_dev_4
-result: READY_FOR_PR
+result: COMPLETE
 pr: 55
 pr_url: https://github.com/peteryang1/coding_agent_playground/pull/55
-pr_state: OPEN
-pr_mergeable: MERGEABLE
-pr_merge_state_status: CLEAN
-pr_head: see GitHub PR #55 latest head; metadata commits may advance this value
+pr_state: MERGED
+pr_mergeable: MERGEABLE_AT_GATE
+pr_merge_state_status: CLEAN_AT_GATE
+pr_gate_head: ee10fead593aa5a3d2a3eebdbf6cee5e643bfdde
+functional_patch_commit: 6c959e89a75ce162076292ad6d6c317f421cd45f
+merged_at: 2026-05-21T14:49:25Z
+merge_commit: 1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md
 patch_files:
   - scripts/parse_s22_preflight_health.py
   - tests/test_parse_s22_preflight_health.py
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
-completion_marker: ready-for-review; owner self-merge requires PM gate
+completion_marker: complete
+```
+
+## PM Gate And Merge Record
+
+PM gate basis:
+
+```text
+PR #55 latest head at gate: ee10fead593aa5a3d2a3eebdbf6cee5e643bfdde
+functional patch commit: 6c959e89a75ce162076292ad6d6c317f421cd45f
+GitHub state at gate: open, non-draft, MERGEABLE / CLEAN
+dev_1 evidence: dev_1_s23_pr53_preflight_blocker_review.md result PASS_FOR_PM_RETRY
+test_1 evidence: test_1_s23_pr53_preflight_blocker_gate.md result PASS_FOR_PM_RETRY
+```
+
+Owner action:
+
+```text
+Self-merged PR #55 at 2026-05-21T14:49:25Z.
+Merge commit: 1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703.
+Task completion marker: complete.
+Runtime boundary: parser fix only; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run or authorized.
 ```
