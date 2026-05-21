@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=6 -->
+<!-- METADATA:SESSION=7 -->
 
 ## Session 1 - 2026-05-21
 
@@ -37,3 +37,9 @@
 - Re-gated `M1-S23-PARSERPATCH-GATE-TEST1` against PR #49 head `1ddfe31d8345418572a6d70d1ba15da424fd7aef`; result is `PASS_FOR_PM_RETRY`.
 - Verified from PR metadata/source/evidence that PR #49 is open/non-draft MERGEABLE/CLEAN, cites `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4`, includes `evidence/dev_4_s23_parserfixed_parser_patch.md`, preserves stable structured fields, normalizes `/home/xu.yang/coding_agent_playground/outputs` plus resolved `/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs`, classifies Xid/SXid freshness as stale/fresh/unknown, records local synthetic test attempts, and preserves real-fault detection.
 - No LTP/GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`; runtime remains separately unauthorized.
+
+## Session 7 - 2026-05-21
+
+- Refreshed `M1-S23-PARSERPATCH-GATE-TEST1` after PR #49 advanced. PM cited head `6dd0f1bfe1635af650a7fbc928bfbabe4c8c4098`; current GitHub head observed by test_1 is `9393fdec8e5fef7df250743e1a958436a8dfa79a`.
+- Confirmed diff from the prior pass head `1ddfe31d8345418572a6d70d1ba15da424fd7aef` to current head touches only docs/status/evidence/task-registry files and does not modify `scripts/parse_s22_preflight_health.py`.
+- Updated PM durable gate evidence to keep `PASS_FOR_PM_RETRY`; no LTP/GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`.
