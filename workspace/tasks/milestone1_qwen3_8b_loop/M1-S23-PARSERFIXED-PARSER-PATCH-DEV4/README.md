@@ -6,6 +6,8 @@ Owner: `intern_code_dev_4`
 
 Evidence: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_parserfixed_parser_patch.md`
 
+PR: #49 `https://github.com/peteryang1/coding_agent_playground/pull/49` (open, non-draft, `MERGEABLE` / `CLEAN`)
+
 Acceptance:
 
 - Classify Xid/SXid by freshness so stale historical audited records do not block current runs.

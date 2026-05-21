@@ -125,7 +125,21 @@ No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 
 ## PR Scope
 
-PR must cite:
+PR opened:
+
+```text
+PR: #49
+URL: https://github.com/peteryang1/coding_agent_playground/pull/49
+head: intern_code_dev_4/M1-S23-PARSERFIXED-PARSER-PATCH-DEV4
+state: OPEN
+draft: false
+mergeable: MERGEABLE
+mergeStateStatus: CLEAN
+status checks: none reported
+latest head commit: 1ddfe31d8345418572a6d70d1ba15da424fd7aef
+```
+
+PR cites:
 
 ```text
 task id: M1-S23-PARSERFIXED-PARSER-PATCH-DEV4
@@ -167,6 +181,11 @@ workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md
 task_id: M1-S23-PARSERFIXED-PARSER-PATCH-DEV4
 owner: intern_code_dev_4
 result: READY_FOR_REVIEW
+pr: 49
+pr_url: https://github.com/peteryang1/coding_agent_playground/pull/49
+pr_state: OPEN
+pr_mergeable: MERGEABLE
+pr_merge_state_status: CLEAN
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_parserfixed_parser_patch.md
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
