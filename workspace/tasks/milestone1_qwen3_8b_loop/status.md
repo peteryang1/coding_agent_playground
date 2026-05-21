@@ -288,3 +288,22 @@
 - Required output/intermediate root: `/home/xu.yang/coding_agent_playground/outputs`.
 - Required next durable outcome: complete checkpoint/model with `trainer_state.json`, `all_results.json`, and stop proof, or a fresh exact runtime blocker with command, logs, node status, stop proof, owner, and next fix.
 - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+
+## 2026-05-21 Session 22 Post-PR41 Runtime Result
+
+- dev_2 completed the one authorized owner run and stop proof for `M1-S22-POSTPR41-SFT-RUNTIME-DEV2`.
+- LTP frame: `xu.yang~coding-agent-playground-m1-s22-postpr41-qwen3-8b-runtime-20260521T100634Z`; endpoint while active: `ssh -p 27021 root@10.100.22.14`; node: `lg-cmc-b7r202-p07u16-h200-000708`.
+- `/home/xu.yang/coding_agent_playground/outputs` was proved on CephFS, with a 24GiB real-write capacity probe passing and cleaned.
+- Runtime config/manifest used PR #41 merge commit `2fc4b797a85c9375c6c5e1171963abe67aab35e8`, dataset `coding_agent_m1_sft_10_sharegpt`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, and `preprocessing_num_workers: null`.
+- ShareGPT conversion completed 10/10 and training startup was reached; prior `num_proc=4` SyncManager EOF blocker did not recur.
+- Final result: `EXIT_STATUS=1` at `2026-05-21T10:16:21Z`; fresh blocker is CUDA/NCCL `Invalid access of peer GPU memory over nvlink or a hardware error` / local_rank 5 SIGABRT before checkpoint save.
+- No complete checkpoint/model, `trainer_state.json`, or `all_results.json`; no `KeyError: from` or ENOSPC signature; eval not run.
+- Stop proof: LTP reached `STOPPED (Completed)` with completed timestamp `2026-05-21 10:17:58`; endpoint refused connection; no active Milestone GPU is held by dev_2.
+
+## 2026-05-21 Session 22 NCCL/NVLink Follow-Up Split
+
+- PM accepted test_1 final gate result `BLOCKED_FINAL_RUNTIME` for `M1-S22-POSTPR41-SFT-RUNTIME-DEV2`; eval handoff remains blocked.
+- Fresh blocker: `BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY`.
+- No new LTP/SFT/GPU/eval retry is authorized.
+- PM created no-execution mitigation tasks for dev_4, dev_2, dev_3, dev_1, test_1, and test_2.
+- Required next gate: decide whether a future retry should use a different H200 node, adjusted NCCL/NVL settings, or a minimal hardware/NCCL preflight, while preserving PR39 diagnostics, PR41 single-process preprocessing, and `/home/xu.yang` intermediates.

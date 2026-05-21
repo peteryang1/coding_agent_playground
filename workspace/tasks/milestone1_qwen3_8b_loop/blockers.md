@@ -36,6 +36,8 @@
 - PR #41 gate state: the no-execution single-process dataset preprocessing fix now passes PM gate for owner self-merge only. Dev_4 must self-merge PR #41 and mark `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` complete before PM can consider a separate runtime authorization. This gate does not authorize LTP/SFT/GPU/eval/dry-run.
 - Current post-PR41 runtime blocker: no complete checkpoint/model, `trainer_state.json`, or `all_results.json` exists. After PR #41 is merged and completion-marked, the next possible progress item is a fresh PM-gated dev_2 runtime/resource authorization using `/home/xu.yang/coding_agent_playground/outputs`, not PM-run execution.
 - Post-PR41 runtime is now authorized for dev_2 only under `M1-S22-POSTPR41-SFT-RUNTIME-DEV2`. The active blocker is runtime outcome: dev_2 must produce a checkpoint/model with `trainer_state.json` and `all_results.json`, or a fresh exact runtime blocker with logs/node status/stop proof. mini-swe eval remains blocked until PM gates a model/checkpoint or served endpoint.
+- Post-PR41 final blocker: `M1-S22-POSTPR41-SFT-RUNTIME-DEV2` is blocked-with-final-runtime-evidence. The run cleared the prior dataset-map blocker and reached training startup, then failed with fresh CUDA/NCCL `Invalid access of peer GPU memory over nvlink or a hardware error` / local_rank 5 SIGABRT before checkpoint save. No checkpoint/model, `trainer_state.json`, or `all_results.json`; eval handoff blocked.
+- Next authorization blocker: no fresh runtime is authorized until dev_4/dev_2/dev_3/dev_1/test_1 complete the NCCL/NVLink mitigation/resource/data/review/test gates and PM decides whether to use a different H200 node, adjusted NCCL/NVL settings, or a minimal hardware/NCCL preflight.
 
 ## Active
 
