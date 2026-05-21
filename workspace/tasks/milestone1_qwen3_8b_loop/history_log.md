@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=7 -->
+<!-- METADATA:SESSION=8 -->
 
 ## Session 1 - 2026-05-21
 
@@ -43,3 +43,9 @@
 - Refreshed `M1-S23-PARSERPATCH-GATE-TEST1` after PR #49 advanced. PM cited head `6dd0f1bfe1635af650a7fbc928bfbabe4c8c4098`; current GitHub head observed by test_1 is `9393fdec8e5fef7df250743e1a958436a8dfa79a`.
 - Confirmed diff from the prior pass head `1ddfe31d8345418572a6d70d1ba15da424fd7aef` to current head touches only docs/status/evidence/task-registry files and does not modify `scripts/parse_s22_preflight_health.py`.
 - Updated PM durable gate evidence to keep `PASS_FOR_PM_RETRY`; no LTP/GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`.
+
+## Session 8 - 2026-05-21
+
+- Created `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_resource_gate.md`.
+- Current result is `BLOCKED_MISSING_DEV2_CEPHFUSE_FIX_PLAN` because `evidence/dev_2_s23_cephfuse_resource_fix.md` and `evidence/gpu_s23_cephfuse_resource_plan.md` do not exist yet.
+- Recorded the prior parser-patch runtime bootstrap failure facts and future gate assertions for `/home/xu.yang` mount/proof, storage-bootstrap/image fix, no remote source/dependency network, local bundle transfer/checksum evidence, node/job/endpoint/stop proof, and SFT only after structured preflight PASS plus `sft_allowed=true`. No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`.

@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=7 -->
+<!-- METADATA:SESSION=8 -->
 
 ## Knowledge Entries
 
@@ -17,3 +17,5 @@
 11. Session 23 parser patch gate fact: `M1-S23-PARSERPATCH-GATE-TEST1` is currently blocked on missing dev_4 parser patch PR; PR #48 is not the patch PR and does not contain `evidence/dev_4_s23_parserfixed_parser_patch.md` or actual parser code changes.
 12. Parser patch acceptance fact: future dev_4 parser patch must preserve required structured fields, accept raw `/home/xu.yang/coding_agent_playground/outputs` and resolved `/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs`, classify Xid/SXid as fresh/current, stale historical, or unknown-time, and include local non-runtime tests/test attempts for storage and Xid/SXid behavior.
 13. PR #49 gate fact: `M1-S23-PARSERPATCH-GATE-TEST1` passes test_1 no-execution gate for PM retry. Prior source-reviewed pass head was `1ddfe31d8345418572a6d70d1ba15da424fd7aef`; current observed head is `9393fdec8e5fef7df250743e1a958436a8dfa79a`, with only docs/status/evidence/task-registry changes after `1ddfe31` and no parser script changes. This does not authorize runtime by itself.
+14. Ceph-fuse resource gate fact: `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` is blocked until dev_2 writes `evidence/dev_2_s23_cephfuse_resource_fix.md` and `evidence/gpu_s23_cephfuse_resource_plan.md`; prior parser-patch runtime failed before transfer/preflight/SFT with `ceph-fuse: command not found`, exit 220, state `FAILED (Completed)`.
+15. Ceph-fuse retry acceptance fact: any next runtime plan must prove `/home/xu.yang`, avoid remote GitHub/source/dependency downloads, preserve local bundle transfer/checksum evidence, require node/job/endpoint/stop proof, and keep SFT forbidden unless structured preflight is PASS and `sft_allowed=true`.
