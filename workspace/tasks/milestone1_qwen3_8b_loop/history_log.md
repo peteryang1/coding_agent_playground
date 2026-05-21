@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=10 -->
+<!-- METADATA:SESSION=11 -->
 
 ## Session 1 - 2026-05-21
 
@@ -62,3 +62,9 @@
 - Refreshed `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` after PM durable branch commit `88e0482` made the previously missing dev_2/dev_3/test_2 inputs available and PR #51 advanced to head `972c91f7da4aa5b89877023fcff3b6c1d0b9fe9b`.
 - Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_resource_gate.md` to `PASS_FOR_PM_RETRY`: dev_2 storage bootstrap/resource plan, dev_3 data transfer staging, test_2 eval-blocked readiness, and dev_4 launch package satisfy the no-execution retry gate for `/home/xu.yang` proof, no remote source/dependency downloads, local bundle/checksum transfer, node/job/endpoint/stop proof, and SFT only after structured preflight PASS plus `sft_allowed=true`.
 - Recorded that the gate does not authorize runtime by itself; PM must explicitly authorize any fresh allocation/run, and eval remains blocked until checkpoint/model plus `trainer_state.json`/`all_results.json` or a PM-approved served endpoint exists. No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`.
+
+## Session 11 - 2026-05-21
+
+- Created `M1-S23-CEPHFUSE-RUNTIME-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_runtime_gate.md`.
+- Result is `BLOCKED_FINAL_RUNTIME_PREFLIGHT_HEALTH_SIGNATURE_NO_SFT`: dev_2's final runtime proved source/data transfer, `/home/xu.yang` CephFS storage, 24 GiB capacity probe, no remote source/dependency downloads, and stop/no-running-job cleanup, but structured preflight returned `FAIL_HEALTH_SIGNATURE` with `sft_allowed=false`.
+- Recorded that SFT was correctly skipped under the PM authorization and prior test gate; no checkpoint/model, `trainer_state.json`, `all_results.json`, or eval handoff exists. No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`.
