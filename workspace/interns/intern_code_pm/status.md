@@ -7,6 +7,7 @@
 - PM recorded dev_2 PR55 runtime final blocker: structured preflight passed and exactly one SFT attempt ran, but launch failed before GPU training with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer outputs/eval exists and the LTP frame is stopped/released.
 - PM created the next no-execution task split for all six owners and will gate dev_4 wrapper fix plus dev_1/test_1 review before any fresh owner-executed runtime authorization.
 - PM delivered those six tasks by tmux inject plus Enter and capture-pane verification; first audit found follow-up evidence and open PR still pending.
+- PM sent a second evidence-or-blocker tmux follow-up to all six owners and verified submitted text in panes.
 - PM did not run LTP, SFT, GPU, eval, remote workspace code, rsync/scp, or remote commands.
 
 | 字段 | 值 |

@@ -108,6 +108,7 @@
 - Frame `xu.yang~coding-agent-playground-m1-s23-pr55-preflight-sft-20260521T145240Z` is stopped/released; final state `STOPPED (Completed)`, completed `2026-05-21 15:09:43`, endpoint refused after stop, and dev_2 records no active Milestone GPU job.
 - PM decision: no fresh LTP/GPU/preflight/SFT/eval retry is authorized. Next work is a no-execution wrapper fix/review/gate split across all six owners, with all future generated SFT/eval intermediates under `/home/xu.yang` and all future runtime source/dependency materials prepared locally then transferred to the node.
 - PM delivered the six follow-up assignments by tmux inject plus Enter and verified with `capture-pane`; the first audit found no follow-up evidence files or open PR yet. Current state stays Working, not blocked: owners have fresh tasks and runtime is intentionally closed until gate evidence lands.
+- PM re-injected a second evidence-or-blocker follow-up to all six owner panes and verified submission by `capture-pane`. Owners must now either complete the named PR55 durable evidence files or write exact blockers in those files; no runtime authorization exists.
 
 ## 2026-05-20 Session 8 Approved GPU Route
 
