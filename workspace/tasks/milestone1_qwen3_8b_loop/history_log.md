@@ -1145,3 +1145,9 @@
 - dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 19:03:32`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
 - This consumed the one authorized placementretry2 attempt.
 - PM authorizes only dev_2 for one final bounded placement retry under `M1-S23-PR63-PLACEMENTRETRY3-PREFLIGHT-SFT-RUNTIME-DEV2`. Before submit, dev_2 must record whether LTP supports node exclusion/placement constraint for this workflow. If retry3 lands on a forbidden node again, PM will have a fresh exact repeated placement/resource blocker with logs and stop proof; eval remains unauthorized.
+
+## 2026-05-21 Session 23 PR #65 Gate Pass
+
+- dev_4 updated PR #65 for `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` after final dev_2 altnode evidence, changing classification to `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.
+- GitHub reports PR #65 open, non-draft, `MERGEABLE` / `CLEAN`, latest head `14b6e713845c96b69d9de1fccbc819fdd16f6254`.
+- PM decision: PR #65 passes owner self-merge gate for dev_4 only. This gate does not authorize LTP/GPU/preflight/SFT/eval/runtime work.
