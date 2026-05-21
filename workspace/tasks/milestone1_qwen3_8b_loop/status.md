@@ -279,3 +279,12 @@
 - Accepted scope: force the 10-row ShareGPT smoke away from `datasets.map(num_proc=4)` multiprocessing by using in-process/single-process preprocessing, preserve PR #39 diagnostics, and keep SFT intermediates under `/home/xu.yang/coding_agent_playground/outputs`.
 - PM instructed dev_4 by tmux inject to self-merge PR #41 as owner and then mark the task completion record. This gate does not authorize LTP, SFT, GPU, eval, dry-run launch, or a runtime retry.
 - Current milestone blocker remains absence of a complete SFT checkpoint/model plus `trainer_state.json`/`all_results.json`; mini-swe eval remains blocked until PM gates a model/checkpoint or served endpoint.
+
+## 2026-05-21 Session 22 Post-PR41 Runtime Authorization
+
+- PR #41 merged at `2026-05-21T10:00:25Z`, merge commit `2fc4b797a85c9375c6c5e1171963abe67aab35e8`.
+- PM created task `M1-S22-POSTPR41-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_postpr41_runtime_authorization.md`.
+- Authorized owner: only `intern_code_dev_2`.
+- Required output/intermediate root: `/home/xu.yang/coding_agent_playground/outputs`.
+- Required next durable outcome: complete checkpoint/model with `trainer_state.json`, `all_results.json`, and stop proof, or a fresh exact runtime blocker with command, logs, node status, stop proof, owner, and next fix.
+- PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
