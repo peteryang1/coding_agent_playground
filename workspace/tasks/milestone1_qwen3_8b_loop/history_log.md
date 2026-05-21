@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=20 -->
+<!-- METADATA:SESSION=21 -->
 
 ## Session 1 - 2026-05-21
 
@@ -123,3 +123,9 @@
 - Re-gated `M1-S23-PR57-MCORE-GATE-TEST1` against PR #59 and `evidence/dev_4_s23_pr57_mcore_fix.md`.
 - Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr57_mcore_gate.md` to `PASS_FOR_PM_RETRY`: functional commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6` adds `MCORE_ADAPTER_DIR`, `PYTHONPATH_PREFIX`, manifest/log capture, and a `USE_MCA=1` import gate for `mcore_adapter` with explicit local/provided bundle and no remote dependency-download instructions.
 - Observed PR #59 fetched head `6b92490d0e9db32da3380a38ada27d75ed529970`; diff after `92e437cf690b68121b9ad9d2f76b18a60a10a2d6` is docs/evidence/status/history only. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
+
+## Session 21 - 2026-05-21
+
+- Created `M1-S23-PR59-RUNTIME-READY-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr59_runtime_ready_gate.md` with result `READY_GATE_DEFINED_CURRENT_RUNTIME_ALREADY_EXECUTED_BY_DEV2`.
+- Created `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr59_llamafactory_cli_gate.md` with result `BLOCKED_MISSING_DEV4_LLAMAFACTORY_CLI_FIX`.
+- Validated from durable evidence that dev_2 PR59 runtime passed local source/data/mcore transfer checks, `mcore_adapter import OK for USE_MCA=1`, `/home/xu.yang` storage/capacity, structured preflight `PASS`, and `SFT_ALLOWED=true`; the single SFT attempt then exited `127` before checkpoint because `LLAMAFACTORY_CLI` was a space-containing command string executed as one quoted path. No checkpoint/model, `trainer_state.json`, `all_results.json`, or eval artifact exists; stop/no-running-job proof is complete. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.

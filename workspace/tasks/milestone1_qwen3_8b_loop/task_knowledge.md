@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=20 -->
+<!-- METADATA:SESSION=21 -->
 
 ## Knowledge Entries
 
@@ -43,3 +43,5 @@
 37. PR57 mcore retry rule: next runtime is blocked until dev_4 provides a no-execution mcore/USE_MCA fix package or PR that either packages `mcore_adapter` and dependencies via local/provided transfer with checksums and no remote downloads, or selects a PM-approved non-MCA path; dev_1/test_1 must gate it before PM authorizes another LTP/GPU/SFT attempt.
 38. PR59 mcore fix gate fact: test_1 re-gated `M1-S23-PR57-MCORE-GATE-TEST1` to `PASS_FOR_PM_RETRY` after PR #59 functional commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`; the patch adds `MCORE_ADAPTER_DIR`, `PYTHONPATH_PREFIX`, manifest/log fields, and a `USE_MCA=1` import gate for `mcore_adapter` with local/provided bundle and no-remote-download instructions. Observed fetched PR head `6b92490d0e9db32da3380a38ada27d75ed529970` only adds docs/evidence/status/history after the functional commit.
 39. PR59 runtime boundary: `PASS_FOR_PM_RETRY` does not authorize runtime. A retry must stage `mcore_adapter` from local/provided workspace, record provenance/file list/checksums/transfer/post-transfer verification, keep generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`, pass structured preflight with `SFT_ALLOWED=true`, pass the `USE_MCA=1` import gate, and still produce checkpoint/model plus `trainer_state.json` and `all_results.json` before eval handoff.
+40. PR59 runtime result fact: dev_2's PR59 runtime passed source/data/mcore transfer, no-remote-network, `mcore_adapter import OK for USE_MCA=1`, `/home/xu.yang` storage/capacity, structured preflight `PASS`, and `SFT_ALLOWED=true`, then the single SFT attempt failed before checkpoint with `BLOCKED_PR59_RUNTIME_LLAMAFACTORY_CLI_COMMAND_STRING` because `LLAMAFACTORY_CLI` was a space-containing command string executed as one quoted path.
+41. PR59 LLAMAFACTORY_CLI retry rule: next runtime is blocked until dev_4 provides a no-execution fix that supports command-plus-args safely or points `LLAMAFACTORY_CLI` to a real executable/wrapper path without embedded spaces, while preserving `DEP_TARGET`, `LF`, `MCORE_ADAPTER_DIR`, no-remote-network transfer, `/home/xu.yang` outputs, preflight/import gates, and stop-proof requirements.
