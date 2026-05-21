@@ -415,3 +415,43 @@ resolution: preserved current origin/main PM/data-format/Session 21/22 records a
 latest GitHub mergeability after push: MERGEABLE / CLEAN
 required checks: none reported
 ```
+
+## Session 29 PM Follow-Up Verification
+
+PM follow-up scope:
+
+```text
+Continue M1-S22-EARLY-EXIT-FIX-DEV4 as a no-execution patch PR.
+PR must cite task id, owner, acceptance criteria, evidence path, and completion marker.
+Future SFT intermediates/log/checkpoint/run metadata defaults remain under /home/xu.yang.
+Do not run SFT/GPU/eval.
+```
+
+PR #39 verification:
+
+```text
+PR URL: https://github.com/peteryang1/coding_agent_playground/pull/39
+state: OPEN
+draft: false
+base: main
+head: intern_code_dev_4/M1-S22-EARLY-EXIT-FIX-DEV4
+mergeability: MERGEABLE / CLEAN
+required checks: none reported
+```
+
+PR body fields verified:
+
+```text
+Task ID: M1-S22-EARLY-EXIT-FIX-DEV4
+Owner: intern_code_dev_4
+Acceptance criteria: present
+Evidence path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md and workspace/interns/intern_code_dev_4/status.md
+Completion marker: Ready-for-review; future retry remains blocked until PM/test/resource gate explicitly authorizes it
+Execution boundary: no SFT/GPU/eval or dry-run launch
+```
+
+Current durable status:
+
+```text
+Ready-for-PM-gate: PR #39 is open, pushed, non-draft, and MERGEABLE/CLEAN. No SFT/GPU/eval command was run in this follow-up.
+```

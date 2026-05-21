@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=28 -->
+<!-- METADATA:SESSION=29 -->
 
 ## Session 1 - 2026-05-20
 
@@ -675,3 +675,13 @@
 - Added `configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml` with ShareGPT dataset, CephFS output path, `save_steps: 2`, `save_total_limit: 1`, `max_steps: 2`, and TP=8 settings.
 - Local checks run: `bash -n scripts/train_qwen3_8b_sft.sh`; `python3 -m py_compile scripts/write_sft_run_manifest.py`.
 - No SFT/GPU/eval or dry-run launch command was run.
+
+## Session 29 - Dev 4 PR #39 Follow-Up Verification - 2026-05-21
+
+- Continued task `M1-S22-EARLY-EXIT-FIX-DEV4` as a no-execution patch PR task.
+- Re-checked PR #39: `https://github.com/peteryang1/coding_agent_playground/pull/39`.
+- PR #39 body includes task id `M1-S22-EARLY-EXIT-FIX-DEV4`, owner `intern_code_dev_4`, acceptance criteria, evidence path `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md`, completion marker, and no-execution boundary.
+- GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
+- Durable evidence/status updated to record the PM follow-up verification.
+- Future SFT intermediates, logs, checkpoints, and run metadata remain defaulted to `/home/xu.yang/coding_agent_playground/outputs`.
+- No SFT/GPU/eval command was run.

@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=28 -->
+<!-- METADATA:SESSION=29 -->
 
 ## Knowledge Entries
 
@@ -165,3 +165,4 @@
 151. Session 22 runtime blocker fact: the authorized dev_2 retry proved `/home/xu.yang` CephFS and capacity, then exited with `EXIT_STATUS=1` before manifest/config/checkpoint artifacts or useful stderr/stdout were produced. This is an early training-script/wrapper failure, distinct from prior `KeyError: from` and safetensors ENOSPC. No checkpoint/model exists and the LTP frame is stopped.
 152. Session 28 implementation fact: dev_4 opened PR #39 for `M1-S22-EARLY-EXIT-FIX-DEV4`; it patches `scripts/train_qwen3_8b_sft.sh` for first-durable-point logging, xtrace, ERR/EXIT diagnostics, preflight artifact, CephFS default output root, `DATASET_NAME` config rewrite, and non-`exec` trainer launch. `scripts/write_sft_run_manifest.py` records runtime save policy and preflight paths from generated config/environment.
 153. PR #39 gate fact: after dev_4 merged current `origin/main` and resolved durable-file conflicts, GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
+154. Session 29 PR #39 follow-up fact: PR #39 body cites task id, owner, acceptance criteria, evidence path, completion marker, and no-execution boundary; future SFT intermediates/logs/checkpoints/run metadata remain defaulted to `/home/xu.yang/coding_agent_playground/outputs`.
