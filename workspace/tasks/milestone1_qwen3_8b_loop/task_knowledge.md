@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=24 -->
+<!-- METADATA:SESSION=25 -->
 
 ## Knowledge Entries
 
@@ -48,3 +48,4 @@
 42. PR61 LLAMAFACTORY_CLI fix gate fact: test_1 re-gated `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1` to `PASS_FOR_PM_RETRY` for PR #61 latest head `d4f3340d1f7b32d91553cbe18d7effce533276c7`; the functional commit `59524d9a905b07e4940ec17de277d862dcd99900` parses `LLAMAFACTORY_CLI` into `LLAMAFACTORY_CMD` and invokes `"${LLAMAFACTORY_CMD[@]}" train`, removing the single quoted path blocker while preserving prior mcore, storage, no-remote-download, and diagnostics gates.
 43. PR61 runtime blocker fact: dev_2's post-PR61 runtime passed transfer/import/preflight and PR61 `LLAMAFACTORY_CMD` behavior, then failed before checkpoint with `BLOCKED_PR61_RUNTIME_MCA_MODEL_NAME_OR_PATH_PARSE` / `ValueError: Please provide model_name_or_path`; generated YAML contained `model_name_or_path`, so the next gate needs a dev_4 MCA/model-path binding fix package before PM authorizes another runtime.
 44. PR63 MCA model-path fix gate fact: test_1 re-gated `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1` to `PASS_FOR_PM_RETRY` for PR #63 head `a035692dc72b40434240d0308c36f4d071644849`; the patch preserves PR61 command-array parsing and normalizes direct `llamafactory/launcher.py` commands to `python3 -m llamafactory.cli`, so LLamaFactory's parser should receive the YAML config path in the supported CLI flow.
+45. PR63 latest-head refresh fact: PR #63 latest head `a0ab039278198a6c1b0cd40009038d89cd602922` only changes docs/status/evidence/task-registry files after previously gated functional head `a035692dc72b40434240d0308c36f4d071644849`; no `scripts/`, `tests/`, or `configs/` paths changed, so test_1 kept `PASS_FOR_PM_RETRY`.
