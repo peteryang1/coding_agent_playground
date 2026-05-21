@@ -1,6 +1,6 @@
 # M1-S23-PR57-LAUNCH-SUPPORT-DEV4
 
-<!-- METADATA:STATUS=InProgress,ASSIGNEE=intern_code_dev_4 -->
+<!-- METADATA:STATUS=ReadySupportNoNewFix,ASSIGNEE=intern_code_dev_4,PR=59 -->
 
 Owner: `intern_code_dev_4`
 
@@ -15,3 +15,7 @@ Acceptance:
 - Do not run LTP/GPU/preflight/SFT/eval/dry-run/runtime.
 
 Completion marker: ready-support/no-new-fix after durable evidence/status are written; future code PR only if dev_2 reports a concrete wrapper/launch blocker and PM assigns/gates it.
+
+PR: https://github.com/peteryang1/coding_agent_playground/pull/59
+
+PR state at creation check: open, non-draft, `MERGEABLE` / `CLEAN`; waiting for PM gate before any owner self-merge.

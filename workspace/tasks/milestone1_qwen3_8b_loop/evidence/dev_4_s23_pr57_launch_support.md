@@ -93,11 +93,14 @@ task_id: M1-S23-PR57-LAUNCH-SUPPORT-DEV4
 owner: intern_code_dev_4
 result: READY_SUPPORT_NO_NEW_FIX
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr57_launch_support.md
+pr: https://github.com/peteryang1/coding_agent_playground/pull/59
+pr_state: open_non_draft_mergeable_clean_waiting_for_pm_gate
+pr_head_commit: 39a618a9321e605d5a3e6915d5137ddcf8344c98
 pr57_merged: true
 pr57_merge_commit: c450429c2e3369adc723d132396399cd17dba684
 pr58_merged: true
 pr58_merge_commit: b4ac31ef1e3772953108348bf099818326ed65cc
 runtime_authorized_for_dev4: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
-next_dev4_action: wait for concrete dev_2 wrapper/launch blocker evidence or PM task
+next_dev4_action: wait for PM gate on PR #59 or concrete dev_2 wrapper/launch blocker evidence
 ```
