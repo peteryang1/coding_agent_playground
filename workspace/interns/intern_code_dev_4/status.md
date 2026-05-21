@@ -7,8 +7,8 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | #51 merged |
-| Session | 1 |
+| PR | none, evidence-only triage complete |
+| Session | 23 |
 
 ## PM Corrections
 
@@ -64,3 +64,5 @@
 - 2026-05-21 Session 23: Accepted task `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4`. Prepared no-execution CephFS launch/spec package in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_cephfuse_launch_package.md`: dev_4 launcher must not call `ceph-fuse`; future SFT launch should verify already-mounted `/home/xu.yang/coding_agent_playground/outputs`, preserve local bundle/checksum transfer with no remote GitHub/source/dependency network, and keep generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`. No LTP/GPU/preflight/SFT/eval command was run.
 - 2026-05-21 Session 23 PR: Opened PR #51 `https://github.com/peteryang1/coding_agent_playground/pull/51` for `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4`. GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. Waiting for PM gate before any self-merge; no LTP/GPU/preflight/SFT/eval command was run.
 - 2026-05-21 Session 1 completion: PM gate passed for PR #51 and dev_4 self-merged it at `2026-05-21T13:23:23Z`; merge commit `c02a53a344f2ad7a33b04f529d5125677237d4cb`. Task `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4` is complete; runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 23: Accepted task `M1-S23-CEPHFUSE-HEALTH-TRIAGE-DEV4`. Reviewed PM durable dev_2/test_1/dev_1 evidence for the ceph-fuse-fixed preflight runtime. Wrote no-execution triage to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_cephfuse_health_triage.md`: primary blocker is real SXid 20009 / NVLink RX Short Error Rate in `dmesg_gpu_fault_scan.txt`; NCCL_ASYNC_ERROR_HANDLING deprecation warnings are benign parser noise and did not affect the SFT decision because SXid 20009 independently blocks. No parser/spec PR opened; no LTP/GPU/preflight/SFT/eval/dry-run command was run.
+- 2026-05-21 Session 23 completion: `M1-S23-CEPHFUSE-HEALTH-TRIAGE-DEV4` is complete-for-triage and ready for PM review. Evidence was synced to PM durable path; no code/spec/config PR was opened because no current-decision parser/spec change is required.

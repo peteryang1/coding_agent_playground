@@ -819,3 +819,12 @@
 - Self-merged PR #51 at `2026-05-21T13:23:23Z`; merge commit `c02a53a344f2ad7a33b04f529d5125677237d4cb`.
 - Task `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4` is complete as a no-execution launch/spec package.
 - Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 46 - Dev 4 Ceph-Fuse Health Triage - 2026-05-21
+
+- Accepted PM task `M1-S23-CEPHFUSE-HEALTH-TRIAGE-DEV4`.
+- Reviewed PM durable dev_2 runtime/tracking evidence for the ceph-fuse-fixed preflight after PR #51.
+- Wrote no-execution triage `evidence/dev_4_s23_cephfuse_health_triage.md`.
+- Triage result: real SXid 20009 / NVLink RX Short Error Rate in `dmesg_gpu_fault_scan.txt` remains actionable and correctly blocks SFT; `NCCL_ASYNC_ERROR_HANDLING` deprecation warning lines are benign parser noise because the same all-reduce log reports `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`.
+- No parser/spec PR opened because the current run decision remains blocked by real SXid 20009 even if the benign NCCL warning noise is excluded.
+- No LTP/GPU/preflight/SFT/eval/dry-run command was run by dev_4.
