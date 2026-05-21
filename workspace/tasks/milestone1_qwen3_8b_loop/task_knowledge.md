@@ -191,3 +191,4 @@
 177. Session 44 no-network fact: future GPU runtime should consume local checksum-verified repo/data/dependency bundles only, with no remote GitHub/source/dependency network access during launch.
 178. Session 45 completion fact: PR #51 merged at `2026-05-21T13:23:23Z`, merge commit `c02a53a344f2ad7a33b04f529d5125677237d4cb`; `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4` is complete, and runtime remains separately PM-gated.
 179. Session 46 parser hygiene fact: NCCL_ASYNC_ERROR_HANDLING deprecation warnings are non-actionable only when the same all-reduce source reports `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`; real NCCL/CUDA failures and nonzero torchrun exits remain actionable.
+180. Session 47 completion fact: PR #53 merged at `2026-05-21T14:20:56Z`, merge commit `e29c93736be3384663cad953cd18da68c30070fb`; `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` is complete, and runtime remains separately PM-gated.
