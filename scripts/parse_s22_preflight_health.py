@@ -324,14 +324,6 @@ def storage_info(root: Path) -> dict[str, object]:
     }
 
 
-def storage_status(root: Path) -> str:
-    try:
-        root.relative_to(EXPECTED_OUTPUT_ROOT)
-        return "PASS"
-    except ValueError:
-        return "FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS"
-
-
 def top_level_compatibility_fields(
     *,
     status: str,
