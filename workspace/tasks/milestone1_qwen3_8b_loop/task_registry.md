@@ -18,6 +18,7 @@ Routine status and completion proof stay in durable files. Do not peer-send PM f
 
 - `M1-S23-PR57-MCORE-FIX-DEV4`: PR #59 is open/non-draft `MERGEABLE` / `CLEAN`, latest observed head `b0b54279bcf87add7e617b0c08686c40fac41b48`, functional patch commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`. dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`. PM gate passes for dev_4 owner self-merge only; no LTP/GPU/preflight/SFT/eval/runtime retry is authorized by this PR gate.
 - Future runtime gate after PR #59 merge/completion: create a separate dev_2 owner task requiring local/provided `mcore_adapter` source/package provenance, file list, checksum, exact transfer command, destination, post-transfer verification, `MCORE_ADAPTER_DIR`, `mcore_adapter` import-check proof, no remote source/dependency downloads, `/home/xu.yang/coding_agent_playground/outputs`, structured preflight PASS, and `SFT_ALLOWED=true` before SFT.
+- No-submit readiness tasks created while PR #59 owner merge is pending: `M1-S23-PR59-RUNTIME-READY-DEV2`, `M1-S23-PR59-RUNTIME-READY-REVIEW-DEV1`, `M1-S23-PR59-RUNTIME-READY-GATE-TEST1`, `M1-S23-PR59-DATA-RECONFIRM-DEV3`, and `M1-S23-PR59-EVAL-READY-REBLOCK-TEST2`. These tasks prepare evidence/checklists only and do not authorize LTP/GPU/transfer/preflight/SFT/eval/dry-run.
 
 ## Active Tasks
 
