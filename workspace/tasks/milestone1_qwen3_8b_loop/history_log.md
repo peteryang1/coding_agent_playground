@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=26 -->
+<!-- METADATA:SESSION=27 -->
 
 ## Session 1 - 2026-05-20
 
@@ -746,4 +746,15 @@
   - clean base model remains `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` because it is an existing PM-selected input path;
   - historical failed-run `/mnt/3fs` run/checkpoint paths remain audit evidence only and must not be reused for future outputs.
 - Refreshed command and capacity-probe templates to target `/home/xu.yang`.
+- No SFT/GPU/eval command was run.
+
+## Session 27 - Dev 4 Session 22 Early-Exit Fix Package - 2026-05-21
+
+- Accepted task `M1-S22-EARLY-EXIT-FIX-DEV4`.
+- Reviewed dev_2 Session 22 evidence `evidence/dev_2_s22_enospc_retry_runtime.md` and `evidence/gpu_s22_enospc_retry_tracking.md`.
+- Runtime facts reviewed: run `milestone1_qwen3_8b_s22_enospcfix_sharegpt_tp8_maxsteps2_20260521T082037Z` used `/home/xu.yang/coding_agent_playground/outputs`, preserved `coding_agent_m1_sft_10_sharegpt`, passed 24GiB CephFS capacity probe, then exited `EXIT_STATUS=1` with log content only `START_UTC=2026-05-21T08:27:52Z`.
+- Diagnostic conclusion: because `scripts/train_qwen3_8b_sft.sh` should create the run config and run_manifest before dataset/GPU/LLamaFactory checks, the absence of run_manifest/runtime config/checkpoint artifacts means the failure happened before or inside the wrapper prelude, and durable stderr/stdout capture started too late or the script was not reached.
+- Wrote no-execution evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md` and the PM durable path.
+- Proposed fix scope: patch `scripts/train_qwen3_8b_sft.sh` to own first-line durable logging under `/home/xu.yang`, add xtrace and ERR/EXIT diagnostics, write preflight proof before training, preserve `DATASET_NAME=coding_agent_m1_sft_10_sharegpt`, and avoid direct `exec` of `llamafactory-cli` so traps can record trainer status.
+- Also proposed `scripts/write_sft_run_manifest.py` manifest hardening to record actual runtime save policy and preflight fields rather than stale static checkpoint policy.
 - No SFT/GPU/eval command was run.

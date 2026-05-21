@@ -6,9 +6,9 @@
 |------|-----|
 | Name | intern_code_dev_4 |
 | Status | Working |
-| Current Task | milestone1_qwen3_8b_loop / M1-S21-ENOSPC-CONFIG-FIX-DEV4 |
+| Current Task | milestone1_qwen3_8b_loop / M1-S22-EARLY-EXIT-FIX-DEV4 |
 | PR | No PR opened; durable no-execution evidence package only |
-| Session | 26 |
+| Session | 27 |
 
 ## PM Corrections
 
@@ -40,3 +40,4 @@
 - 2026-05-21 Session 24: Accepted replacement task `M1-S21-PR30-CLEANUP-DEV4`. Closed PR #30 as superseded archival cleanup at `2026-05-21T07:23:06Z` instead of refreshing it again. Wrote cleanup evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_pr30_cleanup.md` and PM durable path, preserving dev_4 retry failure evidence and dev_2 stop proof. No SFT/GPU command was run.
 - 2026-05-21 Session 25: Accepted task `M1-S21-ENOSPC-CONFIG-FIX-DEV4`. Wrote no-execution ENOSPC config/save-strategy evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_enospc_config_fix.md` and PM durable path. Proposed capacity-verified fresh output path plus `save_steps: 2` / `save_total_limit: 1` so the max_steps=2 ShareGPT smoke avoids the step-1 full checkpoint save while still targeting one complete eval-usable checkpoint/model. Preserved dataset entry `coding_agent_m1_sft_10_sharegpt`. No SFT/GPU/eval command was run.
 - 2026-05-21 Session 26: Applied supervisor storage rule to `M1-S21-ENOSPC-CONFIG-FIX-DEV4`. Refreshed `evidence/dev_4_s21_enospc_config_fix.md` locally and in the PM durable path so future SFT launch outputs, logs, checkpoints, run metadata, temporary converted datasets, and intermediates default to CephFS `/home/xu.yang/coding_agent_playground/outputs`. Superseded the prior `/mnt/3fs` output-root recommendation and documented `/mnt/3fs` exceptions only for existing required base-model input and historical failed-run audit paths. No SFT/GPU/eval command was run.
+- 2026-05-21 Session 27: Accepted task `M1-S22-EARLY-EXIT-FIX-DEV4`. Reviewed dev_2 Session 22 runtime/tracking evidence and `scripts/train_qwen3_8b_sft.sh`; wrote no-execution early-exit fix evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md` and PM durable path. Diagnosis: failure occurred before or inside the training wrapper prelude because durable log contains only `START_UTC` and run_manifest/runtime config/checkpoint artifacts are absent. Proposed wrapper changes for first-line durable logging, xtrace, ERR/EXIT diagnostics, runtime config/manifest preflight, and `DATASET_NAME` rewrite while preserving `/home/xu.yang/coding_agent_playground/outputs` and `coding_agent_m1_sft_10_sharegpt`. No SFT/GPU/eval command was run.
