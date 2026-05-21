@@ -139,9 +139,11 @@ python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q: 4 passed in 0.01s
 ```yaml
 task_id: M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4
 owner: intern_code_dev_4
-result: PM_GATED_FOR_OWNER_SELF_MERGE
+result: COMPLETE
 pr: https://github.com/peteryang1/coding_agent_playground/pull/61
-pr_state: open_non_draft_mergeable_clean_pm_gate_passed_owner_self_merge_only
+pr_state: merged
+merged_at: 2026-05-21T17:13:17Z
+merge_commit: aa426b045b52b71bc23b4a2f73f3ee1c42187037
 pm_gate_head: d4f3340d1f7b32d91553cbe18d7effce533276c7
 functional_patch_commit: 59524d9a905b07e4940ec17de277d862dcd99900
 runtime_authorized_for_dev4: false
