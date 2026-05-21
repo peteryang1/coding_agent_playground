@@ -26,6 +26,7 @@
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 - 2026-05-21 Session 22 storage gate resolved for pre-run authorization: dev_4/dev_2/dev_3/dev_1/test_1/test_2 evidence now records `/home/xu.yang` defaults or required-path exceptions, and dev_1/test_1 both record `PASS_FOR_PM_RETRY`.
 - Active runtime blocker: checkpoint is still absent after the single authorized `M1-S22-ENOSPC-RETRY-RUNTIME-DEV2` run. The run proved `/home/xu.yang` CephFS and capacity, then exited `EXIT_STATUS=1` before `run_manifest.json`, generated runtime config, checkpoint/model, `trainer_state.json`, or `all_results.json`; log only contains `START_UTC`. dev_2 stopped/released the LTP frame. Next gate is no-execution early-exit fix/review/post-run gate; no new GPU/SFT/eval retry is authorized.
+- Current next action: dev_4 must open/update a no-execution patch PR for `M1-S22-EARLY-EXIT-FIX-DEV4`; dev_1/test_1 must refresh review/gate against that package. No checkpoint exists and mini-swe remains blocked.
 
 ## Active
 

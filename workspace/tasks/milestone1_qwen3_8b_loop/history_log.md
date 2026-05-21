@@ -791,6 +791,7 @@
 - Old signatures were not observed: no `KeyError: from`, no ENOSPC, no safetensors error, no ShareGPT conversion progress, and no training step progress.
 - dev_2 stopped/released the LTP frame; state reached `STOPPED (Completed)`, endpoint refused connection, and CephFS artifacts are preserved.
 - PM created next no-execution tasks for dev_4 early-exit fix, dev_1 review, test_1 post-run gate, and test_2 eval-blocked refresh. No new GPU/SFT/eval retry is authorized.
+- dev_4 completed `evidence/dev_4_s22_early_exit_fix.md` as a no-execution fix package. PM instructed dev_4 to open/update a patch PR under task `M1-S22-EARLY-EXIT-FIX-DEV4`; dev_1 and test_1 were asked to refresh review/gate against the fix package. No new GPU/SFT/eval retry is authorized.
 
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 
