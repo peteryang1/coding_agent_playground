@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | N/A |
-| Session | 12 |
+| Session | 13 |
 
 ## Acknowledgements
 
@@ -63,3 +63,4 @@
 - 2026-05-21: Refreshed `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` after PM durable commit `88e0482` added the previously missing inputs and PR #51 advanced to head `972c91f7da4aa5b89877023fcff3b6c1d0b9fe9b`. Updated PM durable evidence to `PASS_FOR_PM_RETRY`: dev_2 storage/bootstrap and resource plan, dev_3 data transfer staging, test_2 eval-blocked readiness, and dev_4 PR #51 package satisfy the no-execution retry gate; fresh PM runtime authorization remains required and eval remains blocked until a model/checkpoint or served endpoint exists. No LTP/GPU/SFT/eval/dry-run run by test_1; no peer_send used.
 - 2026-05-21: Completed `M1-S23-CEPHFUSE-RUNTIME-GATE-TEST1`: created PM durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_runtime_gate.md` with result `BLOCKED_FINAL_RUNTIME_PREFLIGHT_HEALTH_SIGNATURE_NO_SFT`. Validated dev_2 final runtime evidence: source/data transfer and `/home/xu.yang` CephFS storage passed, structured preflight fields were complete but returned `FAIL_HEALTH_SIGNATURE` with `sft_allowed=false`, SFT was correctly skipped, checkpoint/eval artifacts are absent, and stop/no-running-job proof passed. No LTP/GPU/SFT/eval/dry-run run by test_1; no peer_send used.
 - 2026-05-21: Accepted PM standby assignment for dev_4 `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` and dev_2 `M1-S23-SXID-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`. Created PM durable standby gate `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_sxid_standby_gate.md` with result `STANDBY_WAITING_DEV4_PR_OR_DEV2_RUNTIME_EVIDENCE`; current check found PM authorization present, no open PR, and dev_4/dev_2 runtime evidence files absent. No LTP/GPU/SFT/eval/dry-run run by test_1; no peer_send used.
+- 2026-05-21: Completed two Session 23 no-execution gates. Created PM durable `evidence/test_1_s23_same_node_runtime_gate.md` with `BLOCKED_FINAL_PLACEMENT_SAME_SXID_NODE_STOPPED_NO_PREFLIGHT_NO_SFT`, verifying dev_2 stopped before transfer/preflight/SFT/eval on forbidden node and no model/trainer/eval artifacts exist. Created `evidence/test_1_s23_nccl_warning_parser_hygiene_gate.md` with `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE` for PR #53, verifying narrow benign NCCL warning suppression and real-fault preservation. No LTP/GPU/preflight/SFT/eval run by test_1; no peer_send used.

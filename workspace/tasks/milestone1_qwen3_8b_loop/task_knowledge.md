@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=12 -->
+<!-- METADATA:SESSION=13 -->
 
 ## Knowledge Entries
 
@@ -27,3 +27,5 @@
 21. Ceph-fuse runtime acceptance rule: when structured preflight is not PASS or `sft_allowed=false`, SFT must be skipped, checkpoint/model and eval handoff remain blocked, and the next PM decision must address the live health signatures or parser classification before any new authorized runtime.
 22. SXid standby fact: PM authorized exactly one fresh different-node dev_2 runtime under `M1-S23-SXID-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`; test_1 standby gate currently waits for `evidence/dev_2_s23_sxid_differentnode_preflight_sft_runtime.md` and `evidence/gpu_s23_sxid_differentnode_preflight_sft_tracking.md`.
 23. Parser hygiene standby fact: dev_4 owns `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4`; test_1 should gate its PR/evidence only when present, requiring benign `NCCL_ASYNC_ERROR_HANDLING` warning suppression without weakening real NCCL/CUDA/SIGABRT/ChildFailedError/Xid/SXid/ECC/NVLink detection.
+24. Same-node placement gate fact: `M1-S23-SXID-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2` landed on forbidden node `lg-cmc-b7r202-q03u26-h200-000730`; dev_2 correctly stopped before transfer/preflight/SFT/eval. Test_1 result is `BLOCKED_FINAL_PLACEMENT_SAME_SXID_NODE_STOPPED_NO_PREFLIGHT_NO_SFT`; any future runtime requires placement-safe authorization criteria.
+25. PR #53 parser hygiene gate fact: test_1 passed PR #53 head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f` as `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE`; the patch suppresses only benign `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings when `TORCHRUN_EXIT=0` and `ALLREDUCE_OK` are present in the same source, while preserving SXid 20009 and real NCCL failure detection.

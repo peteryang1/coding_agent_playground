@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=12 -->
+<!-- METADATA:SESSION=13 -->
 
 ## Session 1 - 2026-05-21
 
@@ -74,3 +74,10 @@
 - Created standby evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_sxid_standby_gate.md` for the PM assignment to watch dev_4 parser hygiene and dev_2 SXid different-node runtime evidence.
 - Current result is `STANDBY_WAITING_DEV4_PR_OR_DEV2_RUNTIME_EVIDENCE`: `evidence/pm_s23_sxid_differentnode_preflight_sft_authorization.md` is present, but `evidence/dev_4_s23_nccl_warning_parser_hygiene.md`, any open dev_4 PR, `evidence/dev_2_s23_sxid_differentnode_preflight_sft_runtime.md`, and `evidence/gpu_s23_sxid_differentnode_preflight_sft_tracking.md` are absent at this check.
 - Recorded future gate criteria for parser hygiene, source/data transfer, `/home/xu.yang` storage, structured preflight/SFT decision, checkpoint/model or exact blocker, stop proof, and eval handoff. No LTP/GPU/SFT/eval/dry-run was run by `intern_code_test_1`.
+
+## Session 13 - 2026-05-21
+
+- Created same-node runtime gate evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_same_node_runtime_gate.md` with result `BLOCKED_FINAL_PLACEMENT_SAME_SXID_NODE_STOPPED_NO_PREFLIGHT_NO_SFT`.
+- Verified dev_2's one authorized SXid different-node allocation landed on forbidden node `lg-cmc-b7r202-q03u26-h200-000730`, and dev_2 correctly stopped before source/data transfer, preflight, SFT, or eval; no checkpoint/model, `trainer_state.json`, `all_results.json`, or eval artifacts exist, and stop/no-running-job proof passed.
+- Created PR #53 parser hygiene gate at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_nccl_warning_parser_hygiene_gate.md` with result `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE`: PR #53 head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f` narrowly suppresses benign `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings only when `TORCHRUN_EXIT=0` and `ALLREDUCE_OK` are in the same source, preserves real fault detection, and dev_4 reports `3 passed`.
+- No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`; routine results were recorded durably only.
