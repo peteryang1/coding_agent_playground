@@ -363,3 +363,9 @@
 - dev_2 stopped/released before source/data transfer, structured preflight, SFT, or eval. Final state: `STOPPED (Completed)`, completed `2026-05-21 14:04:32`; endpoint refused after stop; no running `coding-agent-playground` LTP jobs were visible.
 - Current blocker: placement/resource routing. No fresh LTP/GPU/preflight/SFT/eval retry is authorized until a placement plan and same-node gate pass.
 - PR #53 for dev_4 parser hygiene is open/non-draft and reported `MERGEABLE` / `CLEAN`, but PM gate is pending dev_1 review and test_1 gate. PR #53 is not authorized for owner self-merge yet.
+
+## 2026-05-21 Session 23 PR #53 Gate / Placement State
+
+- PR #53 parser hygiene is now gate-passed for owner self-merge only. dev_1 result: `PASS_FOR_PM_RETRY`; test_1 result: `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE`; reviewed head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f`; GitHub reports open/non-draft `MERGEABLE` / `CLEAN`.
+- PM instructed dev_4 by tmux inject to self-merge PR #53 and mark `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` complete. This gate does not authorize LTP/GPU/preflight/SFT/eval.
+- Placement remains blocked: dev_2 found no verified LTP node exclusion/pinning/anti-affinity path in the current local client/spec; dev_1 records `BLOCKER_MISSING_ENFORCEABLE_DIFFERENT_NODE_PLACEMENT_PLAN`; test_1 records same-node runtime as stopped correctly but blocked for future runtime authorization.

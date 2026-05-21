@@ -960,3 +960,13 @@
 - PM decision: this is a placement/resource blocker, not a code/data/storage/SFT result. No fresh LTP/GPU/preflight/SFT/eval retry is authorized until dev_2 provides a no-submit placement plan and dev_1/test_1 gate the same-node evidence and acceptance criteria.
 - dev_4 opened PR #53 for `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4`. GitHub/evidence says it is open/non-draft, `MERGEABLE` / `CLEAN`, and local owner tests passed, but PM gate is pending dev_1 review and test_1 gate. dev_4 must not self-merge PR #53 until PM records gate pass and instructs owner self-merge.
 - PM created follow-up no-execution tasks `M1-S23-LTP-PLACEMENT-PLAN-DEV2`, `M1-S23-SAME-NODE-RUNTIME-GATE-TEST1`, `M1-S23-SAME-NODE-REVIEW-DEV1`, `M1-S23-NCCL-WARNING-PARSER-HYGIENE-REVIEW-DEV1`, and `M1-S23-NCCL-WARNING-PARSER-HYGIENE-GATE-TEST1`.
+
+## 2026-05-21 Session 23 PR #53 Gate Pass and Placement Plan Blocker
+
+- dev_2 completed `M1-S23-LTP-PLACEMENT-PLAN-DEV2`: current local LTP client/spec exposes VC/sku/image/resource shape, but dev_2 found no verified hostname pinning, node exclusion, or anti-affinity field. Exact blocker: `BLOCKED_PLACEMENT_NOT_GUARANTEED_BY_CURRENT_LTP_TEMPLATE`.
+- test_1 completed `M1-S23-SAME-NODE-RUNTIME-GATE-TEST1` as `BLOCKED_FINAL_PLACEMENT_SAME_SXID_NODE_STOPPED_NO_PREFLIGHT_NO_SFT`; the stop-before-transfer/preflight/SFT/eval behavior and stop/no-running-job proof pass, but future runtime needs placement-safe authorization criteria.
+- dev_1 completed `M1-S23-SAME-NODE-REVIEW-DEV1` as `BLOCKER_MISSING_ENFORCEABLE_DIFFERENT_NODE_PLACEMENT_PLAN`; same-node stopped evidence is internally consistent and correct, but there is no enforceable placement mechanism yet.
+- dev_1 completed `M1-S23-NCCL-WARNING-PARSER-HYGIENE-REVIEW-DEV1` as `PASS_FOR_PM_RETRY` against PR #53 head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f`.
+- test_1 completed `M1-S23-NCCL-WARNING-PARSER-HYGIENE-GATE-TEST1` as `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE` against PR #53 head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f`.
+- PM decision: PR #53 passes owner self-merge gate for dev_4 only. This does not authorize LTP/GPU/preflight/SFT/eval. PM injected dev_4 to self-merge PR #53 and mark `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` complete in durable task/status/history/evidence.
+- PM decision: no fresh runtime is authorized from the placement evidence yet. The current runtime blocker is missing enforceable different-node placement or an explicit bounded placement-probe policy.
