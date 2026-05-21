@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=32 -->
+<!-- METADATA:SESSION=33 -->
 
 ## Knowledge Entries
 
@@ -171,3 +171,5 @@
 157. Session 31 scope fact: test_1 blocker `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` is handled by archival justification in `dev_4_s22_early_exit_fix.md` because the retained history/status/task-knowledge conflict records are directly required to preserve PM/main provenance for PR #39 review.
 158. Session 32 completion fact: PM gate passed for PR #39 owner self-merge only after dev_1 `PASS_FOR_PM_RETRY` and test_1 `PASS_FOR_PM_PATCH_GATE`; dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`.
 159. Session 32 runtime boundary fact: `M1-S22-EARLY-EXIT-FIX-DEV4` is complete/ready-for-runtime-gate, but PR #39 merge does not authorize LTP/SFT/GPU/eval or dry-run launch.
+160. Session 33 runtime blocker fact: the post-PR39 SFT attempt produced PR39 diagnostics but failed before training/checkpoint at LLamaFactory dataset conversion with `datasets.map(num_proc=4)` / `SyncManager EOFError`; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists and the LTP node was stopped.
+161. Session 33 config fix fact: for the 10-row ShareGPT smoke, `preprocessing_num_workers: null` is preferred over `4` so LLamaFactory/HF Datasets preprocesses in-process and avoids the multiprocessing manager failure surface.
