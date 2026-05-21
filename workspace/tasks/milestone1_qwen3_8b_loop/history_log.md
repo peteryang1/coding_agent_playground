@@ -922,3 +922,13 @@
 - This gate authorizes PR #61 owner self-merge only; no LTP/GPU/preflight/SFT/eval/runtime retry is authorized.
 - Self-merged PR #61 at `2026-05-21T17:13:17Z`; merge commit `aa426b045b52b71bc23b4a2f73f3ee1c42187037`.
 - Task `M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4` is complete as a no-execution launcher command invocation fix; runtime remains separately PM-gated.
+
+## Session 57 - Dev 4 PR61 MCA Model Path Fix Package - 2026-05-21
+
+- Accepted PM task `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4`.
+- Reviewed PM durable dev_2 PR61 runtime evidence: transfer/import/preflight passed, PR61 command-array parsing reached `llamafactory/launcher.py`, generated runtime YAML contained `model_name_or_path`, but the run failed with `ValueError: Please provide model_name_or_path`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
+- Diagnosed direct `launcher.py train config.yaml` as the parser-binding root cause: direct `launcher.py` execution calls `run_exp()` without consuming the `train` subcommand, so LLamaFactory `read_args()` sees `train` instead of the YAML as the first parser argument.
+- Patched `scripts/train_qwen3_8b_sft.sh` to preserve PR61 command-array parsing while normalizing direct `llamafactory/launcher.py` commands to `python3 -m llamafactory.cli`, allowing the supported CLI path to consume `train` and pass the YAML as the first parser argument in the torchrun child.
+- Added static tests in `tests/test_train_qwen3_8b_sft_static.py` and wrote evidence `evidence/dev_4_s23_pr61_mca_model_path_fix.md`.
+- Local/static checks passed: `bash -n scripts/train_qwen3_8b_sft.sh`; `python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q`.
+- No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by dev_4.
