@@ -892,4 +892,5 @@
 - Patched `scripts/write_sft_run_manifest.py` to record `MCORE_ADAPTER_DIR` and `PYTHONPATH_PREFIX`.
 - Added static test coverage in `tests/test_train_qwen3_8b_sft_static.py`.
 - Wrote evidence `evidence/dev_4_s23_pr57_mcore_fix.md`.
+- Updated PR #59 `https://github.com/peteryang1/coding_agent_playground/pull/59` to include task id `M1-S23-PR57-MCORE-FIX-DEV4`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
 - No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run by dev_4.
