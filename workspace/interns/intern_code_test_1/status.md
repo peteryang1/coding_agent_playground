@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | N/A |
-| Session | 8 |
+| Session | 9 |
 
 ## Acknowledgements
 
@@ -59,3 +59,4 @@
 - 2026-05-21: Re-gated Session 23 task `M1-S23-PARSERPATCH-GATE-TEST1` against PR #49 head `1ddfe31d8345418572a6d70d1ba15da424fd7aef`. Updated `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_parserpatch_gate.md` to `PASS_FOR_PM_RETRY`: PR #49 is open/non-draft MERGEABLE/CLEAN, dev_4 evidence exists, structured fields are preserved, `/home/xu.yang` and CephFS storage normalization passes source review, Xid/SXid freshness behavior covers stale/fresh/unknown cases, local synthetic tests/test attempts are recorded, and real-fault preservation is maintained. No LTP/GPU/SFT/eval/dry-run/parser execution run by test_1; no peer_send used.
 - 2026-05-21: Refreshed `M1-S23-PARSERPATCH-GATE-TEST1` after PR #49 advanced past prior pass head. PM cited head `6dd0f1bfe1635af650a7fbc928bfbabe4c8c4098`; current GitHub head observed by test_1 is `9393fdec8e5fef7df250743e1a958436a8dfa79a`. Updated `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_parserpatch_gate.md`: `PASS_FOR_PM_RETRY` still holds because commits after `1ddfe31d8345418572a6d70d1ba15da424fd7aef` are docs/status/evidence/task-registry only, with no changes to `scripts/parse_s22_preflight_health.py`. No LTP/GPU/SFT/eval/dry-run/parser execution run by test_1; no peer_send used.
 - 2026-05-21: Started `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` and created `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_cephfuse_resource_gate.md`. Result `BLOCKED_MISSING_DEV2_CEPHFUSE_FIX_PLAN`: required dev_2 files `evidence/dev_2_s23_cephfuse_resource_fix.md` and `evidence/gpu_s23_cephfuse_resource_plan.md` are absent. Gate records prior parser-patch runtime failure at `ceph-fuse: command not found`, and defines assertions for `/home/xu.yang` proof, no remote source/dependency downloads, local bundle transfer/checksum evidence, node/job/endpoint/stop proof, and SFT only after structured preflight PASS plus `sft_allowed=true`. No LTP/GPU/SFT/eval/dry-run run by test_1; no peer_send used.
+- 2026-05-21: Refreshed `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` against PM-named inputs and PR #51 head `326b769acb33cfa53de184e640196353c1d00a07`. Updated PM durable evidence to `BLOCKED_MISSING_REQUIRED_DURABLE_INPUTS`: dev_4 PR #51 launch package passes source/evidence-only checks, but required dev_2 resource fix/plan, dev_3 data transfer staging, and test_2 eval-blocked files are absent in PM worktree, `origin/main`, and fetched PR refs checked by test_1. No LTP/GPU/SFT/eval/dry-run run by test_1; no peer_send used.

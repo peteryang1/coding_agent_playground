@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=8 -->
+<!-- METADATA:SESSION=9 -->
 
 ## Knowledge Entries
 
@@ -19,3 +19,5 @@
 13. PR #49 gate fact: `M1-S23-PARSERPATCH-GATE-TEST1` passes test_1 no-execution gate for PM retry. Prior source-reviewed pass head was `1ddfe31d8345418572a6d70d1ba15da424fd7aef`; current observed head is `9393fdec8e5fef7df250743e1a958436a8dfa79a`, with only docs/status/evidence/task-registry changes after `1ddfe31` and no parser script changes. This does not authorize runtime by itself.
 14. Ceph-fuse resource gate fact: `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` is blocked until dev_2 writes `evidence/dev_2_s23_cephfuse_resource_fix.md` and `evidence/gpu_s23_cephfuse_resource_plan.md`; prior parser-patch runtime failed before transfer/preflight/SFT with `ceph-fuse: command not found`, exit 220, state `FAILED (Completed)`.
 15. Ceph-fuse retry acceptance fact: any next runtime plan must prove `/home/xu.yang`, avoid remote GitHub/source/dependency downloads, preserve local bundle transfer/checksum evidence, require node/job/endpoint/stop proof, and keep SFT forbidden unless structured preflight is PASS and `sft_allowed=true`.
+16. Ceph-fuse resource refresh fact: PR #51 head `326b769acb33cfa53de184e640196353c1d00a07` contains a dev_4 launch package that passes source/evidence-only checks, but `M1-S23-CEPHFUSE-RESOURCE-GATE-TEST1` remains `BLOCKED_MISSING_REQUIRED_DURABLE_INPUTS` because `evidence/dev_2_s23_cephfuse_resource_fix.md`, `evidence/gpu_s23_cephfuse_resource_plan.md`, `evidence/dev_3_s23_cephfuse_data_transfer_staging.md`, and `evidence/test_2_s23_cephfuse_eval_blocked.md` were absent in PM worktree, `origin/main`, and fetched PR refs checked by test_1.
+17. Ceph-fuse gate rule: dev_4 launch package evidence alone is insufficient for `PASS_FOR_PM_RETRY`; full pass requires durable dev_2 storage-bootstrap/image/resource evidence, dev_3 local bundle/data transfer staging with checksums, test_2 eval-blocked/readiness evidence, node/job/endpoint/stop proof, and PM authorization before any runtime.
