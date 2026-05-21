@@ -1,14 +1,14 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Idle,TASK= -->
+<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop/M1-S23-PARSERFIXED-PARSER-PATCH-DEV4 -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Idle |
-| Current Task |  |
-| PR | PR #47 merged |
-| Session | 1 |
+| Status | Working |
+| Current Task | milestone1_qwen3_8b_loop/M1-S23-PARSERFIXED-PARSER-PATCH-DEV4 |
+| PR | #49 open, MERGEABLE/CLEAN |
+| Session | 23 |
 
 ## PM Corrections
 
@@ -58,3 +58,5 @@
 - 2026-05-21: Accepted PM task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`. Reviewed dev_2 parser-fixed preflight runtime/tracking evidence plus dev_1/test_1 refreshed gates. Wrote no-execution fix package evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_parserfixed_blocker_fix.md`, recommending parser changes for Xid/SXid freshness classification and `/home/xu.yang` CephFS path normalization. Opened PR #47 `https://github.com/peteryang1/coding_agent_playground/pull/47`. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 1: PM gate passed for PR #47 / `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, and PM authorized owner self-merge only. Marked local task status Idle/completion-ready before owner self-merge per playbook. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 1 completion: Self-merged PR #47 at `2026-05-21T12:13:48Z` with merge commit `e9cce7b1ee60949c4481b1efcc7074c06761c7fc`. Task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4` is complete; runtime remains separately PM-gated and was not run.
+- 2026-05-21 Session 23: Accepted task `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4`. Implemented parser patch for Xid/SXid freshness classification and `/home/xu.yang`/CephFS output-root normalization in `scripts/parse_s22_preflight_health.py`. Wrote evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_parserfixed_parser_patch.md` and task docs. Local synthetic parser tests passed; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 23 PR: Opened PR #49 `https://github.com/peteryang1/coding_agent_playground/pull/49` for `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4`. GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.

@@ -786,3 +786,13 @@
 - Runtime remains separately gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - Self-merged PR #47 at `2026-05-21T12:13:48Z`; merge commit `e9cce7b1ee60949c4481b1efcc7074c06761c7fc`.
 - Task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4` is complete as a no-execution blocker-fix package; future parser patch/runtime requires separate PM authorization.
+
+## Session 42 - Dev 4 S23 Parser-Fixed Parser Patch - 2026-05-21
+
+- Accepted PM task `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4`.
+- Implemented `scripts/parse_s22_preflight_health.py` changes for Xid/SXid freshness classification.
+- Implemented storage normalization so `/home/xu.yang/coding_agent_playground/outputs` and resolved `/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs` are accepted generated-artifact roots.
+- Wrote evidence `evidence/dev_4_s23_parserfixed_parser_patch.md` and task docs.
+- Local synthetic parser tests passed for stale Xid, fresh Xid/SXid, timestamp-unknown Xid, and outside-root storage failure.
+- Opened PR #49 `https://github.com/peteryang1/coding_agent_playground/pull/49`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.

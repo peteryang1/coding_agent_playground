@@ -12,7 +12,7 @@ import argparse
 import json
 import re
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable
 
@@ -60,7 +60,9 @@ FAULT_TERMS = re.compile(
     re.IGNORECASE,
 )
 
-XID_RE = re.compile(r"\bXid(?:\s+\([^)]+\))?:?\s*\d+\b", re.IGNORECASE)
+XID_RE = re.compile(r"\b(S?Xid)(?:\s+\([^)]+\))?:?\s*(\d+)\b", re.IGNORECASE)
+RUN_ID_TS_RE = re.compile(r"20\d{6}T\d{6}Z")
+ISO_TS_RE = re.compile(r"\b(20\d{2}-\d{2}-\d{2})(?:[T ](\d{2}:\d{2}:\d{2})(?:Z)?)?\b")
 PEER_MEMORY_RE = re.compile(r"Invalid access of peer GPU memory", re.IGNORECASE)
 SIGABRT_RE = re.compile(r"\bSIGABRT\b|exitcode\s*[-=]\s*6|Signal\s+6", re.IGNORECASE)
 CHILD_FAILED_RE = re.compile(r"ChildFailedError", re.IGNORECASE)
@@ -88,6 +90,10 @@ PREFLIGHT_RESULT_RE = re.compile(r"\bPREFLIGHT_RESULT\s*=\s*([A-Z0-9_]+)\b")
 DIFFERENT_NODE_RE = re.compile(r"PASS_DIFFERENT_PHYSICAL_NODE|different-node[^:\n]*:\s*PASS", re.IGNORECASE)
 
 EXPECTED_OUTPUT_ROOT = Path("/home/xu.yang/coding_agent_playground/outputs")
+ACCEPTED_RESOLVED_OUTPUT_ROOTS = (
+    Path("/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs"),
+)
+FRESHNESS_GRACE = timedelta(minutes=10)
 
 
 @dataclass(frozen=True)
@@ -122,6 +128,57 @@ def read_lines(path: Path) -> list[str]:
         return [f"<read_error:{exc}>"]
 
 
+def parse_utc_timestamp(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    text = value.strip()
+    for fmt in ("%Y%m%dT%H%M%SZ", "%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d"):
+        try:
+            parsed = datetime.strptime(text, fmt)
+            return parsed.replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+    return None
+
+
+def infer_freshness_start(root: Path) -> datetime | None:
+    for candidate in [str(root), root.name]:
+        match = RUN_ID_TS_RE.search(candidate)
+        if match:
+            return parse_utc_timestamp(match.group(0))
+    return None
+
+
+def parse_line_time(line: str) -> datetime | None:
+    match = ISO_TS_RE.search(line)
+    if not match:
+        return None
+    date_part, time_part = match.groups()
+    return parse_utc_timestamp(f"{date_part} {time_part}" if time_part else date_part)
+
+
+def classify_freshness(line_time: datetime | None, freshness_start: datetime | None) -> str:
+    if line_time is None or freshness_start is None:
+        return "unknown_time"
+    if line_time < freshness_start - FRESHNESS_GRACE:
+        return "stale_historical"
+    return "fresh_current"
+
+
+def xid_sxid_matches(line: str, freshness_start: datetime | None) -> list[dict[str, object]]:
+    line_time = parse_line_time(line)
+    freshness = classify_freshness(line_time, freshness_start)
+    return [
+        {
+            "kind": match.group(1).upper(),
+            "code": int(match.group(2)),
+            "parsed_time": line_time.isoformat() if line_time else None,
+            "freshness": freshness,
+        }
+        for match in XID_RE.finditer(line)
+    ]
+
+
 def has_ecc_fault(line: str) -> bool:
     if not ECC_RE.search(line):
         return False
@@ -145,8 +202,6 @@ def has_ecc_fault(line: str) -> bool:
 def line_faults(line: str, source_name: str) -> list[str]:
     lowered = source_name.lower()
     faults: list[str] = []
-    if XID_RE.search(line) and any(token in lowered for token in ("dmesg", "journal", "kernel", "nvrm")):
-        faults.append("xid")
     if PEER_MEMORY_RE.search(line):
         faults.append("invalid_peer_gpu_memory")
     if SIGABRT_RE.search(line):
@@ -169,7 +224,7 @@ def iter_files(root: Path) -> Iterable[Path]:
             yield path
 
 
-def infer_artifact_checks(root: Path, files: list[Path]) -> dict[str, dict[str, object]]:
+def infer_artifact_checks(root: Path, files: list[Path], storage: dict[str, object]) -> dict[str, dict[str, object]]:
     names = {rel(path, root): path for path in files}
     checks: dict[str, dict[str, object]] = {
         "capacity": {
@@ -201,9 +256,13 @@ def infer_artifact_checks(root: Path, files: list[Path]) -> dict[str, dict[str, 
             "evidence": [],
         },
         "home_xu_yang_storage": {
-            "status": storage_status(root),
+            "status": storage["status"],
             "expected_root": str(EXPECTED_OUTPUT_ROOT),
+            "accepted_resolved_roots": [str(path) for path in ACCEPTED_RESOLVED_OUTPUT_ROOTS],
             "preflight_dir": str(root),
+            "classification": storage["classification"],
+            "preflight_dir_raw": storage["raw_path"],
+            "preflight_dir_resolved": storage["resolved_path"],
         },
     }
 
@@ -230,12 +289,39 @@ def infer_artifact_checks(root: Path, files: list[Path]) -> dict[str, dict[str, 
     return checks
 
 
-def storage_status(root: Path) -> str:
-    try:
-        root.relative_to(EXPECTED_OUTPUT_ROOT)
-        return "PASS"
-    except ValueError:
-        return "FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS"
+def is_relative_to_any(path: Path, roots: Iterable[Path]) -> bool:
+    for root in roots:
+        try:
+            path.relative_to(root)
+            return True
+        except ValueError:
+            continue
+    return False
+
+
+def storage_info(root: Path) -> dict[str, object]:
+    raw = root.expanduser().absolute()
+    resolved = raw.resolve(strict=False)
+    if is_relative_to_any(raw, (EXPECTED_OUTPUT_ROOT,)):
+        return {
+            "status": "PASS",
+            "classification": "PASS_RAW_HOME_XU_YANG",
+            "raw_path": str(raw),
+            "resolved_path": str(resolved),
+        }
+    if is_relative_to_any(resolved, ACCEPTED_RESOLVED_OUTPUT_ROOTS):
+        return {
+            "status": "PASS",
+            "classification": "PASS_WITH_CEPHFS_RESOLUTION",
+            "raw_path": str(raw),
+            "resolved_path": str(resolved),
+        }
+    return {
+        "status": "FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS",
+        "classification": "FAIL_OUTSIDE_ACCEPTED_ROOTS",
+        "raw_path": str(raw),
+        "resolved_path": str(resolved),
+    }
 
 
 def top_level_compatibility_fields(
@@ -264,10 +350,13 @@ def top_level_compatibility_fields(
     }
 
 
-def parse(root: Path) -> dict[str, object]:
+def parse(root: Path, freshness_start: datetime | None = None) -> dict[str, object]:
     files = list(iter_files(root))
+    freshness_start = freshness_start or infer_freshness_start(root)
+    storage = storage_info(root)
     actionable_faults: list[dict[str, object]] = []
     ignored_matches: list[dict[str, object]] = []
+    xid_history: list[dict[str, object]] = []
     sources_scanned: list[dict[str, str]] = []
     sources_excluded: list[dict[str, str]] = []
 
@@ -278,6 +367,37 @@ def parse(root: Path) -> dict[str, object]:
         if decision.role == "actionable":
             sources_scanned.append({"path": source, "reason": decision.reason})
             for line_no, line in enumerate(lines, start=1):
+                xid_records = xid_sxid_matches(line, freshness_start)
+                for record in xid_records:
+                    record = {
+                        **record,
+                        "path": source,
+                        "line": line_no,
+                        "text": line[:500],
+                    }
+                    xid_history.append(record)
+                    if record["freshness"] == "stale_historical":
+                        ignored_matches.append(
+                            {
+                                "path": source,
+                                "line": line_no,
+                                "reason": "stale_historical_xid_sxid",
+                                "text": line[:500],
+                                "match": record,
+                            }
+                        )
+                    else:
+                        actionable_faults.append(
+                            {
+                                "path": source,
+                                "line": line_no,
+                                "faults": [str(record["kind"]).lower()],
+                                "freshness": record["freshness"],
+                                "code": record["code"],
+                                "parsed_time": record["parsed_time"],
+                                "text": line[:500],
+                            }
+                        )
                 faults = line_faults(line, path.name)
                 if faults:
                     actionable_faults.append(
@@ -291,7 +411,7 @@ def parse(root: Path) -> dict[str, object]:
                         {"path": source, "line": line_no, "reason": decision.reason, "text": line[:500]}
                     )
 
-    checks = infer_artifact_checks(root, files)
+    checks = infer_artifact_checks(root, files, storage)
     missing_required = [
         key
         for key in ("topology", "nvlink", "torch_nccl")
@@ -315,9 +435,13 @@ def parse(root: Path) -> dict[str, object]:
         "actionable_fault": bool(actionable_faults),
         "actionable_faults": actionable_faults,
         "ignored_non_actionable_matches": ignored_matches,
+        "non_actionable_matches": ignored_matches,
+        "xid_sxid_history": xid_history,
+        "freshness_start_utc": freshness_start.isoformat() if freshness_start else None,
         "sources_scanned": sources_scanned,
         "sources_excluded": sources_excluded,
         "checks": checks,
+        "storage": storage,
         "decision": {
             "sft_allowed_if_pm_authorized": status == "PASS",
             "reason": (
@@ -336,7 +460,8 @@ def parse(root: Path) -> dict[str, object]:
                 "summary/result files that can copy searched terms",
             ],
             "preserved_actionable_detection": [
-                "Xid in kernel/dmesg/NVRM logs",
+                "fresh or timestamp-unknown Xid/SXid in kernel/dmesg/NVRM logs",
+                "stale historical Xid/SXid retained as non-actionable audit records",
                 "fatal or nonzero uncorrected ECC",
                 "NVLink link/down/error/replay/CRC faults",
                 "NCCL/CUDA invalid peer GPU memory",
@@ -356,12 +481,13 @@ def main() -> int:
     parser.add_argument("--preflight-dir", required=True)
     parser.add_argument("--out-json", required=True)
     parser.add_argument("--out-text")
+    parser.add_argument("--freshness-start-utc")
     args = parser.parse_args()
 
-    root = Path(args.preflight_dir).resolve()
+    root = Path(args.preflight_dir).expanduser().absolute()
     if not root.is_dir():
         raise SystemExit(f"missing preflight dir: {root}")
-    result = parse(root)
+    result = parse(root, freshness_start=parse_utc_timestamp(args.freshness_start_utc))
 
     out_json = Path(args.out_json)
     out_json.parent.mkdir(parents=True, exist_ok=True)
