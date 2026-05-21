@@ -13,3 +13,5 @@
 ## Status
 
 - 2026-05-21: dev_2 final altnode evidence shows forbidden placement on `lg-cmc-b7r202-k07u06-h200-000580`; dev_2 stopped before transfer/preflight/SFT/eval and no checkpoint exists. dev_4 classification is `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.
+- 2026-05-21: PM gate passed for PR #65 and dev_4 self-merged it at `2026-05-21T19:12:40Z`; merge commit `f71a8f591cdcf6064fdf466744a0e23aa88901f3`.
+- Completion: complete/no-launch-fix-needed. Runtime remains separately PM-gated; this completion does not authorize LTP/GPU/preflight/SFT/eval/runtime.

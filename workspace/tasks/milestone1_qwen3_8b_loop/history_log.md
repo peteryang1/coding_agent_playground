@@ -961,3 +961,11 @@
 - Updated `evidence/dev_4_s23_pr63_altnode_launch_support.md` classification to `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.
 - No dev_4 code/config/launcher issue was found; no launch fix PR is needed for this final signature.
 - No LTP/GPU/preflight/SFT/eval/remote command was run by dev_4.
+
+## Session 61 - Dev 4 PR #65 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #65 / `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` at head `14b6e713845c96b69d9de1fccbc819fdd16f6254`.
+- Gate basis: PM gate evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/pm_s23_pr65_gate.md`, commit `4f607c7`; GitHub open/non-draft `MERGEABLE` / `CLEAN`.
+- Self-merged PR #65 at `2026-05-21T19:12:40Z`; merge commit `f71a8f591cdcf6064fdf466744a0e23aa88901f3`.
+- Task `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` is complete/no-launch-fix-needed.
+- This gate and completion do not authorize LTP/GPU/preflight/SFT/eval/runtime.
