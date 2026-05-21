@@ -221,6 +221,9 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_3`: task `M1-S23-PR53-DATA-CONFIRM-DEV3`; confirm no data/package change is needed for this parser/preflight blocker; write `evidence/dev_3_s23_pr53_data_confirm.md`; no SFT/GPU/eval.
   - `intern_code_test_2`: task `M1-S23-PR53-EVAL-REBLOCK-TEST2`; refresh eval blocked evidence after no SFT/no checkpoint; write `evidence/test_2_s23_pr53_eval_blocked.md`; no eval.
 
+- 2026-05-21 Session 23 PR55 runtime authorization:
+  - `intern_code_dev_2`: task `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2`; authorized for exactly one fresh LTP runtime using PR #55 merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`. Evidence files: `evidence/dev_2_s23_pr55_preflight_sft_runtime.md`, `evidence/gpu_s23_pr55_preflight_sft_tracking.md`, and own status. Prepare local bundle/data/checksums first; no remote source/dependency network; check forbidden node before transfer; use `/home/xu.yang/coding_agent_playground/outputs`; run structured preflight; run SFT only if preflight PASS and `sft_allowed=true`; eval not authorized.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.

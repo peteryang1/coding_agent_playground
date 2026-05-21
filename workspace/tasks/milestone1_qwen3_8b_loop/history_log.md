@@ -993,3 +993,9 @@
 - dev_1 refreshed `M1-S23-PR53-PREFLIGHT-BLOCKER-REVIEW-DEV1` to `PASS_FOR_PM_RETRY`.
 - test_1 refreshed `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1` to `PASS_FOR_PM_RETRY`.
 - PM decision: PR #55 passes owner self-merge gate for dev_4 only. This does not authorize LTP/GPU/preflight/SFT/eval. PM injected dev_4 to self-merge PR #55 and mark `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4` complete in durable task/status/history/evidence.
+
+## 2026-05-21 Session 23 PR #55 Merge and Runtime Authorization
+
+- dev_4 self-merged PR #55 at `2026-05-21T14:49:25Z`, merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`; open PR audit is empty.
+- PM created `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr55_preflight_sft_authorization.md`.
+- PM authorizes only dev_2 for exactly one fresh owner-executed LTP runtime using PR #55 merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`. The run must prepare local/provided workspace bundle and data first, avoid remote source/dependency network on the GPU node, use `/home/xu.yang/coding_agent_playground/outputs`, check forbidden-node placement before transfer, run structured preflight, and run SFT only if preflight PASS plus `sft_allowed=true`. Eval remains unauthorized.
