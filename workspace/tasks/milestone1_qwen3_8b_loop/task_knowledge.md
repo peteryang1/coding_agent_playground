@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=13 -->
+<!-- METADATA:SESSION=14 -->
 
 ## Knowledge Entries
 
@@ -29,3 +29,5 @@
 23. Parser hygiene standby fact: dev_4 owns `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4`; test_1 should gate its PR/evidence only when present, requiring benign `NCCL_ASYNC_ERROR_HANDLING` warning suppression without weakening real NCCL/CUDA/SIGABRT/ChildFailedError/Xid/SXid/ECC/NVLink detection.
 24. Same-node placement gate fact: `M1-S23-SXID-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2` landed on forbidden node `lg-cmc-b7r202-q03u26-h200-000730`; dev_2 correctly stopped before transfer/preflight/SFT/eval. Test_1 result is `BLOCKED_FINAL_PLACEMENT_SAME_SXID_NODE_STOPPED_NO_PREFLIGHT_NO_SFT`; any future runtime requires placement-safe authorization criteria.
 25. PR #53 parser hygiene gate fact: test_1 passed PR #53 head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f` as `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE`; the patch suppresses only benign `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings when `TORCHRUN_EXIT=0` and `ALLREDUCE_OK` are present in the same source, while preserving SXid 20009 and real NCCL failure detection.
+26. PR53 runtime blocker fact: after PR #53 merge commit `e29c93736be3384663cad953cd18da68c30070fb`, dev_2's placement-probe runtime used non-forbidden node `lg-cmc-b7r401-a05u06-h200-000770` and passed storage/transfer/torch all-reduce, but preflight still failed because `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings were actionable despite `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`; SFT/checkpoint/eval remain absent.
+27. PR53 future retry rule: no future runtime should be authorized until dev_4 provides `evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md` and dev_1/test_1 gate it, preserving real Xid/SXid/ECC/NVLink/NCCL failure detection while making the observed benign NCCL warning class non-actionable in the real preflight artifact shape.
