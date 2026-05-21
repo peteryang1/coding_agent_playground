@@ -81,6 +81,7 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - PR #59 is now merged at `2026-05-21T16:34:13Z`, merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`. PM authorized only dev_2 for one fresh PR59 runtime under `M1-S23-PR59-PREFLIGHT-SFT-RUNTIME-DEV2`; eval remains unauthorized and PM will not run remote/LTP/SFT commands personally.
 - PR59 runtime reached a fresh exact blocker rather than a checkpoint: transfer/import/preflight all passed, but the single SFT attempt exited `127` because `LLAMAFACTORY_CLI` was a space-containing command string executed as one quoted path. The frame is stopped/released and no active coding-agent-playground GPU job remains. Next owner task is dev_4 no-execution launcher fix plus dev_1/test_1 gates; no fresh runtime is authorized yet.
 - PR #61 launcher fix is now gate-passed for dev_4 owner self-merge only: dev_1/test_1 both `PASS_FOR_PM_RETRY`, GitHub `MERGEABLE` / `CLEAN`, head `d4f3340d1f7b32d91553cbe18d7effce533276c7`. No runtime is authorized by this PR gate.
+- PR #61 and completion PR #62 are now merged. PM authorized only dev_2 for one fresh post-PR61 runtime under `M1-S23-PR61-PREFLIGHT-SFT-RUNTIME-DEV2`; eval remains unauthorized and PM will not run remote/LTP/SFT commands personally.
 
 ## 2026-05-21 Session 22 PR #45 Re-Gate Update
 

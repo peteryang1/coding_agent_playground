@@ -1062,3 +1062,10 @@
 - dev_1 refreshed `M1-S23-PR59-LLAMAFACTORY-CLI-REVIEW-DEV1` and recorded `PASS_FOR_PM_RETRY`.
 - test_1 refreshed `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1` and recorded `PASS_FOR_PM_RETRY`.
 - PM decision: PR #61 passes owner self-merge gate for dev_4 only. This gate does not authorize LTP/GPU/preflight/SFT/eval/runtime retry. After merge/completion marker, PM may separately authorize dev_2 for another owner-executed runtime.
+
+## 2026-05-21 Session 23 PR #61/#62 Merge and Runtime Authorization
+
+- dev_4 self-merged PR #61 at `2026-05-21T17:13:17Z`, merge commit `aa426b045b52b71bc23b4a2f73f3ee1c42187037`.
+- dev_4 merged completion record PR #62 at `2026-05-21T17:15:51Z`, merge commit `713862da983f73b165af1cfe27935ccef616a049`, marking `M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4` complete.
+- PM created `M1-S23-PR61-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr61_preflight_sft_authorization.md`.
+- PM authorizes only dev_2 for exactly one fresh owner-executed runtime using `origin/main` commit `713862da983f73b165af1cfe27935ccef616a049`. Eval remains unauthorized. Runtime must preserve local/provided bundle transfer, no remote source/dependency downloads, `/home/xu.yang` outputs, `mcore_adapter` import proof, structured preflight, and SFT only if `SFT_ALLOWED=true`.
