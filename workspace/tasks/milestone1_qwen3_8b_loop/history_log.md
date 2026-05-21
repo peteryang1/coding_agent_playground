@@ -667,6 +667,7 @@
 - Continued task `M1-S22-EARLY-EXIT-FIX-DEV4` by implementing the no-execution wrapper fix package on branch `intern_code_dev_4/M1-S22-EARLY-EXIT-FIX-DEV4`.
 - Opened PR #39: `https://github.com/peteryang1/coding_agent_playground/pull/39`.
 - Initial GitHub mergeability for PR #39 was `CONFLICTING` / `DIRTY`, so dev_4 merged current `origin/main` and resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md` by preserving PM's current main records and re-applying Session 28 task evidence.
+- After conflict resolution and push, GitHub reports PR #39 `MERGEABLE` / `CLEAN`; no required checks are reported.
 - Patched `scripts/train_qwen3_8b_sft.sh` so future runs default to `/home/xu.yang/coding_agent_playground/outputs`, create run/log/config/checkpoint/tmp directories early, tee stdout/stderr into durable logs, write xtrace separately, write `preflight.json`, and write `early_exit_diagnostics.txt` plus `exit_status.txt` through traps.
 - Patched runtime config rewrite so `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` updates top-level `dataset:` in the generated config.
 - Removed direct `exec llamafactory-cli` so shell traps can record nonzero trainer status.

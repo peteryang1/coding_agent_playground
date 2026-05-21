@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop / M1-S22-EARLY-EXIT-FIX-DEV4 |
-| PR | Preparing no-execution wrapper fix PR |
+| PR | PR #39 open, MERGEABLE/CLEAN |
 | Session | 28 |
 
 ## PM Corrections
@@ -42,3 +42,4 @@
 - 2026-05-21 Session 26: Applied supervisor storage rule to `M1-S21-ENOSPC-CONFIG-FIX-DEV4`. Refreshed `evidence/dev_4_s21_enospc_config_fix.md` locally and in the PM durable path so future SFT launch outputs, logs, checkpoints, run metadata, temporary converted datasets, and intermediates default to CephFS `/home/xu.yang/coding_agent_playground/outputs`. Superseded the prior `/mnt/3fs` output-root recommendation and documented `/mnt/3fs` exceptions only for existing required base-model input and historical failed-run audit paths. No SFT/GPU/eval command was run.
 - 2026-05-21 Session 27: Accepted task `M1-S22-EARLY-EXIT-FIX-DEV4`. Reviewed dev_2 Session 22 runtime/tracking evidence and `scripts/train_qwen3_8b_sft.sh`; wrote no-execution early-exit fix evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md` and PM durable path. Diagnosis: failure occurred before or inside the training wrapper prelude because durable log contains only `START_UTC` and run_manifest/runtime config/checkpoint artifacts are absent. Proposed wrapper changes for first-line durable logging, xtrace, ERR/EXIT diagnostics, runtime config/manifest preflight, and `DATASET_NAME` rewrite while preserving `/home/xu.yang/coding_agent_playground/outputs` and `coding_agent_m1_sft_10_sharegpt`. No SFT/GPU/eval command was run.
 - 2026-05-21 Session 28: Started no-execution patch PR for `M1-S22-EARLY-EXIT-FIX-DEV4` on branch `intern_code_dev_4/M1-S22-EARLY-EXIT-FIX-DEV4`. Patched `scripts/train_qwen3_8b_sft.sh` for CephFS default output, first-durable-point tee logging, xtrace, ERR/EXIT diagnostics, preflight artifact, `DATASET_NAME` runtime config rewrite, and non-`exec` trainer launch. Patched `scripts/write_sft_run_manifest.py` to record actual runtime save policy and preflight paths. Added `configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml`. Local checks `bash -n` and `py_compile` passed. No SFT/GPU/eval or dry-run launch command was run.
+- 2026-05-21 Session 28 PR update: Opened PR #39 `https://github.com/peteryang1/coding_agent_playground/pull/39`. Initial GitHub state was `CONFLICTING` / `DIRTY`; merged current `origin/main`, resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md` while preserving PM main records and Session 28 dev_4 records, then pushed. Latest GitHub state is `MERGEABLE` / `CLEAN`; no required checks are reported.

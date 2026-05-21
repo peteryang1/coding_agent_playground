@@ -406,5 +406,12 @@ Completion marker: Ready-for-review after PR opens; future retry still requires 
 PR status:
 
 ```text
-PR not opened yet at this evidence update point; will be recorded after push and gh pr create.
+PR #39: https://github.com/peteryang1/coding_agent_playground/pull/39
+state: OPEN
+draft: false
+initial mergeability after open: CONFLICTING / DIRTY
+conflict files after merging origin/main locally: history_log.md, task_knowledge.md, task_registry.md
+resolution: preserved current origin/main PM/data-format/Session 21/22 records and re-applied Session 28 task evidence/status entries
+latest GitHub mergeability after push: MERGEABLE / CLEAN
+required checks: none reported
 ```
