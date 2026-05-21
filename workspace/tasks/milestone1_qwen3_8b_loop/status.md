@@ -109,6 +109,7 @@
 - PM decision: no fresh LTP/GPU/preflight/SFT/eval retry is authorized. Next work is a no-execution wrapper fix/review/gate split across all six owners, with all future generated SFT/eval intermediates under `/home/xu.yang` and all future runtime source/dependency materials prepared locally then transferred to the node.
 - PM delivered the six follow-up assignments by tmux inject plus Enter and verified with `capture-pane`; the first audit found no follow-up evidence files or open PR yet. Current state stays Working, not blocked: owners have fresh tasks and runtime is intentionally closed until gate evidence lands.
 - PM re-injected a second evidence-or-blocker follow-up to all six owner panes and verified submission by `capture-pane`. Owners must now either complete the named PR55 durable evidence files or write exact blockers in those files; no runtime authorization exists.
+- PR55 follow-up package is now gate-ready for merge: PR #57 is open/non-draft `MERGEABLE` / `CLEAN`, dev_1 and test_1 both record `PASS_FOR_PM_RETRY`, dev_2/dev_3/test_2 support evidence is complete for current state. PM gate passes for dev_4 owner self-merge only; runtime remains unauthorized.
 
 ## 2026-05-20 Session 8 Approved GPU Route
 
@@ -408,3 +409,7 @@
 - PR #55 merged at `2026-05-21T14:49:25Z`, merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`; open PR audit is empty.
 - PM authorized only dev_2 for one fresh runtime under `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2`.
 - Required next durable outcome: SFT checkpoint/model with `trainer_state.json`/`all_results.json` and stop proof, or exact runtime blocker with logs/node/status/output paths/stop proof. Eval remains blocked until PM gates a model or endpoint.
+- PR55 runtime final blocker: dev_2's authorized PR55 run passed structured preflight and then failed the single SFT attempt before GPU training with `environment: DEP_TARGET: unbound variable`; no checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists, and the frame is stopped/released.
+- PR #57 is the current wrapper/env fix gate: open/non-draft `MERGEABLE` / `CLEAN`, dev_1 and test_1 both `PASS_FOR_PM_RETRY`, PM gate passes for dev_4 owner self-merge only. No fresh LTP/GPU/preflight/SFT/eval/runtime retry is authorized.
+- Supervisor correction active: remote GPU/LTP nodes are no-external-network for project code/dependency staging. Future runtime owners must prepare and verify local/provided-workspace bundles, transfer by `rsync`, `scp`, or tar-over-SSH with exact evidence, and PM must not run transfer/remote commands/SFT/eval personally.
+- PR #57 and completion PR #58 are merged. PM authorized only dev_2 under `M1-S23-PR57-PREFLIGHT-SFT-RUNTIME-DEV2` for exactly one fresh owner-executed preflight/SFT runtime using `origin/main` commit `b4ac31ef1e3772953108348bf099818326ed65cc`; eval remains unauthorized.

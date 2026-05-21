@@ -68,6 +68,7 @@
 - PR #55 merge blocker resolved: PR #55 merged at `2026-05-21T14:49:25Z`, merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`.
 - Current active blocker is owner runtime outcome: dev_2 is authorized for one PR55 preflight/SFT attempt. SFT may run only after structured preflight PASS and `sft_allowed=true`; eval remains blocked until checkpoint/model or endpoint exists.
 - PR55 runtime outcome blocker: dev_2 completed the one authorized attempt and stop proof. Preflight passed and SFT was attempted once, but it failed before GPU training with `environment: DEP_TARGET: unbound variable` from the exported LLamaFactory wrapper function. No checkpoint/model, `trainer_state.json`, `all_results.json`, or eval artifact exists; LTP is stopped/released. Current next action is no-execution wrapper fix by dev_4 plus dev_1/test_1 gates. No fresh LTP/GPU/preflight/SFT/eval retry is authorized.
+- PR55 wrapper-fix merge gate is now resolved for owner self-merge: PR #57 is open/non-draft `MERGEABLE` / `CLEAN`, dev_1 and test_1 both record `PASS_FOR_PM_RETRY`, and PM gate passes for dev_4 self-merge only. Runtime remains blocked until PR #57 is merged/completion-marked and PM separately authorizes an owner-executed runtime.
 - PR #1 owner action: PR #1 is gate-passed and mergeable, but still awaits dev_4 owner self-merge confirmation.
 - Continuation PR: after PR #2 merged, PM coordination has moved to branch `pm/milestone1-continuation-20260520`; a new PR is needed for subsequent PM durable updates.
 - Evidence still missing after PR #3 merge: dev_1 clean-base support, dev_2 GPU/nodes support, test_1 completion gate, dev_4 SFT unblock decision package, and test_2 eval gate package.
@@ -125,3 +126,9 @@
 - Final clean SFT smoke data gate: `/root/workspace/cleaned_m1_sft_10/train.jsonl` has 10 kept `coding_agent_playground_sft_v1` examples, 0 rejects, 0 conversion errors.
 - Test_1's original "no executable harness artifact" blocker is resolved: dev_2 produced `evidence/rollout_harness/run_codex_rollouts.py`, deployed it to `/root/workspace/rollout_harness`, and created dry-run outputs under `/root/workspace/rollouts_smoke`.
 - Test_1's dry-run artifact contract findings are mitigated in dev_2 harness v2: `/root/workspace/rollouts_smoke_v2` contains `stdout.jsonl`, `stderr.log`, `last_message.md`, `raw_trajectory.json`, stable `trajectory_id`, full repo IDs, and a manifest-reconciled `summary.json`.
+
+## 2026-05-21 Session 23 Current Runtime Gate
+
+- Current blocker: PR55 SFT wrapper env failure. The authorized PR55 runtime passed preflight, then failed immediately with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer_state/all_results/eval exists and the resource is stopped/released.
+- PR #57 wrapper fix is PM-gated for dev_4 owner self-merge only. Runtime retry remains unauthorized until PR #57 is merged/completion-marked and PM separately authorizes dev_2.
+- Remote runtime staging prevention: all future GPU/LTP runtime work must avoid remote GitHub clone/fetch/download. A retry is not gateable unless owner evidence includes local/provided-workspace source preparation, exact commit/file list/checksums, exact `rsync`/`scp`/tar-over-SSH transfer command, destination, and post-transfer verification.

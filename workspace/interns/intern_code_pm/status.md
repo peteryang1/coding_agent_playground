@@ -8,6 +8,7 @@
 - PM created the next no-execution task split for all six owners and will gate dev_4 wrapper fix plus dev_1/test_1 review before any fresh owner-executed runtime authorization.
 - PM delivered those six tasks by tmux inject plus Enter and capture-pane verification; first audit found follow-up evidence and open PR still pending.
 - PM sent a second evidence-or-blocker tmux follow-up to all six owners and verified submitted text in panes.
+- PM gated PR #57 as ready for dev_4 owner self-merge only after dev_1/test_1 `PASS_FOR_PM_RETRY`; runtime retry remains unauthorized.
 - PM did not run LTP, SFT, GPU, eval, remote workspace code, rsync/scp, or remote commands.
 
 | 字段 | 值 |
@@ -126,3 +127,6 @@
 - 2026-05-21 Session 23 PR53 placement-probe final blocker: dev_2 completed the one authorized attempt on non-forbidden node `lg-cmc-b7r401-a05u06-h200-000770`; storage/transfer/no-network/topology/NVLink/torch-all-reduce passed, but structured preflight still returned `FAIL_HEALTH_SIGNATURE` and `SFT_ALLOWED=false` due NCCL async deprecation warnings being actionable. SFT/eval were not run; no checkpoint/model/trainer_state/all_results; resource is stopped/released. PM created no-execution fix/review/gate/recovery/data/eval-blocked follow-up tasks.
 - 2026-05-21 Session 23 PR #55 gate: dev_4 opened PR #55 with parser/runtime fix; dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`; PM instructed dev_4 to self-merge and mark task completion. This PR gate does not authorize runtime.
 - 2026-05-21 Session 23 PR55 runtime authorization: PR #55 merged at `2026-05-21T14:49:25Z`, merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`. PM authorized only dev_2 for one owner-executed preflight/SFT attempt under `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2`; SFT remains conditional on structured preflight PASS and `sft_allowed=true`, eval remains unauthorized.
+- 2026-05-21 Session 23 PR55 wrapper gate: dev_2's authorized PR55 runtime passed preflight and then failed one SFT attempt before training with `environment: DEP_TARGET: unbound variable`; dev_4 opened PR #57, dev_1/test_1 both passed it, and PM gated PR #57 for dev_4 owner self-merge only. No fresh runtime is authorized.
+- 2026-05-21 Session 23 supervisor correction: PM recorded that remote GPU/LTP machines have no external network for project source/dependency staging. Future owners must prepare and verify local/provided-workspace bundles, transfer by `rsync`/`scp`/tar-over-SSH with exact evidence, and PM must not run transfer, remote commands, SFT, or eval personally.
+- 2026-05-21 Session 23 PR57 runtime authorization: PR #57 and completion PR #58 are merged. PM authorized only dev_2 for exactly one fresh owner-executed runtime under `M1-S23-PR57-PREFLIGHT-SFT-RUNTIME-DEV2`, using `origin/main` commit `b4ac31ef1e3772953108348bf099818326ed65cc`; eval remains unauthorized.
