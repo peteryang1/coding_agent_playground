@@ -251,3 +251,35 @@ No peer_send PM was used.
 This evidence package does not authorize runtime retry.
 Future runtime requires PM gate plus resource/dev_1/test_1 gates.
 ```
+
+## PR #43 Merge Completion
+
+PM gate facts:
+
+```text
+PM gate evidence: workspace/tasks/milestone1_qwen3_8b_loop/evidence/pm_s22_pr43_gate.md on pm/session12-pr30-after-pr38-gate commit 5e4cfab
+dev_1 evidence/dev_1_s22_nccl_review.md: PASS_FOR_PM_RETRY
+test_1 evidence/test_1_s22_nccl_retry_gate.md: PASS_FOR_PM_RETRY
+dev_2 resource plan: pass
+dev_3 data confirmation: pass
+GitHub PR #43 head: 5f4d14a12aa8044a429d1110757ed631a7bc9833
+GitHub PR #43 pre-merge state: open, non-draft, MERGEABLE/CLEAN
+Authorization scope: owner self-merge only
+```
+
+Merge evidence:
+
+```text
+PR #43: https://github.com/peteryang1/coding_agent_playground/pull/43
+mergedAt: 2026-05-21T10:47:20Z
+merge_commit: 2c867d3226f7ebb4962b5b173235639df8f1f9be
+completion_marker: complete/ready-for-runtime-gate
+```
+
+Runtime boundary:
+
+```text
+This completion does not authorize LTP/SFT/GPU/NCCL preflight/eval/dry-run launch or runtime retry.
+Future SFT/eval/preflight intermediates must remain under /home/xu.yang unless an existing required input path is explicitly justified.
+No runtime command was run by dev_4 for completion.
+```
