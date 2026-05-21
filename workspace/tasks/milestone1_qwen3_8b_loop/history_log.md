@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=5 -->
+<!-- METADATA:SESSION=6 -->
 
 ## Session 1 - 2026-05-21
 
@@ -31,3 +31,9 @@
 - Created the Session 23 no-execution parser patch gate at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_parserpatch_gate.md`.
 - Current result is `BLOCKED_MISSING_DEV4_PARSER_PATCH_PR`: GitHub currently reports no open PRs, and reviewed PR #48 is PR #47 merge-completion evidence rather than the required `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4` parser patch PR.
 - Recorded gate criteria for structured fields, `/home` and CephFS storage normalization, Xid/SXid stale-vs-actionable behavior, local non-runtime tests/test attempts, real-fault preservation, and future post-run PASS/FAIL conditions. No LTP/GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`.
+
+## Session 6 - 2026-05-21
+
+- Re-gated `M1-S23-PARSERPATCH-GATE-TEST1` against PR #49 head `1ddfe31d8345418572a6d70d1ba15da424fd7aef`; result is `PASS_FOR_PM_RETRY`.
+- Verified from PR metadata/source/evidence that PR #49 is open/non-draft MERGEABLE/CLEAN, cites `M1-S23-PARSERFIXED-PARSER-PATCH-DEV4`, includes `evidence/dev_4_s23_parserfixed_parser_patch.md`, preserves stable structured fields, normalizes `/home/xu.yang/coding_agent_playground/outputs` plus resolved `/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs`, classifies Xid/SXid freshness as stale/fresh/unknown, records local synthetic test attempts, and preserves real-fault detection.
+- No LTP/GPU/SFT/eval/dry-run/parser execution was run by `intern_code_test_1`; runtime remains separately unauthorized.
