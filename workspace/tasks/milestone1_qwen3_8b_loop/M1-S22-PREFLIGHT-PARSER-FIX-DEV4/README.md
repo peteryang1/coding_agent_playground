@@ -17,3 +17,12 @@ Acceptance:
 - Do not run LTP/GPU/SFT/eval/dry-run/runtime.
 
 Completion marker: complete after PM gate pass; PR #45 is owner self-merge approved. Runtime remains separately gated.
+
+Merge evidence:
+
+```text
+PR: https://github.com/peteryang1/coding_agent_playground/pull/45
+mergedAt: 2026-05-21T11:42:20Z
+merge commit: 6f61489e85fcf7e129699061c9ddcb6e8db80926
+runtime authorization: none
+```

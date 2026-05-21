@@ -6,3 +6,4 @@
 2. The preflight parser must expose stable top-level compatibility fields for PM/test gates, not only nested `checks` and `decision` objects.
 3. Future SFT eligibility must be blocked when the parsed preflight artifact root is outside `/home/xu.yang/coding_agent_playground/outputs`.
 4. PM gate pass for a no-execution parser PR authorizes only owner self-merge; runtime authorization remains a separate PM decision.
+5. PR #45 merged at `2026-05-21T11:42:20Z` with merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`; the task is complete, but runtime remains separately gated.

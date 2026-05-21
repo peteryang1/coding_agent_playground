@@ -10,7 +10,7 @@ Scope: no-execution parser refinement package for the S22 NCCL/NVLink preflight 
 
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_preflight_parser_fix.md`
 
-Completion marker: complete after PM gate pass; owner self-merge approved. This package does not authorize LTP/GPU/SFT/eval/dry-run execution.
+Completion marker: complete. This package does not authorize LTP/GPU/SFT/eval/dry-run execution.
 
 PM gate result: PASS for owner self-merge only. Runtime remains separately PM-gated.
 
@@ -274,3 +274,13 @@ runtime authorization: no LTP/GPU/SFT/eval/dry-run/runtime authorization
 ```
 
 Completion marker: complete after owner self-merge; runtime remains separately gated.
+
+Merge completion evidence:
+
+```text
+PR: https://github.com/peteryang1/coding_agent_playground/pull/45
+mergedAt: 2026-05-21T11:42:20Z
+merge commit: 6f61489e85fcf7e129699061c9ddcb6e8db80926
+task marker: complete
+runtime authorization: none
+```
