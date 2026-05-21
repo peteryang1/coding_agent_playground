@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | N/A |
-| Session | 14 |
+| Session | 15 |
 
 ## Acknowledgements
 
@@ -65,3 +65,4 @@
 - 2026-05-21: Accepted PM standby assignment for dev_4 `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` and dev_2 `M1-S23-SXID-DIFFERENTNODE-PREFLIGHT-SFT-RUNTIME-DEV2`. Created PM durable standby gate `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_sxid_standby_gate.md` with result `STANDBY_WAITING_DEV4_PR_OR_DEV2_RUNTIME_EVIDENCE`; current check found PM authorization present, no open PR, and dev_4/dev_2 runtime evidence files absent. No LTP/GPU/SFT/eval/dry-run run by test_1; no peer_send used.
 - 2026-05-21: Completed two Session 23 no-execution gates. Created PM durable `evidence/test_1_s23_same_node_runtime_gate.md` with `BLOCKED_FINAL_PLACEMENT_SAME_SXID_NODE_STOPPED_NO_PREFLIGHT_NO_SFT`, verifying dev_2 stopped before transfer/preflight/SFT/eval on forbidden node and no model/trainer/eval artifacts exist. Created `evidence/test_1_s23_nccl_warning_parser_hygiene_gate.md` with `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE` for PR #53, verifying narrow benign NCCL warning suppression and real-fault preservation. No LTP/GPU/preflight/SFT/eval run by test_1; no peer_send used.
 - 2026-05-21: Completed `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1`: created PM durable `evidence/test_1_s23_pr53_preflight_blocker_gate.md` with `BLOCKED_WAITING_DEV4_PR53_PREFLIGHT_PARSER_RUNTIME_FIX`. Validated dev_2 PR53 runtime evidence: non-forbidden node, `/home/xu.yang` storage/capacity, source/data transfer, no remote source/dependency network, and stop/no-running-job proof passed; preflight still failed on `NCCL_ASYNC_ERROR_HANDLING` warning classification with `SFT_ALLOWED=false`, so SFT/checkpoint/eval are absent as expected. dev_4 fix package is not present yet. No LTP/GPU/preflight/SFT/eval run by test_1; no peer_send used.
+- 2026-05-21: Re-gated `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1` against PR #55 and `dev_4_s23_pr53_preflight_parser_runtime_fix.md`. Updated PM durable evidence to `PASS_FOR_PM_RETRY`: PR #55 functional commit `6c959e89a75ce162076292ad6d6c317f421cd45f` adds preflight-level all-reduce success context for split torch/NCCL artifacts, preserves real fault detection, and dev_4 reports `4 passed`; observed latest PR head is `b6deabeda9342bd3341fefb25b9f15e99e3903df` with docs/status/evidence-only follow-up. No LTP/GPU/preflight/SFT/eval run by test_1; no peer_send used.

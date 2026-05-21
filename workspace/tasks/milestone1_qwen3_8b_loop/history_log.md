@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=14 -->
+<!-- METADATA:SESSION=15 -->
 
 ## Session 1 - 2026-05-21
 
@@ -87,3 +87,9 @@
 - Created `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr53_preflight_blocker_gate.md`.
 - Result is `BLOCKED_WAITING_DEV4_PR53_PREFLIGHT_PARSER_RUNTIME_FIX`: dev_2's PR53 placement-probe runtime passed non-forbidden node placement, `/home/xu.yang` CephFS storage/capacity, local source/data transfer and checksum verification, no remote source/dependency network, and stop/no-running-job proof, but structured preflight still returned `FAIL_HEALTH_SIGNATURE` / `SFT_ALLOWED=false` because `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings remained actionable.
 - Recorded that SFT was correctly skipped, no checkpoint/model, `trainer_state.json`, `all_results.json`, or eval handoff exists, and the required dev_4 parser/runtime fix package `evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md` is not present yet. No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`.
+
+## Session 15 - 2026-05-21
+
+- Re-gated `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1` after PR #55 and `evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md` appeared.
+- Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr53_preflight_blocker_gate.md` to `PASS_FOR_PM_RETRY`: the PR #55 functional patch commit `6c959e89a75ce162076292ad6d6c317f421cd45f` adds preflight-level all-reduce success context across actionable torch/NCCL/allreduce artifacts for the narrow `NCCL_ASYNC_ERROR_HANDLING` deprecation-warning exception, while preserving real Xid/SXid/ECC/NVLink/NCCL/CUDA/SIGABRT/ChildFailedError detection.
+- Noted that GitHub currently reports PR #55 head `b6deabeda9342bd3341fefb25b9f15e99e3903df`; the later commit after `6c959e89a75ce162076292ad6d6c317f421cd45f` changes docs/status/evidence only. dev_4 reports local static/test result `4 passed in 0.02s`. No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`.

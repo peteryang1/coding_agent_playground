@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=14 -->
+<!-- METADATA:SESSION=15 -->
 
 ## Knowledge Entries
 
@@ -31,3 +31,5 @@
 25. PR #53 parser hygiene gate fact: test_1 passed PR #53 head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f` as `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE`; the patch suppresses only benign `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings when `TORCHRUN_EXIT=0` and `ALLREDUCE_OK` are present in the same source, while preserving SXid 20009 and real NCCL failure detection.
 26. PR53 runtime blocker fact: after PR #53 merge commit `e29c93736be3384663cad953cd18da68c30070fb`, dev_2's placement-probe runtime used non-forbidden node `lg-cmc-b7r401-a05u06-h200-000770` and passed storage/transfer/torch all-reduce, but preflight still failed because `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings were actionable despite `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`; SFT/checkpoint/eval remain absent.
 27. PR53 future retry rule: no future runtime should be authorized until dev_4 provides `evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md` and dev_1/test_1 gate it, preserving real Xid/SXid/ECC/NVLink/NCCL failure detection while making the observed benign NCCL warning class non-actionable in the real preflight artifact shape.
+28. PR55 parser/runtime fix gate fact: test_1 re-gated `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1` to `PASS_FOR_PM_RETRY` after PR #55 functional commit `6c959e89a75ce162076292ad6d6c317f421cd45f`; current PR head observed is `b6deabeda9342bd3341fefb25b9f15e99e3903df` with docs/status/evidence-only follow-up.
+29. PR55 retry boundary: PR #55 fixes the split all-reduce success context for benign `NCCL_ASYNC_ERROR_HANDLING` warnings, but does not authorize runtime. Future PM authorization must still require non-forbidden node, `/home/xu.yang` storage/capacity, local bundle transfer/checksums, no remote source/dependency network, structured preflight PASS plus `sft_allowed=true` before SFT, checkpoint/trainer/all_results if SFT succeeds, and stop proof.
