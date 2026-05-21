@@ -43,6 +43,7 @@
 - Preflight final blocker: `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2` is blocked-with-final-preflight-evidence. Fresh different-node allocation `lg-cmc-b7r401-a04u26-h200-000769` passed `/home/xu.yang` artifact preservation, capacity probe, topology/NVLink capture, and 8-rank torch NCCL all-reduce, but wrote `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE` because a broad health scan matched evidence/command/process/generic NVRM text. SFT correctly did not run, so no checkpoint/model, `trainer_state.json`, or `all_results.json`; LTP is `STOPPED (Completed)` and endpoint refused connection.
 - Current next action: dev_4 must produce a no-execution preflight health-parser refinement package/PR under `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`; dev_1/test_1 must review/gate it; dev_2/dev_3/test_2 must refresh no-submit resource/data/eval blocked evidence. No new GPU/LTP/NCCL preflight/SFT/eval authorization exists.
 - Follow-up evidence status: dev_2 resource readiness, dev_3 data confirmation, and test_2 eval blocked package are complete; test_1 has defined the parser gate; dev_1 has recorded `BLOCKER_MISSING_DEV4_PREFLIGHT_PARSER_FIX_PACKAGE`. The only current upstream missing input is dev_4's parser fix package/PR.
+- PR #45 parser package is present but not PM-gate-ready. dev_1 blocker is `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`; test_1 blocker is `BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`. dev_4 owns fixing ECC parsing and required structured/storage/SFT-allowance fields on PR #45. No self-merge or runtime authorization.
 
 ## Active
 

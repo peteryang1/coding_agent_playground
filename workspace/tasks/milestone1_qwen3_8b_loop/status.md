@@ -339,4 +339,7 @@
 - test_1 final gate result: `PASS_FOR_NEXT_PM_DECISION`, with eval handoff still blocked as `EVAL_HANDOFF_BLOCKED_NO_SFT_NO_CHECKPOINT`.
 - PM decision: no new LTP/GPU/NCCL preflight/SFT/eval authorization. Next no-execution task chain is parser refinement by dev_4, review by dev_1, test gate by test_1, and resource/data/eval-blocked refresh by dev_2/dev_3/test_2.
 - Follow-up evidence collected so far: dev_2 no-submit resource readiness complete, dev_3 data/package no-change confirmation complete, test_2 eval blocked/readiness complete, test_1 parser gate defined and waiting for dev_4 package, and dev_1 review is blocked only on missing dev_4 parser package.
-- Current critical path: dev_4 must finish `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` package/PR; then dev_1/test_1 must re-review/re-gate before PM can decide on any fresh preflight/SFT authorization.
+- PR #45 opened for `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` and is currently open/non-draft `MERGEABLE` / `CLEAN`, but PM gate is NOT READY.
+- dev_1 result: `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`; ECC detection can miss real fatal/uncorrected ECC lines containing unrelated standalone `0` tokens such as `GPU 0`.
+- test_1 result: `BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`; parser/wrapper must expose required top-level fields or stable aliases for `different_node_gate`, `home_xu_yang_storage_status`, direct `sft_allowed`/`sft_skip_reason`, and preflight/capacity/topology/NVLink/NCCL statuses.
+- Current critical path: dev_4 must update PR #45 to resolve both blockers; then dev_1/test_1 must re-review/re-gate before PM can decide on any fresh preflight/SFT authorization.

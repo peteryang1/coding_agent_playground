@@ -3,13 +3,103 @@
 Task ID: `M1-S22-PREFLIGHT-PARSER-GATE-TEST1`
 Owner: `intern_code_test_1`
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_preflight_parser_gate.md`
-Status timestamp: `2026-05-21T11:14:11Z`
+Status timestamp: `2026-05-21T11:25:03Z`
 
 ## Result
 
-`GATE_DEFINED_WAITING_DEV4_PARSER_PACKAGE`
+`BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`
 
 No SFT, GPU command, LTP action, eval, dry-run, or remote experiment was run by `intern_code_test_1`.
+
+## PR #45 Refresh Result
+
+Gate result for PR #45 / `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`:
+
+`BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`
+
+Inputs checked:
+
+- Dev_4 evidence: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_preflight_parser_fix.md`.
+- PR: `https://github.com/peteryang1/coding_agent_playground/pull/45`.
+- PR state from PM request and fetched head: open, non-draft, `MERGEABLE` / `CLEAN`.
+- PR head fetched for read-only review: `84959deac17560995a51a8f9a7be9093624cdf16`.
+- Script reviewed from PR head: `scripts/parse_s22_preflight_health.py`.
+
+No SFT/GPU/eval/dry-run was run. No parser execution was performed by test_1; review was source/evidence only.
+
+### Passing Findings
+
+False-positive suppression: PASS for direction.
+
+- The parser classifies generated command/process/evidence/history/task/summary/readme/preflight_result/health_status/parser/manifest/xtrace files as excluded.
+- Excluded matches are retained under `ignored_non_actionable_matches` for audit instead of becoming actionable health failures.
+- Dev_4 evidence correctly identifies the prior false fail as broad recursive scanning over command/process/evidence/generic text.
+
+Real-fault detection preservation: PASS for source review.
+
+- The script retains detection paths for Xid in dmesg/journal/kernel/NVRM logs.
+- It retains invalid peer GPU memory, SIGABRT, torch `ChildFailedError`, NCCL/collective failures, fatal/nonzero ECC, NVLink down/fail/fatal/CRC/replay/error signatures, and nonzero torchrun status handling.
+- Actionable sources include hardware/runtime-oriented logs such as dmesg/journal/kernel/NVRM, nvidia-smi, NVLink/topology, torch NCCL/allreduce, stdout, stderr, and training logs.
+
+No-execution boundary: PASS.
+
+- Dev_4 evidence states no LTP/GPU/SFT/eval/dry-run command was run for the package.
+- The script is local-artifact-only and does not itself contact GPU nodes or launch SFT/eval.
+
+Storage policy in evidence: PASS for documented future defaults.
+
+- Dev_4 evidence keeps future output, preflight, logs, checkpoints, temporary converted datasets, and intermediates under `/home/xu.yang/coding_agent_playground/outputs`.
+- Existing non-`/home/xu.yang` paths are read-only required inputs: base model, dependencies, and source dataset.
+
+### Blocking Findings
+
+Structured preflight fields: BLOCKER.
+
+The current script emits useful structured fields, but it does not yet satisfy the full test_1 gate contract. Missing or mismatched required fields:
+
+- No explicit `preflight_result` field or direct equivalent named for the final preflight marker; only top-level `status`.
+- No explicit `health_result` field or direct equivalent named for parser health status; only top-level `status`.
+- No `non_actionable_matches` field by that name; current field is `ignored_non_actionable_matches`. This is close, but future gate consumers need either the required name or a documented compatibility alias.
+- No `torch_nccl_allreduce_exit` field by that name; torch status is nested under `checks.torch_nccl.exit_code`.
+- No `capacity_probe_status` field by that name; capacity is nested under `checks.capacity.status`.
+- No `different_node_gate` field.
+- No `home_xu_yang_storage_status` field.
+- No `topology_capture_status` field by that name; topology is nested under `checks.topology.status`.
+- No `nvlink_capture_status` field by that name; NVLink is nested under `checks.nvlink.status`.
+- No explicit `sft_allowed` boolean; current equivalent is nested as `decision.sft_allowed_if_pm_authorized`.
+- No `sft_skip_reason` field when SFT is not allowed; current reasons are nested under `decision.reason`.
+
+Storage/artifact enforcement: BLOCKER.
+
+- The script records `preflight_dir`, but it does not validate or emit whether `preflight_dir`, `out_json`, and `out_text` are under `/home/xu.yang/coding_agent_playground/outputs`.
+- The required gate field `home_xu_yang_storage_status` is absent, so PM/test cannot distinguish compliant `/home/xu.yang` artifacts from accidental local/tmp or non-CephFS outputs using the parser JSON alone.
+
+SFT-allowance clarity: BLOCKER.
+
+- The script correctly gates `decision.sft_allowed_if_pm_authorized` on `status == "PASS"`.
+- However, the gate requires a direct structured `sft_allowed` boolean and `sft_skip_reason` when false so the launch wrapper can consume the parser result without policy interpretation drift.
+
+### Required Fixes For PASS_FOR_PM_RETRY
+
+PR #45 can pass test_1 after dev_4 updates the package to provide one of the following:
+
+- Preferred: update `scripts/parse_s22_preflight_health.py` to emit the required top-level compatibility fields:
+  - `preflight_result`
+  - `health_result`
+  - `non_actionable_matches`
+  - `torch_nccl_allreduce_exit`
+  - `capacity_probe_status`
+  - `different_node_gate`
+  - `home_xu_yang_storage_status`
+  - `topology_capture_status`
+  - `nvlink_capture_status`
+  - `sft_allowed`
+  - `sft_skip_reason`
+- Acceptable alternative: dev_4 evidence must define a stable wrapper/manifest schema that maps current nested fields to every required gate field and records `home_xu_yang_storage_status` and `different_node_gate` outside the parser.
+- Add parser or wrapper validation that output artifacts are under `/home/xu.yang/coding_agent_playground/outputs`, or emit `home_xu_yang_storage_status: FAIL` with exact path blockers.
+- Keep the current false-positive suppression and real-fault detection behavior.
+
+Until those fixes are present, test_1 cannot record `PASS_FOR_PM_RETRY`.
 
 Eval handoff remains blocked until a later PM-authorized SFT run produces checkpoint/model artifacts plus `trainer_state.json` and `all_results.json`, or PM/test explicitly accepts replacement artifacts.
 
@@ -161,7 +251,8 @@ Current gate status is waiting on dev_4 parser package evidence:
 ```yaml
 task_id: M1-S22-PREFLIGHT-PARSER-GATE-TEST1
 owner: intern_code_test_1
-result: GATE_DEFINED_WAITING_DEV4_PARSER_PACKAGE
+result: BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS
+pr_45_head_reviewed: 84959deac17560995a51a8f9a7be9093624cdf16
 false_positive_suppression_required: true
 real_fault_detection_required: true
 structured_preflight_fields_required: true
@@ -169,6 +260,11 @@ home_xu_yang_required: true
 sft_allowed_only_after_parser_fixed_preflight_pass: true
 eval_handoff_allowed_now: false
 sft_gpu_eval_dry_run_executed_by_test1: false
+blocking_findings:
+  - missing_required_top_level_structured_fields
+  - missing_home_xu_yang_storage_status
+  - missing_different_node_gate
+  - missing_direct_sft_allowed_and_sft_skip_reason
 next_gate_result_options:
   - PASS_FOR_PM_RETRY
   - PASS_FOR_NEXT_PM_DECISION
