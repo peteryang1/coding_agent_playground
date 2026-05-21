@@ -11,3 +11,4 @@
 3. SFT tiny-data preprocessing: for 10-row ShareGPT smoke runs, single-process preprocessing avoids the `datasets.map(num_proc=4)` multiprocessing manager failure surface and is sufficient for throughput.
 4. SFT NCCL/NVLink mitigation: when an 8-GPU H200 run reaches training startup then fails with peer GPU memory over NVLink on one rank, prefer a fresh different node plus NCCL/NVLink preflight before changing training semantics.
 5. SFT preflight parser contract: health parsers should expose stable top-level gate fields and keep generated command/process/evidence text out of actionable fault matching while still preserving ignored matches for audit.
+6. SFT parser-fixed blocker pattern: distinguish stale historical Xid/SXid from fresh or timestamp-unknown actionable Xid/SXid, and normalize `/home/xu.yang/coding_agent_playground/outputs` with its CephFS resolved mirror when evaluating generated artifact storage.

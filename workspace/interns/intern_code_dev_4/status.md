@@ -7,8 +7,8 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | PR #45 merged |
-| Session | 2 |
+| PR | PR #47 PM-gated for self-merge |
+| Session | 1 |
 
 ## PM Corrections
 
@@ -55,3 +55,5 @@
 - 2026-05-21 Session 1 gate fix: PM marked PR #45 NOT READY. Addressed dev_1 ECC false-negative risk by making fatal ECC actionable and tying uncorrected ECC detection to the relevant nonzero ECC counter rather than unrelated zero tokens. Addressed test_1 structured-field/storage blocker by adding stable top-level parser fields and `/home/xu.yang/coding_agent_playground/outputs` storage gating. Pushed PR #45 update; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. No LTP/GPU/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 2: PM gate passed for PR #45 / `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`; latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4` is open, non-draft, `MERGEABLE` / `CLEAN`, with dev_1 and test_1 `PASS_FOR_PM_RETRY` in PM evidence. Marked local task status Idle/completion-ready before owner self-merge per playbook. No LTP/GPU/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 2 completion: Self-merged PR #45 at `2026-05-21T11:42:20Z` with merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`. Task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` is complete; runtime remains separately PM-gated and was not run.
+- 2026-05-21: Accepted PM task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`. Reviewed dev_2 parser-fixed preflight runtime/tracking evidence plus dev_1/test_1 refreshed gates. Wrote no-execution fix package evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_parserfixed_blocker_fix.md`, recommending parser changes for Xid/SXid freshness classification and `/home/xu.yang` CephFS path normalization. Opened PR #47 `https://github.com/peteryang1/coding_agent_playground/pull/47`. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 1: PM gate passed for PR #47 / `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, and PM authorized owner self-merge only. Marked local task status Idle/completion-ready before owner self-merge per playbook. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
