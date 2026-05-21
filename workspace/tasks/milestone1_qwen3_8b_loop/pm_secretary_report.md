@@ -1,5 +1,11 @@
 # PM Report to Secretary - Milestone 1
 
+## 2026-05-21 Session 23 PR63 Gate Update
+
+- PM gated PR #63 for `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` as `PASS_OWNER_SELF_MERGE_ONLY`.
+- Basis: PR #63 is open/non-draft `MERGEABLE` / `CLEAN` at head `a0ab039278198a6c1b0cd40009038d89cd602922`; dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`; dev_4 evidence records local static checks and no runtime execution.
+- No LTP/GPU/transfer/preflight/SFT/eval/runtime is authorized by this PR gate. Next durable outcome required from dev_4 is self-merge plus task completion marking; only then can PM consider a fresh dev_2 owner-executed SFT smoke attempt.
+
 ## 2026-05-20 Initial Organization
 
 PM accepted Milestone 1 and is coordinating under `secretary_pm_dev_test_intern_team_pattern_skill`.

@@ -2,6 +2,12 @@
 
 <!-- METADATA:SESSION=23 -->
 
+## 2026-05-21 Session 23 PR63 Gate Knowledge
+
+- PR63 launcher-path fix is accepted for owner self-merge only: direct `*/llamafactory/launcher.py` command strings should be normalized to `python3 -m llamafactory.cli` so LLamaFactory CLI consumes `train` and passes the runtime YAML to the training parser where `model_name_or_path` is read.
+- Preserve the PR61 command-array parsing fix; do not regress to executing a space-containing `LLAMAFACTORY_CLI` as one quoted path.
+- Runtime remains a separate PM decision after merge/completion. Required runtime evidence remains local/provided bundle preparation, exact transfer command/checksum/file list, no remote source/dependency network, `/home/xu.yang/coding_agent_playground/outputs`, structured preflight PASS, `SFT_ALLOWED=true`, and stop/no-running-job proof.
+
 ## Knowledge Entries
 
 1. Supervisor requirement: Milestone 1 must run an end-to-end smoke loop across three high-star repo types with 10 total Codex trajectories, cleaning to `coding_agent_playground` format, Qwen3-8B SFT smoke/path, mini-swe-agent eval smoke/report, and final report.

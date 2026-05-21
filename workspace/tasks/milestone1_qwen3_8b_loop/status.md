@@ -2,6 +2,13 @@
 
 <!-- METADATA:STATUS=Open,OWNER=intern_code_pm -->
 
+## 2026-05-21 Session 23 PR63 Gate Status
+
+- Current SFT checkpoint status: not produced yet. Latest final runtime blocker remains PR61 `ValueError: Please provide model_name_or_path`; PR #63 is the no-execution fix package for that blocker.
+- PR #63 gate: `PASS_OWNER_SELF_MERGE_ONLY` for `intern_code_dev_4`. GitHub state is open/non-draft `MERGEABLE` / `CLEAN`, latest head `a0ab039278198a6c1b0cd40009038d89cd602922`.
+- Review inputs: dev_1 `PASS_FOR_PM_RETRY`, test_1 `PASS_FOR_PM_RETRY`, and dev_4 evidence/static checks are present in durable evidence.
+- Runtime status: no fresh LTP/GPU/transfer/preflight/SFT/eval is authorized by this gate. Next runtime can only be considered after dev_4 self-merges PR #63 and records task completion.
+
 ## 2026-05-20
 
 - PM accepted supervisor Milestone 1 and durable-channel correction.

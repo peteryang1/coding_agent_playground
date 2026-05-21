@@ -2,6 +2,14 @@
 
 <!-- METADATA:SESSION=23 -->
 
+## 2026-05-21 Session 23 PR #63 Gate Pass
+
+- dev_4 opened PR #63 `M1-S23 PR61 MCA model path launcher fix` for `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4`.
+- GitHub reports PR #63 open, non-draft, `MERGEABLE` / `CLEAN`, latest observed head `a0ab039278198a6c1b0cd40009038d89cd602922`; functional patch commit is `a035692dc72b40434240d0308c36f4d071644849`.
+- dev_1 refreshed `M1-S23-PR61-MCA-MODEL-PATH-REVIEW-DEV1` and recorded `PASS_FOR_PM_RETRY` against latest PR #63 head.
+- test_1 refreshed `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1` and recorded `PASS_FOR_PM_RETRY` against latest PR #63 head.
+- PM decision: PR #63 passes owner self-merge gate for dev_4 only. This gate does not authorize LTP/GPU/transfer/preflight/SFT/eval/runtime retry. A future runtime must be separately assigned to dev_2 after PR #63 is merged and task completion is recorded.
+
 ## Session 1 - 2026-05-20
 
 - Accepted Milestone 1 under `secretary_pm_dev_test_intern_team_pattern_skill`.

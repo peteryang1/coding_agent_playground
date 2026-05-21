@@ -4,6 +4,7 @@
 
 ## 2026-05-21 Session 23 Update
 
+- PR #63 passes PM owner-self-merge gate for dev_4 only: latest head `a0ab039278198a6c1b0cd40009038d89cd602922`, GitHub `MERGEABLE` / `CLEAN`, dev_1/test_1 both `PASS_FOR_PM_RETRY`. No runtime authorization is issued by this gate.
 - PM recorded dev_2 PR55 runtime final blocker: structured preflight passed and exactly one SFT attempt ran, but launch failed before GPU training with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer outputs/eval exists and the LTP frame is stopped/released.
 - PM created the next no-execution task split for all six owners and will gate dev_4 wrapper fix plus dev_1/test_1 review before any fresh owner-executed runtime authorization.
 - PM delivered those six tasks by tmux inject plus Enter and capture-pane verification; first audit found follow-up evidence and open PR still pending.
