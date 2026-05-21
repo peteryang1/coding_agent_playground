@@ -307,3 +307,11 @@
 - No new LTP/SFT/GPU/eval retry is authorized.
 - PM created no-execution mitigation tasks for dev_4, dev_2, dev_3, dev_1, test_1, and test_2.
 - Required next gate: decide whether a future retry should use a different H200 node, adjusted NCCL/NVL settings, or a minimal hardware/NCCL preflight, while preserving PR39 diagnostics, PR41 single-process preprocessing, and `/home/xu.yang` intermediates.
+
+## 2026-05-21 Session 22 PR #43 Gate
+
+- NCCL/NVLink no-execution mitigation package passes PM gate for owner self-merge only.
+- PR #43 head `5f4d14a12aa8044a429d1110757ed631a7bc9833` is open/non-draft `MERGEABLE` / `CLEAN`.
+- Gate basis: dev_4 mitigation package, dev_2 resource plan, dev_3 data confirmation, dev_1 `PASS_FOR_PM_RETRY`, and test_1 `PASS_FOR_PM_RETRY`.
+- Owner action: dev_4 must self-merge PR #43 and mark `M1-S22-NCCL-MITIGATION-DEV4` completion or ready-for-runtime-gate in durable task/status/history/evidence files.
+- This gate does not authorize LTP, GPU, NCCL preflight execution, SFT retry, eval, or dry-run launch. Future SFT/eval/preflight intermediates must remain under `/home/xu.yang` unless an existing required input path is explicitly justified.

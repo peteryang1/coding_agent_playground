@@ -3,13 +3,85 @@
 Task ID: `M1-S22-NCCL-GATE-TEST1`
 Owner: `intern_code_test_1`
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_nccl_retry_gate.md`
-Status timestamp: `2026-05-21T10:29:17Z`
+Status timestamp: `2026-05-21T10:41:00Z`
 
 ## Result
 
-`GATE_DEFINED_WAITING_NCCL_MITIGATION_PACKAGES`
+`PASS_FOR_PM_RETRY`
 
 No SFT, GPU command, LTP action, eval, or dry-run launch was run by `intern_code_test_1`.
+
+## Refresh Against Current Inputs
+
+Inputs checked for this refresh:
+
+- `evidence/dev_4_s22_nccl_mitigation.md`: present.
+- `evidence/dev_2_s22_nccl_resource_plan.md`: present.
+- `evidence/dev_3_s22_nccl_data_confirm.md`: present.
+- `evidence/dev_1_s22_nccl_review.md`: present and refreshed to `PASS_FOR_PM_RETRY`.
+- PR #43: `https://github.com/peteryang1/coding_agent_playground/pull/43`
+  - state: `OPEN`
+  - draft: `false`
+  - mergeable: `MERGEABLE`
+  - merge state: `CLEAN`
+  - head: `5f4d14a12aa8044a429d1110757ed631a7bc9833`
+  - task: `M1-S22-NCCL-MITIGATION-DEV4`
+
+### dev_4 Mitigation Gate
+
+PASS for test_1 no-execution review.
+
+- Cites `BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY`.
+- Preserves the fact that PR39 diagnostics passed and PR41 `preprocessing_num_workers: null` passed.
+- States the fresh blocker is hardware/distributed-backend sensitive, not data-format, storage, PR39 diagnostics, or PR41 preprocessing.
+- Recommends a fresh H200 allocation, preferably a different physical node than `lg-cmc-b7r202-p07u16-h200-000708`.
+- Requires hardware/NCCL preflight before SFT on any future PM-authorized node.
+- Defines future preflight artifacts under `/home/xu.yang/coding_agent_playground/outputs/preflight/<RUN_ID>`.
+- Defines future SFT env additions for evidence and safer failure surfacing: `NCCL_DEBUG=INFO`, `NCCL_DEBUG_SUBSYS=INIT,GRAPH,COLL`, `NCCL_ASYNC_ERROR_HANDLING=1`, `TORCH_NCCL_ASYNC_ERROR_HANDLING=1`, `CUDA_DEVICE_MAX_CONNECTIONS=1`.
+- Does not make `NCCL_P2P_DISABLE=1` the default; treats it only as an explicitly accepted degraded diagnostic fallback.
+- States no LTP/SFT/GPU/eval/dry-run was performed.
+
+### PR #43 Gate
+
+PASS for package scope/metadata.
+
+- PR #43 body cites task id, owner, acceptance criteria, evidence path, and completion marker.
+- GitHub reports open/non-draft `MERGEABLE`/`CLEAN`.
+- Head commit is `5f4d14a12aa8044a429d1110757ed631a7bc9833`.
+- PR #43 does not authorize SFT/GPU/eval/dry-run.
+- PR #43 is a dev_4 mitigation package PR; it is not a runtime authorization.
+
+### dev_2 Resource Plan Gate
+
+PASS for no-submit resource planning.
+
+- Confirms prior post-PR41 frame `xu.yang~coding-agent-playground-m1-s22-postpr41-qwen3-8b-runtime-20260521T100634Z` is `STOPPED (Completed)`.
+- Confirms former endpoint `ssh -p 27021 root@10.100.22.14` refused connection after stop.
+- Confirms no active coding_agent_playground / Milestone 1 / S22 NCCL retry GPU is held by `intern_code_dev_2`.
+- Recommends a fresh single-node 8 x H200 allocation, preferably on a different physical node than `lg-cmc-b7r202-p07u16-h200-000708`.
+- Includes no-submit LTP submit/status/ssh/stop templates only.
+- Keeps future output, checkpoint, tmp, run metadata, nodes JSON, and capacity probe paths under `/home/xu.yang/coding_agent_playground/outputs`.
+- States no submit/resource action without fresh PM authorization after required gates.
+
+### dev_3 Data Confirmation Gate
+
+PASS.
+
+- Confirms no ShareGPT data/package change is implicated by the CUDA/NCCL/NVLink blocker.
+- Preserves accepted source artifact `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`.
+- Preserves sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
+- Preserves row count 10 and ShareGPT `messages[*].from/value` contract.
+- Cites ShareGPT conversion `10/10`, PR41 `preprocessing_num_workers: null`, and training startup reached.
+- Requires future staging/copy/tmp data artifacts to use `/home/xu.yang` unless explicitly justified.
+- States no SFT/GPU/LTP/dry-run/eval execution.
+
+### dev_1 Review Gate
+
+PASS.
+
+Current `evidence/dev_1_s22_nccl_review.md` records `PASS_FOR_PM_RETRY`.
+
+dev_1 reviewed dev_4 mitigation, dev_2 resource plan, dev_3 data confirmation, PR #43, and the prior runtime/test evidence. No remaining dev_1 blocker is reported. dev_1 also records that this review does not authorize LTP/SFT/GPU/eval; any future preflight or SFT runtime still requires explicit PM authorization.
 
 ## Basis
 
@@ -182,13 +254,20 @@ Otherwise record `EVAL_HANDOFF_BLOCKED` with exact blockers.
 
 ## Current Blockers
 
-Current no-execution gate status is blocked pending required owner packages and PM authorization:
+Current no-execution gate status is `PASS_FOR_PM_RETRY`.
 
-- `BLOCKED_WAITING_DEV4_NCCL_MITIGATION`
-- `BLOCKED_WAITING_DEV2_RESOURCE_PLAN`
-- `BLOCKED_WAITING_DEV3_DATA_CONFIRM`
-- `BLOCKED_WAITING_DEV1_REVIEW`
-- `BLOCKED_WAITING_FRESH_PM_AUTHORIZATION`
+Cleared for test_1 no-execution gate:
+
+- PR #43 package metadata/scope: PASS.
+- dev_4 mitigation package: PASS.
+- dev_2 resource plan: PASS.
+- dev_3 data confirmation: PASS.
+- dev_1 independent review: PASS.
+
+Remaining before any actual execution:
+
+- Fresh PM authorization is still required before any LTP/GPU/NCCL preflight/SFT runtime.
+- Any future run must still satisfy post-run acceptance: NCCL/NVLink blocker absent/resolved, checkpoint/model present, `trainer_state.json` and `all_results.json` present or PM/test accepted replacements, PR39 diagnostics complete, PR41 preprocessing preserved, `/home/xu.yang` storage preserved, stop proof recorded, and old failure signatures absent.
 
 Eval handoff remains blocked because the latest runtime has no checkpoint/model, no `trainer_state.json`, and no `all_results.json`.
 
@@ -197,9 +276,15 @@ Eval handoff remains blocked because the latest runtime has no checkpoint/model,
 ```yaml
 task_id: M1-S22-NCCL-GATE-TEST1
 owner: intern_code_test_1
-result: GATE_DEFINED_WAITING_NCCL_MITIGATION_PACKAGES
+result: PASS_FOR_PM_RETRY
 runtime_blocker_to_resolve: BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY
 fresh_pm_authorization_required: true
+pr43_head: 5f4d14a12aa8044a429d1110757ed631a7bc9833
+pr43_mergeable_clean: true
+dev4_mitigation_gate: PASS
+dev2_resource_plan_gate: PASS
+dev3_data_confirm_gate: PASS
+dev1_review_gate: PASS
 pr39_diagnostics_required: true
 pr41_preprocessing_num_workers_required: null
 home_xu_yang_outputs_required: true

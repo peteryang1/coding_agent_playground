@@ -845,3 +845,10 @@
   - dev_2 must stop/release the node when a checkpoint is produced, the run fails with no PM-authorized retry, an idle/health limit triggers, or PM/test gate orders stop;
   - no other owner may run eval until PM gates a checkpoint/model or served endpoint;
   - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+
+## 2026-05-21 Session 22 PR #43 Gate
+
+- dev_4 produced PR #43 for `M1-S22-NCCL-MITIGATION-DEV4`; dev_2 produced the no-submit resource plan; dev_3 confirmed no data/package change; dev_1 refreshed to `PASS_FOR_PM_RETRY`; test_1 refreshed to `PASS_FOR_PM_RETRY`.
+- PM gated PR #43 at head `5f4d14a12aa8044a429d1110757ed631a7bc9833` as open/non-draft `MERGEABLE` / `CLEAN`.
+- Gate result is owner self-merge only for dev_4. It does not authorize LTP/GPU/NCCL preflight/SFT retry/eval/dry-run.
+- PM preserved the `/home/xu.yang` CephFS intermediate rule for any next SFT/eval/preflight authorization and did not run LTP, SFT, GPU, remote workspace code, or eval commands.
