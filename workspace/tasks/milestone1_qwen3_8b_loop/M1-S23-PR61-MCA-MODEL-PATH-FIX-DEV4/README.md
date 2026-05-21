@@ -15,3 +15,5 @@
 ## Status
 
 - 2026-05-21: Package prepared with launcher normalization patch and static tests. PR #63 is open/non-draft and GitHub reports `MERGEABLE` / `CLEAN`; waiting for PM gate before any owner self-merge.
+- 2026-05-21: PM gate passed for PR #63 and dev_4 self-merged it at `2026-05-21T18:08:48Z`; merge commit `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`.
+- Completion: `complete/ready-for-runtime-gate`. Runtime remains separately PM-gated; this completion does not authorize LTP/GPU/transfer/preflight/SFT/eval/runtime.

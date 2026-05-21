@@ -934,3 +934,11 @@
 - No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by dev_4.
 - Opened PR #63 `https://github.com/peteryang1/coding_agent_playground/pull/63`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
 - Waiting for PM gate before any owner self-merge.
+
+## Session 58 - Dev 4 PR #63 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #63 / `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` at head `a0ab039278198a6c1b0cd40009038d89cd602922`.
+- Gate basis: PM evidence commit `838ffa3`; dev_1 `PASS_FOR_PM_RETRY`; test_1 `PASS_FOR_PM_RETRY`; GitHub open/non-draft `MERGEABLE` / `CLEAN`.
+- Self-merged PR #63 at `2026-05-21T18:08:48Z`; merge commit `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`.
+- Task `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` is complete/ready-for-runtime-gate.
+- This gate and completion do not authorize LTP/GPU/transfer/preflight/SFT/eval/runtime.

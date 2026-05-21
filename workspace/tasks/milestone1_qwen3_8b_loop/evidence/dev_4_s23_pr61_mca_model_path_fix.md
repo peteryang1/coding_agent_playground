@@ -143,5 +143,7 @@ Result:
 
 ## Completion Marker
 
-- Current state: PR #63 open/non-draft, GitHub reports `MERGEABLE` / `CLEAN`; waiting for PM gate before any owner self-merge.
-- Completion target after PM gate and owner self-merge: `complete/ready-for-runtime-gate`.
+- Complete/ready-for-runtime-gate: PM gate passed for PR #63 and dev_4 self-merged it at `2026-05-21T18:08:48Z`.
+- Merge commit: `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`.
+- Completion record branch: `intern_code_dev_4/M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4-completion`.
+- Runtime boundary remains: this merge and completion record do not authorize LTP/GPU/transfer/preflight/SFT/eval/runtime.

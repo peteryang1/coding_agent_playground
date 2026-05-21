@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | #63 open; waiting for PM gate |
+| PR | #63 merged; completion record branch active |
 | Session | 2 |
 
 ## PM Corrections
@@ -80,3 +80,4 @@
 - 2026-05-21 Session 23 PR59 CLI completion: Self-merged PR #61 at `2026-05-21T17:13:17Z`; merge commit `aa426b045b52b71bc23b4a2f73f3ee1c42187037`. Task `M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4` is complete as a no-execution launcher command invocation fix. Runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/runtime retry was run.
 - 2026-05-21 Session 23 PR61 MCA model-path follow-up: Accepted task `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` after dev_2 PR61 runtime failed with `ValueError: Please provide model_name_or_path` despite generated runtime YAML containing `model_name_or_path`. Diagnosed the direct `llamafactory/launcher.py train config.yaml` command shape as the parser-binding root cause: direct launcher execution bypasses `launcher.launch()`, so `train` becomes the first parser arg and the YAML is not loaded. Patched `scripts/train_qwen3_8b_sft.sh` to preserve PR61 command-array parsing while normalizing direct `llamafactory/launcher.py` commands to `python3 -m llamafactory.cli`; added static tests and wrote evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr61_mca_model_path_fix.md`. Local checks passed: `bash -n scripts/train_qwen3_8b_sft.sh`; `python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q` (`5 passed`). No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run.
 - 2026-05-21 Session 23 PR61 MCA model-path PR: Opened PR #63 `https://github.com/peteryang1/coding_agent_playground/pull/63` for `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4`. GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. Waiting for PM gate before any owner self-merge; no LTP/GPU/preflight/SFT/eval/dry-run/remote command was run.
+- 2026-05-21 Session 23 PR61 MCA model-path completion: PM gate passed for PR #63 with PM evidence commit `838ffa3`, dev_1 `PASS_FOR_PM_RETRY`, test_1 `PASS_FOR_PM_RETRY`, and GitHub `MERGEABLE` / `CLEAN` at head `a0ab039278198a6c1b0cd40009038d89cd602922`. Self-merged PR #63 at `2026-05-21T18:08:48Z`; merge commit `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`. Task `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` is marked complete/ready-for-runtime-gate; no LTP/GPU/transfer/preflight/SFT/eval/runtime command was run or authorized.
