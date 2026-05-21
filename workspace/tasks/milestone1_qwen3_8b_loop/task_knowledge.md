@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=22 -->
+<!-- METADATA:SESSION=23 -->
 
 ## Knowledge Entries
 
@@ -46,3 +46,4 @@
 40. PR59 runtime result fact: dev_2's PR59 runtime passed source/data/mcore transfer, no-remote-network, `mcore_adapter import OK for USE_MCA=1`, `/home/xu.yang` storage/capacity, structured preflight `PASS`, and `SFT_ALLOWED=true`, then the single SFT attempt failed before checkpoint with `BLOCKED_PR59_RUNTIME_LLAMAFACTORY_CLI_COMMAND_STRING` because `LLAMAFACTORY_CLI` was a space-containing command string executed as one quoted path.
 41. PR59 LLAMAFACTORY_CLI retry rule: next runtime is blocked until dev_4 provides a no-execution fix that supports command-plus-args safely or points `LLAMAFACTORY_CLI` to a real executable/wrapper path without embedded spaces, while preserving `DEP_TARGET`, `LF`, `MCORE_ADAPTER_DIR`, no-remote-network transfer, `/home/xu.yang` outputs, preflight/import gates, and stop-proof requirements.
 42. PR61 LLAMAFACTORY_CLI fix gate fact: test_1 re-gated `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1` to `PASS_FOR_PM_RETRY` for PR #61 latest head `d4f3340d1f7b32d91553cbe18d7effce533276c7`; the functional commit `59524d9a905b07e4940ec17de277d862dcd99900` parses `LLAMAFACTORY_CLI` into `LLAMAFACTORY_CMD` and invokes `"${LLAMAFACTORY_CMD[@]}" train`, removing the single quoted path blocker while preserving prior mcore, storage, no-remote-download, and diagnostics gates.
+43. PR61 runtime blocker fact: dev_2's post-PR61 runtime passed transfer/import/preflight and PR61 `LLAMAFACTORY_CMD` behavior, then failed before checkpoint with `BLOCKED_PR61_RUNTIME_MCA_MODEL_NAME_OR_PATH_PARSE` / `ValueError: Please provide model_name_or_path`; generated YAML contained `model_name_or_path`, so the next gate needs a dev_4 MCA/model-path binding fix package before PM authorizes another runtime.
