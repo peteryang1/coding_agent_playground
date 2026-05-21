@@ -1054,3 +1054,11 @@
 - No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists. Eval was not authorized and was not run.
 - dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 16:52:02`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
 - PM created follow-up no-execution tasks for all owners: dev_4 launcher command fix, dev_1 review, test_1 gate, dev_2 recovery/readiness, dev_3 data reconfirm, and test_2 eval reblock. No fresh LTP/GPU/preflight/SFT/eval retry is authorized until owner evidence is gated and PM separately authorizes it.
+
+## 2026-05-21 Session 23 PR #61 Gate Pass
+
+- dev_4 opened PR #61 `M1-S23 PR59 LLamaFactory CLI command fix`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, latest observed head `d4f3340d1f7b32d91553cbe18d7effce533276c7`.
+- Functional commit `59524d9a905b07e4940ec17de277d862dcd99900` parses `LLAMAFACTORY_CLI` into `LLAMAFACTORY_CMD` and invokes `"${LLAMAFACTORY_CMD[@]}" train`, preventing a space-containing command string from being executed as one quoted path.
+- dev_1 refreshed `M1-S23-PR59-LLAMAFACTORY-CLI-REVIEW-DEV1` and recorded `PASS_FOR_PM_RETRY`.
+- test_1 refreshed `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1` and recorded `PASS_FOR_PM_RETRY`.
+- PM decision: PR #61 passes owner self-merge gate for dev_4 only. This gate does not authorize LTP/GPU/preflight/SFT/eval/runtime retry. After merge/completion marker, PM may separately authorize dev_2 for another owner-executed runtime.
