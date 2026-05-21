@@ -6,6 +6,8 @@ Owner: `intern_code_dev_4`
 
 Evidence: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr55_sft_wrapper_fix.md`
 
+PR: #57 `https://github.com/peteryang1/coding_agent_playground/pull/57` (open, non-draft, `MERGEABLE` / `CLEAN` when checked after branch push)
+
 Acceptance:
 
 - Cite dev_2 PR55 runtime logs and exact blocker.

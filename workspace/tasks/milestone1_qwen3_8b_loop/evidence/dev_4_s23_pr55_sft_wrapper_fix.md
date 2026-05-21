@@ -134,6 +134,12 @@ python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q: 2 passed in 0.01s
 task_id: M1-S23-PR55-SFT-WRAPPER-FIX-DEV4
 owner: intern_code_dev_4
 result: READY_FOR_PR
+pr: 57
+pr_url: https://github.com/peteryang1/coding_agent_playground/pull/57
+pr_state: OPEN
+pr_mergeable: MERGEABLE
+pr_merge_state_status: CLEAN
+pr_head: see GitHub PR #57 latest head; metadata commits may advance this value
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr55_sft_wrapper_fix.md
 patch_files:
   - scripts/train_qwen3_8b_sft.sh
