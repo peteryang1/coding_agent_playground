@@ -71,6 +71,12 @@ NCCL_FAILURE_RE = re.compile(
     r"(?:collective|all[_ -]?reduce).*(?:fail|error|exception)",
     re.IGNORECASE,
 )
+NCCL_DEPRECATION_WARNING_RE = re.compile(
+    r"NCCL_ASYNC_ERROR_HANDLING.*(?:deprecated|deprecation)|"
+    r"(?:deprecated|deprecation).*NCCL_ASYNC_ERROR_HANDLING",
+    re.IGNORECASE,
+)
+ALLREDUCE_OK_RE = re.compile(r"\bALLREDUCE_OK\b")
 ECC_RE = re.compile(
     r"(?:fatal\s+)?ECC|uncorrected|volatile.*uncorrect|aggregate.*uncorrect",
     re.IGNORECASE,
@@ -199,7 +205,17 @@ def has_ecc_fault(line: str) -> bool:
     return bool(NONZERO_COUNTER_RE.search(suffix))
 
 
-def line_faults(line: str, source_name: str) -> list[str]:
+def is_benign_nccl_deprecation_warning(line: str, *, source_allreduce_ok: bool) -> bool:
+    return source_allreduce_ok and bool(NCCL_DEPRECATION_WARNING_RE.search(line))
+
+
+def source_allreduce_ok(lines: list[str]) -> bool:
+    text = "\n".join(lines)
+    match = TORCHRUN_EXIT_RE.search(text)
+    return bool(match and match.group(1) == "0" and ALLREDUCE_OK_RE.search(text))
+
+
+def line_faults(line: str, source_name: str, *, source_allreduce_ok: bool = False) -> list[str]:
     lowered = source_name.lower()
     faults: list[str] = []
     if PEER_MEMORY_RE.search(line):
@@ -208,7 +224,11 @@ def line_faults(line: str, source_name: str) -> list[str]:
         faults.append("sigabrt")
     if CHILD_FAILED_RE.search(line):
         faults.append("torch_child_failed")
-    if NCCL_FAILURE_RE.search(line) and "NCCL INFO" not in line:
+    if (
+        NCCL_FAILURE_RE.search(line)
+        and "NCCL INFO" not in line
+        and not is_benign_nccl_deprecation_warning(line, source_allreduce_ok=source_allreduce_ok)
+    ):
         faults.append("nccl_or_collective_failure")
     if has_ecc_fault(line):
         faults.append("ecc_nonzero_or_fatal")
@@ -364,6 +384,7 @@ def parse(root: Path, freshness_start: datetime | None = None) -> dict[str, obje
         decision = classify_source(path)
         source = rel(path, root)
         lines = read_lines(path)
+        allreduce_ok = source_allreduce_ok(lines)
         if decision.role == "actionable":
             sources_scanned.append({"path": source, "reason": decision.reason})
             for line_no, line in enumerate(lines, start=1):
@@ -398,7 +419,16 @@ def parse(root: Path, freshness_start: datetime | None = None) -> dict[str, obje
                                 "text": line[:500],
                             }
                         )
-                faults = line_faults(line, path.name)
+                if is_benign_nccl_deprecation_warning(line, source_allreduce_ok=allreduce_ok):
+                    ignored_matches.append(
+                        {
+                            "path": source,
+                            "line": line_no,
+                            "reason": "benign_nccl_async_error_handling_deprecation_warning",
+                            "text": line[:500],
+                        }
+                    )
+                faults = line_faults(line, path.name, source_allreduce_ok=allreduce_ok)
                 if faults:
                     actionable_faults.append(
                         {"path": source, "line": line_no, "faults": sorted(set(faults)), "text": line[:500]}
