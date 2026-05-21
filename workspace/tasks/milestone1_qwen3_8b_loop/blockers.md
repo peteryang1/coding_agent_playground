@@ -22,6 +22,7 @@
 - Current owner-evidence blocker: as of `2026-05-20T12:35:10Z`, none of the six launch-package evidence files are present in PM durable evidence, and PR #30 has not been refreshed. PM has re-submitted non-interrupt start commands; future retry authorization remains blocked.
 - Escalated durable blocker requirement: as of `2026-05-20T12:39:01Z`, each owner must either complete the assigned evidence file or record a blocker/missing-input list in that same file and own status. PM cannot gate the next SFT retry until PR #30 is refreshed/merged and these evidence-or-blocker files exist.
 - Active impasse: as of `2026-05-20T12:41:44Z`, repeated audits show no PR #30 refresh and no launch-package evidence-or-blocker files. PM cannot author, run, or substitute these owner tasks; next progress requires owner durable updates.
+- 2026-05-21 Session 21 route change: supervisor directed PM not to stay blocked on stale owners. PR #30 is no longer the critical blocker for the next checkpoint attempt; it is an archival cleanup task for dev_4. Critical blockers are now the replacement package/gate/runtime evidence: dev_3 dataset_info package, test_1 launch gate, dev_1 review, and dev_2 runtime/resource evidence.
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 
 ## Active

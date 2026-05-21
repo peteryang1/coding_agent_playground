@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=20 -->
+<!-- METADATA:SESSION=21 -->
 
 ## Session 1 - 2026-05-20
 
@@ -666,3 +666,12 @@
 - PM audited at `2026-05-20T12:35:10Z`: no new launch-package evidence files are present yet, and PR #30 remains `CONFLICTING` / `DIRTY`. PM re-submitted non-interrupt tmux start commands to all six owners and kept GPU/SFT/eval authorization blocked.
 - PM escalated at `2026-05-20T12:39:01Z` without interrupting panes: all six owners were told to produce their required evidence or write a durable blocker/missing-input list. Dev_4 was separately told that PR #30 refresh remains the blocking first priority. No SFT/GPU/eval execution is authorized.
 - PM blocked audit at `2026-05-20T12:41:44Z`: PR #30 remains `CONFLICTING` / `DIRTY`, the six launch-package evidence-or-blocker files are absent, and owner panes have not produced new output after PM directives. PM cannot gate or authorize the next SFT/eval step until owner evidence or PR refresh appears.
+
+## 2026-05-21 Session 21 Supervisor Resume / Replacement Runtime Path
+
+- Supervisor directed PM to resume Milestone 1 and continue toward an SFT checkpoint instead of waiting on stale owners.
+- PM re-audited PR #30: it remains open, non-draft, `CONFLICTING` / `DIRTY`, last GitHub update `2026-05-20T11:36:42Z`.
+- PM re-audited replacement evidence paths across workspaces: `dev_3_sft_datasetinfo_package.md`, `dev_4_sft_launch_package.md`, `dev_1_sft_launch_review.md`, `dev_2_gpu_retry_ready.md`, `test_1_sft_launch_gate.md`, and `test_2_eval_smoke_package.md` are absent.
+- PM decision: PR #30 is now archival evidence for the failed original retry and is no longer the critical blocker for the next ShareGPT-fixed run. It still should be refreshed/closed by dev_4 when possible, but checkpoint progress moves to a replacement Session 21 path.
+- PM created replacement tasks: `M1-S21-DATASETINFO-PACKAGE-DEV3`, `M1-S21-LAUNCH-REVIEW-DEV1`, `M1-S21-LAUNCH-GATE-TEST1`, `M1-S21-RUNTIME-DEV2`, `M1-S21-EVAL-PACKAGE-TEST2`, and `M1-S21-PR30-CLEANUP-DEV4`.
+- Target durable outcome: `M1-S21-RUNTIME-DEV2` must produce either an SFT checkpoint/model plus logs, or a fresh exact runtime blocker with command, node status, logs, owner, and next fix.

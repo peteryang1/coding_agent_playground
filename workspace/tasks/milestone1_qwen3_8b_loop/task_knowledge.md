@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=20 -->
+<!-- METADATA:SESSION=21 -->
 
 ## Knowledge Entries
 
@@ -150,3 +150,5 @@
 136. Owner-evidence audit fact: at `2026-05-20T12:35:10Z`, PR #30 is still `CONFLICTING` / `DIRTY` and the six new launch-package evidence files are absent from PM durable evidence; PM re-submitted start commands by tmux and awaits owner evidence.
 137. Blocker-evidence directive fact: at `2026-05-20T12:39:01Z`, PM instructed all six owners that absent launch-package evidence must be replaced by a durable blocker/missing-input list in the assigned evidence file plus own status; this is still no-execution work.
 138. Blocked audit fact: at `2026-05-20T12:41:44Z`, the same owner-output blocker has repeated across consecutive goal turns. PM cannot proceed inside role boundaries until dev_4 refreshes PR #30 or owners create the assigned evidence-or-blocker files.
+139. Session 21 resume decision: supervisor directed PM not to remain blocked on stale owners. PM superseded PR #30 as a critical-path blocker for the next ShareGPT-fixed run and created a replacement runtime path with dev_2 as acting resource/runtime owner.
+140. Session 21 checkpoint gate: next acceptable durable outcome is either a checkpoint/model from ShareGPT-fixed SFT smoke or a fresh exact runtime blocker with command, logs, node/job state, owner, and next fix.

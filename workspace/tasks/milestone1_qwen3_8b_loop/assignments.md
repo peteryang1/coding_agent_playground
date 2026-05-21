@@ -124,6 +124,14 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_test_1`: task `M1-SFT-LAUNCH-GATE-TEST1`; prepare the final no-execution preflight/post-run gate for the data-format-fixed retry.
   - `intern_code_test_2`: task `M1-EVAL-SMOKE-PACKAGE-TEST2`; prepare mini-swe smoke command/result package while recording that execution is blocked until a checkpoint/model/endpoint exists.
   - These tasks keep all interns active but do not authorize GPU, SFT, or mini-swe execution. Any dev/test PR created from these tasks must cite the task id, owner, acceptance criteria, evidence path, and completion marker.
+- 2026-05-21 Session 21 supervisor resume / replacement checkpoint path:
+  - Stale PR #30 and missing Session 12 launch-package files are no longer allowed to stop checkpoint progress.
+  - `intern_code_dev_3`: task `M1-S21-DATASETINFO-PACKAGE-DEV3`; write exact ShareGPT LLamaFactory `dataset_info.json` package to `evidence/dev_3_s21_datasetinfo_package.md`; no SFT/GPU/eval.
+  - `intern_code_test_1`: task `M1-S21-LAUNCH-GATE-TEST1`; gate dev_3 package and expected runtime artifacts in `evidence/test_1_s21_launch_gate.md`; no SFT/GPU/eval.
+  - `intern_code_dev_1`: task `M1-S21-LAUNCH-REVIEW-DEV1`; independently review package/gate/runtime plan in `evidence/dev_1_s21_launch_review.md`; no remote experiments.
+  - `intern_code_dev_2`: task `M1-S21-RUNTIME-DEV2`; acting resource/runtime owner. Prepare LTP and, after PM gate on dev_3/test_1/dev_1 evidence, submit/run ShareGPT-fixed SFT smoke and write `evidence/dev_2_s21_sft_runtime.md` plus `evidence/gpu_s21_resource_tracking.md`. Target checkpoint/model or fresh exact runtime blocker with logs and next fix.
+  - `intern_code_test_2`: task `M1-S21-EVAL-PACKAGE-TEST2`; prepare mini-swe package in `evidence/test_2_s21_eval_package.md`; do not run eval until checkpoint/endpoint exists and PM gates it.
+  - `intern_code_dev_4`: task `M1-S21-PR30-CLEANUP-DEV4`; refresh, merge, close, or supersede PR #30 as archival evidence; this must not block Session 21 runtime path.
 
 ## PM Integration Responsibilities
 
