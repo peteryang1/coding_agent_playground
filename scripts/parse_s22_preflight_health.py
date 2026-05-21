@@ -215,6 +215,20 @@ def source_allreduce_ok(lines: list[str]) -> bool:
     return bool(match and match.group(1) == "0" and ALLREDUCE_OK_RE.search(text))
 
 
+def is_torch_nccl_allreduce_source(path: Path) -> bool:
+    name = path.name.lower()
+    return any(token in name for token in ("torch", "nccl", "allreduce"))
+
+
+def preflight_allreduce_ok(files: list[Path]) -> bool:
+    texts: list[str] = []
+    for path in files:
+        decision = classify_source(path)
+        if decision.role == "actionable" and is_torch_nccl_allreduce_source(path):
+            texts.extend(read_lines(path))
+    return source_allreduce_ok(texts)
+
+
 def line_faults(line: str, source_name: str, *, source_allreduce_ok: bool = False) -> list[str]:
     lowered = source_name.lower()
     faults: list[str] = []
@@ -379,12 +393,13 @@ def parse(root: Path, freshness_start: datetime | None = None) -> dict[str, obje
     xid_history: list[dict[str, object]] = []
     sources_scanned: list[dict[str, str]] = []
     sources_excluded: list[dict[str, str]] = []
+    global_allreduce_ok = preflight_allreduce_ok(files)
 
     for path in files:
         decision = classify_source(path)
         source = rel(path, root)
         lines = read_lines(path)
-        allreduce_ok = source_allreduce_ok(lines)
+        allreduce_ok = source_allreduce_ok(lines) or (global_allreduce_ok and is_torch_nccl_allreduce_source(path))
         if decision.role == "actionable":
             sources_scanned.append({"path": source, "reason": decision.reason})
             for line_no, line in enumerate(lines, start=1):
