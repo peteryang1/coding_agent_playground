@@ -1,14 +1,14 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Idle,TASK= -->
+<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop/M1-S22-PREFLIGHT-PARSER-FIX-DEV4 -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Idle |
-| Current Task |  |
-| PR | PR #43 merged |
-| Session | 1 |
+| Status | Working |
+| Current Task | milestone1_qwen3_8b_loop/M1-S22-PREFLIGHT-PARSER-FIX-DEV4 |
+| PR | pending |
+| Session | 37 |
 
 ## PM Corrections
 
@@ -51,3 +51,4 @@
 - 2026-05-21 Session 34: PM gate passed for PR #41 and dev_4 self-merged it. PR #41 merged at `2026-05-21T10:00:25Z` with merge commit `2fc4b797a85c9375c6c5e1171963abe67aab35e8`; task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` is complete/ready-for-runtime-gate. This merge does not authorize LTP/SFT/GPU/eval or dry-run launch.
 - 2026-05-21 Session 35: Accepted task `M1-S22-NCCL-MITIGATION-DEV4`. Reviewed dev_2/test_1/PM final evidence for `BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY`: PR39 diagnostics and PR41 single-process preprocessing passed, ShareGPT conversion 10/10 and training startup were reached, then local_rank 5 failed with CUDA/NCCL invalid peer GPU memory over NVLink / SIGABRT before checkpoint save. Wrote no-execution mitigation package recommending a different H200 node plus NCCL/NVLink preflight, preserving `/home/xu.yang/coding_agent_playground/outputs`. No LTP/SFT/GPU/eval/dry-run launch was run.
 - 2026-05-21 Session 36: PM gate passed for PR #43 and dev_4 self-merged it. PR #43 merged at `2026-05-21T10:47:20Z` with merge commit `2c867d3226f7ebb4962b5b173235639df8f1f9be`; task `M1-S22-NCCL-MITIGATION-DEV4` is complete/ready-for-runtime-gate. This merge does not authorize LTP/SFT/GPU/NCCL preflight/eval/dry-run launch or runtime retry.
+- 2026-05-21 Session 37: Accepted task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`. Reviewed dev_2/test_1 final preflight evidence: capacity/topology/NVLink/8-rank torch NCCL passed on a fresh different H200 node, but SFT was not run because broad recursive health scanning matched generated command/process/evidence/generic text and wrote `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`. Added no-execution parser package `scripts/parse_s22_preflight_health.py` and durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_preflight_parser_fix.md`; no LTP/GPU/SFT/eval/dry-run command was run.

@@ -740,3 +740,12 @@
 - GitHub reported PR #43 head `5f4d14a12aa8044a429d1110757ed631a7bc9833` open, non-draft, `MERGEABLE` / `CLEAN`.
 - Dev_4 self-merged PR #43 at `2026-05-21T10:47:20Z`; merge commit `2c867d3226f7ebb4962b5b173235639df8f1f9be`.
 - Task `M1-S22-NCCL-MITIGATION-DEV4` is marked complete/ready-for-runtime-gate. This does not authorize LTP/SFT/GPU/NCCL preflight/eval/dry-run launch or runtime retry.
+
+## Session 37 - Dev 4 Preflight Parser Fix Package - 2026-05-21
+
+- Accepted PM task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`.
+- Reviewed dev_2/test_1 final preflight evidence: fresh different H200 node, capacity probe, topology/NVLink capture, and 8-rank torch NCCL all-reduce passed, but SFT was not run because a broad recursive health scan wrote `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`.
+- Diagnosed parser-policy false fail: generated command text, process scan output, durable evidence text, and generic captured NVRM text were scanned as actionable health signatures.
+- Added no-execution parser package `scripts/parse_s22_preflight_health.py` and evidence `evidence/dev_4_s22_preflight_parser_fix.md`.
+- The parser excludes generated command/process/evidence/summary text from actionable matching, records ignored matches for audit, and preserves detection for real Xid/ECC/NVLink/NCCL invalid peer memory/SIGABRT/collective failures.
+- No LTP/GPU/SFT/eval/dry-run launch command was run.
