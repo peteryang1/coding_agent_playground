@@ -952,3 +952,12 @@
 - dev_4 classification is `WAITING_ON_DEV2_FINAL_SIGNATURE`; no code/config/launcher blocker is present in current durable evidence.
 - Wrote evidence `evidence/dev_4_s23_pr63_altnode_launch_support.md`.
 - No LTP/GPU/preflight/SFT/eval/remote command was run by dev_4.
+
+## Session 60 - Dev 4 PR63 Alternate-Node Final Classification - 2026-05-21
+
+- PM reported PR #65 was not ready because the prior evidence was written against pre-submit `LOCAL_PACKAGE_READY` state.
+- Re-read final dev_2 altnode evidence.
+- Final signature: assigned forbidden node `lg-cmc-b7r202-k07u06-h200-000580`, stopped before transfer/preflight/SFT/eval, no checkpoint/model/trainer/eval artifacts.
+- Updated `evidence/dev_4_s23_pr63_altnode_launch_support.md` classification to `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.
+- No dev_4 code/config/launcher issue was found; no launch fix PR is needed for this final signature.
+- No LTP/GPU/preflight/SFT/eval/remote command was run by dev_4.

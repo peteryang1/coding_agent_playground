@@ -15,18 +15,21 @@
 - dev_2 tracking evidence: `evidence/gpu_s23_pr63_altnode_tracking.md`
 - PM task registry current gate addendum.
 
-## Current dev_2 Alternate-Node State
+## Final dev_2 Alternate-Node State
 
-As of this dev_4 check, the dev_2 alternate-node files record preparation but not a final runtime signature.
+The dev_2 alternate-node files now record a final placement signature, not a code/config/launcher runtime blocker.
 
 ```text
-dev_2 runtime file status: LOCAL_PACKAGE_READY_PRE_SUBMIT
-tracking file gate state: LTP submit pending
-placement decision: pending
-structured preflight: pending
-conditional SFT: pending
-checkpoint/model: no final signature yet
-runtime blocker: no final signature yet
+frame: xu.yang~coding-agent-playground-m1-s23-pr63-altnode-preflight-sft-20260521T181207Z
+endpoint: ssh -p 31316 root@10.100.18.14
+assigned node: lg-cmc-b7r202-k07u06-h200-000580
+forbidden node matched: yes
+placement decision: FAIL_FORBIDDEN_NODE
+final dev_2 status: BLOCKED_PLACEMENT_FORBIDDEN_NODE_STOPPED_NO_TRANSFER_NO_PREFLIGHT_NO_SFT
+tracking final state: STOPPED_RELEASED_BLOCKED_PLACEMENT_FORBIDDEN_NODE
+checkpoint/model: absent
+trainer_state.json: absent
+all_results.json: absent
 ```
 
 The evidence records the PM-authorized alternate-node attempt with:
@@ -45,17 +48,15 @@ The evidence records the PM-authorized alternate-node attempt with:
 
 ## Dev 4 Assessment
 
-Current classification: `WAITING_ON_DEV2_FINAL_SIGNATURE`.
+Current classification: `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`.
 
-There is no actionable dev_4 code/config/launcher blocker in the current altnode evidence because dev_2 has not yet recorded the final placement/preflight/SFT/checkpoint-or-blocker result.
+There is no actionable dev_4 code/config/launcher blocker in the final altnode evidence. LTP assigned forbidden node `lg-cmc-b7r202-k07u06-h200-000580`, so dev_2 correctly stopped before transfer, `/home/xu.yang` capacity probing, `mcore_adapter` import, structured preflight, SFT, or eval. This consumed the one authorized alternate-node attempt and produced no checkpoint/model.
 
-No no-execution fix PR is needed at this point. If dev_2 later records a final signature, dev_4 should classify it as follows:
+No no-execution code/config/launcher fix PR is needed for this final signature. The next action is a PM/resource placement decision, not a dev_4 launcher patch.
 
-- `checkpoint_success`: no dev_4 code/config/launcher action; record no-action and let PM/test owners gate checkpoint/eval handoff.
-- `hardware_or_node_health_blocker`: no dev_4 code/config/launcher action unless logs implicate wrapper/config; record hardware/no-action and defer resource placement to PM/dev_2/test gates.
-- `code_config_launcher_blocker`: prepare a no-execution fix package/PR under task id `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4`, preserving PR63 launcher normalization, `mcore_adapter`, no-remote-network staging, and `/home/xu.yang` output paths.
+If PM later authorizes another attempt and dev_2 records a code/config/launcher final blocker, dev_4 should prepare a separate no-execution fix package preserving PR63 launcher normalization, `mcore_adapter`, no-remote-network staging, and `/home/xu.yang` output paths.
 
 ## Completion Marker
 
-- Current state: standby evidence recorded; waiting on dev_2 final signature.
+- Current state: final placement blocker classified; no dev_4 launch fix needed.
 - No LTP/GPU/preflight/SFT/eval/remote command was run by dev_4.
