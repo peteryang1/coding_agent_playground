@@ -1,14 +1,14 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
+<!-- METADATA:STATUS=Idle,TASK= -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Working |
-| Current Task | milestone1_qwen3_8b_loop / M1-S22-EARLY-EXIT-FIX-DEV4 |
-| PR | PR #39 open, PM gate not ready |
-| Session | 31 |
+| Status | Idle |
+| Current Task |  |
+| PR | PR #39 merged |
+| Session | 32 |
 
 ## PM Corrections
 
@@ -46,3 +46,4 @@
 - 2026-05-21 Session 29: PM follow-up re-verified PR #39 for `M1-S22-EARLY-EXIT-FIX-DEV4`. PR body cites task id, owner, acceptance criteria, evidence path, completion marker, and no-execution boundary. Current GitHub state remains open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. Updated durable evidence/status/history/task knowledge; no SFT/GPU/eval command was run.
 - 2026-05-21 Session 30: Recorded PM gate note for PR #39. GitHub remains open, non-draft, `MERGEABLE` / `CLEAN`, but PM gate has not passed; dev_4 must not self-merge until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge. No SFT/GPU/eval or dry-run launch was run.
 - 2026-05-21 Session 31: Addressed PM gate result for PR #39. Fixed `BLOCKER_MANIFEST_ENV_CAPTURE` by exporting resolved `DATASET_NAME`, `OUTPUT_ROOT`, `RUN_DIR`, `CHECKPOINT_DIR`, `TMPDIR`, `LOG_FILE`, `XTRACE_FILE`, and `DIAG_FILE` before manifest writing and by passing them explicitly to `write_sft_run_manifest.py`. Recorded `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` archival justification in evidence rather than splitting the PR because the durable-file conflict records are directly required to preserve PM/main provenance. No self-merge and no SFT/GPU/eval/dry-run launch.
+- 2026-05-21 Session 32: PM gate passed for PR #39 and dev_4 self-merged it. PR #39 merged at `2026-05-21T09:17:15Z` with merge commit `4a6c2968e1290d30415460b464eee638110958bc`; task `M1-S22-EARLY-EXIT-FIX-DEV4` is complete/ready-for-runtime-gate. This merge does not authorize LTP/SFT/GPU/eval or dry-run launch.

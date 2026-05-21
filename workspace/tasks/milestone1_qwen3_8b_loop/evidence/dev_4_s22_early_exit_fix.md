@@ -520,3 +520,32 @@ Execution boundary:
 No self-merge performed.
 No SFT/GPU/eval or dry-run launch performed.
 ```
+
+## Session 32 PR #39 Merge Completion
+
+PM gate facts:
+
+```text
+dev_1 M1-S22-EARLY-EXIT-PATCH-REVIEW-DEV1: PASS_FOR_PM_RETRY
+test_1 M1-S22-EARLY-EXIT-PATCH-GATE-TEST1: PASS_FOR_PM_PATCH_GATE
+GitHub PR #39 head: f81c7da
+GitHub PR #39 pre-merge state: open, non-draft, MERGEABLE/CLEAN
+Authorization scope: owner self-merge only
+```
+
+Merge evidence:
+
+```text
+PR #39: https://github.com/peteryang1/coding_agent_playground/pull/39
+mergedAt: 2026-05-21T09:17:15Z
+merge_commit: 4a6c2968e1290d30415460b464eee638110958bc
+completion_marker: complete/ready-for-runtime-gate
+```
+
+Runtime boundary:
+
+```text
+This completion does not authorize LTP/SFT/GPU/eval or dry-run launch.
+No runtime command was run by dev_4 in Session 32.
+Future runtime gate must separately authorize resource, command, and evidence requirements.
+```

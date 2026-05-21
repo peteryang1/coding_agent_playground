@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=31 -->
+<!-- METADATA:SESSION=32 -->
 
 ## Knowledge Entries
 
@@ -169,3 +169,5 @@
 155. Session 30 PR #39 PM gate fact: GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, but PM gate has not passed; dev_4 must not self-merge until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge. No SFT/GPU/eval or dry-run launch is authorized.
 156. Session 31 PR #39 gate-fix fact: dev_1 blocker `BLOCKER_MANIFEST_ENV_CAPTURE` requires resolved manifest values before manifest writing. The wrapper now exports and explicitly passes `DATASET_NAME`, `OUTPUT_ROOT`, `RUN_DIR`, `CHECKPOINT_DIR`, `TMPDIR`, `LOG_FILE`, `XTRACE_FILE`, and `DIAG_FILE`; the manifest writer records those explicit values in `preflight`.
 157. Session 31 scope fact: test_1 blocker `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` is handled by archival justification in `dev_4_s22_early_exit_fix.md` because the retained history/status/task-knowledge conflict records are directly required to preserve PM/main provenance for PR #39 review.
+158. Session 32 completion fact: PM gate passed for PR #39 owner self-merge only after dev_1 `PASS_FOR_PM_RETRY` and test_1 `PASS_FOR_PM_PATCH_GATE`; dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`.
+159. Session 32 runtime boundary fact: `M1-S22-EARLY-EXIT-FIX-DEV4` is complete/ready-for-runtime-gate, but PR #39 merge does not authorize LTP/SFT/GPU/eval or dry-run launch.
