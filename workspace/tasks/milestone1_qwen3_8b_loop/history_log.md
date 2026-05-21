@@ -829,3 +829,10 @@
 - Wrote evidence `evidence/dev_4_s23_nccl_warning_parser_hygiene.md`.
 - Opened PR #53 `https://github.com/peteryang1/coding_agent_playground/pull/53`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 - No LTP/GPU/preflight/SFT/eval/dry-run command was run.
+
+## Session 47 - Dev 4 PR #53 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #53 / `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` at head `8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f`; dev_1 recorded `PASS_FOR_PM_RETRY` and test_1 recorded `PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE`.
+- Self-merged PR #53 at `2026-05-21T14:20:56Z`; merge commit `e29c93736be3384663cad953cd18da68c30070fb`.
+- Task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` is complete as a parser hygiene implementation.
+- Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.

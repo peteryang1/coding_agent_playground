@@ -1,13 +1,13 @@
 # intern_code_dev_4 - 状态
 
-<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop/M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4 -->
+<!-- METADATA:STATUS=Idle,TASK=none -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_dev_4 |
-| Status | Working |
-| Current Task | milestone1_qwen3_8b_loop/M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4 |
-| PR | #53 open, MERGEABLE/CLEAN |
+| Status | Idle |
+| Current Task | none |
+| PR | #53 merged |
 | Session | 1 |
 
 ## PM Corrections
@@ -66,3 +66,4 @@
 - 2026-05-21 Session 1 completion: PM gate passed for PR #51 and dev_4 self-merged it at `2026-05-21T13:23:23Z`; merge commit `c02a53a344f2ad7a33b04f529d5125677237d4cb`. Task `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4` is complete; runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23: Accepted task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4`. Patched `scripts/parse_s22_preflight_health.py` so `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings are non-actionable when the same all-reduce source reports `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`, while preserving real NCCL/CUDA/Xid/SXid/ECC/NVLink/SIGABRT/ChildFailedError detection. Added synthetic pytest coverage and wrote evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_nccl_warning_parser_hygiene.md`. No LTP/GPU/preflight/SFT/eval/dry-run command was run.
 - 2026-05-21 Session 23 PR: Opened PR #53 `https://github.com/peteryang1/coding_agent_playground/pull/53` for `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4`. GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. Waiting for PM gate before any self-merge.
+- 2026-05-21 Session 23 completion: PM gate passed for PR #53 and dev_4 self-merged it at `2026-05-21T14:20:56Z`; merge commit `e29c93736be3384663cad953cd18da68c30070fb`. Task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4` is complete as a parser hygiene patch; runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
