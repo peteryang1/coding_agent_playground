@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=23 -->
+<!-- METADATA:SESSION=24 -->
 
 ## Session 1 - 2026-05-21
 
@@ -141,3 +141,9 @@
 - Created `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr61_mca_model_path_gate.md`.
 - Result is `BLOCKED_MISSING_DEV4_MCA_MODEL_PATH_FIX`: dev_2 PR61 runtime passed local/provided source/data/mcore transfer checks, `mcore_adapter import OK for USE_MCA=1`, `/home/xu.yang` storage/capacity, structured preflight `PASS`, `SFT_ALLOWED=true`, and PR61 `LLAMAFACTORY_CMD` logging/execution. The single SFT attempt reached LLamaFactory launcher, proving the prior quoted CLI single-path blocker did not recur.
 - The run failed before checkpoint/training with `BLOCKED_PR61_RUNTIME_MCA_MODEL_NAME_OR_PATH_PARSE` / `ValueError: Please provide model_name_or_path` even though generated YAML records `model_name_or_path`; no checkpoint/model, `trainer_state.json`, `all_results.json`, or eval artifact exists, and stop/no-running-job proof is complete. Future retry requires a dev_4 MCA/model-path binding fix package, dev_1/test_1 gate, and fresh PM authorization. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
+
+## Session 24 - 2026-05-21
+
+- Re-gated `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1` against PR #63 head `a035692dc72b40434240d0308c36f4d071644849` and PR diff evidence file `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr61_mca_model_path_fix.md`; the PM worktree copy of that dev_4 evidence file was not materialized at check time.
+- Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr61_mca_model_path_gate.md` to `PASS_FOR_PM_RETRY`: PR #63 explains the direct `launcher.py train config.yaml` path left `sys.argv[1] == "train"`, preventing YAML load and causing `model_name_or_path` to appear missing, then normalizes direct `llamafactory/launcher.py` commands to `python3 -m llamafactory.cli`.
+- Verified from PR diff that PR61 command-array parsing remains intact, `LLAMAFACTORY_CMD_ORIGINAL` / `LLAMAFACTORY_CMD_NORMALIZATION` / normalized `LLAMAFACTORY_CMD` logging is added, static checks record `5 passed`, no runtime/eval artifacts exist, and future retry still requires PM authorization, local/provided transfer, preflight PASS, no prior blocker regression, checkpoint/model plus `trainer_state.json` and `all_results.json`, and stop proof. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
