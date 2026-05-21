@@ -757,4 +757,5 @@
 - Addressed dev_1 blocker `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`: ECC parsing now treats fatal ECC as actionable and detects nonzero uncorrected ECC counters without being suppressed by unrelated standalone zero tokens such as GPU 0 or timestamp fields.
 - Addressed test_1 blocker `BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`: parser output now includes stable top-level `preflight_result`, `health_result`, `non_actionable_matches`, `torch_nccl_allreduce_exit`, `capacity_probe_status`, `different_node_gate`, `home_xu_yang_storage_status`, `topology_capture_status`, `nvlink_capture_status`, `sft_allowed`, and `sft_skip_reason`.
 - `/home/xu.yang/coding_agent_playground/outputs` storage status is emitted and blocks `sft_allowed` when the parsed preflight root is outside that path.
+- Pushed PR #45 update; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 - No LTP/GPU/SFT/eval/dry-run/runtime command was run.
