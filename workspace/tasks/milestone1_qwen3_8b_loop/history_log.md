@@ -797,6 +797,10 @@
 - dev_1 refreshed `M1-S22-RUNTIME-BLOCKER-REVIEW-DEV1` to `BLOCKED_PENDING_EARLY_EXIT_PATCH_GATE`: the dev_4 package is directionally correct, but no PASS is possible until wrapper/logging patch PR or staged completion evidence is gated.
 - test_1 refreshed `M1-S22-POSTRUN-GATE-TEST1`; its durable status still blocks retry until the early-exit/pre-redirection logging fix is landed or staged and dev_1/test_1 gates it.
 - PM created follow-up no-execution tasks for dev_1 patch review, test_1 patch gate, dev_2 post-patch LTP readiness, and test_2 post-patch eval readiness; no LTP/SFT/GPU/eval execution is authorized.
+- dev_1 completed `M1-S22-EARLY-EXIT-PATCH-REVIEW-DEV1` with `BLOCKER_MANIFEST_ENV_CAPTURE`: PR #39 must export or pass resolved manifest preflight variables so `run_manifest.json` records `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` and `/home/xu.yang/coding_agent_playground/outputs`.
+- test_1 completed `M1-S22-EARLY-EXIT-PATCH-GATE-TEST1`: technical logging/config patch passes, but PR #39 remains blocked on historical evidence scope unless dev_4 cleans/splits it or PM explicitly accepts archival evidence.
+- dev_2 completed `M1-S22-POSTPATCH-LTP-READY-DEV2`; dev_3 completed `M1-S22-POSTPATCH-DATA-STAGING-DEV3`; test_2 completed `M1-S22-POSTPATCH-EVAL-READY-TEST2`. These are readiness-only records and do not authorize execution.
+- PM injected the PR #39 gate result to dev_4: fix manifest env capture, clean/split or justify scope, push evidence/status, do not self-merge, and do not run SFT/GPU/eval/dry-run launch.
 
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 
