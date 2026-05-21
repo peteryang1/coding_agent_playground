@@ -6,9 +6,9 @@
 |------|-----|
 | Name | intern_code_dev_4 |
 | Status | Working |
-| Current Task | milestone1_qwen3_8b_loop / M1-SFT-RETRY-RUN-DEV4 |
-| PR | https://github.com/peteryang1/coding_agent_playground/pull/30 |
-| Session | 23 |
+| Current Task | milestone1_qwen3_8b_loop / M1-S21-PR30-CLEANUP-DEV4 |
+| PR | PR #30 closed as superseded archival cleanup |
+| Session | 24 |
 
 ## PM Corrections
 
@@ -37,3 +37,4 @@
 - 2026-05-20 Session 22: PM reported `M1-SFT-RETRY-AUTH-PM` complete via PR #29 (`mergedAt=2026-05-20T11:02:32Z`, merge commit `c14fa045b210a74fc243f2d2690a2523cc7ec2db`) and provided fresh dev_2 endpoint evidence at PM durable paths. Ran exactly one SFT retry on `ssh -p 23121 root@10.100.22.53` with run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`; exit status `1`, no checkpoint/model/trainer_state/all_results. Failure is `KeyError: 'from'` during LLamaFactory dataset conversion from OpenAI-style messages under ShareGPT default registration. Evidence updated in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`; dev_2 should stop the H200 resource immediately, and endpoint recheck at `2026-05-20T11:23:57Z` refused SSH. No extra retry launched.
 - 2026-05-20 Session 22 conflict refresh: Merged latest `origin/main` into PR #30 after main advanced to include dev_1/dev_2/dev_3/test_1/test_2/PM retry handoff records. Resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md`, preserving PM/support evidence and dev_4 retry result evidence.
 - 2026-05-20 Session 23: Merged latest `origin/main` again after PR #32 stop-proof commit `5afb945bbfd97faca7af3e56b0765baa48632aa1` landed. Resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md`, preserving dev_2 final stop proof (`STOPPED (Completed)` at `2026-05-20 11:23:29`) and dev_4 retry result evidence (`exit_status=1`, `KeyError: 'from'`, no checkpoint/model/trainer_state/all_results). PR #30 remains open for PM gate; no self-merge performed.
+- 2026-05-21 Session 24: Accepted replacement task `M1-S21-PR30-CLEANUP-DEV4`. Closed PR #30 as superseded archival cleanup at `2026-05-21T07:23:06Z` instead of refreshing it again. Wrote cleanup evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_pr30_cleanup.md` and PM durable path, preserving dev_4 retry failure evidence and dev_2 stop proof. No SFT/GPU command was run.

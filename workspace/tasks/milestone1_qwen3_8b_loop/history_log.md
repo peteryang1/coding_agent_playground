@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=23 -->
+<!-- METADATA:SESSION=24 -->
 
 ## Session 1 - 2026-05-20
 
@@ -698,3 +698,30 @@
   - kept PR #30 mapped to task `M1-SFT-RETRY-RUN-DEV4` with owner `intern_code_dev_4`, durable evidence path `evidence/dev_4_sft_retry_run.md`, and blocked-with-final-evidence completion marker pending PR merge.
 - No SFT retry or extra GPU command was run in Session 23.
 - PR #30 remains open for PM gate after push; dev_4 must not self-merge until PM gate says ready.
+
+## Session 24 - Dev 4 PR #30 Archival Cleanup - 2026-05-21
+
+- Task: `M1-S21-PR30-CLEANUP-DEV4`.
+- PM Session 21 replacement task reclassified PR #30 as archival cleanup rather than the checkpoint critical path.
+- Owner action chosen: close/supersede PR #30 instead of refreshing it against current main again.
+- PR closure:
+  - PR: `https://github.com/peteryang1/coding_agent_playground/pull/30`
+  - `closedAt`: `2026-05-21T07:23:06Z`
+  - `mergedAt`: `null`
+  - closure comment: `https://github.com/peteryang1/coding_agent_playground/pull/30#issuecomment-4505715612`
+- Durable cleanup evidence:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_pr30_cleanup.md`
+  - `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_pr30_cleanup.md`
+- Preserved retry facts:
+  - run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`;
+  - exit status `1`;
+  - failure `KeyError: 'from'` during LLamaFactory dataset conversion;
+  - no checkpoint/model, no `trainer_state.json`, no `all_results.json`;
+  - no extra retry was launched.
+- Preserved stop proof:
+  - frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`;
+  - LTP final state `STOPPED (Completed)`;
+  - completed `2026-05-20 11:23:29`;
+  - endpoint refused connection after stop;
+  - `/mnt/3fs` artifacts preserved.
+- Replacement path: Session 21 replacement/runtime tasks own any future launch package and runtime. This cleanup task does not authorize SFT/GPU work.

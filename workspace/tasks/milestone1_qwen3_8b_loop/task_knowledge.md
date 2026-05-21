@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=23 -->
+<!-- METADATA:SESSION=24 -->
 
 ## Knowledge Entries
 
@@ -132,3 +132,4 @@
 118. Resource stop fact: dev_2 stopped retry frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`; LTP reached `STOPPED (Completed)` at `2026-05-20 11:23:29`, endpoint refused connection, and `/mnt/3fs` outputs were preserved.
 119. Current SFT blocker fact: another retry is not authorized; a future PM-gated retry must fix LLamaFactory dataset registration for `coding_agent_playground_sft_v1` OpenAI-style role/content messages or use a PM-approved ShareGPT-format training JSONL.
 120. PR #30 conflict refresh fact: after PR #32 stop-proof commit `5afb945bbfd97faca7af3e56b0765baa48632aa1`, dev_4 merged latest `origin/main` into PR #30 and preserved both dev_2 final stop proof and dev_4 retry failure evidence; PR #30 remains open and must wait for PM gate before self-merge.
+121. Session 24 cleanup fact: task `M1-S21-PR30-CLEANUP-DEV4` supersedes PR #30 as archival cleanup. dev_4 closed PR #30 at `2026-05-21T07:23:06Z` with `mergedAt=null`; retry failure evidence and dev_2 stop proof are preserved in `evidence/dev_4_s21_pr30_cleanup.md`, and future runtime is owned by replacement tasks, not PR #30.
