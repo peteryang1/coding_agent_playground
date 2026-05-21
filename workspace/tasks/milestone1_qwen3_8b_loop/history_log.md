@@ -973,3 +973,14 @@
 - dev_4 self-merged PR #53 at `2026-05-21T14:20:56Z`, merge commit `e29c93736be3384663cad953cd18da68c30070fb`.
 - PM created `M1-S23-PR53-PLACEMENTPROBE-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr53_placement_probe_preflight_sft_authorization.md`.
 - PM authorizes only dev_2 for exactly one bounded placement-probe runtime attempt using PR #53 merge commit `e29c93736be3384663cad953cd18da68c30070fb`. This is an explicit one-attempt PM waiver of the missing enforceable placement mechanism; if any forbidden node is assigned, dev_2 must stop/release before transfer/preflight/SFT/eval. If a non-forbidden node is assigned, dev_2 may proceed with local bundle transfer, `/home/xu.yang` storage proof, structured preflight, and conditional SFT only if preflight PASS plus `sft_allowed=true`. Eval remains unauthorized.
+
+## 2026-05-21 Session 23 PR53 Placement-Probe Final Blocker
+
+- dev_2 completed the one authorized `M1-S23-PR53-PLACEMENTPROBE-PREFLIGHT-SFT-RUNTIME-DEV2` attempt with final preflight blocker evidence.
+- The fresh frame `xu.yang~coding-agent-playground-m1-s23-pr53-placementprobe-preflight-sft-20260521T142358Z` ran on endpoint `ssh -p 30073 root@10.100.24.12`, node `lg-cmc-b7r401-a05u06-h200-000770`, which passed the forbidden-node gate.
+- dev_2 prepared local PR #53 merge commit package `e29c93736be3384663cad953cd18da68c30070fb`, bundle sha256 `34c5655cc8d7003ef3855b7ef5d285311794ab2fcad435dc4d52a3c80c10de77`, 111-file list, parser checksum `b90ead39614dd127e9a27de3433a648acbf37bcd9f008637bfb43ccb5aad9a69`, and ShareGPT data sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
+- `/home/xu.yang` CephFS, 24GiB capacity probe, local bundle/data transfer, file-count/checksum verification, no-remote-source/dependency-network, topology/NVLink capture, and 8-rank torch NCCL all-reduce all passed.
+- Structured preflight still returned `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`, `SFT_ALLOWED=false`, `TORCH_NCCL_ALLREDUCE_EXIT=0`; the blocker is PR #53 parser/rule still classifying `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings in `torch_nccl_allreduce.log` as `nccl_or_collective_failure` despite `ALLREDUCE_OK`.
+- SFT did not run by contract; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists; eval remains blocked and unauthorized.
+- dev_2 stopped/released the frame at `2026-05-21T14:30:11Z`; final state `STOPPED (Completed)`, completed `2026-05-21 14:30:42`; endpoint refused after stop; `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned `No jobs found`.
+- PM created no-execution follow-up tasks for all owners: dev_4 parser/runtime fix package, dev_1 review, test_1 gate, dev_2 resource recovery, dev_3 data confirmation, and test_2 eval re-block. No fresh LTP/GPU/preflight/SFT/eval retry is authorized.

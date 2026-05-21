@@ -371,3 +371,11 @@
 - Placement remains blocked: dev_2 found no verified LTP node exclusion/pinning/anti-affinity path in the current local client/spec; dev_1 records `BLOCKER_MISSING_ENFORCEABLE_DIFFERENT_NODE_PLACEMENT_PLAN`; test_1 records same-node runtime as stopped correctly but blocked for future runtime authorization.
 - PR #53 is merged at `2026-05-21T14:20:56Z`, merge commit `e29c93736be3384663cad953cd18da68c30070fb`; no open PRs are visible in the PM audit.
 - PM authorized only dev_2 for one bounded placement-probe runtime under `M1-S23-PR53-PLACEMENTPROBE-PREFLIGHT-SFT-RUNTIME-DEV2`. This authorization explicitly accepts one stop-and-release placement probe because no enforceable node exclusion is available. Forbidden-node assignment must stop before transfer/preflight/SFT/eval; non-forbidden assignment may proceed to local bundle transfer, `/home/xu.yang` storage proof, structured preflight, and conditional SFT. Eval remains unauthorized.
+
+## 2026-05-21 Session 23 PR53 Placement-Probe Final Blocker
+
+- dev_2 completed the one authorized PR53 placement-probe attempt on non-forbidden node `lg-cmc-b7r401-a05u06-h200-000770`; frame `xu.yang~coding-agent-playground-m1-s23-pr53-placementprobe-preflight-sft-20260521T142358Z`, endpoint `ssh -p 30073 root@10.100.24.12`.
+- Storage, transfer, and runtime setup passed: `/home/xu.yang` CephFS, capacity probe, local bundle/data transfer, checksums/file count, no remote source/dependency network, topology/NVLink, and torch all-reduce exit 0.
+- Current blocker: `BLOCKED_PR53_PREFLIGHT_HEALTH_SIGNATURE`. Structured preflight still classified `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings as actionable `nccl_or_collective_failure` despite `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`; `SFT_ALLOWED=false`.
+- SFT/eval were not run; no checkpoint/model/trainer_state/all_results. Frame is stopped/released and no running `coding-agent-playground` job remains.
+- PM next split is no-execution parser/runtime fix review and gate; no fresh runtime is authorized.

@@ -93,15 +93,37 @@ PR must wait for PM gate before any owner self-merge.
 ```yaml
 task_id: M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4
 owner: intern_code_dev_4
-result: READY_FOR_PM_REVIEW
+result: COMPLETE
 pr: 53
 pr_url: https://github.com/peteryang1/coding_agent_playground/pull/53
-pr_state: OPEN
-pr_mergeable: MERGEABLE
-pr_merge_state_status: CLEAN
+pr_state: MERGED
+pr_mergeable: MERGEABLE_AT_GATE
+pr_merge_state_status: CLEAN_AT_GATE
+merged_at: 2026-05-21T14:20:56Z
+merge_commit: e29c93736be3384663cad953cd18da68c30070fb
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_nccl_warning_parser_hygiene.md
 parser_patch: true
 tests_added: true
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
+```
+
+## PM Gate And Merge Record
+
+PM gate basis:
+
+```text
+PR #53 head: 8b00ebd1d3ed00b8c18591d49ef0eb559456cb0f
+GitHub state at gate: open, non-draft, MERGEABLE / CLEAN
+dev_1 review: dev_1_s23_nccl_warning_parser_hygiene_review.md result PASS_FOR_PM_RETRY
+test_1 gate: test_1_s23_nccl_warning_parser_hygiene_gate.md result PASS_FOR_OWNER_SELF_MERGE_AFTER_PM_GATE
+```
+
+Owner action:
+
+```text
+Self-merged PR #53 at 2026-05-21T14:20:56Z.
+Merge commit: e29c93736be3384663cad953cd18da68c30070fb.
+Task completion marker: complete.
+Runtime boundary: parser hygiene only; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run or authorized.
 ```

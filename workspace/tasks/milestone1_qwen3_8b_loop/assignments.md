@@ -213,6 +213,14 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
 - 2026-05-21 Session 23 PR53 placement-probe runtime authorization:
   - `intern_code_dev_2`: task `M1-S23-PR53-PLACEMENTPROBE-PREFLIGHT-SFT-RUNTIME-DEV2`; authorized for exactly one bounded placement-probe LTP allocation using PR #53 merge commit `e29c93736be3384663cad953cd18da68c30070fb`. Evidence files: `evidence/dev_2_s23_pr53_placementprobe_preflight_sft_runtime.md`, `evidence/gpu_s23_pr53_placementprobe_preflight_sft_tracking.md`, and own status. If assigned a forbidden node, stop/release before transfer/preflight/SFT/eval. If assigned a non-forbidden node, proceed with no-remote-source/dependency-network local bundle transfer, `/home/xu.yang` storage proof, structured preflight, and SFT only if preflight PASS plus `sft_allowed=true`. Eval is not authorized.
 
+- 2026-05-21 Session 23 PR53 preflight blocker follow-up:
+  - `intern_code_dev_4`: task `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4`; produce no-execution parser/runtime fix package or PR for the fact that PR #53 still classified `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings as actionable despite `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`. Write `evidence/dev_4_s23_pr53_preflight_parser_runtime_fix.md`; do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_1`: task `M1-S23-PR53-PREFLIGHT-BLOCKER-REVIEW-DEV1`; review dev_2 final PR53 runtime evidence and dev_4 fix when present; write `evidence/dev_1_s23_pr53_preflight_blocker_review.md`; do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_test_1`: task `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1`; gate dev_2 final PR53 runtime evidence and dev_4 fix when present; write `evidence/test_1_s23_pr53_preflight_blocker_gate.md`; do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_2`: task `M1-S23-PR53-RESOURCE-RECOVERY-DEV2`; no-submit recovery/readiness after stopped PR53 runtime; write `evidence/dev_2_s23_pr53_resource_recovery.md`; do not submit another LTP job without PM authorization.
+  - `intern_code_dev_3`: task `M1-S23-PR53-DATA-CONFIRM-DEV3`; confirm no data/package change is needed for this parser/preflight blocker; write `evidence/dev_3_s23_pr53_data_confirm.md`; no SFT/GPU/eval.
+  - `intern_code_test_2`: task `M1-S23-PR53-EVAL-REBLOCK-TEST2`; refresh eval blocked evidence after no SFT/no checkpoint; write `evidence/test_2_s23_pr53_eval_blocked.md`; no eval.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.
