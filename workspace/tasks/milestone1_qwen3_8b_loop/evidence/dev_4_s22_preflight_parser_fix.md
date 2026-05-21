@@ -208,8 +208,8 @@ structured status: PASS
 
 ## PR Status
 
-PR: pending
+PR: PR #45 `https://github.com/peteryang1/coding_agent_playground/pull/45`
 
-GitHub mergeability: pending
+GitHub mergeability: open, non-draft, `MERGEABLE` / `CLEAN`; no required checks reported by `statusCheckRollup=null`.
 
 Completion marker: ready-for-review; wait for PM gate before self-merge.
