@@ -157,6 +157,14 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_3`: task `M1-S22-POSTPATCH-DATA-STAGING-DEV3`; refresh the ShareGPT data staging/readiness package for any post-patch retry, requiring temporary converted datasets or staging copies under `/home/xu.yang` unless an existing required input path is justified. Write `evidence/dev_3_s22_postpatch_data_staging.md`; no SFT/GPU/eval.
   - `intern_code_dev_2`: task `M1-S22-POSTPATCH-LTP-READY-DEV2`; refresh only the post-patch LTP readiness and `/home/xu.yang` capacity/probe templates in `evidence/dev_2_s22_postpatch_ltp_ready.md`. Do not submit a job until a fresh PM authorization exists.
   - `intern_code_test_2`: task `M1-S22-POSTPATCH-EVAL-READY-TEST2`; refresh eval blocked/readiness evidence for the `/home/xu.yang` eval-intermediate rule in `evidence/test_2_s22_postpatch_eval_ready.md`. Do not run eval until checkpoint/model or endpoint exists and PM gates it.
+- 2026-05-21 Session 22 post-PR39 runtime authorization:
+  - PR #39 is merged at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`.
+  - `intern_code_dev_2`: task `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2`; authorized for exactly one post-patch ShareGPT-fixed Qwen3-8B SFT smoke attempt. Required evidence files are `evidence/dev_2_s22_postpatch_sft_runtime.md`, `evidence/gpu_s22_postpatch_runtime_tracking.md`, and own `status.md`.
+  - Required storage root for outputs, temporary converted datasets, logs, checkpoints, run metadata, capacity probes, and intermediates: `/home/xu.yang/coding_agent_playground/outputs`.
+  - Required next result: complete checkpoint/model with stop proof, or fresh exact runtime blocker with command, logs, node status, stop proof, owner, and next fix.
+  - `intern_code_test_1`: after dev_2 evidence appears, apply the post-run gate and record whether checkpoint/model evidence is sufficient for eval handoff; no SFT/GPU/eval execution by test_1.
+  - `intern_code_test_2`: remain ready for mini-swe, but do not run eval until PM gates a complete checkpoint/model or served endpoint. Eval intermediates must use `/home/xu.yang`.
+  - No other owner may run LTP/SFT/GPU/eval from this authorization.
 
 ## PM Integration Responsibilities
 

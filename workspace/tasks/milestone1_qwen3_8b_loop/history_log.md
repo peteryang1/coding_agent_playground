@@ -801,6 +801,12 @@
 - test_1 completed `M1-S22-EARLY-EXIT-PATCH-GATE-TEST1`: technical logging/config patch passes, but PR #39 remains blocked on historical evidence scope unless dev_4 cleans/splits it or PM explicitly accepts archival evidence.
 - dev_2 completed `M1-S22-POSTPATCH-LTP-READY-DEV2`; dev_3 completed `M1-S22-POSTPATCH-DATA-STAGING-DEV3`; test_2 completed `M1-S22-POSTPATCH-EVAL-READY-TEST2`. These are readiness-only records and do not authorize execution.
 - PM injected the PR #39 gate result to dev_4: fix manifest env capture, clean/split or justify scope, push evidence/status, do not self-merge, and do not run SFT/GPU/eval/dry-run launch.
+- dev_4 pushed PR #39 head `f81c7da` addressing manifest env capture and adding archival scope justification.
+- dev_1 re-gated PR #39 as `PASS_FOR_PM_RETRY`; test_1 re-gated as `PASS_FOR_PM_PATCH_GATE`.
+- PM decision: PR #39 passes owner self-merge gate because it is open, non-draft, `MERGEABLE` / `CLEAN`, maps to task `M1-S22-EARLY-EXIT-FIX-DEV4`, and dev_1/test_1 no-execution gates now pass. This authorizes only dev_4 self-merge and completion marking, not LTP/SFT/GPU/eval execution.
+- Dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`.
+- PM created `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_postpatch_runtime_authorization.md`.
+- PM authorized only `intern_code_dev_2` for one post-patch ShareGPT-fixed SFT smoke. Required output/intermediate root is `/home/xu.yang/coding_agent_playground/outputs`; required next result is checkpoint/model or fresh exact runtime blocker with stop proof. PM did not run LTP/SFT/GPU/eval.
 
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 

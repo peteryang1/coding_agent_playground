@@ -471,3 +471,81 @@ Current owner status:
 ```text
 Waiting for PM gate. No self-merge performed. No SFT/GPU/eval or dry-run launch performed.
 ```
+
+## Session 31 PM Gate Fix Update
+
+PM gate result:
+
+```text
+PR #39: NOT READY
+dev_1 blocker: BLOCKER_MANIFEST_ENV_CAPTURE
+test_1 blocker: BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF
+```
+
+`BLOCKER_MANIFEST_ENV_CAPTURE` resolution:
+
+```text
+scripts/train_qwen3_8b_sft.sh now exports the resolved values before calling scripts/write_sft_run_manifest.py:
+- DATASET_NAME
+- OUTPUT_ROOT
+- RUN_DIR
+- CHECKPOINT_DIR
+- TMPDIR
+- LOG_FILE
+- XTRACE_FILE
+- DIAG_FILE
+
+The wrapper also passes those same values explicitly to scripts/write_sft_run_manifest.py.
+scripts/write_sft_run_manifest.py accepts --dataset-name, --output-root, --tmpdir, --log-file, --xtrace-file, and --diag-file and records them in run_manifest.json preflight.
+Expected future manifest effect: DATASET_NAME=coding_agent_m1_sft_10_sharegpt and /home/xu.yang/coding_agent_playground/outputs-derived preflight paths are captured even if subprocess environment handling changes.
+```
+
+`BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` handling:
+
+```text
+Archival justification: PR #39 keeps the durable history/status/task_knowledge evidence records that were required by PM process and conflict-resolution gates for this same task. Splitting them out now would either create a second task/PR without a new PM assignment or remove provenance showing how PR #39 became mergeable after resolving conflicts against current main.
+
+The implementation scope remains limited to:
+- scripts/train_qwen3_8b_sft.sh
+- scripts/write_sft_run_manifest.py
+- configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml
+- directly required task/status/history/knowledge/evidence records for M1-S22-EARLY-EXIT-FIX-DEV4
+
+No unrelated runtime evidence, checkpoint artifact, GPU result, or eval result is added by this PR.
+```
+
+Execution boundary:
+
+```text
+No self-merge performed.
+No SFT/GPU/eval or dry-run launch performed.
+```
+
+## Session 32 PR #39 Merge Completion
+
+PM gate facts:
+
+```text
+dev_1 M1-S22-EARLY-EXIT-PATCH-REVIEW-DEV1: PASS_FOR_PM_RETRY
+test_1 M1-S22-EARLY-EXIT-PATCH-GATE-TEST1: PASS_FOR_PM_PATCH_GATE
+GitHub PR #39 head: f81c7da
+GitHub PR #39 pre-merge state: open, non-draft, MERGEABLE/CLEAN
+Authorization scope: owner self-merge only
+```
+
+Merge evidence:
+
+```text
+PR #39: https://github.com/peteryang1/coding_agent_playground/pull/39
+mergedAt: 2026-05-21T09:17:15Z
+merge_commit: 4a6c2968e1290d30415460b464eee638110958bc
+completion_marker: complete/ready-for-runtime-gate
+```
+
+Runtime boundary:
+
+```text
+This completion does not authorize LTP/SFT/GPU/eval or dry-run launch.
+No runtime command was run by dev_4 in Session 32.
+Future runtime gate must separately authorize resource, command, and evidence requirements.
+```

@@ -333,3 +333,13 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
   - dev_4 SFT unblock decision package is not updated beyond prior dry-run/blocker evidence.
   - test_2 eval gate package is not updated beyond prior readiness/blocker evidence.
 - PM decision: keep active goal open; do not mark complete or blocked.
+
+## 2026-05-21 Session 22 CephFS / PR #39 / Runtime Gate
+
+- Supervisor storage directive is active: Milestone 1 SFT/eval intermediates must use CephFS `/home/xu.yang` unless an existing required path is explicitly justified.
+- PR #39 merged at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`.
+- Gate basis: dev_1 records `PASS_FOR_PM_RETRY`; test_1 records `PASS_FOR_PM_PATCH_GATE`; dev_2/dev_3/test_2 readiness evidence records `/home/xu.yang` storage expectations.
+- PM created task `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_postpatch_runtime_authorization.md`.
+- Only `intern_code_dev_2` is authorized for one post-patch ShareGPT-fixed Qwen3-8B SFT smoke. Required output/intermediate root: `/home/xu.yang/coding_agent_playground/outputs`.
+- Required next durable outcome: complete checkpoint/model with stop proof, or fresh exact runtime blocker with command, logs, node status, stop proof, owner, and next fix.
+- PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.

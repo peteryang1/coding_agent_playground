@@ -333,3 +333,23 @@ BLOCKED:
 Result: `READY_PACKAGE_BLOCKED_NO_MODEL`
 
 Reason: post-patch mini-swe readiness is refreshed, but there is no PM-gated complete checkpoint/model or served endpoint yet. Eval remains blocked. No eval was run.
+
+## 2026-05-21T09:22:59Z - PM Watch Assignment
+
+PM watch assignment recorded:
+
+- dev_2 is authorized for one post-PR39 SFT smoke under task `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2`.
+- test_2 must not run mini-swe yet.
+- Keep this eval readiness package prepared while dev_2 runs or records SFT runtime evidence.
+- Run/gate mini-swe only after PM gates a complete checkpoint/model or served endpoint from dev_2 evidence.
+- Any future mini-swe eval logs, predictions, results, metrics, run metadata, temporary datasets, caches, and intermediates must be stored under `/home/xu.yang`.
+
+Current test_2 status remains `READY_PACKAGE_BLOCKED_NO_MODEL`.
+
+Unblock trigger:
+
+```text
+PM gate names a complete checkpoint/model or served endpoint from M1-S22-POSTPATCH-SFT-RUNTIME-DEV2.
+```
+
+Until that gate exists, no eval command should be run. No mini-swe eval was run for this watch update.
