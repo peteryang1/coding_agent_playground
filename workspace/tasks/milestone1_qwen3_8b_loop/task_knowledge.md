@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=25 -->
+<!-- METADATA:SESSION=26 -->
 
 ## Knowledge Entries
 
@@ -49,3 +49,4 @@
 43. PR61 runtime blocker fact: dev_2's post-PR61 runtime passed transfer/import/preflight and PR61 `LLAMAFACTORY_CMD` behavior, then failed before checkpoint with `BLOCKED_PR61_RUNTIME_MCA_MODEL_NAME_OR_PATH_PARSE` / `ValueError: Please provide model_name_or_path`; generated YAML contained `model_name_or_path`, so the next gate needs a dev_4 MCA/model-path binding fix package before PM authorizes another runtime.
 44. PR63 MCA model-path fix gate fact: test_1 re-gated `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1` to `PASS_FOR_PM_RETRY` for PR #63 head `a035692dc72b40434240d0308c36f4d071644849`; the patch preserves PR61 command-array parsing and normalizes direct `llamafactory/launcher.py` commands to `python3 -m llamafactory.cli`, so LLamaFactory's parser should receive the YAML config path in the supported CLI flow.
 45. PR63 latest-head refresh fact: PR #63 latest head `a0ab039278198a6c1b0cd40009038d89cd602922` only changes docs/status/evidence/task-registry files after previously gated functional head `a035692dc72b40434240d0308c36f4d071644849`; no `scripts/`, `tests/`, or `configs/` paths changed, so test_1 kept `PASS_FOR_PM_RETRY`.
+46. PR63 altnode gate fact: `M1-S23-PR63-ALTNODE-GATE-TEST1` is currently `WAITING_FINAL_ALTNODE_RUNTIME_EVIDENCE`; current dev_2 evidence is pre-submit only with package readiness and initial tracking, so final gate still needs allocation/node placement, transfer/import/preflight, SFT result or exact blocker, checkpoint/model/trainer/all_results assessment, and stop/no-running-job proof.

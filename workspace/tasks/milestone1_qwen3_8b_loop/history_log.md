@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=25 -->
+<!-- METADATA:SESSION=26 -->
 
 ## Session 1 - 2026-05-21
 
@@ -153,3 +153,9 @@
 - Refreshed `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1` against PR #63 latest head `a0ab039278198a6c1b0cd40009038d89cd602922` after dev_4 added commit `Record PR63 gate status for MCA model path fix`.
 - Compared `a035692dc72b40434240d0308c36f4d071644849..a0ab039278198a6c1b0cd40009038d89cd602922`: changed files are dev_4 status, task README/history/evidence, milestone history/task_knowledge, and task_registry only; no `scripts/`, `tests/`, or `configs/` files changed.
 - Updated PM durable evidence to keep `PASS_FOR_PM_RETRY`; the previously gated functional patch remains the accepted behavior. Fresh runtime still requires PM authorization and full transfer/import/preflight/checkpoint/stop-proof gates. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
+
+## Session 26 - 2026-05-21
+
+- Created `M1-S23-PR63-ALTNODE-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr63_altnode_gate.md`.
+- Current result is `WAITING_FINAL_ALTNODE_RUNTIME_EVIDENCE`: PM authorization exists for exactly one dev_2 alternate-node attempt, and dev_2 evidence records local/provided package readiness, source/data/mcore/dependency checksums, planned LTP submit, initial no-active-job proof, and tracking status `LTP submit: pending`.
+- Final gate cannot yet assess complete-process runtime quality, old blocker absence/presence, checkpoint/model plus `trainer_state.json`/`all_results.json`, exact runtime blocker, or stop/no-running-job proof because allocation, placement, transfer, preflight, SFT, artifact summary, and stop proof are not final in current evidence. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.

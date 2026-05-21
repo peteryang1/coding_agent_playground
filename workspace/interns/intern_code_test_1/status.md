@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | N/A |
-| Session | 25 |
+| Session | 26 |
 
 ## Acknowledgements
 
@@ -76,3 +76,4 @@
 - 2026-05-21: Completed Session 23 gate for `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1`: created PM durable `evidence/test_1_s23_pr61_mca_model_path_gate.md` with result `BLOCKED_MISSING_DEV4_MCA_MODEL_PATH_FIX`. Validated dev_2 PR61 runtime evidence: transfer/import/preflight PASS, PR61 `LLAMAFACTORY_CMD` behavior intact, one authorized SFT reached LLamaFactory launcher, then failed before checkpoint with `BLOCKED_PR61_RUNTIME_MCA_MODEL_NAME_OR_PATH_PARSE` / `ValueError: Please provide model_name_or_path`; no checkpoint/model/trainer/eval artifacts exist and stop proof is complete. No LTP/GPU/preflight/SFT/eval/remote command run by test_1; no peer_send used.
 - 2026-05-21: Completed Session 24 re-gate for `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1`: refreshed PM durable `evidence/test_1_s23_pr61_mca_model_path_gate.md` against PR #63 head `a035692dc72b40434240d0308c36f4d071644849` and PR diff evidence `dev_4_s23_pr61_mca_model_path_fix.md`; result `PASS_FOR_PM_RETRY`. Verified no-execution evidence that direct `llamafactory/launcher.py` commands are normalized to `python3 -m llamafactory.cli`, PR61 command-array parsing remains intact, static checks are recorded, no runtime/eval artifacts exist, and future retry requirements are explicit. No LTP/GPU/preflight/SFT/eval/remote command run by test_1; no peer_send used.
 - 2026-05-21: Completed Session 25 latest-head refresh for `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1`: refreshed PM durable `evidence/test_1_s23_pr61_mca_model_path_gate.md` against PR #63 latest head `a0ab039278198a6c1b0cd40009038d89cd602922`. Confirmed delta from prior gated `a035692dc72b40434240d0308c36f4d071644849` is docs/status/evidence/task-registry only, with no functional changes under `scripts/`, `tests/`, or `configs/`; result remains `PASS_FOR_PM_RETRY`. No LTP/GPU/preflight/SFT/eval/remote command run by test_1; no peer_send used.
+- 2026-05-21: Started Session 26 `M1-S23-PR63-ALTNODE-GATE-TEST1`: created PM durable `evidence/test_1_s23_pr63_altnode_gate.md` with result `WAITING_FINAL_ALTNODE_RUNTIME_EVIDENCE`. Current dev_2 altnode evidence has authorization, local/provided package readiness, planned LTP submit, and initial tracking only; allocation/node placement, transfer/preflight/SFT result, checkpoint/model/trainer/all_results assessment, exact blocker, and stop/no-running-job proof are not final yet. No LTP/GPU/preflight/SFT/eval/remote command run by test_1; no peer_send used.
