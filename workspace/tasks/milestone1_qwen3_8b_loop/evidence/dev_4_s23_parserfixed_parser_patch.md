@@ -179,13 +179,27 @@ workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md
 ```yaml
 task_id: M1-S23-PARSERFIXED-PARSER-PATCH-DEV4
 owner: intern_code_dev_4
-result: READY_FOR_REVIEW
+result: COMPLETE
 pr: 49
 pr_url: https://github.com/peteryang1/coding_agent_playground/pull/49
-pr_state: OPEN
-pr_mergeable: MERGEABLE
-pr_merge_state_status: CLEAN
+pr_state: MERGED
+merged_at: 2026-05-21T12:44:14Z
+merge_commit: 2de4bab2248f052d09f118eb6c28c48231f3d719
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_parserfixed_parser_patch.md
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
+```
+
+## Completion Record
+
+```text
+PM gate: PASS_OWNER_SELF_MERGE_ONLY
+dev_1 review: PASS_FOR_PM_RETRY after head refresh
+test_1 gate: PASS_FOR_PM_RETRY after head refresh
+authorized action: owner self-merge only
+PR: #49
+mergedAt: 2026-05-21T12:44:14Z
+merge commit: 2de4bab2248f052d09f118eb6c28c48231f3d719
+completion marker: complete
+runtime boundary: no LTP/GPU/preflight/SFT/eval/dry-run/runtime authorization
 ```
