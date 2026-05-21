@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | #61 PM-gated for owner self-merge; pre-merge completion recorded |
+| PR | #61 merged; completion record branch active |
 | Session | 2 |
 
 ## PM Corrections
@@ -77,3 +77,4 @@
 - 2026-05-21 Session 23 MCORE completion: Self-merged PR #59 at `2026-05-21T16:34:13Z`; merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`. Task `M1-S23-PR57-MCORE-FIX-DEV4` is complete as a no-execution launcher/dependency fix package. Runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/runtime retry was run.
 - 2026-05-21 Session 23 PR59 CLI follow-up: Accepted task `M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4` after dev_2 PR59 runtime passed transfer/import/preflight and failed with `EXIT_STATUS=127` because `LLAMAFACTORY_CLI` was a space-containing command string executed as one quoted path. Patched `scripts/train_qwen3_8b_sft.sh` to parse `LLAMAFACTORY_CLI` into an array and execute command-plus-args safely while preserving `DEP_TARGET`, `LF`, `MCORE_ADAPTER_DIR`, no-remote-network, and `/home/xu.yang` output rules. Evidence is in `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr59_llamafactory_cli_fix.md`. Opened PR #61 `https://github.com/peteryang1/coding_agent_playground/pull/61`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 23 PR59 CLI gate: PM gate passed for PR #61 / `M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4` with dev_1 and test_1 `PASS_FOR_PM_RETRY`; GitHub observed open, non-draft, `MERGEABLE` / `CLEAN` at head `d4f3340d1f7b32d91553cbe18d7effce533276c7`. Recorded pre-merge completion state for owner self-merge. This gate authorizes PR #61 self-merge only and does not authorize LTP/GPU/preflight/SFT/eval/runtime retry.
+- 2026-05-21 Session 23 PR59 CLI completion: Self-merged PR #61 at `2026-05-21T17:13:17Z`; merge commit `aa426b045b52b71bc23b4a2f73f3ee1c42187037`. Task `M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4` is complete as a no-execution launcher command invocation fix. Runtime remains separately PM-gated and no LTP/GPU/preflight/SFT/eval/runtime retry was run.
