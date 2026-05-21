@@ -766,3 +766,5 @@
 - Gate facts: latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`, GitHub open/non-draft `MERGEABLE` / `CLEAN`, dev_1 `PASS_FOR_PM_RETRY`, and test_1 `PASS_FOR_PM_RETRY`.
 - Marked task completion-ready and dev status Idle before owner self-merge per playbook.
 - Runtime remains separately gated; no LTP/GPU/SFT/eval/dry-run/runtime command was run.
+- Self-merged PR #45 at `2026-05-21T11:42:20Z`; merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`.
+- Task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` is complete as a no-execution parser package; future runtime requires separate PM authorization and `/home/xu.yang/coding_agent_playground/outputs` storage.

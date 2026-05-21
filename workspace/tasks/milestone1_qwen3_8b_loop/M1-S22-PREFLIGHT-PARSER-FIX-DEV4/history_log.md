@@ -17,3 +17,5 @@
 - Gate facts recorded by PM: latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`, open/non-draft, `MERGEABLE` / `CLEAN`, dev_1 `PASS_FOR_PM_RETRY`, and test_1 `PASS_FOR_PM_RETRY`.
 - Marked task README completed and dev status Idle before owner self-merge per playbook.
 - Runtime boundary remains unchanged: this gate authorizes owner self-merge only and does not authorize LTP/GPU/SFT/eval/dry-run/runtime.
+- Self-merged PR #45 at `2026-05-21T11:42:20Z`; merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`.
+- Recorded completion evidence in task README, status, milestone registry/history/evidence, and task knowledge.

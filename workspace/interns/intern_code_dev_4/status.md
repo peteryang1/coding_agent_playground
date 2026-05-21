@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | PR #45 PM-gated for self-merge |
+| PR | PR #45 merged |
 | Session | 2 |
 
 ## PM Corrections
@@ -54,3 +54,4 @@
 - 2026-05-21 Session 37: Accepted task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`. Reviewed dev_2/test_1 final preflight evidence: capacity/topology/NVLink/8-rank torch NCCL passed on a fresh different H200 node, but SFT was not run because broad recursive health scanning matched generated command/process/evidence/generic text and wrote `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`. Added no-execution parser package `scripts/parse_s22_preflight_health.py` and durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_preflight_parser_fix.md`. Opened PR #45 `https://github.com/peteryang1/coding_agent_playground/pull/45`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. No LTP/GPU/SFT/eval/dry-run command was run.
 - 2026-05-21 Session 1 gate fix: PM marked PR #45 NOT READY. Addressed dev_1 ECC false-negative risk by making fatal ECC actionable and tying uncorrected ECC detection to the relevant nonzero ECC counter rather than unrelated zero tokens. Addressed test_1 structured-field/storage blocker by adding stable top-level parser fields and `/home/xu.yang/coding_agent_playground/outputs` storage gating. Pushed PR #45 update; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. No LTP/GPU/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 2: PM gate passed for PR #45 / `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`; latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4` is open, non-draft, `MERGEABLE` / `CLEAN`, with dev_1 and test_1 `PASS_FOR_PM_RETRY` in PM evidence. Marked local task status Idle/completion-ready before owner self-merge per playbook. No LTP/GPU/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 2 completion: Self-merged PR #45 at `2026-05-21T11:42:20Z` with merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`. Task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` is complete; runtime remains separately PM-gated and was not run.
