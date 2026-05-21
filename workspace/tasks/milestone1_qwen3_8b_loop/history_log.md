@@ -717,3 +717,10 @@
 - Patched `scripts/train_qwen3_8b_sft.sh` to support explicit `PREPROCESSING_NUM_WORKERS` runtime config rewrite while preserving PR39 diagnostics.
 - Patched `scripts/write_sft_run_manifest.py` to record generated-config `preprocessing_num_workers` in manifest preflight and environment override evidence.
 - Wrote no-execution evidence to `evidence/dev_4_s22_dataset_map_singleproc_fix.md`. No LTP/SFT/GPU/eval or dry-run launch command was run.
+
+## Session 34 - Dev 4 PR #41 Self-Merge Completion - 2026-05-21
+
+- PM gate passed for PR #41 owner self-merge only: dev_1 `evidence/dev_1_s22_dataset_map_review.md` recorded `PASS_FOR_PM_RETRY`, test_1 `evidence/test_1_s22_postpatch_sft_runtime_gate.md` recorded `PASS_FOR_PM_RETRY`, and dev_3 confirmed no ShareGPT data content/schema change.
+- GitHub reported PR #41 head `fc0b6062664e3eb5283e89c22a152427ca47fc3c` open, non-draft, `MERGEABLE` / `CLEAN`.
+- Dev_4 self-merged PR #41 at `2026-05-21T10:00:25Z`; merge commit `2fc4b797a85c9375c6c5e1171963abe67aab35e8`.
+- Task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` is marked complete/ready-for-runtime-gate. This does not authorize LTP/SFT/GPU/eval or dry-run launch.
