@@ -819,3 +819,12 @@
 - Self-merged PR #51 at `2026-05-21T13:23:23Z`; merge commit `c02a53a344f2ad7a33b04f529d5125677237d4cb`.
 - Task `M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4` is complete as a no-execution launch/spec package.
 - Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 46 - Dev 4 NCCL Warning Parser Hygiene - 2026-05-21
+
+- Accepted PM task `M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4`.
+- Patched `scripts/parse_s22_preflight_health.py` so `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings are non-actionable only when the same all-reduce source has `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`.
+- Preserved real NCCL/CUDA invalid peer memory, unhandled system error, collective failure, nonzero torchrun exit, SIGABRT, ChildFailedError, Xid/SXid/ECC/NVLink detection.
+- Added synthetic tests in `tests/test_parse_s22_preflight_health.py`; local `py_compile` and pytest passed.
+- Wrote evidence `evidence/dev_4_s23_nccl_warning_parser_hygiene.md`.
+- No LTP/GPU/preflight/SFT/eval/dry-run command was run.
