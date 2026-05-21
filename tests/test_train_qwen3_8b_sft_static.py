@@ -19,8 +19,17 @@ def test_sft_launcher_uses_configurable_llamafactory_cli() -> None:
     text = SCRIPT.read_text(encoding="utf-8")
 
     assert 'LLAMAFACTORY_CLI="${LLAMAFACTORY_CLI:-llamafactory-cli}"' in text
-    assert '${LLAMAFACTORY_CLI} train ${RUNTIME_CONFIG}' in text
-    assert '"${LLAMAFACTORY_CLI}" train "${RUNTIME_CONFIG}"' in text
+    assert "read -r -a LLAMAFACTORY_CMD <<< " in text
+    assert "$(format_llamafactory_command_for_log) train ${RUNTIME_CONFIG}" in text
+    assert '"${LLAMAFACTORY_CMD[@]}" train "${RUNTIME_CONFIG}"' in text
+
+
+def test_sft_launcher_does_not_quote_llamafactory_cli_as_single_path() -> None:
+    text = SCRIPT.read_text(encoding="utf-8")
+
+    assert '"${LLAMAFACTORY_CLI}" train "${RUNTIME_CONFIG}"' not in text
+    assert "LLAMAFACTORY_CMD=()" in text
+    assert "format_llamafactory_command_for_log" in text
 
 
 def test_sft_launcher_gates_mcore_adapter_when_mca_enabled() -> None:

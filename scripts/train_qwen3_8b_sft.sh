@@ -30,6 +30,27 @@ PREFLIGHT_FILE="${PREFLIGHT_FILE:-${RUN_DIR}/preflight.json}"
 export DATASET_NAME PREPROCESSING_NUM_WORKERS OUTPUT_ROOT RUN_DIR CHECKPOINT_DIR TMPDIR LOG_FILE XTRACE_FILE DIAG_FILE
 export DEP_TARGET LF LLAMAFACTORY_CLI MCORE_ADAPTER_DIR
 
+read_llamafactory_command() {
+  LLAMAFACTORY_CMD=()
+  read -r -a LLAMAFACTORY_CMD <<< "${LLAMAFACTORY_CLI}"
+  if [[ "${#LLAMAFACTORY_CMD[@]}" -eq 0 ]]; then
+    printf 'LLAMAFACTORY_CLI resolved to an empty command.\n' >&2
+    exit 6
+  fi
+}
+
+format_llamafactory_command_for_log() {
+  local rendered=""
+  local part
+  for part in "${LLAMAFACTORY_CMD[@]}"; do
+    printf -v part '%q' "${part}"
+    rendered+="${rendered:+ }${part}"
+  done
+  printf '%s' "${rendered}"
+}
+
+read_llamafactory_command
+
 exec > >(tee -a "${LOG_FILE}") 2>&1
 exec 9>>"${XTRACE_FILE}"
 export BASH_XTRACEFD=9
@@ -91,6 +112,7 @@ printf 'RUN_ID=%s\nREPO_ROOT=%s\nOUTPUT_ROOT=%s\nRUN_DIR=%s\nCHECKPOINT_DIR=%s\n
 printf 'CONFIG_TEMPLATE=%s\nDATASET_JSONL=%s\nDATASET_NAME=%s\nPREPROCESSING_NUM_WORKERS=%s\nBASE_MODEL=%s\nLLAMAFACTORY_DIR=%s\nMCORE_ADAPTER_DIR=%s\nDRY_RUN=%s\n' \
   "${CONFIG_TEMPLATE}" "${DATASET_JSONL}" "${DATASET_NAME}" "${PREPROCESSING_NUM_WORKERS}" "${BASE_MODEL}" "${LLAMAFACTORY_DIR}" "${MCORE_ADAPTER_DIR}" "${DRY_RUN}"
 printf 'LLAMAFACTORY_CLI=%s\nDEP_TARGET=%s\nLF=%s\n' "${LLAMAFACTORY_CLI}" "${DEP_TARGET}" "${LF}"
+printf 'LLAMAFACTORY_CMD=%s\n' "$(format_llamafactory_command_for_log)"
 printf 'Mount proof for OUTPUT_ROOT:\n'
 findmnt -T "${OUTPUT_ROOT}" || true
 df -h "${OUTPUT_ROOT}" || true
@@ -173,7 +195,7 @@ if [[ -d "${MCORE_ADAPTER_DIR}" ]]; then
 fi
 export PYTHONPATH_PREFIX
 
-LAUNCH_COMMAND="cd ${LLAMAFACTORY_DIR} && export DEP_TARGET=\"${DEP_TARGET}\" LF=\"${LF}\" MCORE_ADAPTER_DIR=\"${MCORE_ADAPTER_DIR}\" PYTHONPATH=\"${PYTHONPATH_PREFIX}:\${PYTHONPATH:-}\" && ${LLAMAFACTORY_CLI} train ${RUNTIME_CONFIG}"
+LAUNCH_COMMAND="cd ${LLAMAFACTORY_DIR} && export DEP_TARGET=\"${DEP_TARGET}\" LF=\"${LF}\" MCORE_ADAPTER_DIR=\"${MCORE_ADAPTER_DIR}\" PYTHONPATH=\"${PYTHONPATH_PREFIX}:\${PYTHONPATH:-}\" && $(format_llamafactory_command_for_log) train ${RUNTIME_CONFIG}"
 
 python3 "${REPO_ROOT}/scripts/write_sft_run_manifest.py" \
   --run-id "${RUN_ID}" \
@@ -241,4 +263,4 @@ export DEP_TARGET="${DEP_TARGET}"
 export LF="${LF}"
 export MCORE_ADAPTER_DIR="${MCORE_ADAPTER_DIR}"
 export PYTHONPATH="${PYTHONPATH_PREFIX}:${PYTHONPATH:-}"
-"${LLAMAFACTORY_CLI}" train "${RUNTIME_CONFIG}"
+"${LLAMAFACTORY_CMD[@]}" train "${RUNTIME_CONFIG}"
