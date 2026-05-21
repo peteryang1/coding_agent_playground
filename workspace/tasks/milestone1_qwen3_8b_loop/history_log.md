@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=21 -->
+<!-- METADATA:SESSION=22 -->
 
 ## Session 1 - 2026-05-21
 
@@ -129,3 +129,9 @@
 - Created `M1-S23-PR59-RUNTIME-READY-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr59_runtime_ready_gate.md` with result `READY_GATE_DEFINED_CURRENT_RUNTIME_ALREADY_EXECUTED_BY_DEV2`.
 - Created `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr59_llamafactory_cli_gate.md` with result `BLOCKED_MISSING_DEV4_LLAMAFACTORY_CLI_FIX`.
 - Validated from durable evidence that dev_2 PR59 runtime passed local source/data/mcore transfer checks, `mcore_adapter import OK for USE_MCA=1`, `/home/xu.yang` storage/capacity, structured preflight `PASS`, and `SFT_ALLOWED=true`; the single SFT attempt then exited `127` before checkpoint because `LLAMAFACTORY_CLI` was a space-containing command string executed as one quoted path. No checkpoint/model, `trainer_state.json`, `all_results.json`, or eval artifact exists; stop/no-running-job proof is complete. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
+
+## Session 22 - 2026-05-21
+
+- Re-gated `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1` against PR #61 latest head `d4f3340d1f7b32d91553cbe18d7effce533276c7` and PM durable `evidence/dev_4_s23_pr59_llamafactory_cli_fix.md`.
+- Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr59_llamafactory_cli_gate.md` to `PASS_FOR_PM_RETRY`: functional commit `59524d9a905b07e4940ec17de277d862dcd99900` changes the launcher from executing `"${LLAMAFACTORY_CLI}"` as one path to parsing `LLAMAFACTORY_CLI` into `LLAMAFACTORY_CMD` and invoking `"${LLAMAFACTORY_CMD[@]}" train`.
+- Verified the no-execution fix gate preserves `DEP_TARGET`, `LF`, `MCORE_ADAPTER_DIR`, `PYTHONPATH_PREFIX`, mcore import gate, no remote source/dependency downloads, `/home/xu.yang/coding_agent_playground/outputs`, and manifest/log command rendering; dev_4 records `bash -n` success and `4 passed` static tests. Fresh PM runtime authorization is still required and eval handoff remains blocked until checkpoint/model plus `trainer_state.json` and `all_results.json` or accepted replacements exist. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
