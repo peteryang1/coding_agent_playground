@@ -8,7 +8,7 @@
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | #22 |
-| Session | 12 |
+| Session | 21 |
 
 ## Recent Progress
 
@@ -72,3 +72,5 @@
 - 2026-05-20 Session 12 blocker-evidence escalation at `2026-05-20T12:39:01Z`: PR #30 and the six launch-package evidence files are still missing required owner updates, so PM injected explicit blocker directives to all owners. Each owner must now write either the required evidence file or a blocker/missing-input list in that evidence file plus own status; no GPU/SFT/eval is authorized.
 - 2026-05-20 Session 12 blocked audit at `2026-05-20T12:41:44Z`: the same blocker has repeated across consecutive goal turns: PR #30 remains `CONFLICTING` / `DIRTY`, no launch-package evidence-or-blocker files exist, and owner panes show no new output beyond PM directives. PM cannot progress the SFT/eval gate without owner PR/evidence updates and must keep execution authorization closed.
 - 2026-05-21 Session 21 supervisor resume: re-audited stale PR #30 and missing launch-package evidence, then created a replacement checkpoint path. dev_2 is acting SFT runtime/resource owner after PM gate; dev_3/test_1/dev_1 own package/gate/review; test_2 owns eval package; dev_4 owns PR #30 archival cleanup.
+- 2026-05-21 Session 21 runtime authorization: dev_3 dataset_info package, test_1 launch gate, dev_1 review, and dev_2 corrected runtime/resource evidence now pass PM preflight for authorization. PM authorized only `intern_code_dev_2` to submit a fresh Session 21 LTP job and run one ShareGPT-fixed SFT smoke with `DATASET_NAME=coding_agent_m1_sft_10_sharegpt`, requiring durable job/node/log/checkpoint-or-runtime-blocker and stop proof.
+- 2026-05-21 Session 21 runtime outcome: dev_2 completed the single authorized SFT smoke and stop proof. The run cleared the prior data-format blocker and reached training step 1/2, then failed during checkpoint save with safetensors `No space left on device`; `EXIT_STATUS=1`, partial `checkpoint-1` only, no complete checkpoint/model, no `trainer_state.json` or `all_results.json`, LTP `STOPPED (Completed)`.

@@ -675,3 +675,111 @@
 - PM decision: PR #30 is now archival evidence for the failed original retry and is no longer the critical blocker for the next ShareGPT-fixed run. It still should be refreshed/closed by dev_4 when possible, but checkpoint progress moves to a replacement Session 21 path.
 - PM created replacement tasks: `M1-S21-DATASETINFO-PACKAGE-DEV3`, `M1-S21-LAUNCH-REVIEW-DEV1`, `M1-S21-LAUNCH-GATE-TEST1`, `M1-S21-RUNTIME-DEV2`, `M1-S21-EVAL-PACKAGE-TEST2`, and `M1-S21-PR30-CLEANUP-DEV4`.
 - Target durable outcome: `M1-S21-RUNTIME-DEV2` must produce either an SFT checkpoint/model plus logs, or a fresh exact runtime blocker with command, node status, logs, owner, and next fix.
+
+## 2026-05-21 Session 21 Dev 2 Runtime Plan / Blocker
+
+- Task id: `M1-S21-RUNTIME-DEV2`.
+- Owner: `intern_code_dev_2`.
+- PM assignment: act as replacement resource/runtime owner, write runtime plan/blocker and resource tracking immediately, but do not submit LTP or run SFT until PM gate confirms dev_3 package, test_1 gate, and dev_1 review.
+- dev_2 wrote:
+  - `evidence/dev_2_s21_sft_runtime.md`;
+  - `evidence/gpu_s21_resource_tracking.md`;
+  - `workspace/interns/intern_code_dev_2/status.md`.
+- Current blocker:
+  - `evidence/dev_3_s21_datasetinfo_package.md` missing at check time;
+  - `evidence/test_1_s21_launch_gate.md` missing at check time;
+  - `evidence/dev_1_s21_launch_review.md` missing at check time;
+  - fresh PM runtime authorization missing.
+- Verified static inputs:
+  - base model `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` has `config.json`;
+  - ShareGPT artifact `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl` has sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2` and 10 rows.
+- Resource state:
+  - no active coding_agent_playground/Milestone 1/Session 21 GPU allocation exists;
+  - visible running H200 jobs are unrelated `ltp-axis-eval-platform-*` jobs and must not be reused or stopped for this task without a new PM gate.
+- Runtime plan includes:
+  - intended single-node 8 x H200 `h200agentic` shape;
+  - LTP submit/status/ssh/stop templates;
+  - expected dataset_info placeholder for `coding_agent_playground_sft_v1_sharegpt_messages` pending dev_3 Session 21 package;
+  - exact SFT command template using `DATASET_JSONL=/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, and output root `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`;
+  - stop proof requirements and output preservation path.
+- dev_2 did not submit LTP, occupy GPU, run SFT, run eval, or peer-send PM routine status.
+
+## 2026-05-21 Session 21 Dev 2 Authorized Runtime
+
+- Task id: `M1-S21-RUNTIME-DEV2`.
+- PM authorized one fresh Session 21 LTP job and one ShareGPT-fixed Qwen3-8B SFT smoke with dataset entry `coding_agent_m1_sft_10_sharegpt`.
+- dev_2 submitted:
+  - frame `xu.yang~coding-agent-playground-m1-s21-qwen3-8b-runtime-20260521T072638Z`;
+  - endpoint `ssh -p 16126 root@10.100.16.54`;
+  - node `lg-cmc-b7r202-i08u06-h200-000556`;
+  - start `2026-05-21 07:27:06`.
+- dev_2 staged repo/data and nodes:
+  - `/root/workspace/coding_agent_playground`;
+  - `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`;
+  - `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/milestone1_s21_nodes.json`.
+- dev_2 ran one SFT smoke:
+  - run id `milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z`;
+  - command used `DATASET_NAME=coding_agent_m1_sft_10_sharegpt`, `DRY_RUN=0`, base model `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, config template `/tmp/qwen3_8b_sft_s21_sharegpt.yaml`, and output root `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`;
+  - generated config path `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z/config/qwen3_8b_sft.yaml` contains `dataset: coding_agent_m1_sft_10_sharegpt`.
+- Runtime result:
+  - `EXIT_STATUS=1`, ended `2026-05-21T07:35:26Z`;
+  - logs show dataset loaded, ShareGPT conversion 10/10, total optimization steps 2, and step 1/2 with loss `2.0884`;
+  - no prior data/config failure signatures were found: no `KeyError: 'from'`, missing dataset_info, ZeroDivisionError, or scheduler warmup assertion;
+  - failure occurred during checkpoint-1 safetensors serialization: `No space left on device (os error 28)`;
+  - partial `checkpoint-1` exists, but no complete checkpoint/model, `trainer_state.json`, or `all_results.json` exists.
+- dev_2 stopped/released the LTP frame at `2026-05-21T07:36:31Z`; final LTP state is `STOPPED (Completed)`, completed `2026-05-21 07:37:02`, and endpoint `ssh -p 16126 root@10.100.16.54` refused connection after stop.
+- Durable evidence updated:
+  - `evidence/dev_2_s21_sft_runtime.md`;
+  - `evidence/gpu_s21_resource_tracking.md`;
+  - `workspace/interns/intern_code_dev_2/status.md`;
+  - `task_registry.md`.
+- dev_2 did not run eval and did not peer-send PM routine status.
+
+## 2026-05-21 Session 21 PM Outcome Gate
+
+- PM gate result: accepted fresh exact runtime blocker for the resumed supervisor target.
+- Accepted evidence:
+  - `evidence/dev_2_s21_sft_runtime.md`;
+  - `evidence/gpu_s21_resource_tracking.md`;
+  - `workspace/interns/intern_code_dev_2/status.md`;
+  - `task_registry.md`.
+- Outcome:
+  - one PM-authorized ShareGPT-fixed SFT smoke ran under `M1-S21-RUNTIME-DEV2`;
+  - data-format/config issues from prior attempts were cleared for this run;
+  - no complete SFT checkpoint/model was produced;
+  - final blocker is checkpoint save capacity/path: safetensors ENOSPC while writing `checkpoint-1`;
+  - only a partial `checkpoint-1` exists and must not be handed to eval;
+  - mini-swe remains blocked until PM gates a complete checkpoint/model or served endpoint.
+- PM assigned test_1 to record the post-run gate as `BLOCKED_FINAL_RUNTIME` and test_2 to record eval as post-run blocked. PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
+
+## 2026-05-21 Session 21 Dev 2 Gate Refresh
+
+- Task id: `M1-S21-RUNTIME-DEV2`.
+- dev_2 refreshed `evidence/dev_2_s21_sft_runtime.md` and `evidence/gpu_s21_resource_tracking.md` after dev_3/test_1/dev_1 Session 21 files appeared.
+- Current evidence:
+  - `evidence/dev_3_s21_datasetinfo_package.md` exists and provides accepted dataset entry `coding_agent_m1_sft_10_sharegpt`;
+  - `evidence/test_1_s21_launch_gate.md` exists with `DATASET_INFO PASS / LAUNCH WIRING BLOCKED`;
+  - `evidence/dev_1_s21_launch_review.md` exists and confirms the launch is blocked until dev_2 wiring is corrected, PM authorization is recorded, a fresh endpoint exists, and post-run evidence exists.
+- dev_2 corrected the intended SFT command template from stale `DATASET_NAME=coding_agent_playground_sft_v1_sharegpt_messages` to `DATASET_NAME=coding_agent_m1_sft_10_sharegpt`; final generated config must contain `dataset: coding_agent_m1_sft_10_sharegpt`.
+- Current decision:
+  - `ready_to_submit: no`;
+  - `ready_to_run_sft: no`;
+  - remaining blocker is no PM runtime authorization and no fresh Session 21 LTP frame/node/endpoint/nodes.json.
+- dev_2 did not submit LTP, occupy GPU, run SFT, run eval, or peer-send PM routine status.
+
+## 2026-05-21 Session 21 PM Runtime Authorization
+
+- Task id: `M1-S21-RUNTIME-DEV2`.
+- Authorization owner: `intern_code_dev_2`.
+- PM gate basis:
+  - `evidence/dev_3_s21_datasetinfo_package.md` records dataset_info entry `coding_agent_m1_sft_10_sharegpt` for `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, 10 rows, `messages[*].from/value`;
+  - `evidence/test_1_s21_launch_gate.md` records `PASS_FOR_PM_AUTHORIZATION`;
+  - `evidence/dev_1_s21_launch_review.md` records `PASS_FOR_PM_AUTHORIZATION`;
+  - `evidence/dev_2_s21_sft_runtime.md` and `evidence/gpu_s21_resource_tracking.md` record the intended command with `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` and generated config requirement `dataset: coding_agent_m1_sft_10_sharegpt`;
+  - `evidence/gpu_s21_resource_tracking.md` records no active coding_agent_playground/Milestone 1/Session 21 runtime GPU allocation visible at the last dev_2 read-only LTP check.
+- PM decision: authorize dev_2 to submit one fresh Session 21 LTP job and run one ShareGPT-fixed Qwen3-8B SFT smoke.
+- Scope limit:
+  - dev_2 must record LTP job/frame id, node id/endpoint, `nodes.json`, exact command/config, stdout/stderr/log paths, exit status, checkpoint/model or exact runtime blocker, `trainer_state.json` / `all_results.json` presence or absence, and stop proof;
+  - dev_2 must stop/release the node when a checkpoint is produced, the run fails with no PM-authorized retry, an idle/health limit triggers, or PM/test gate orders stop;
+  - no other owner may run eval until PM gates a checkpoint/model or served endpoint;
+  - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
