@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=30 -->
+<!-- METADATA:SESSION=31 -->
 
 ## Session 1 - 2026-05-20
 
@@ -692,3 +692,11 @@
 - PR #39 is open, non-draft, and GitHub reports `MERGEABLE` / `CLEAN`, but PM gate is not passed.
 - Dev_4 must not self-merge PR #39 until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge.
 - No SFT/GPU/eval or dry-run launch command was run.
+
+## Session 31 - Dev 4 PR #39 Gate Fix Update - 2026-05-21
+
+- PM gate result for PR #39 was NOT READY.
+- Addressed dev_1 blocker `BLOCKER_MANIFEST_ENV_CAPTURE`: `scripts/train_qwen3_8b_sft.sh` now exports resolved `DATASET_NAME`, `OUTPUT_ROOT`, `RUN_DIR`, `CHECKPOINT_DIR`, `TMPDIR`, `LOG_FILE`, `XTRACE_FILE`, and `DIAG_FILE` before invoking `scripts/write_sft_run_manifest.py`, and passes those values as explicit manifest-writer arguments.
+- Updated `scripts/write_sft_run_manifest.py` to accept the explicit runtime values and record them in `preflight`, so future `run_manifest.json` can capture `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` and `/home/xu.yang/coding_agent_playground/outputs` paths.
+- Addressed test_1 blocker `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` by recording archival justification in `evidence/dev_4_s22_early_exit_fix.md`; the PR retains directly required durable conflict/gate records to preserve PM/main provenance.
+- No self-merge was performed. No SFT/GPU/eval or dry-run launch command was run.

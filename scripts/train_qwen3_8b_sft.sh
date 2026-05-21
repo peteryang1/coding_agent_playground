@@ -13,7 +13,6 @@ CHECKPOINT_DIR="${CHECKPOINT_DIR:-${OUTPUT_ROOT}/training_summary/sft_output/${R
 LLAMAFACTORY_DIR="${LLAMAFACTORY_DIR:-${REPO_ROOT}/code/LLamaFactory}"
 DRY_RUN="${DRY_RUN:-1}"
 TMPDIR="${TMPDIR:-${OUTPUT_ROOT}/tmp/${RUN_ID}}"
-export TMPDIR
 
 mkdir -p "${RUN_DIR}/logs" "${RUN_DIR}/config" "${CHECKPOINT_DIR}" "${TMPDIR}"
 
@@ -22,6 +21,8 @@ XTRACE_FILE="${XTRACE_FILE:-${RUN_DIR}/logs/train_xtrace.log}"
 DIAG_FILE="${DIAG_FILE:-${RUN_DIR}/early_exit_diagnostics.txt}"
 EXIT_STATUS_FILE="${EXIT_STATUS_FILE:-${RUN_DIR}/exit_status.txt}"
 PREFLIGHT_FILE="${PREFLIGHT_FILE:-${RUN_DIR}/preflight.json}"
+
+export DATASET_NAME OUTPUT_ROOT RUN_DIR CHECKPOINT_DIR TMPDIR LOG_FILE XTRACE_FILE DIAG_FILE
 
 exec > >(tee -a "${LOG_FILE}") 2>&1
 exec 9>>"${XTRACE_FILE}"
@@ -167,6 +168,12 @@ python3 "${REPO_ROOT}/scripts/write_sft_run_manifest.py" \
   --base-model "${BASE_MODEL}" \
   --output-dir "${CHECKPOINT_DIR}" \
   --checkpoint-dir "${CHECKPOINT_DIR}" \
+  --dataset-name "${DATASET_NAME}" \
+  --output-root "${OUTPUT_ROOT}" \
+  --tmpdir "${TMPDIR}" \
+  --log-file "${LOG_FILE}" \
+  --xtrace-file "${XTRACE_FILE}" \
+  --diag-file "${DIAG_FILE}" \
   --repo-root "${REPO_ROOT}" \
   --command "${LAUNCH_COMMAND}" \
   --notes "Milestone 1 Qwen3-8B SFT launch manifest. Dataset may be produced later by dev_3." \

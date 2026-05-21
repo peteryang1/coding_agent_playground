@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=30 -->
+<!-- METADATA:SESSION=31 -->
 
 ## Knowledge Entries
 
@@ -167,3 +167,5 @@
 153. PR #39 gate fact: after dev_4 merged current `origin/main` and resolved durable-file conflicts, GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 154. Session 29 PR #39 follow-up fact: PR #39 body cites task id, owner, acceptance criteria, evidence path, completion marker, and no-execution boundary; future SFT intermediates/logs/checkpoints/run metadata remain defaulted to `/home/xu.yang/coding_agent_playground/outputs`.
 155. Session 30 PR #39 PM gate fact: GitHub reports PR #39 open, non-draft, `MERGEABLE` / `CLEAN`, but PM gate has not passed; dev_4 must not self-merge until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge. No SFT/GPU/eval or dry-run launch is authorized.
+156. Session 31 PR #39 gate-fix fact: dev_1 blocker `BLOCKER_MANIFEST_ENV_CAPTURE` requires resolved manifest values before manifest writing. The wrapper now exports and explicitly passes `DATASET_NAME`, `OUTPUT_ROOT`, `RUN_DIR`, `CHECKPOINT_DIR`, `TMPDIR`, `LOG_FILE`, `XTRACE_FILE`, and `DIAG_FILE`; the manifest writer records those explicit values in `preflight`.
+157. Session 31 scope fact: test_1 blocker `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` is handled by archival justification in `dev_4_s22_early_exit_fix.md` because the retained history/status/task-knowledge conflict records are directly required to preserve PM/main provenance for PR #39 review.

@@ -7,8 +7,8 @@
 | Name | intern_code_dev_4 |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop / M1-S22-EARLY-EXIT-FIX-DEV4 |
-| PR | PR #39 open, MERGEABLE/CLEAN, PM gate not passed |
-| Session | 30 |
+| PR | PR #39 open, PM gate not ready |
+| Session | 31 |
 
 ## PM Corrections
 
@@ -45,3 +45,4 @@
 - 2026-05-21 Session 28 PR update: Opened PR #39 `https://github.com/peteryang1/coding_agent_playground/pull/39`. Initial GitHub state was `CONFLICTING` / `DIRTY`; merged current `origin/main`, resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md` while preserving PM main records and Session 28 dev_4 records, then pushed. Latest GitHub state is `MERGEABLE` / `CLEAN`; no required checks are reported.
 - 2026-05-21 Session 29: PM follow-up re-verified PR #39 for `M1-S22-EARLY-EXIT-FIX-DEV4`. PR body cites task id, owner, acceptance criteria, evidence path, completion marker, and no-execution boundary. Current GitHub state remains open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported. Updated durable evidence/status/history/task knowledge; no SFT/GPU/eval command was run.
 - 2026-05-21 Session 30: Recorded PM gate note for PR #39. GitHub remains open, non-draft, `MERGEABLE` / `CLEAN`, but PM gate has not passed; dev_4 must not self-merge until dev_1 and test_1 review/gate evidence lands and PM explicitly authorizes owner self-merge. No SFT/GPU/eval or dry-run launch was run.
+- 2026-05-21 Session 31: Addressed PM gate result for PR #39. Fixed `BLOCKER_MANIFEST_ENV_CAPTURE` by exporting resolved `DATASET_NAME`, `OUTPUT_ROOT`, `RUN_DIR`, `CHECKPOINT_DIR`, `TMPDIR`, `LOG_FILE`, `XTRACE_FILE`, and `DIAG_FILE` before manifest writing and by passing them explicitly to `write_sft_run_manifest.py`. Recorded `BLOCKED_SCOPE_HISTORICAL_EVIDENCE_DIFF` archival justification in evidence rather than splitting the PR because the durable-file conflict records are directly required to preserve PM/main provenance. No self-merge and no SFT/GPU/eval/dry-run launch.
