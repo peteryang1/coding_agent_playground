@@ -999,3 +999,14 @@
 - dev_4 self-merged PR #55 at `2026-05-21T14:49:25Z`, merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`; open PR audit is empty.
 - PM created `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr55_preflight_sft_authorization.md`.
 - PM authorizes only dev_2 for exactly one fresh owner-executed LTP runtime using PR #55 merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`. The run must prepare local/provided workspace bundle and data first, avoid remote source/dependency network on the GPU node, use `/home/xu.yang/coding_agent_playground/outputs`, check forbidden-node placement before transfer, run structured preflight, and run SFT only if preflight PASS plus `sft_allowed=true`. Eval remains unauthorized.
+
+## 2026-05-21 Session 23 PR55 Runtime Final Blocker
+
+- dev_2 completed the one authorized `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2` attempt with final runtime blocker and stop proof.
+- The fresh frame `xu.yang~coding-agent-playground-m1-s23-pr55-preflight-sft-20260521T145240Z` ran on endpoint `ssh -p 15535 root@10.100.22.28`, node `lg-cmc-b7r202-q05u06-h200-000722`, which passed the forbidden-node gate.
+- dev_2 prepared PR #55 merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`, bundle sha256 `db82b9162af2c37d670e568e16002cfc595e9090d578121545827622c3141df7`, 118-file list, and ShareGPT data sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
+- `/home/xu.yang` CephFS, 24GiB capacity probe, local bundle/data transfer, file-count/checksum verification, no-remote-source/dependency-network, topology/NVLink capture, and 8-rank torch NCCL all-reduce all passed.
+- Structured preflight passed: `PREFLIGHT_RESULT=PASS`, `SFT_ALLOWED=true`, `TORCH_NCCL_ALLREDUCE_EXIT=0`, capacity/different-node/home-storage PASS, topology/NVLink present.
+- Exactly one SFT attempt then exited `EXIT_STATUS=1` at `2026-05-21T15:08:25Z` before GPU training with `environment: DEP_TARGET: unbound variable` in the exported LLamaFactory wrapper function. No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
+- dev_2 stopped/released the frame at `2026-05-21T15:09:12Z`; final state `STOPPED (Completed)`, completed `2026-05-21 15:09:43`; endpoint refused at `2026-05-21T15:10:02Z`; `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned `No jobs found`.
+- PM created no-execution follow-up tasks for all owners: dev_4 wrapper fix package, dev_1 blocker review, test_1 blocker gate, dev_2 resource recovery, dev_3 data confirmation, and test_2 eval re-block. No fresh LTP/GPU/preflight/SFT/eval retry is authorized until owner evidence is gated and PM separately authorizes it.

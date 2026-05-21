@@ -2,13 +2,19 @@
 
 <!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
 
+## 2026-05-21 Session 23 Update
+
+- PM recorded dev_2 PR55 runtime final blocker: structured preflight passed and exactly one SFT attempt ran, but launch failed before GPU training with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer outputs/eval exists and the LTP frame is stopped/released.
+- PM created the next no-execution task split for all six owners and will gate dev_4 wrapper fix plus dev_1/test_1 review before any fresh owner-executed runtime authorization.
+- PM did not run LTP, SFT, GPU, eval, remote workspace code, rsync/scp, or remote commands.
+
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_pm |
 | Status | Working |
 | Current Task | milestone1_qwen3_8b_loop |
 | PR | coordination branch only |
-| Session | 22 |
+| Session | 23 |
 
 ## Recent Progress
 

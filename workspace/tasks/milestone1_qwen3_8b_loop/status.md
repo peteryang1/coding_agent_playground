@@ -84,6 +84,10 @@
 
 ## Next PM Checks
 
+- PR55 follow-up critical path: dev_4 must fix the SFT launch wrapper/env issue that produced `environment: DEP_TARGET: unbound variable`; dev_1 and test_1 must gate the fix before any new runtime authorization.
+- dev_2 must record resource recovery/readiness only; no fresh LTP/GPU/preflight/SFT/eval submit is authorized.
+- dev_3 must confirm the accepted ShareGPT data/package remains unchanged and is not the PR55 blocker.
+- test_2 must keep mini-swe blocked evidence current until PM gates a checkpoint/model or served endpoint.
 - Route GPU allocation/current `nodes.json`; use dev_1's clean-base candidate as the preferred `BASE_MODEL` once GPU is available.
 - Gate test_2's durable mini-swe-agent smoke gate package, then require real smoke evidence after dev_4 provides a usable model/checkpoint path or endpoint.
 - Gate test_1 support evidence when it appears: SFT+mini-swe completion audit gate remains missing.
@@ -93,6 +97,16 @@
 - Open/push a continuation PM coordination PR for the new branch and keep reading durable support evidence for SFT/eval blocker decisions.
 - After PR #3 merge, continue reading durable support evidence for SFT/eval blocker decisions and create a new coordination PR only when new PM durable updates are needed.
 - Recheck test_2 eval acceptance/provenance package before authorizing mini-swe smoke after SFT checkpoint/endpoint exists.
+
+## 2026-05-21 Session 23 PR55 Runtime Final Blocker
+
+- dev_2 completed the single authorized PR55 runtime under `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2`.
+- Preflight passed on `lg-cmc-b7r202-q05u06-h200-000722`: `PREFLIGHT_RESULT=PASS`, `SFT_ALLOWED=true`, `TORCH_NCCL_ALLREDUCE_EXIT=0`, capacity/different-node/home-storage PASS, topology/NVLink present.
+- Source/data were prepared from local/provided workspace, transferred to the node, and checksum/file-list verified; no remote GitHub clone/fetch/source/dependency download was used.
+- The single SFT attempt failed before GPU training with `environment: DEP_TARGET: unbound variable` in the exported LLamaFactory wrapper function.
+- No checkpoint/model, `trainer_state.json`, `all_results.json`, or eval artifact exists.
+- Frame `xu.yang~coding-agent-playground-m1-s23-pr55-preflight-sft-20260521T145240Z` is stopped/released; final state `STOPPED (Completed)`, completed `2026-05-21 15:09:43`, endpoint refused after stop, and dev_2 records no active Milestone GPU job.
+- PM decision: no fresh LTP/GPU/preflight/SFT/eval retry is authorized. Next work is a no-execution wrapper fix/review/gate split across all six owners, with all future generated SFT/eval intermediates under `/home/xu.yang` and all future runtime source/dependency materials prepared locally then transferred to the node.
 
 ## 2026-05-20 Session 8 Approved GPU Route
 

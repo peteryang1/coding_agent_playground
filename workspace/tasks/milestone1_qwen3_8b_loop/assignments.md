@@ -224,6 +224,15 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
 - 2026-05-21 Session 23 PR55 runtime authorization:
   - `intern_code_dev_2`: task `M1-S23-PR55-PREFLIGHT-SFT-RUNTIME-DEV2`; authorized for exactly one fresh LTP runtime using PR #55 merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`. Evidence files: `evidence/dev_2_s23_pr55_preflight_sft_runtime.md`, `evidence/gpu_s23_pr55_preflight_sft_tracking.md`, and own status. Prepare local bundle/data/checksums first; no remote source/dependency network; check forbidden node before transfer; use `/home/xu.yang/coding_agent_playground/outputs`; run structured preflight; run SFT only if preflight PASS and `sft_allowed=true`; eval not authorized.
 
+- 2026-05-21 Session 23 PR55 wrapper-blocker follow-up:
+  - `intern_code_dev_4`: task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4`; produce a no-execution fix package/PR for `environment: DEP_TARGET: unbound variable` from the exported LLamaFactory wrapper function. Evidence path: `evidence/dev_4_s23_pr55_sft_wrapper_fix.md`. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_1`: task `M1-S23-PR55-SFT-BLOCKER-REVIEW-DEV1`; review dev_2 PR55 final runtime evidence and dev_4 wrapper fix when present. Evidence path: `evidence/dev_1_s23_pr55_sft_blocker_review.md`. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_test_1`: task `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1`; gate PR55 final runtime evidence and dev_4 wrapper fix when present. Evidence path: `evidence/test_1_s23_pr55_sft_blocker_gate.md`. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_2`: task `M1-S23-PR55-RESOURCE-RECOVERY-DEV2`; record no-submit resource recovery/readiness after stopped PR55 runtime. Evidence path: `evidence/dev_2_s23_pr55_resource_recovery.md`. Do not submit another LTP job without fresh PM authorization.
+  - `intern_code_dev_3`: task `M1-S23-PR55-DATA-CONFIRM-DEV3`; confirm no data/package change is needed for this wrapper blocker and restate accepted ShareGPT dataset contract. Evidence path: `evidence/dev_3_s23_pr55_data_confirm.md`. Do not run SFT/GPU/eval.
+  - `intern_code_test_2`: task `M1-S23-PR55-EVAL-REBLOCK-TEST2`; refresh eval blocked evidence after PR55 SFT failed before checkpoint. Evidence path: `evidence/test_2_s23_pr55_eval_blocked.md`. Do not run eval.
+  - No fresh LTP/GPU/preflight/SFT/eval retry is authorized by these assignments. Future runtime remains gated on durable owner evidence, PM decision, no remote source/dependency network, local bundle transfer/checksums, and `/home/xu.yang/coding_agent_playground/outputs` for generated intermediates.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.

@@ -50,12 +50,24 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 
 ## Current Blockers
 
+- Current critical path is PR55 SFT wrapper failure follow-up: dev_2 proved PR55 preflight PASS and attempted SFT once, but SFT exited before GPU training with `environment: DEP_TARGET: unbound variable`; dev_4 now owns the no-execution wrapper fix package, dev_1/test_1 own review/gate, and no fresh runtime is authorized.
+- PR55 runtime resource is released: frame `xu.yang~coding-agent-playground-m1-s23-pr55-preflight-sft-20260521T145240Z` reached `STOPPED (Completed)` at `2026-05-21 15:09:43`, endpoint refused after stop, and dev_2 records no running coding-agent-playground job.
+- Future GPU/LTP runtime owners must prepare source/config/scripts/dependency materials locally/provided workspace, verify commit/file-list/checksums, transfer to the remote node, and record exact transfer evidence; remote GitHub clone/fetch/source/dependency downloads are not allowed.
+- Future generated SFT/eval intermediates remain under `/home/xu.yang/coding_agent_playground/outputs` unless a required existing input path is explicitly justified.
 - Current critical path is PR #45 `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`: latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4` is open/non-draft and `MERGEABLE` / `CLEAN`, but PM is waiting for fresh dev_1/test_1 durable re-gates before any owner self-merge.
 - PR #45 re-gate now passes: dev_1/test_1 both recorded `PASS_FOR_PM_RETRY`, and PM instructed dev_4 to owner self-merge and mark task completion.
 - PR #45 is now merged; PM created a separate dev_2 runtime authorization for one parser-fixed preflight plus conditional SFT smoke. Eval is still not authorized.
 - SFT checkpoint/model is still absent; mini-swe-agent real smoke remains blocked until PM gates a checkpoint/model or served endpoint.
 - Supervisor storage requirement is active: SFT launch outputs, temporary converted datasets, logs, checkpoints, run metadata, eval intermediates, predictions, results, and metrics must be under `/home/xu.yang` unless owner evidence explicitly justifies an existing required input path.
 - PM top priority remains full six-intern utilization through explicit tasks, durable evidence, and owner-executed work only; PM does not run code/SFT/eval personally.
+
+## 2026-05-21 Session 23 PR55 Wrapper Blocker Update
+
+- PR #55 merged at `2026-05-21T14:49:25Z`, merge commit `1f521b8db54a3e0d1b5c0057d3fafb4a5e20d703`.
+- dev_2's authorized PR55 runtime passed structured preflight and reached the SFT launch gate.
+- The one SFT attempt exited `EXIT_STATUS=1` at `2026-05-21T15:08:25Z` with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer outputs were produced.
+- PM created follow-up tasks `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4`, `M1-S23-PR55-SFT-BLOCKER-REVIEW-DEV1`, `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1`, `M1-S23-PR55-RESOURCE-RECOVERY-DEV2`, `M1-S23-PR55-DATA-CONFIRM-DEV3`, and `M1-S23-PR55-EVAL-REBLOCK-TEST2`.
+- No PM -> secretary peer message is needed; this report, status, blockers, task registry, and evidence files are the durable reporting channel.
 
 ## 2026-05-21 Session 22 PR #45 Re-Gate Update
 
