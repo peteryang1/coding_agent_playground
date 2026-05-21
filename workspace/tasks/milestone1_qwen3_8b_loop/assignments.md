@@ -185,6 +185,16 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_3`: task `M1-S22-PREFLIGHT-DATA-CONFIRM-DEV3`; confirm no data/package change is needed and restate accepted ShareGPT dataset contract in `evidence/dev_3_s22_preflight_data_confirm.md`.
   - `intern_code_test_2`: task `M1-S22-PREFLIGHT-EVAL-BLOCKED-TEST2`; refresh eval blocked evidence in `evidence/test_2_s22_preflight_eval_blocked.md`. Do not run eval until PM gates a checkpoint/model or served endpoint.
 
+- 2026-05-21 Session 23 ceph-fuse fixed runtime final blocker split:
+  - Runtime/preflight result: dev_2's authorized frame `xu.yang~coding-agent-playground-m1-s23-cephfuse-preflight-sft-20260521T132628Z` passed storage, `/home/xu.yang` CephFS, capacity, local bundle/data transfer, checksum, no-remote-network, different-node, topology/NVLink, and torch NCCL all-reduce gates, but structured preflight returned `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE` and `SFT_ALLOWED=false`. SFT correctly did not run, so no checkpoint/model, `trainer_state.json`, `all_results.json`, or eval artifact exists. The LTP frame is stopped/released and no coding-agent-playground jobs are running.
+  - No new LTP/SFT/GPU/eval retry is authorized.
+  - `intern_code_dev_1`: task `M1-S23-CEPHFUSE-RUNTIME-REVIEW-DEV1`; review final runtime evidence and determine whether the blocker is parser false-positive, real hardware/node signal, or insufficient evidence. Write `evidence/dev_1_s23_cephfuse_runtime_review.md`; no LTP/GPU/SFT/eval.
+  - `intern_code_test_1`: task `M1-S23-CEPHFUSE-RUNTIME-GATE-TEST1`; gate final runtime evidence and define next acceptance criteria. Write `evidence/test_1_s23_cephfuse_runtime_gate.md`; no LTP/GPU/SFT/eval.
+  - `intern_code_dev_4`: task `M1-S23-CEPHFUSE-HEALTH-TRIAGE-DEV4`; produce no-execution health-signature triage package and PR only if a parser/spec change is needed. Write `evidence/dev_4_s23_cephfuse_health_triage.md`; do not run preflight/SFT/GPU/eval.
+  - `intern_code_dev_3`: task `M1-S23-CEPHFUSE-DATA-CONFIRM-DEV3`; confirm no data/package change is needed for this blocker and restate transfer/staging contract. Write `evidence/dev_3_s23_cephfuse_runtime_data_confirm.md`; no SFT/GPU/eval.
+  - `intern_code_test_2`: task `M1-S23-CEPHFUSE-EVAL-REBLOCK-TEST2`; refresh eval blocked evidence after no SFT/no checkpoint. Write `evidence/test_2_s23_cephfuse_runtime_eval_blocked.md`; no eval.
+  - `intern_code_dev_2`: task `M1-S23-CEPHFUSE-RESOURCE-RECOVERY-DEV2`; prepare no-submit recovery/readiness evidence confirming stopped resource and future authorization boundary. Write `evidence/dev_2_s23_cephfuse_resource_recovery.md`; no new submit/preflight/SFT/eval without fresh PM authorization.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.

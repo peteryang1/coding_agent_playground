@@ -193,16 +193,31 @@ Runtime is blocked until PM separately authorizes it and resource/test gates pro
 ```yaml
 task_id: M1-S23-CEPHFUSE-LAUNCH-PACKAGE-DEV4
 owner: intern_code_dev_4
-result: READY_FOR_PM_REVIEW
+result: COMPLETE
 pr: 51
 pr_url: https://github.com/peteryang1/coding_agent_playground/pull/51
-pr_state: OPEN
-pr_mergeable: MERGEABLE
-pr_merge_state_status: CLEAN
+pr_state: MERGED
+merged_at: 2026-05-21T13:23:23Z
+merge_commit: c02a53a344f2ad7a33b04f529d5125677237d4cb
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_cephfuse_launch_package.md
 code_changes_required: false
 config_changes_required: false
 spec_package_only: true
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_executed_by_dev4: false
+```
+
+## Completion Record
+
+```text
+PM gate: PASS_OWNER_SELF_MERGE_ONLY
+PM durable gate commit: 50eada3
+dev_1 review: PASS_FOR_PM_RETRY
+test_1 gate: PASS_FOR_PM_RETRY
+authorized action: owner self-merge only
+PR: #51
+mergedAt: 2026-05-21T13:23:23Z
+merge commit: c02a53a344f2ad7a33b04f529d5125677237d4cb
+completion marker: complete
+runtime boundary: no LTP/GPU/preflight/SFT/eval/dry-run/runtime authorization
 ```

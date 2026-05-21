@@ -343,3 +343,13 @@
 - dev_1 result: `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`; ECC detection can miss real fatal/uncorrected ECC lines containing unrelated standalone `0` tokens such as `GPU 0`.
 - test_1 result: `BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`; parser/wrapper must expose required top-level fields or stable aliases for `different_node_gate`, `home_xu_yang_storage_status`, direct `sft_allowed`/`sft_skip_reason`, and preflight/capacity/topology/NVLink/NCCL statuses.
 - Current critical path: dev_4 must update PR #45 to resolve both blockers; then dev_1/test_1 must re-review/re-gate before PM can decide on any fresh preflight/SFT authorization.
+
+## 2026-05-21 Session 23 Ceph-Fuse Fixed Runtime Final Blocker
+
+- PR #51 is merged: dev_4 self-merged at `2026-05-21T13:23:23Z`, merge commit `c02a53a344f2ad7a33b04f529d5125677237d4cb`.
+- dev_2 completed exactly one PM-authorized runtime under `M1-S23-CEPHFUSE-PREFLIGHT-SFT-RUNTIME-DEV2`: frame `xu.yang~coding-agent-playground-m1-s23-cephfuse-preflight-sft-20260521T132628Z`, endpoint `ssh -p 38862 root@10.100.22.36`, node `lg-cmc-b7r202-q03u26-h200-000730`.
+- Storage, transfer, and no-network gates passed: `ceph-fuse` was present, `/home/xu.yang/coding_agent_playground/outputs` resolved on CephFS, 24GiB capacity probe passed and cleaned, source/data were transferred from local/provided workspace with bundle/data/file-count/critical-checksum verification, and no remote GitHub/source/dependency network was used.
+- Current blocker: `BLOCKED_PREFLIGHT_HEALTH_SIGNATURE`. Structured preflight returned `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE` and `SFT_ALLOWED=false`; torch NCCL all-reduce itself exited 0, while parser records include SXid 20009 dmesg records and NCCL warning lines.
+- SFT was not launched by contract; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists; mini-swe eval remains blocked and unauthorized.
+- Resource release is complete: stop at `2026-05-21T13:39:17Z`, final `STOPPED (Completed)` at `2026-05-21 13:39:48`, endpoint refused after stop, and no running `coding-agent-playground` LTP jobs were visible.
+- PM created the next no-execution task split for owner review/gate/triage/recovery. No new LTP/GPU/preflight/SFT/eval authorization exists.
