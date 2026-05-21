@@ -10,3 +10,6 @@
 - Added static tests in `tests/test_train_qwen3_8b_sft_static.py`.
 - Local/static checks passed: `bash -n scripts/train_qwen3_8b_sft.sh`; `python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q`.
 - No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run.
+- Opened PR #63 `https://github.com/peteryang1/coding_agent_playground/pull/63`.
+- GitHub reports PR #63 open, non-draft, `MERGEABLE` / `CLEAN`.
+- Waiting for PM gate before any owner self-merge.

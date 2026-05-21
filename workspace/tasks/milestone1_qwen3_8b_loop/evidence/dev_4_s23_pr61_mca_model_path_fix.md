@@ -143,5 +143,5 @@ Result:
 
 ## Completion Marker
 
-- Current state: PR package prepared locally; owner PR pending PM gate after open/update.
+- Current state: PR #63 open/non-draft, GitHub reports `MERGEABLE` / `CLEAN`; waiting for PM gate before any owner self-merge.
 - Completion target after PM gate and owner self-merge: `complete/ready-for-runtime-gate`.

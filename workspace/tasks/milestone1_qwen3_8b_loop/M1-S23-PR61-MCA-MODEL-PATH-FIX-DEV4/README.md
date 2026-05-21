@@ -14,4 +14,4 @@
 
 ## Status
 
-- 2026-05-21: Package prepared with launcher normalization patch and static tests. PR pending open/update and PM gate.
+- 2026-05-21: Package prepared with launcher normalization patch and static tests. PR #63 is open/non-draft and GitHub reports `MERGEABLE` / `CLEAN`; waiting for PM gate before any owner self-merge.

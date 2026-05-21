@@ -932,3 +932,5 @@
 - Added static tests in `tests/test_train_qwen3_8b_sft_static.py` and wrote evidence `evidence/dev_4_s23_pr61_mca_model_path_fix.md`.
 - Local/static checks passed: `bash -n scripts/train_qwen3_8b_sft.sh`; `python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q`.
 - No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by dev_4.
+- Opened PR #63 `https://github.com/peteryang1/coding_agent_playground/pull/63`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`.
+- Waiting for PM gate before any owner self-merge.
