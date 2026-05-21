@@ -1042,3 +1042,15 @@
 - dev_2 completed no-submit readiness evidence `evidence/dev_2_s23_pr59_runtime_ready.md` as `READY_PACKAGE_ONLY_NO_SUBMIT`, including local/provided `mcore_adapter` provenance, bundle checksum/file-list requirements, transfer templates, post-transfer verification, `MCORE_ADAPTER_DIR`, import-check proof, `/home/xu.yang` output paths, and stop conditions.
 - PM created `M1-S23-PR59-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr59_preflight_sft_authorization.md`.
 - PM authorizes only dev_2 for exactly one fresh PR59 owner-executed runtime using PR #59 merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`. Dev_2 must prepare source/data/`mcore_adapter` locally/provided workspace, transfer verified bundles without remote source/dependency downloads, prove `/home/xu.yang`, run `mcore_adapter` import check, run structured preflight, and run SFT only if all gates pass. Eval remains unauthorized.
+
+## 2026-05-21 Session 23 PR59 Runtime Final Blocker
+
+- dev_2 completed the one authorized `M1-S23-PR59-PREFLIGHT-SFT-RUNTIME-DEV2` attempt with final blocker evidence.
+- Runtime used PR #59 merge commit `8ed6248cd7bd56b89ac1124689fed0b56e4eba02`, source bundle sha256 `2f272f210b67ed45b4a7b05592881c8c036fb34de2660645d6f96af76adf4d85`, 131-file list, local/provided `mcore_adapter` bundle sha256 `ec0ace00eeca1f4d60710deea59621c868860e34827a5b645122f64f043170e7`, and ShareGPT data sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
+- LTP frame `xu.yang~coding-agent-playground-m1-s23-pr59-preflight-sft-20260521T163413Z` ran on endpoint `ssh -p 27043 root@10.100.22.28`, node `lg-cmc-b7r202-q05u06-h200-000722`.
+- `/home/xu.yang` CephFS, 24GiB capacity probe, source/data/`mcore_adapter`/local dependency transfer, checksums, no remote source/dependency network, `mcore_adapter import OK for USE_MCA=1`, structured preflight, topology/NVLink, and torch all-reduce passed.
+- Structured preflight passed with `PREFLIGHT_RESULT=PASS`, `PREFLIGHT_STRUCTURED_STATUS=PASS`, `SFT_ALLOWED=true`, `TORCH_NCCL_ALLREDUCE_EXIT=0`, capacity/different-node/home-storage PASS, and topology/NVLink present.
+- Exactly one SFT attempt ran and exited `EXIT_STATUS=127` at `2026-05-21T16:51:05Z` before checkpoint/training because `LLAMAFACTORY_CLI` was set to a space-containing command string and `scripts/train_qwen3_8b_sft.sh` executed `"${LLAMAFACTORY_CLI}" train ...` as one quoted path.
+- No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists. Eval was not authorized and was not run.
+- dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 16:52:02`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
+- PM created follow-up no-execution tasks for all owners: dev_4 launcher command fix, dev_1 review, test_1 gate, dev_2 recovery/readiness, dev_3 data reconfirm, and test_2 eval reblock. No fresh LTP/GPU/preflight/SFT/eval retry is authorized until owner evidence is gated and PM separately authorizes it.

@@ -248,6 +248,16 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_test_2`: eval remains unauthorized until PM gates a complete checkpoint/model or served endpoint.
   - No other owner may run LTP/GPU/transfer/preflight/SFT/eval from this authorization.
 
+- 2026-05-21 Session 23 PR59 launcher blocker follow-up:
+  - Runtime result: dev_2's authorized PR59 run passed transfer/import/preflight and ran exactly one SFT attempt, but failed with `EXIT_STATUS=127` because `LLAMAFACTORY_CLI` was set to a space-containing command string and executed as one quoted path by `scripts/train_qwen3_8b_sft.sh`. The frame is stopped/released; no checkpoint/model/trainer_state/all_results/eval exists.
+  - No fresh LTP/SFT/GPU/eval retry is authorized.
+  - `intern_code_dev_4`: task `M1-S23-PR59-LLAMAFACTORY-CLI-FIX-DEV4`; produce a no-execution launcher fix package/PR. Evidence path: `evidence/dev_4_s23_pr59_llamafactory_cli_fix.md`. Fix should support command-plus-args safely or set `LLAMAFACTORY_CLI` to a real executable/wrapper path without embedded spaces, while preserving previous `DEP_TARGET`, `LF`, `LLAMAFACTORY_CLI`, `MCORE_ADAPTER_DIR`, no-remote-network, and `/home/xu.yang` guarantees. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_1`: task `M1-S23-PR59-LLAMAFACTORY-CLI-REVIEW-DEV1`; review dev_2 final runtime evidence and dev_4 fix when present. Evidence path: `evidence/dev_1_s23_pr59_llamafactory_cli_review.md`. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_test_1`: task `M1-S23-PR59-LLAMAFACTORY-CLI-GATE-TEST1`; gate the launcher fix package and future retry acceptance. Evidence path: `evidence/test_1_s23_pr59_llamafactory_cli_gate.md`. Do not run LTP/GPU/preflight/SFT/eval.
+  - `intern_code_dev_2`: task `M1-S23-PR59-RESOURCE-RECOVERY-DEV2`; ensure final runtime, GPU tracking, stop/no-running-job proof, and no-fresh-authorization boundary remain durable. Evidence path may reuse `evidence/dev_2_s23_pr59_preflight_sft_runtime.md` and `evidence/gpu_s23_pr59_preflight_sft_tracking.md`; update own status. Do not submit another LTP job without PM authorization.
+  - `intern_code_dev_3`: task `M1-S23-PR59-DATA-CONFIRM-DEV3`; confirm no data/package change is needed for this launcher blocker. Evidence path: `evidence/dev_3_s23_pr59_data_confirm.md`. Do not run SFT/GPU/eval.
+  - `intern_code_test_2`: task `M1-S23-PR59-EVAL-REBLOCK-TEST2`; refresh eval blocked evidence after no checkpoint. Evidence path: `evidence/test_2_s23_pr59_eval_blocked.md`. Do not run eval.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.
