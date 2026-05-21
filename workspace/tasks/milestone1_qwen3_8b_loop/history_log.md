@@ -1143,4 +1143,5 @@
 - Placement failed because the assigned node matched a forbidden node. Forbidden nodes for this task were `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`.
 - Per PM contract, dev_2 stopped/released before source/data/dependency transfer, `/home/xu.yang` capacity probing, mcore import, structured preflight, SFT, or eval. No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
 - dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 19:03:32`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
-- This consumed the one authorized placementretry2 attempt. No fresh LTP/GPU/preflight/SFT/eval retry is authorized without a new PM gate.
+- This consumed the one authorized placementretry2 attempt.
+- PM authorizes only dev_2 for one final bounded placement retry under `M1-S23-PR63-PLACEMENTRETRY3-PREFLIGHT-SFT-RUNTIME-DEV2`. Before submit, dev_2 must record whether LTP supports node exclusion/placement constraint for this workflow. If retry3 lands on a forbidden node again, PM will have a fresh exact repeated placement/resource blocker with logs and stop proof; eval remains unauthorized.
