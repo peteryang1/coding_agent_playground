@@ -615,65 +615,13 @@
 - New task split: dev_2 fresh LTP submit/lifecycle, dev_4 one SFT retry after endpoint exists, dev_3 data gate, dev_1 pre-run package sanity check, test_1 retry validation, and test_2 mini-swe unblock readiness.
 - First retry defaults: config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`; data `/root/workspace/cleaned_m1_sft_10/train.jsonl`; repeated x16 data remains fallback/supporting evidence only.
 
-## Session 21 - Dev 4 SFT Retry Run Assignment Receipt - 2026-05-20
-
-- Task accepted: `M1-SFT-RETRY-RUN-DEV4`.
-- Owner: `intern_code_dev_4`.
-- Scope: run exactly one Qwen3-8B SFT retry only after dev_2 provides a fresh endpoint/node.
-- Durable evidence created:
-  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`
-- PR opened:
-  - `https://github.com/peteryang1/coding_agent_playground/pull/30`
-- Current status: blocked before execution.
-- Blockers:
-  - at Session 21 receipt time, no `evidence/dev_2_gpu_retry_submit.md` was present in the dev_4 worktree;
-  - at Session 21 receipt time, `M1-GPU-RETRY-SUBMIT-DEV2` had no visible fresh endpoint evidence in the dev_4 worktree;
-  - Session 22 superseded the auth fact: `M1-SFT-RETRY-AUTH-PM` is complete via PR #29.
-  - prior endpoint `ssh -p 39314 root@10.100.20.37` is released and must not be reused.
-- Planned retry command uses `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` and PM-approved original data `/root/workspace/cleaned_m1_sft_10/train.jsonl`.
-- No GPU run was attempted and no peer-send PM routine status was used.
-
 ## 2026-05-20 Session 12 Retry Resource Handoff
 
 - PM collected owner durable evidence from dev_1/dev_2/dev_3/test_1/test_2 for the retry gate.
 - PM gate result: config/data/base/test/resource planning are sufficient for dev_4 to run exactly one retry after consuming dev_2's fresh endpoint evidence.
 - Active resource: `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`, endpoint `ssh -p 23121 root@10.100.22.53`, node `lg-cmc-b7r202-r05u16-h200-000747`, hard review `2026-05-20T12:06:20Z`.
 - PM notified dev_4 by tmux inject with endpoint, node, frame, staged repo/data/nodes facts, and no-extra-retry rule.
-- PR #30 was not PM-gate-ready until dev_4 corrected stale PR facts from before PR #29 and updated evidence for the current dev_2 endpoint handoff.
-
-## Session 22 - Dev 4 SFT Retry Execution - 2026-05-20
-
-- Task: `M1-SFT-RETRY-RUN-DEV4`.
-- PM gate correction applied: `M1-SFT-RETRY-AUTH-PM` is complete via PR #29, `mergedAt=2026-05-20T11:02:32Z`, merge commit `c14fa045b210a74fc243f2d2690a2523cc7ec2db`.
-- PM provided fresh dev_2 endpoint evidence in durable PM paths:
-  - `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_gpu_retry_submit.md`
-  - `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/gpu_retry_resource_tracking.md`
-- Endpoint used:
-  - `ssh -p 23121 root@10.100.22.53`
-  - node `lg-cmc-b7r202-r05u16-h200-000747`
-  - frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`
-- Pre-run gate passed after remote staging repair:
-  - 8 x H200 visible and idle;
-  - original dataset `/root/workspace/cleaned_m1_sft_10/train.jsonl` sha256 `5bbae5e25f121810c0b7c94738b6aa990f11b67d1f87f7d3b5071b98555a7054`, 10 rows, schema `coding_agent_playground_sft_v1`;
-  - clean base `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` passed Qwen3 config checks;
-  - config `configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml` passed TP=8/max_steps=2/warmup_steps=0 checks;
-  - LLamaFactory 0.9.5.dev0, `flash_attn`, and `mcore_adapter` were available.
-- Exactly one retry was launched:
-  - run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`;
-  - command used `CONFIG_TEMPLATE=/root/workspace/coding_agent_playground/configs/train/qwen3_8b_sft_smoke_tp8_maxsteps2.yaml`, `DATASET_JSONL=/root/workspace/cleaned_m1_sft_10/train.jsonl`, `BASE_MODEL=/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6`, `OUTPUT_ROOT=/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`, `LLAMAFACTORY_DIR=/root/workspace/coding_agent_playground/code/LLamaFactory`, `DRY_RUN=0`.
-- Result:
-  - exit status `1`;
-  - manifest, runtime config, log, and exit status file are present under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/runs/train/milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z/`;
-  - no checkpoint/model, `trainer_state.json`, or `all_results.json` exists under `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground/training_summary/sft_output/milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z/`.
-- Failure signature:
-  - `KeyError: 'from'` in `LLamaFactory/src/llamafactory/data/converter.py` while converting dataset rows;
-  - current blocker is data registration/format mapping because the JSONL uses OpenAI-style role/content messages while the runtime registration used ShareGPT defaults expecting `from`/`value`.
-- Post-run resource state: GPUs returned to 1 MiB memory used and 0% utilization; no active torchrun/LLamaFactory workload was visible. Endpoint recheck at `2026-05-20T11:23:57Z` refused SSH.
-- Resource recommendation: dev_2 should stop the active H200 resource immediately if it is not already stopped. No extra retry is authorized without a new PM gate.
-- Durable evidence updated:
-  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_sft_retry_run.md`
-  - `workspace/interns/intern_code_dev_4/status.md`
-- PR #30 branch refresh: latest `origin/main` was merged after main advanced through retry handoff/support evidence. Conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md` were resolved by preserving PM/dev_1/dev_2/dev_3/test_1/test_2 records and dev_4 Session 22 retry result evidence.
+- PR #30 is not PM-gate-ready until dev_4 corrects stale PR facts from before PR #29 and updates its evidence for the current dev_2 endpoint handoff.
 
 ## 2026-05-20 Session 12 Retry Failure And Resource Stop
 
@@ -683,85 +631,42 @@
 - Dev_2 stopped LTP frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`; final state is `STOPPED (Completed)`, completed `2026-05-20 11:23:29`, endpoint refused connection, and `/mnt/3fs` artifacts were preserved.
 - PM gate for PR #30: not ready while GitHub reports `CONFLICTING` / `DIRTY`; dev_4 must merge current main and preserve both dev_2 stop proof and retry result evidence.
 
-## Session 23 - Dev 4 PR #30 Stop-Proof Conflict Refresh - 2026-05-20
+## 2026-05-20 Session 12 Task/PR Flow Reaffirmation And PR #30 Gate
 
-- Task: `M1-SFT-RETRY-RUN-DEV4`.
-- PM gate update received: PR #30 remained not ready because PR #32 stop-proof main commit `5afb945bbfd97faca7af3e56b0765baa48632aa1` landed after the prior PR #30 branch merge.
-- Branch action: fetched and merged latest `origin/main` into `intern_code_dev_4/M1-SFT-RETRY-RUN-DEV4`.
-- Conflict files:
-  - `workspace/tasks/milestone1_qwen3_8b_loop/history_log.md`
-  - `workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md`
-  - `workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md`
-- Resolution:
-  - preserved dev_2 final stop proof from main: frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`, final state `STOPPED (Completed)`, completed `2026-05-20 11:23:29`, endpoint refused connection, `/mnt/3fs` outputs preserved, dev_2 did not run SFT;
-  - preserved dev_4 retry result evidence: run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`, exit status `1`, `KeyError: 'from'`, no checkpoint/model, no `trainer_state.json`, no `all_results.json`;
-  - kept PR #30 mapped to task `M1-SFT-RETRY-RUN-DEV4` with owner `intern_code_dev_4`, durable evidence path `evidence/dev_4_sft_retry_run.md`, and blocked-with-final-evidence completion marker pending PR merge.
-- No SFT retry or extra GPU command was run in Session 23.
-- PR #30 remains open for PM gate after push; dev_4 must not self-merge until PM gate says ready.
+- PM recorded the supervisor reaffirmation that PM must maintain explicit tasks and assign work through task records, not scattered assignments.
+- PM gate rule remains: every dev/test PR must reference a task id with owner, acceptance criteria, durable evidence path, and completion marker before PM can mark it ready.
+- Owner self-merge rule remains: after self-merge, the owner marks the task complete, blocked-with-final-evidence, or ready-for-retry in task docs or `task_registry.md`, updates own `status.md`, updates required history/evidence, and pushes or merges the completion record.
+- PM delivered the reaffirmed flow by tmux inject to all six dev/test owners and verified submitted text with `capture-pane`; no routine peer-send reply to PM was requested.
+- PM re-audited PR #30: it is open, non-draft, `MERGEABLE` / `CLEAN`, maps to task `M1-SFT-RETRY-RUN-DEV4`, and passes PM gate for dev_4 owner self-merge. The required completion marker after merge is blocked-with-final-evidence because no checkpoint/model was produced.
+- PM self-merged coordination PR #33 at `2026-05-20T11:42:11Z`, merge commit `ce06aa0805760bb9391ad38d5fb2b2732abb232f`, to publish the reaffirmed process rule on main.
+- After PR #33 advanced main, PR #30 recalculated as `CONFLICTING` / `DIRTY`; PM revoked the ready gate and instructed dev_4 to refresh the PR against current main, preserve retry/stop-proof evidence, push, and wait for a new PM gate before self-merge.
+- PM self-merged coordination PR #34 at `2026-05-20T11:44:37Z`, merge commit `62c60e367baaa60ca3935d78e0405b63f5a19366`, to publish the PR #30 gate revocation.
+- Follow-up audit still shows PR #30 open and `CONFLICTING` / `DIRTY`. PM sent a non-interrupt tmux follow-up to dev_4 naming the owner blocker and requiring refresh against current `origin/main`, no SFT rerun, durable evidence/status only, and fresh PM gate before self-merge.
+- PM self-merged coordination PR #35 at `2026-05-20T11:47:59Z`, merge commit `82eef1fb36900b1ddfb4ef57a6f02fe1ce8ff673`, to publish the follow-up blocker.
+- PM fetched PR #30 head and used `git merge-tree` for conflict triage without modifying dev_4 code. The current conflict markers are in `history_log.md`, `task_knowledge.md`, and `task_registry.md`. PM injected file-specific guidance to dev_4: preserve current main PR #33/#34/#35 gate-revocation records, preserve dev_4 retry result evidence and dev_2 stop proof, push, and wait for fresh PM gate before self-merge.
 
-## Session 24 - Dev 4 PR #30 Archival Cleanup - 2026-05-21
+## 2026-05-20 Session 12 Data-Format Unblock Task Split
 
-- Task: `M1-S21-PR30-CLEANUP-DEV4`.
-- PM Session 21 replacement task reclassified PR #30 as archival cleanup rather than the checkpoint critical path.
-- Owner action chosen: close/supersede PR #30 instead of refreshing it against current main again.
-- PR closure:
-  - PR: `https://github.com/peteryang1/coding_agent_playground/pull/30`
-  - `closedAt`: `2026-05-21T07:23:06Z`
-  - `mergedAt`: `null`
-  - closure comment: `https://github.com/peteryang1/coding_agent_playground/pull/30#issuecomment-4505715612`
-- Durable cleanup evidence:
-  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_pr30_cleanup.md`
-  - `/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_pr30_cleanup.md`
-- Preserved retry facts:
-  - run id `milestone1_qwen3_8b_sft_retry_tp8_maxsteps2_20260520T111830Z`;
-  - exit status `1`;
-  - failure `KeyError: 'from'` during LLamaFactory dataset conversion;
-  - no checkpoint/model, no `trainer_state.json`, no `all_results.json`;
-  - no extra retry was launched.
-- Preserved stop proof:
-  - frame `xu.yang~coding-agent-playground-m1-qwen3-8b-retry-20260520T110615Z`;
-  - LTP final state `STOPPED (Completed)`;
-  - completed `2026-05-20 11:23:29`;
-  - endpoint refused connection after stop;
-  - `/mnt/3fs` artifacts preserved.
-- Replacement path: Session 21 replacement/runtime tasks own any future launch package and runtime. This cleanup task does not authorize SFT/GPU work.
-
-## Session 25 - Dev 4 ENOSPC Config Fix Package - 2026-05-21
-
-- Accepted task `M1-S21-ENOSPC-CONFIG-FIX-DEV4`.
-- Reviewed Session 21 final runtime blocker from run `milestone1_qwen3_8b_s21_sharegpt_tp8_maxsteps2_20260521T073106Z`: ShareGPT conversion reached 10/10 and training reached step 1/2, then checkpoint save failed with `safetensors_rust.SafetensorError` / `No space left on device (os error 28)`.
-- Recorded that `checkpoint-1` is partial only and must not be handed to eval; no complete checkpoint/model, `trainer_state.json`, or `all_results.json` exists for that failed run.
-- Wrote no-execution fix evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_enospc_config_fix.md` and the PM durable path.
-- Primary recommendation: keep `coding_agent_m1_sft_10_sharegpt`, use a fresh capacity-verified output/checkpoint path, and change the retry template from step-1 checkpointing to `save_steps: 2` with `save_total_limit: 1` for the `max_steps: 2` smoke so it targets one complete eval-usable final checkpoint/model.
-- Cited files/PR scope if PM requests a code/config PR: add `configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml`, harden `scripts/train_qwen3_8b_sft.sh` to rewrite `dataset:` from `DATASET_NAME`, and update `scripts/write_sft_run_manifest.py` to record runtime save strategy from the generated config.
-- No SFT/GPU/eval command was run.
-
-## Session 26 - Dev 4 ENOSPC Storage Rule Refresh - 2026-05-21
-
-- Applied supervisor storage rule to task `M1-S21-ENOSPC-CONFIG-FIX-DEV4`.
-- Updated `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s21_enospc_config_fix.md` and the PM durable copy.
-- Superseded the prior future output-root recommendation `/mnt/3fs/data/ai4ai/outputs/coding_agent_playground`.
-- Current recommendation: future SFT launch outputs, logs, checkpoints, run metadata, temporary converted datasets, and intermediates default under CephFS `/home/xu.yang/coding_agent_playground/outputs`.
-- Required-path exceptions documented in evidence:
-  - clean base model remains `/mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6` because it is an existing PM-selected input path;
-  - historical failed-run `/mnt/3fs` run/checkpoint paths remain audit evidence only and must not be reused for future outputs.
-- Refreshed command and capacity-probe templates to target `/home/xu.yang`.
-- No SFT/GPU/eval command was run.
-
-## Session 27 - Dev 4 Session 22 Early-Exit Fix Package - 2026-05-21
-
-- Accepted task `M1-S22-EARLY-EXIT-FIX-DEV4`.
-- Reviewed dev_2 Session 22 evidence `evidence/dev_2_s22_enospc_retry_runtime.md` and `evidence/gpu_s22_enospc_retry_tracking.md`.
-- Runtime facts reviewed: run `milestone1_qwen3_8b_s22_enospcfix_sharegpt_tp8_maxsteps2_20260521T082037Z` used `/home/xu.yang/coding_agent_playground/outputs`, preserved `coding_agent_m1_sft_10_sharegpt`, passed 24GiB CephFS capacity probe, then exited `EXIT_STATUS=1` with log content only `START_UTC=2026-05-21T08:27:52Z`.
-- Diagnostic conclusion: because `scripts/train_qwen3_8b_sft.sh` should create the run config and run_manifest before dataset/GPU/LLamaFactory checks, the absence of run_manifest/runtime config/checkpoint artifacts means the failure happened before or inside the wrapper prelude, and durable stderr/stdout capture started too late or the script was not reached.
-- Wrote no-execution evidence to `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_early_exit_fix.md` and the PM durable path.
-- Proposed fix scope: patch `scripts/train_qwen3_8b_sft.sh` to own first-line durable logging under `/home/xu.yang`, add xtrace and ERR/EXIT diagnostics, write preflight proof before training, preserve `DATASET_NAME=coding_agent_m1_sft_10_sharegpt`, and avoid direct `exec` of `llamafactory-cli` so traps can record trainer status.
-- Also proposed `scripts/write_sft_run_manifest.py` manifest hardening to record actual runtime save policy and preflight fields rather than stale static checkpoint policy.
-- No SFT/GPU/eval command was run.
+- PM re-audited PR #30 and dev_4 pane: PR #30 remains `CONFLICTING` / `DIRTY`, and dev_4 has not yet posted a refreshed completion record.
+- PM decided not to authorize any new GPU/SFT/eval run and not to let other interns idle while PR #30 is refreshed.
+- Created explicit no-execution tasks:
+  - `M1-SFT-DATAFORMAT-FIX-DEV3`;
+  - `M1-SFT-DATAFORMAT-REVIEW-DEV1`;
+  - `M1-SFT-DATAFORMAT-GATE-TEST1`;
+  - `M1-GPU-RETRY-PLAN2-DEV2`;
+  - `M1-EVAL-BLOCKED-REFRESH-TEST2`.
+- These tasks address the current `KeyError: 'from'` blocker through durable plan/review/gate evidence only.
+- Test_2 completed `M1-EVAL-BLOCKED-REFRESH-TEST2` in `evidence/test_2_eval_blocked_after_retry_failure.md`; PM gate passes it as complete-for-current-state and keeps mini-swe blocked until a future accepted checkpoint/model or served endpoint exists.
+- Dev_3 completed `M1-SFT-DATAFORMAT-FIX-DEV3`, dev_1 refreshed `M1-SFT-DATAFORMAT-REVIEW-DEV1`, test_1 completed the no-execution gate definition, dev_2 completed `M1-GPU-RETRY-PLAN2-DEV2`, and test_2 completed eval blocked refresh. PM gate: planning passes, execution remains blocked.
+- PM created `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` for concrete no-GPU artifact/preflight evidence before any future retry can be authorized.
+- Dev_3 completed `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` by generating a ShareGPT `from`/`value` artifact at `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, preserving 10 rows and 10 unique trajectory ids.
+- Test_1 refreshed `M1-SFT-DATAFORMAT-GATE-TEST1` and marked the concrete artifact PASS_NO_EXECUTION for the observed `messages[*].from/value` reader. Launch remains blocked until dev_4 records exact command/dataset_info wiring, PR #30 is refreshed/merged, fresh LTP resource is gated, and PM authorizes retry.
 
 ## Session 28 - Dev 4 Early-Exit Wrapper Patch PR - 2026-05-21
 
 - Continued task `M1-S22-EARLY-EXIT-FIX-DEV4` by implementing the no-execution wrapper fix package on branch `intern_code_dev_4/M1-S22-EARLY-EXIT-FIX-DEV4`.
+- Opened PR #39: `https://github.com/peteryang1/coding_agent_playground/pull/39`.
+- Initial GitHub mergeability for PR #39 was `CONFLICTING` / `DIRTY`, so dev_4 merged current `origin/main` and resolved conflicts in `history_log.md`, `task_knowledge.md`, and `task_registry.md` by preserving PM's current main records and re-applying Session 28 task evidence.
 - Patched `scripts/train_qwen3_8b_sft.sh` so future runs default to `/home/xu.yang/coding_agent_playground/outputs`, create run/log/config/checkpoint/tmp directories early, tee stdout/stderr into durable logs, write xtrace separately, write `preflight.json`, and write `early_exit_diagnostics.txt` plus `exit_status.txt` through traps.
 - Patched runtime config rewrite so `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` updates top-level `dataset:` in the generated config.
 - Removed direct `exec llamafactory-cli` so shell traps can record nonzero trainer status.

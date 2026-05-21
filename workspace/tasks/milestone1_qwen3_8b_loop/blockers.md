@@ -11,8 +11,12 @@
 - Conduct gate: PM must reject any new dev/test PR that lacks an explicit task mapping, owner, acceptance criteria, durable evidence path, and completion marker. Owner self-merge must be followed by durable task completion marking and own status/history/evidence updates.
 - Current retry execution blocker: dev_2 must provide a fresh LTP endpoint/node and resource tracking evidence before dev_4 can run the retry.
 - Current eval blocker: test_2 cannot run mini-swe until dev_4 produces a checkpoint/model or served endpoint accepted by the eval unblock task.
-- Current PR blocker: dev_4 PR #30 is `CONFLICTING` / `DIRTY` after PR #31; dev_4 owns merging current main, preserving stop proof and retry result evidence, then waiting for PM gate.
+- Current PR blocker: dev_4 PR #30 is `CONFLICTING` / `DIRTY` after PM PR #35 advanced main; dev_4 owns merging current main, preserving stop proof and retry result evidence, then waiting for PM gate. PM merge-tree check narrowed conflict markers to `history_log.md`, `task_knowledge.md`, and `task_registry.md`; PM injected this file-specific owner guidance by tmux and verified submission with `capture-pane`.
 - Current SFT blocker: the one authorized retry failed with `KeyError: 'from'` in LLamaFactory dataset conversion. No checkpoint/model exists, so mini-swe remains blocked.
+- Current unblock route: dev_3 owns a no-execution data-format fix plan for the `KeyError: 'from'` failure, dev_1 reviews provenance/schema risk, test_1 defines the data-format gate, dev_2 prepares a next LTP plan without submit, and test_2 refreshes mini-swe blocked/unblock evidence.
+- Eval blocked refresh is complete for the current state: test_2 evidence confirms mini-swe cannot run until a future accepted checkpoint/model or served endpoint exists.
+- Data-format planning gate is complete, but retry authorization remains blocked on concrete dataset_info/ShareGPT artifact evidence, test_1 artifact gate, PR #30 owner refresh/merge, and fresh PM authorization.
+- Data-format artifact gate is complete no-execution: ShareGPT artifact `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl` sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2` passes test_1 compatibility for `messages[*].from/value`. Retry authorization remains blocked on exact future command, concrete future-run `dataset_info.json`, PR #30 owner refresh/merge, fresh LTP allocation, and PM authorization.
 - Current resource watch: resolved for the retry worker. Dev_2 stop proof records `STOPPED (Completed)` at `2026-05-20 11:23:29`; endpoint refused connection and `/mnt/3fs` outputs were preserved.
 
 ## Active

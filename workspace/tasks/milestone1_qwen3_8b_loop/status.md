@@ -195,6 +195,29 @@
 - Current blocker: SFT retry failed before checkpoint creation because OpenAI-style role/content messages were registered through ShareGPT defaults expecting `from`/`value`.
 - PR #30 has dev_4 run-result evidence but is currently `CONFLICTING` / `DIRTY`; dev_4 owns merging current `origin/main`, preserving stop proof and retry result evidence, then waiting for PM gate before self-merge.
 
+## 2026-05-20 Session 12 Task/PR Flow Reaffirmation And PR #30 Gate
+
+- Supervisor reaffirmed the intern conduct flow: PM must maintain explicit tasks, assign task owners, and gate every dev/test PR against task id, owner, acceptance criteria, durable evidence path, mergeability, and completion marker.
+- Owner rule remains active: after a PM-gated self-merge, the dev/test owner must mark the corresponding task complete, blocked-with-final-evidence, or ready-for-retry in task docs or `task_registry.md`, update their own `status.md`, update needed history/evidence, and push or merge the completion record.
+- PM delivered the reaffirmed task -> PR -> merge -> task-complete rule by tmux inject to `intern_code_dev_1`, `intern_code_dev_2`, `intern_code_dev_3`, `intern_code_dev_4`, `intern_code_test_1`, and `intern_code_test_2`; routine confirmations/status/results remain durable-file only.
+- Current PR audit: PR #30 for task `M1-SFT-RETRY-RUN-DEV4` is open, non-draft, `MERGEABLE` / `CLEAN`, with no merge commit yet.
+- PM gate decision: PR #30 passes the ready/mergeable gate for owner self-merge because it maps to `M1-SFT-RETRY-RUN-DEV4`, records owner/evidence/completion intent, and contains retry failure plus stop-proof evidence. Dev_4 was instructed by tmux inject to self-merge and then mark the task blocked-with-final-evidence.
+- Post-PR #33 update: PM coordination PR #33 merged at `2026-05-20T11:42:11Z`, merge commit `ce06aa0805760bb9391ad38d5fb2b2732abb232f`. After main advanced, PR #30 changed to `CONFLICTING` / `DIRTY`; PM gate is now revoked until dev_4 merges current `origin/main`, preserves retry/stop-proof evidence, pushes, and GitHub returns mergeable/clean.
+- Post-PR #34 audit: PM coordination PR #34 merged at `2026-05-20T11:44:37Z`, merge commit `62c60e367baaa60ca3935d78e0405b63f5a19366`. PR #30 still reports `CONFLICTING` / `DIRTY`, so it remains not gate-ready. PM re-injected the owner blocker to dev_4 by tmux and verified submission by `capture-pane`.
+- Post-PR #35 conflict triage: PM coordination PR #35 merged at `2026-05-20T11:47:59Z`, merge commit `82eef1fb36900b1ddfb4ef57a6f02fe1ce8ff673`. PR #30 remains `CONFLICTING` / `DIRTY`; PM used `git merge-tree` to identify conflict markers in `history_log.md`, `task_knowledge.md`, and `task_registry.md`, then injected file-specific owner guidance to dev_4 by tmux.
+
+## 2026-05-20 Session 12 Data-Format Unblock Parallelization
+
+- PR #30 remains open and `CONFLICTING` / `DIRTY`; dev_4 still owns conflict refresh and no SFT rerun is authorized.
+- PM is keeping main stable for PR #30 conflict refresh but is not leaving other interns idle.
+- New explicit no-execution tasks were created for the known SFT blocker `KeyError: 'from'`: dev_3 data-format fix plan, dev_1 independent review, test_1 data-format gate, dev_2 next resource plan without submit, and test_2 eval blocked refresh.
+- PM decision: no GPU, SFT, or mini-swe execution is authorized until these durable plans/gates are reviewed and PM issues a fresh gate.
+- Test_2 completed `M1-EVAL-BLOCKED-REFRESH-TEST2`: `evidence/test_2_eval_blocked_after_retry_failure.md` records latest retry failure/no checkpoint/no endpoint facts, why mini-swe cannot run, accepted future endpoint/checkpoint forms, and validation fields. PM gate result: complete-for-current-state; eval remains blocked.
+- PM gate result for the no-execution data-format package: dev_3 fix plan, dev_1 refreshed review, test_1 gate definition, dev_2 resource plan, and test_2 eval blocked refresh are sufficient for planning. They are not sufficient to authorize another retry because concrete dataset_info/ShareGPT artifact evidence, loader/preflight proof, PR #30 merge, and fresh PM authorization are still missing.
+- Next explicit task: `M1-SFT-DATAFORMAT-ARTIFACT-DEV3` for dev_3 to produce concrete no-GPU data-format artifact/preflight evidence.
+- Dev_3 completed `M1-SFT-DATAFORMAT-ARTIFACT-DEV3`: generated `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, 10 rows, 10 unique `example_id`, 10 unique `trajectory_id`, schema `coding_agent_playground_sft_v1_sharegpt_messages`.
+- Test_1 refreshed `M1-SFT-DATAFORMAT-GATE-TEST1`: artifact passes no-execution compatibility for the observed `messages[*].from/value` LLamaFactory reader. Retry remains blocked on exact future command, concrete future-run `dataset_info.json`, PR #30 owner refresh/merge, fresh LTP allocation, and PM authorization.
+
 ## 2026-05-20 Session 8 Post-PR10 Gate Update
 
 - PR #10 merged at `2026-05-20T08:45:07Z` with merge commit `ce59c983372ac12dc3433091278efb6eec1876eb`; it recorded the prior missing-artifact wait state and kept the active goal open.
