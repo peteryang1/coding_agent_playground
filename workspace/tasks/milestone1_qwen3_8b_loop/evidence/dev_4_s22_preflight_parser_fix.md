@@ -10,7 +10,9 @@ Scope: no-execution parser refinement package for the S22 NCCL/NVLink preflight 
 
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_preflight_parser_fix.md`
 
-Completion marker: ready-for-review; wait for PM/dev_1/test_1 gate before owner self-merge. This package does not authorize LTP/GPU/SFT/eval/dry-run execution.
+Completion marker: complete. This package does not authorize LTP/GPU/SFT/eval/dry-run execution.
+
+PM gate result: PASS for owner self-merge only. Runtime remains separately PM-gated.
 
 ## Inputs Reviewed
 
@@ -82,6 +84,13 @@ Added:
 scripts/parse_s22_preflight_health.py
 ```
 
+PM PR #45 gate update addressed:
+
+```text
+dev_1 blocker: BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45
+test_1 blocker: BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS
+```
+
 The parser is no-execution and local-artifact-only. It does not contact a GPU node, start LTP, run SFT, run eval, or perform a dry-run launch.
 
 Core behavior:
@@ -92,6 +101,22 @@ Core behavior:
 3. Preserve excluded matches under ignored_non_actionable_matches for audit.
 4. Produce structured JSON fields: status, actionable_fault, actionable_faults, ignored_non_actionable_matches, sources_scanned, sources_excluded, checks, decision, policy.
 5. Return PASS only when allowlisted artifacts have no actionable fault and required topology/NVLink/NCCL evidence is present.
+```
+
+Required stable top-level compatibility fields:
+
+```text
+preflight_result
+health_result
+non_actionable_matches
+torch_nccl_allreduce_exit
+capacity_probe_status
+different_node_gate
+home_xu_yang_storage_status
+topology_capture_status
+nvlink_capture_status
+sft_allowed
+sft_skip_reason
 ```
 
 Preserved real-fault detection:
@@ -106,6 +131,16 @@ NCCL collective/all_reduce failures
 nonzero torchrun status
 ```
 
+ECC parsing refinement:
+
+```text
+fatal ECC: always actionable when present in an allowlisted hardware/runtime source
+uncorrected ECC: actionable when the counter tied to the uncorrected/ECC field is nonzero
+false-negative fix: unrelated standalone zero tokens such as GPU 0, rank 0, or timestamp fields no longer suppress a nonzero uncorrected ECC counter
+example actionable line: GPU 0 timestamp 2026-05-21 11:00:00 Uncorrected ECC errors: 1
+example non-actionable line: GPU 0 timestamp 2026-05-21 11:00:00 Uncorrected ECC errors: 0
+```
+
 Excluded from actionable scan:
 
 ```text
@@ -115,6 +150,13 @@ durable evidence/history/task notes
 summary/result files that can copy searched terms
 xtrace/manifest/parser outputs
 unknown artifact names
+```
+
+Storage status behavior:
+
+```text
+home_xu_yang_storage_status=PASS only when the parsed preflight directory is under /home/xu.yang/coding_agent_playground/outputs
+home_xu_yang_storage_status=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS blocks sft_allowed
 ```
 
 ## Proposed Future Usage
@@ -139,8 +181,12 @@ Expected structured pass fields after a healthy preflight:
 
 ```json
 {
+  "preflight_result": "PASS",
   "status": "PASS",
   "actionable_fault": false,
+  "home_xu_yang_storage_status": "PASS",
+  "sft_allowed": true,
+  "sft_skip_reason": "",
   "decision": {
     "sft_allowed_if_pm_authorized": true,
     "reason": [
@@ -154,8 +200,11 @@ Expected structured fail fields for a true NCCL/NVLink fault:
 
 ```json
 {
+  "preflight_result": "FAIL_HEALTH_SIGNATURE",
   "status": "FAIL_HEALTH_SIGNATURE",
   "actionable_fault": true,
+  "sft_allowed": false,
+  "sft_skip_reason": "FAIL_HEALTH_SIGNATURE",
   "decision": {
     "sft_allowed_if_pm_authorized": false,
     "reason": [
@@ -203,6 +252,8 @@ Synthetic parser check result:
 excluded command/process text containing Invalid access of peer GPU memory, SIGABRT, Xid, and fatal was recorded as ignored_non_actionable_matches
 torchrun_status.txt with TORCHRUN_EXIT=0 was treated as non-actionable status evidence
 allowlisted torch_nccl_allreduce.log without fault signatures did not produce actionable faults
+home_xu_yang_storage_status was emitted and gates sft_allowed
+ECC false-negative regression: GPU 0 plus Uncorrected ECC errors: 1 is detected as ecc_nonzero_or_fatal
 structured status: PASS
 ```
 
@@ -210,6 +261,26 @@ structured status: PASS
 
 PR: PR #45 `https://github.com/peteryang1/coding_agent_playground/pull/45`
 
-GitHub mergeability: open, non-draft, `MERGEABLE` / `CLEAN`; no required checks reported by `statusCheckRollup=null`.
+GitHub mergeability after gate-fix push: open, non-draft, `MERGEABLE` / `CLEAN`; no required checks reported by `statusCheckRollup=null`.
 
-Completion marker: ready-for-review; wait for PM gate before self-merge.
+PM gate pass facts:
+
+```text
+latest head: 01eebb7508768cd8b8ba3a1601e4a1f3774c27b4
+dev_1 result: PASS_FOR_PM_RETRY
+test_1 result: PASS_FOR_PM_RETRY
+self-merge authorization: yes, owner self-merge only
+runtime authorization: no LTP/GPU/SFT/eval/dry-run/runtime authorization
+```
+
+Completion marker: complete after owner self-merge; runtime remains separately gated.
+
+Merge completion evidence:
+
+```text
+PR: https://github.com/peteryang1/coding_agent_playground/pull/45
+mergedAt: 2026-05-21T11:42:20Z
+merge commit: 6f61489e85fcf7e129699061c9ddcb6e8db80926
+task marker: complete
+runtime authorization: none
+```

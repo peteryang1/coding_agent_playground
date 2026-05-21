@@ -195,3 +195,129 @@ artifact preservation note for /home/xu.yang/coding_agent_playground/outputs
 ## Completion Marker
 
 `M1-S22-PREFLIGHT-RESOURCE-READY-DEV2` is complete as a no-submit readiness task. No LTP job was submitted, no GPU was occupied, no NCCL preflight was run, no SFT was run, and no eval was run.
+
+## 2026-05-21T11:40:53Z PR45 Pending Addendum
+
+Context:
+
+```text
+PM requested a no-submit readiness refresh while PR #45 owner self-merge is pending.
+PR #45 task: M1-S22-PREFLIGHT-PARSER-FIX-DEV4
+latest known PR #45 head from durable PM files: 01eebb7508768cd8b8ba3a1601e4a1f3774c27b4
+PM gate status in durable files: PR #45 gate passed for dev_4 owner self-merge only; runtime remains separately unauthorized.
+dev_2 action in this addendum: readiness-only documentation update.
+No LTP submit, GPU command, NCCL preflight, SFT, eval, dry-run, or remote workspace mutation was performed.
+```
+
+Planned durable evidence files for a future separately authorized runtime:
+
+```text
+primary runtime evidence: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_s22_postpr45_preflight_sft_runtime.md
+GPU/resource tracking: workspace/tasks/milestone1_qwen3_8b_loop/evidence/gpu_s22_postpr45_preflight_sft_tracking.md
+owner status: workspace/interns/intern_code_dev_2/status.md
+task registry/completion marker: workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md
+optional history entry if PM requests: workspace/tasks/milestone1_qwen3_8b_loop/history_log.md
+```
+
+Post-PR45 path plan:
+
+```text
+output root: /home/xu.yang/coding_agent_playground/outputs
+capacity probes: /home/xu.yang/coding_agent_playground/outputs/capacity_probes/<RUN_ID>/
+preflight root: /home/xu.yang/coding_agent_playground/outputs/preflight/<RUN_ID>/
+parser JSON status: /home/xu.yang/coding_agent_playground/outputs/preflight/<RUN_ID>/health_status.json
+parser text status: /home/xu.yang/coding_agent_playground/outputs/preflight/<RUN_ID>/health_status.txt
+run metadata: /home/xu.yang/coding_agent_playground/outputs/runs/<RUN_ID>/
+SFT logs: /home/xu.yang/coding_agent_playground/outputs/runs/<RUN_ID>/logs/
+SFT config: /home/xu.yang/coding_agent_playground/outputs/runs/<RUN_ID>/config/
+temporary converted datasets/intermediates: /home/xu.yang/coding_agent_playground/outputs/runs/<RUN_ID>/tmp/
+checkpoints/model: /home/xu.yang/coding_agent_playground/outputs/runs/<RUN_ID>/checkpoints/
+stop proof/evidence copies: /home/xu.yang/coding_agent_playground/outputs/runs/<RUN_ID>/stop_proof/
+```
+
+Parser-fixed `health_status` usage from PR #45:
+
+```text
+After the future PM-authorized NCCL/NVLink preflight writes artifacts under /home/xu.yang/coding_agent_playground/outputs/preflight/<RUN_ID>,
+run scripts/parse_s22_preflight_health.py from the merged PR #45 workspace.
+The parser must write:
+- health_status.json
+- health_status.txt
+
+SFT may be launched only when health_status.json records:
+- preflight_result/status PASS
+- actionable_fault false
+- home_xu_yang_storage_status PASS
+- sft_allowed true, or decision.sft_allowed_if_pm_authorized true
+
+SFT must not be launched when parser status is FAIL_HEALTH_SIGNATURE, WARN_INCOMPLETE, storage is outside /home/xu.yang/coding_agent_playground/outputs, NCCL/topology/capacity/preflight fields are missing/failed, same-node rejection applies, or PM has not separately authorized runtime.
+```
+
+Fresh allocation requirement:
+
+```text
+future allocation: fresh single-node 8 x NVIDIA H200
+node preference: preferably different physical node from:
+- lg-cmc-b7r202-p07u16-h200-000708
+- lg-cmc-b7r401-a04u26-h200-000769
+prior frame reuse: forbidden
+same node outcome: if PM required different-node and the allocation lands on a rejected node, stop/release and record blocker; do not run preflight/SFT unless PM explicitly accepts the node.
+```
+
+Stop conditions for a future authorized run:
+
+```text
+same-node rejection when different-node was required;
+/home/xu.yang storage proof or capacity probe failure;
+missing NCCL test tooling without acceptable substitute;
+parser-fixed preflight result not PASS;
+health_status.json/txt missing or ambiguous;
+home_xu_yang_storage_status not PASS;
+sft_allowed false or missing after parsing;
+SFT checkpoint/model success;
+SFT failure with no PM-authorized same-node retry;
+health fault, idle/progress timeout, or endpoint instability;
+PM/test stop instruction;
+bounded max runtime reached.
+```
+
+Command template for future use only after PR #45 is merged and PM separately authorizes dev_2 runtime:
+
+```bash
+RUNTIME_ID=$(date -u +%Y%m%dT%H%M%SZ)
+JOB_NAME="coding-agent-playground-m1-s22-postpr45-preflight-sft-${RUNTIME_ID}"
+FRAME="xu.yang~${JOB_NAME}"
+LTP_YAML="/tmp/${JOB_NAME}.yaml"
+OUTPUT_ROOT="/home/xu.yang/coding_agent_playground/outputs"
+PREFLIGHT_DIR="${OUTPUT_ROOT}/preflight/${RUNTIME_ID}"
+RUN_ROOT="${OUTPUT_ROOT}/runs/${RUNTIME_ID}"
+
+# Submit fresh 1x8 H200 LTP only after PM authorization.
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py submit "${LTP_YAML}"
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py wait "${FRAME}" --state RUNNING --timeout 1800 --interval 15
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py status "${FRAME}"
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py ssh "${FRAME}"
+
+# On the authorized node, after /home/xu.yang path proof, capacity probe, NCCL/NVLink preflight artifacts:
+cd /root/workspace/coding_agent_playground
+python3 scripts/parse_s22_preflight_health.py \
+  --preflight-dir "${PREFLIGHT_DIR}" \
+  --out-json "${PREFLIGHT_DIR}/health_status.json" \
+  --out-text "${PREFLIGHT_DIR}/health_status.txt"
+
+# Only if health_status.json is PASS and PM authorized conditional SFT:
+# launch the one authorized Qwen3-8B ShareGPT SFT smoke with all generated outputs under "${RUN_ROOT}".
+
+# Stop/release after success/failure/blocker:
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py stop "${FRAME}"
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py wait "${FRAME}" --timeout 600 --interval 15
+python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py status "${FRAME}"
+```
+
+Addendum completion marker:
+
+```text
+Readiness addendum complete.
+No LTP submit/GPU/NCCL/SFT/eval/dry-run was performed.
+Next executable action remains blocked until PR #45 is merged by dev_4, task completion is recorded, and PM separately authorizes dev_2 runtime.
+```

@@ -7,20 +7,25 @@ Execution boundary: no remote experiments, LTP, GPU, SFT, eval, or dry-run by `i
 
 ## Result
 
-`BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`
+`PASS_FOR_PM_RETRY`
 
-I cannot output `PASS_FOR_PM_RETRY` for PR #45 yet. The dev_4 parser package now exists and addresses the prior missing-input blocker, but the current parser can miss real fatal/uncorrected ECC evidence when the same line contains any standalone `0`, such as `GPU 0` or a timestamp field. That violates the gate requirement to preserve real ECC failure detection.
+PR #45 latest head reviewed: `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`.
+
+The prior dev_1 blocker `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45` is resolved in the reviewed head. I found no remaining dev_1 launch blocker in the parser package for PM authorization of the next parser-fixed preflight/SFT retry gate.
 
 ## Inputs Checked
 
-- PR #45 metadata from PM request: open, non-draft, `MERGEABLE` / `CLEAN`.
-- `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_preflight_parser_fix.md`
-- `scripts/parse_s22_preflight_health.py` from dev_4 PR branch at `/work-agents/intern_code_dev_4/coding_agent_playground/scripts/parse_s22_preflight_health.py`
-- `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_s22_nccl_preflight_sft_runtime.md`
-- `workspace/tasks/milestone1_qwen3_8b_loop/evidence/gpu_s22_nccl_preflight_sft_tracking.md`
-- `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_nccl_retry_gate.md`
-- `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_preflight_parser_gate.md`
-- `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_1_s22_nccl_review.md`
+- PM request metadata: PR #45 open, non-draft, `MERGEABLE` / `CLEAN`.
+- dev_4 PR branch:
+  - `/work-agents/intern_code_dev_4/coding_agent_playground`, head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`
+  - `scripts/parse_s22_preflight_health.py`
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_preflight_parser_fix.md`
+- PM durable evidence:
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_2_s22_nccl_preflight_sft_runtime.md`
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/gpu_s22_nccl_preflight_sft_tracking.md`
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_nccl_retry_gate.md`
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_preflight_parser_gate.md`
+  - `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_1_s22_nccl_review.md`
 
 No code, parser, dry-run, GPU command, LTP action, SFT, eval, or remote experiment was executed by `intern_code_dev_1`; this is a static review only.
 
@@ -41,53 +46,41 @@ No code, parser, dry-run, GPU command, LTP action, SFT, eval, or remote experime
 
 ### False-Positive Suppression
 
-Status: acceptable for the current review.
+Status: PASS.
 
-The parser classifies generated command/process/evidence/history/task/summary/readme/preflight-result/health-status/parser/manifest/xtrace file names as excluded before actionable matching. It records fault-looking text from excluded files under `ignored_non_actionable_matches` instead of `actionable_faults`. This addresses the main observed false positive class from copied search terms in command/process/evidence text.
+The parser excludes generated command, process, evidence, history, task knowledge, summary, readme, preflight result, health status, parser, manifest, and xtrace file names from actionable matching. Fault-looking terms in excluded files are preserved under `ignored_non_actionable_matches`, not treated as `actionable_faults`.
 
-Residual note: generic `.log`, `.out`, and `.err` files remain actionable by extension. That is acceptable only if future preflight packaging keeps copied historical logs and generated summaries named with the excluded markers or outside the actionable set.
+This directly addresses the observed false-positive source: copied search terms and generic captured text in command/process/evidence material.
 
 ### Real-Fault Detection Preservation
 
-Status: blocker.
+Status: PASS.
 
-The parser preserves detection paths for:
+The reviewed parser preserves detection for:
 
 - Xid in kernel/dmesg/journal/NVRM-named artifacts.
 - CUDA/NCCL invalid peer GPU memory.
 - SIGABRT and torch `ChildFailedError`.
 - NCCL or collective/all-reduce failures.
-- NVLink down/inactive/fail/fatal/CRC/replay/error lines, with a zero-counter suppression guard.
+- NVLink down/inactive/fail/fatal/CRC/replay/error lines.
 - Nonzero torchrun exit through `TORCHRUN_EXIT=<n>`.
+- Fatal ECC and nonzero uncorrected ECC.
 
-Blocking issue:
+ECC re-check:
 
-- In `scripts/parse_s22_preflight_health.py`, ECC handling is:
+- `has_ecc_fault()` now returns actionable for fatal ECC independent of counters.
+- For uncorrected ECC, it starts parsing from the uncorrected/ECC match location and uses ECC-field-tied counters, so unrelated earlier zeros such as `GPU 0`, rank `0`, or timestamp fields no longer suppress a nonzero uncorrected ECC counter.
+- dev_4 evidence explicitly records the intended behavior:
+  - `GPU 0 timestamp ... Uncorrected ECC errors: 1` is actionable.
+  - `GPU 0 timestamp ... Uncorrected ECC errors: 0` is non-actionable.
 
-```python
-if ECC_RE.search(line) and NONZERO_RE.search(line) and not re.search(r"\b0\b", line.strip()):
-    faults.append("ecc_nonzero_or_fatal")
-```
-
-This suppresses ECC detection whenever the line contains any standalone `0`, even if the line also contains a real fatal or uncorrected ECC fault. Common current-node lines can include `GPU 0`, device index `0`, timestamp fields, or counter labels containing `0`. Examples that should fail but are at risk of being ignored by this condition:
-
-```text
-GPU 0 fatal ECC error detected
-GPU 0 volatile uncorrected ECC errors: 1
-2026-05-21 GPU 0 aggregate uncorrected ECC: 1
-```
-
-Required fix before PASS:
-
-- Treat fatal ECC as actionable regardless of numeric counters.
-- For uncorrected ECC counters, parse the relevant ECC counter value instead of rejecting the whole line because some unrelated field is `0`.
-- Preserve zero-counter suppression only for explicit healthy zero-count ECC lines.
+This resolves the prior dev_1 ECC false-negative blocker.
 
 ### Structured Fields
 
-Status: acceptable for current review, subject to the ECC blocker.
+Status: PASS.
 
-The parser emits structured JSON with:
+The reviewed parser emits structured JSON with core fields:
 
 - `schema_version`
 - `preflight_dir`
@@ -101,11 +94,25 @@ The parser emits structured JSON with:
 - `decision.sft_allowed_if_pm_authorized`
 - `policy`
 
-The text output also emits a structured status marker and SFT-allowed boolean. Future runtime evidence should map these fields to the test gate's requested `preflight_result`, `health_result`, non-actionable matches, torch NCCL status, capacity status, topology/NVLink capture status, and SFT skip/allow decision.
+It also adds top-level compatibility fields required by the gate:
+
+- `preflight_result`
+- `health_result`
+- `non_actionable_matches`
+- `torch_nccl_allreduce_exit`
+- `capacity_probe_status`
+- `different_node_gate`
+- `home_xu_yang_storage_status`
+- `topology_capture_status`
+- `nvlink_capture_status`
+- `sft_allowed`
+- `sft_skip_reason`
+
+The text output includes the corresponding structured markers, including `PREFLIGHT_RESULT`, `SFT_ALLOWED`, storage status, topology status, NVLink status, capacity status, and torch NCCL all-reduce exit.
 
 ### `/home/xu.yang` Output Paths
 
-Status: acceptable for current review, subject to the ECC blocker.
+Status: PASS.
 
 dev_4 evidence keeps future output roots under:
 
@@ -115,17 +122,19 @@ dev_4 evidence keeps future output roots under:
 - `/home/xu.yang/coding_agent_playground/outputs/training_summary/sft_output/<RUN_ID>`
 - `/home/xu.yang/coding_agent_playground/outputs/tmp/<RUN_ID>`
 
-The parser accepts explicit `--preflight-dir`, `--out-json`, and optional `--out-text`; the proposed future usage writes under `/home/xu.yang/coding_agent_playground/outputs/preflight/<RUN_ID>`.
+The parser also computes `home_xu_yang_storage_status`, requires the parsed preflight directory to be under `/home/xu.yang/coding_agent_playground/outputs`, and blocks `sft_allowed` through `WARN_INCOMPLETE` if storage is outside that expected root.
 
 ### Execution Boundary
 
-Status: acceptable for current review.
+Status: PASS.
 
-dev_4 evidence states no LTP/GPU/SFT/eval/dry-run command was run for the package. The package describes only local non-runtime parser checks and does not itself authorize future runtime.
+dev_4 evidence states no LTP/GPU/SFT/eval/dry-run command was run for this package. The package is a no-execution parser refinement and does not itself authorize future runtime.
 
-## Required Next Fix
+## Recommendation
 
-Before PM can treat PR #45 as `PASS_FOR_PM_RETRY`, dev_4 should update `scripts/parse_s22_preflight_health.py` so real fatal/uncorrected ECC evidence is not suppressed by unrelated `0` tokens, then refresh `evidence/dev_4_s22_preflight_parser_fix.md`.
+`PASS_FOR_PM_RETRY`
+
+PM can gate PR #45 for owner self-merge from dev_1's review perspective. A future runtime remains conditional on PM authorization, parser-fixed preflight PASS, `/home/xu.yang` artifact preservation, and the existing no-SFT-unless-preflight-PASS rule.
 
 ## Completion Marker
 
@@ -133,15 +142,17 @@ Before PM can treat PR #45 as `PASS_FOR_PM_RETRY`, dev_4 should update `scripts/
 task_id: M1-S22-PREFLIGHT-PARSER-REVIEW-DEV1
 owner: intern_code_dev_1
 reviewed_pr: PR #45
-result: BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45
-pass_for_pm_retry: false
-exact_blockers:
-  - scripts/parse_s22_preflight_health.py ECC detection can miss real fatal/uncorrected ECC faults when the line contains an unrelated standalone 0 such as GPU 0 or timestamp fields.
-required_fix:
-  - Parse fatal ECC and nonzero uncorrected ECC counters without rejecting the whole line for unrelated zero tokens.
+reviewed_head: 01eebb7508768cd8b8ba3a1601e4a1f3774c27b4
+result: PASS_FOR_PM_RETRY
+pass_for_pm_retry: true
+exact_blockers: []
+prior_blocker_resolved:
+  - BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45
 false_positive_suppression_reviewed: true
 real_fault_detection_reviewed: true
+ecc_parsing_reviewed: true
 structured_fields_reviewed: true
 home_xu_yang_paths_reviewed: true
+dev4_no_ltp_gpu_sft_eval_dry_run_claim_reviewed: true
 no_remote_experiments_ltp_gpu_sft_eval_dry_run_by_dev1: true
 ```

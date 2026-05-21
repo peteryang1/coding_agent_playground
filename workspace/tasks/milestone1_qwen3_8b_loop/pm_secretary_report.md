@@ -50,10 +50,25 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 
 ## Current Blockers
 
-- GPU/SFT allocation workflow and Qwen3-8B training launcher are not yet confirmed; dev_4 is assigned to derive a concrete plan from axrd records.
-- mini-swe-agent eval backend is not currently installed on the corrected final workspace machine; PM checks found `singularity` present but no `mini`, `mini-extra`, Docker, Apptainer, or `sb-cli`.
-- Active rollout target is 10 total complete coding-process trajectories under `/root/workspace/rollouts_m1_10`; old 300 outputs are scratch-only.
-- PM top priority is full six-intern utilization; all dev/test owners have active durable work even when upstream artifacts are incomplete.
+- Current critical path is PR #45 `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`: latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4` is open/non-draft and `MERGEABLE` / `CLEAN`, but PM is waiting for fresh dev_1/test_1 durable re-gates before any owner self-merge.
+- PR #45 re-gate now passes: dev_1/test_1 both recorded `PASS_FOR_PM_RETRY`, and PM instructed dev_4 to owner self-merge and mark task completion.
+- PR #45 is now merged; PM created a separate dev_2 runtime authorization for one parser-fixed preflight plus conditional SFT smoke. Eval is still not authorized.
+- SFT checkpoint/model is still absent; mini-swe-agent real smoke remains blocked until PM gates a checkpoint/model or served endpoint.
+- Supervisor storage requirement is active: SFT launch outputs, temporary converted datasets, logs, checkpoints, run metadata, eval intermediates, predictions, results, and metrics must be under `/home/xu.yang` unless owner evidence explicitly justifies an existing required input path.
+- PM top priority remains full six-intern utilization through explicit tasks, durable evidence, and owner-executed work only; PM does not run code/SFT/eval personally.
+
+## 2026-05-21 Session 22 PR #45 Re-Gate Update
+
+- Dev_4 pushed PR #45 gate-fix commits after prior dev_1/test_1 blockers.
+- PM used tmux inject plus Enter and `capture-pane` verification to assign dev_1 and test_1 to re-gate the latest PR #45 head.
+- Required dev_1 output: `PASS_FOR_PM_RETRY` or exact blocker in `evidence/dev_1_s22_preflight_parser_review.md`.
+- Required test_1 output: `PASS_FOR_PM_RETRY`, `PASS_FOR_NEXT_PM_DECISION`, or exact blocker in `evidence/test_1_s22_preflight_parser_gate.md`.
+- If both gates pass and GitHub stays mergeable/clean, PM will notify dev_4 to owner self-merge PR #45 and mark task completion. Runtime authorization remains a separate later PM gate.
+- Gate result: both dev_1 and test_1 passed against latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`; GitHub remains open/non-draft and `MERGEABLE` / `CLEAN`.
+- PM action: notified dev_4 to self-merge PR #45 and mark `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` complete. No runtime authorization has been issued.
+- Merge fact: PR #45 merged at `2026-05-21T11:42:20Z`, merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`.
+- Completion fact: dev_4 self-merged PR #46 at `2026-05-21T11:44:48Z`, merge commit `bc33b92089f52836b5c6b8f8ef75406a03baa81d`.
+- Runtime gate: PM authorized only dev_2 under `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2` for exactly one fresh preferably different-node 8xH200 parser-fixed preflight and conditional SFT smoke, with all generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`.
 
 ## 2026-05-20 Session 1 Update
 
@@ -353,3 +368,4 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - NCCL/NVLink preflight final blocker: dev_2 completed the authorized preflight on fresh different node `lg-cmc-b7r401-a04u26-h200-000769`; `/home/xu.yang` artifacts, capacity probe, topology/NVLink capture, and 8-rank torch NCCL all-reduce passed. Final marker was `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE` due broad health scan matching evidence/command/process/generic NVRM text, so SFT correctly did not run. No checkpoint/model, `trainer_state.json`, or `all_results.json`; eval remains blocked. LTP stopped and endpoint refused. PM opened no-execution parser-fix/review/gate/resource/data/eval-blocked tasks and has not authorized another GPU/SFT/eval attempt.
 - Parser-fix follow-up status: dev_2 no-submit resource readiness complete, dev_3 data/package no-change confirmation complete, test_2 eval blocked package complete, test_1 parser gate defined, and dev_1 review is blocked only on missing dev_4 parser package. Critical path is dev_4 `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`; no new runtime authorization exists.
 - PR #45 status: dev_4 opened the no-execution parser package PR and GitHub reports it open/non-draft `MERGEABLE` / `CLEAN`, but PM gate is NOT READY. dev_1 found `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`; test_1 found `BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`. PM sent the blockers back to dev_4 for PR #45 updates; no self-merge or runtime authorization.
+- Parser-fixed runtime status: PR #45 and completion PR #46 are merged. PM authorized only dev_2 for `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2`: one fresh preferably different-node 8xH200 preflight and one conditional SFT smoke only if parser-fixed preflight PASS and `sft_allowed=true`; no eval. Current active allocation is frame `xu.yang~coding-agent-playground-m1-s22-parserfixed-preflight-sft-20260521T114448Z`, endpoint `ssh -p 22662 root@10.100.22.14`, node `lg-cmc-b7r202-p07u16-h200-000708`. `/home/xu.yang` CephFS is ready, but staging hit GitHub SSH port 22 timeout and HTTPS fallback was still running with GPUs apparently idle; PM used the resource-waste interrupt exception to require dev_2 to record exact blocker or complete viable staging, then proceed or stop/release with proof. PM did not run remote code, LTP, GPU, preflight, SFT, or eval.

@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=22 -->
+<!-- METADATA:SESSION=23 -->
 
 ## Session 1 - 2026-05-20
 
@@ -141,6 +141,44 @@
 - Gate dev_4's durable decision package for valid Qwen3-8B base/checkpoint path and allocated GPU node or current milestone `nodes.json`.
 - Gate test_2's mini-swe-agent smoke evidence after dev_4 provides an SFT smoke model/checkpoint path or endpoint.
 - Gate dev_1/dev_2/test_1 support evidence when those files appear, then decide whether to escalate clean base/GPU allocation or accept an explicit warm-start smoke fallback.
+
+## Session 22 - 2026-05-21 PR #45 Re-Gate
+
+- Supervisor storage rule is active for the remaining SFT/eval work: owners must store SFT launch outputs, temporary converted datasets, logs, checkpoints, run metadata, eval intermediates, predictions, results, and metrics under `/home/xu.yang`, except for explicitly justified existing required input paths.
+- Dev_4 updated PR #45 for `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`; GitHub reports the PR open, non-draft, `MERGEABLE` / `CLEAN`, with latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`.
+- PM injected re-gate requests to dev_1 and test_1 by tmux and verified the messages were submitted. dev_1 must output `PASS_FOR_PM_RETRY` or an exact blocker in `evidence/dev_1_s22_preflight_parser_review.md`; test_1 must output `PASS_FOR_PM_RETRY`, `PASS_FOR_NEXT_PM_DECISION`, or an exact blocker in `evidence/test_1_s22_preflight_parser_gate.md`.
+- No PR #45 self-merge, LTP/GPU/SFT/eval, or dry-run is authorized by this re-gate request. The next PM decision depends on dev_1/test_1 durable evidence against the latest PR #45 head.
+- Dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY` against latest PR #45 head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`. PM rechecked GitHub state as open, non-draft, `MERGEABLE` / `CLEAN`, then passed the PR #45 owner-self-merge gate only.
+- PM notified dev_4 by tmux inject plus Enter/capture verification to self-merge PR #45 and mark `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` complete. This does not authorize runtime; any next LTP/GPU/preflight/SFT/eval attempt requires a separate PM gate and `/home/xu.yang` generated-artifact storage.
+- To keep the runtime owner active without violating the gate, PM also notified dev_2 by tmux inject plus Enter/capture verification to prepare a no-submit parser-fixed runtime readiness addendum. The assignment explicitly forbids LTP submit, GPU use, NCCL preflight, SFT, eval, and dry-run until PR #45 is merged and PM separately authorizes execution.
+- PR #45 merged at `2026-05-21T11:42:20Z`, merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`.
+- PM created `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s22_parserfixed_preflight_sft_authorization.md`. Only dev_2 is authorized for one fresh preferably different-node 8xH200 parser-fixed preflight and one conditional SFT smoke if structured preflight PASS and `sft_allowed=true`; no eval is authorized.
+
+## 2026-05-21 Session 22 Parser-Fixed Preflight Final Evidence
+
+- Task id: `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2`.
+- dev_2 submitted frame `xu.yang~coding-agent-playground-m1-s22-parserfixed-preflight-sft-20260521T114448Z`, endpoint `ssh -p 22662 root@10.100.22.14`, node `lg-cmc-b7r202-p07u16-h200-000708`.
+- The node was different from the immediately failed parser-preflight node `lg-cmc-b7r401-a04u26-h200-000769`, but matched the older post-PR41 NCCL-failure node; PM authorization was preferably different-node rather than hard reject.
+- Remote GitHub staging stuck over HTTPS with only a 124K `.git` skeleton while GPUs were idle; dev_2 stopped that staging attempt and staged exact PR #45 merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926` by local checkout tar-over-SSH.
+- Preflight artifacts were preserved under `/home/xu.yang/coding_agent_playground/outputs/preflight/milestone1_qwen3_8b_s22_parserfixed_preflight_sharegpt_tp8_maxsteps2_20260521T114448Z` on CephFS.
+- Capacity probe passed and cleaned, topology/NVLink evidence was captured, and torch 8-rank NCCL all-reduce exited 0.
+- Parser-fixed health status was `FAIL_HEALTH_SIGNATURE`, `sft_allowed=false`, with actionable Xid matches in `dmesg_gpu_fault_scan.txt`; parser also reported `HOME_XU_YANG_STORAGE_STATUS=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS`.
+- Under the PM contract, dev_2 did not run SFT because structured preflight did not PASS and `sft_allowed` was false. No checkpoint/model, `trainer_state.json`, or `all_results.json` exists; no eval was run.
+- dev_2 stopped the LTP frame at `2026-05-21T11:56:07Z`; final LTP status is `STOPPED (Completed)` with completed timestamp `2026-05-21 11:56:39`; endpoint refused connection afterward.
+- Durable evidence is in `evidence/dev_2_s22_parserfixed_preflight_sft_runtime.md`, `evidence/gpu_s22_parserfixed_preflight_sft_tracking.md`, `task_registry.md`, and `workspace/interns/intern_code_dev_2/status.md`.
+- Dev_4 self-merged completion PR #46 at `2026-05-21T11:44:48Z`, merge commit `bc33b92089f52836b5c6b8f8ef75406a03baa81d`, marking `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` complete on main.
+- PM created and assigned parallel no-execution follow-up gates while dev_2 runs the authorized runtime: dev_1 independent runtime review, test_1 runtime validation gate, and test_2 eval readiness gate. These tasks only read durable evidence and do not authorize eval or extra runtime.
+- PM observed dev_2's authorized 8xH200 LTP frame `xu.yang~coding-agent-playground-m1-s22-parserfixed-preflight-sft-20260521T114448Z` allocated on `ssh -p 22662 root@10.100.22.14` / node `lg-cmc-b7r202-p07u16-h200-000708`, with `/home/xu.yang` CephFS ready but PR #45 source staging stuck after GitHub SSH port 22 timeout and an HTTPS fallback still running while GPUs appeared idle.
+- Because this was a resource-waste risk, PM used the allowed interrupt exception to submit a tmux directive to dev_2: record the exact staging blocker or switch to a viable staging path, keep all generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`, and stop/release the allocation with proof if staging cannot proceed. PM did not run remote commands, preflight, SFT, eval, or code.
+- Dev_2 final parser-fixed preflight evidence now records `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`, `sft_allowed=false`, `HOME_XU_YANG_STORAGE_STATUS=FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS`, torch NCCL all-reduce exit 0, SFT skipped, no checkpoint/model/trainer outputs, and LTP `STOPPED (Completed)` with endpoint refusal. PM asked dev_1 and test_1 to refresh their existing no-execution gates, then created parallel follow-up tasks for dev_4 parser/storage/health blocker fix package, dev_2 no-submit resource recovery plan, dev_3 data no-change confirmation, and test_2 eval-blocked refresh. No runtime/eval retry is authorized.
+
+## Session 23 - 2026-05-21 Remote GPU No-Network Rule
+
+- Applied supervisor correction that remote GPU/LTP machines must be treated as having no external network. PM policy is now: dev/test owners must not `git clone`, `git fetch`, download code, or rely on GitHub/network package downloads from remote GPU nodes.
+- For all future PM-authorized GPU/LTP runtime work, owners must prepare code/config/scripts in the provided/local workspace first, verify exact commit/files/checksums locally, then transfer a prepared bundle to the remote node using `rsync`, `scp`, or tar-over-SSH. Evidence must record the exact transfer command, source commit, checksum/file list, destination path, and post-transfer verification before preflight/SFT can be gateable.
+- Applied this correction to the current parser-fixed runtime state: the `M1-S22-PARSERFIXED-PREFLIGHT-SFT-RUNTIME-DEV2` frame is already `STOPPED (Completed)` after dev_2 stopped remote GitHub clone attempts and used a local exact PR #45 merge commit transfer by tar-over-SSH. PM instructed dev_2 by tmux to update `evidence/dev_2_s22_parserfixed_resource_recovery.md` and own status with the no-remote-network rule; no re-open, new submit, GPU command, preflight, SFT, or eval is authorized.
+- PM did not run `rsync`, remote commands, LTP, GPU, preflight, SFT, eval, or code. PM also did not peer-send secretary; durable files remain the reporting channel.
+- PM gated dev_4 PR #47 for `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4` as `PASS_OWNER_SELF_MERGE_ONLY`: GitHub reported open, non-draft, `MERGEABLE` / `CLEAN`, with task id, owner, acceptance criteria, durable evidence path, and completion marker in the PR body. Scope is evidence/status/task docs only and explicitly does not authorize LTP/GPU/preflight/SFT/eval/dry-run/runtime. PM instructed dev_4 by tmux to self-merge and mark task completion in durable files.
 
 ## Session 8 - 2026-05-20
 
