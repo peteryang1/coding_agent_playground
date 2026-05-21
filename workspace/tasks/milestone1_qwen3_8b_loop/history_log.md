@@ -872,3 +872,12 @@
 - Self-merged PR #57 at `2026-05-21T15:45:10Z`; merge commit `c450429c2e3369adc723d132396399cd17dba684`.
 - Task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4` is complete as a wrapper env fix.
 - Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 52 - Dev 4 PR57 Launch Support Standby - 2026-05-21
+
+- Accepted PM task `M1-S23-PR57-LAUNCH-SUPPORT-DEV4`.
+- Recorded supervisor correction: remote GPU/LTP nodes must be treated as no-external-network for project code and dependency staging. Project code/config/scripts/data/dependencies must be prepared in local/provided workspace, locally verified with commit/file list/checksums, transferred by `rsync`, `scp`, or tar-over-SSH, and post-transfer verified in evidence.
+- Recorded PR57/PR58 landed state: PR #57 merged at `2026-05-21T15:45:10Z` with merge commit `c450429c2e3369adc723d132396399cd17dba684`; PR #58 merged at `2026-05-21T15:48:30Z` with merge commit `b4ac31ef1e3772953108348bf099818326ed65cc`.
+- Wrote support evidence `evidence/dev_4_s23_pr57_launch_support.md`.
+- No additional wrapper/launch blocker from dev_2 is present in durable evidence at this recording point, so dev_4 recommends no further code change unless dev_2 reports a concrete blocker.
+- No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run by dev_4.
