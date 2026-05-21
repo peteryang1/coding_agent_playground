@@ -14,6 +14,7 @@
 - PR59 runtime finished with exact blocker `BLOCKED_PR59_RUNTIME_LLAMAFACTORY_CLI_COMMAND_STRING`: transfer/import/preflight passed, one SFT attempt exited 127 before checkpoint, no model/trainer_state/all_results/eval exists, and the frame is stopped/released. PM is routing no-execution launcher fix and gates.
 - PR #61 passed PM owner-self-merge gate after dev_1/test_1 `PASS_FOR_PM_RETRY`; GitHub open/non-draft `MERGEABLE` / `CLEAN`, head `d4f3340d1f7b32d91553cbe18d7effce533276c7`. Runtime remains unauthorized pending merge/completion and separate PM authorization.
 - PR #61 merged at `2026-05-21T17:13:17Z` and completion PR #62 merged at `2026-05-21T17:15:51Z`; PM authorized only dev_2 for one fresh post-PR61 owner-executed runtime. Eval remains unauthorized.
+- PM pushed authorization commit `37de3c3` and tmux-injected the dev_2 runtime task into pane `%75`; capture showed the prompt submitted and working.
 - PM did not run LTP, SFT, GPU, eval, remote workspace code, rsync/scp, or remote commands.
 
 | 字段 | 值 |
