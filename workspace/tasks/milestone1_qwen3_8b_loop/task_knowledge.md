@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=27 -->
+<!-- METADATA:SESSION=28 -->
 
 ## Knowledge Entries
 
@@ -139,3 +139,4 @@
 125. Session 26 storage rule: future SFT launch outputs, logs, checkpoints, run metadata, temporary converted datasets, and intermediates default under CephFS `/home/xu.yang/coding_agent_playground/outputs`. `/mnt/3fs` is allowed only for existing required paths with justification, such as the PM-selected base model input and historical failed-run audit artifacts.
 126. Session 22 early-exit fact: dev_2 run `milestone1_qwen3_8b_s22_enospcfix_sharegpt_tp8_maxsteps2_20260521T082037Z` exited with status 1 before run_manifest/runtime config/checkpoint artifacts existed; log only contains `START_UTC`, so the failure boundary is earlier than LLamaFactory data conversion, training, and checkpoint save.
 127. Session 27 fix recommendation: `scripts/train_qwen3_8b_sft.sh` should own durable stdout/stderr, xtrace, ERR/EXIT diagnostics, preflight proof, runtime config/manifest creation, and `DATASET_NAME` rewrite under `/home/xu.yang/coding_agent_playground/outputs` before any future PM-authorized retry.
+128. Session 28 implementation fact: dev_4 patched `scripts/train_qwen3_8b_sft.sh` for first-durable-point logging, xtrace, ERR/EXIT diagnostics, preflight artifact, CephFS default output root, `DATASET_NAME` config rewrite, and non-`exec` trainer launch; `scripts/write_sft_run_manifest.py` now records runtime save policy and preflight paths from generated config/environment.

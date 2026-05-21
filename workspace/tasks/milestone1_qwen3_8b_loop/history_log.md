@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=27 -->
+<!-- METADATA:SESSION=28 -->
 
 ## Session 1 - 2026-05-20
 
@@ -758,3 +758,14 @@
 - Proposed fix scope: patch `scripts/train_qwen3_8b_sft.sh` to own first-line durable logging under `/home/xu.yang`, add xtrace and ERR/EXIT diagnostics, write preflight proof before training, preserve `DATASET_NAME=coding_agent_m1_sft_10_sharegpt`, and avoid direct `exec` of `llamafactory-cli` so traps can record trainer status.
 - Also proposed `scripts/write_sft_run_manifest.py` manifest hardening to record actual runtime save policy and preflight fields rather than stale static checkpoint policy.
 - No SFT/GPU/eval command was run.
+
+## Session 28 - Dev 4 Early-Exit Wrapper Patch PR - 2026-05-21
+
+- Continued task `M1-S22-EARLY-EXIT-FIX-DEV4` by implementing the no-execution wrapper fix package on branch `intern_code_dev_4/M1-S22-EARLY-EXIT-FIX-DEV4`.
+- Patched `scripts/train_qwen3_8b_sft.sh` so future runs default to `/home/xu.yang/coding_agent_playground/outputs`, create run/log/config/checkpoint/tmp directories early, tee stdout/stderr into durable logs, write xtrace separately, write `preflight.json`, and write `early_exit_diagnostics.txt` plus `exit_status.txt` through traps.
+- Patched runtime config rewrite so `DATASET_NAME=coding_agent_m1_sft_10_sharegpt` updates top-level `dataset:` in the generated config.
+- Removed direct `exec llamafactory-cli` so shell traps can record nonzero trainer status.
+- Patched `scripts/write_sft_run_manifest.py` so the manifest records actual save policy fields from the generated config and records preflight/log paths.
+- Added `configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml` with ShareGPT dataset, CephFS output path, `save_steps: 2`, `save_total_limit: 1`, `max_steps: 2`, and TP=8 settings.
+- Local checks run: `bash -n scripts/train_qwen3_8b_sft.sh`; `python3 -m py_compile scripts/write_sft_run_manifest.py`.
+- No SFT/GPU/eval or dry-run launch command was run.

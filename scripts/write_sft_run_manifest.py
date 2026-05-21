@@ -34,6 +34,22 @@ def git_commit(repo: Path) -> str | None:
         return None
 
 
+def read_simple_yaml_scalars(path: Path) -> dict[str, str]:
+    if not path.is_file():
+        return {}
+    values: dict[str, str] = {}
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip().strip("'\"")
+        if key:
+            values[key] = value
+    return values
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-id", required=True)
@@ -55,6 +71,7 @@ def main() -> int:
     dataset = Path(args.dataset).resolve()
     out = Path(args.out).resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
+    config_values = read_simple_yaml_scalars(config)
 
     manifest = {
         "run_id": args.run_id,
@@ -90,10 +107,25 @@ def main() -> int:
             "tensorboard": str(Path(args.output_dir).resolve() / "runs"),
         },
         "checkpoint_policy": {
-            "save_steps": 150,
-            "save_total_limit": 4,
+            "save_steps": config_values.get("save_steps"),
+            "save_total_limit": config_values.get("save_total_limit"),
+            "save_only_model": config_values.get("save_only_model"),
+            "save_hf_model": config_values.get("save_hf_model"),
+            "output_dir": config_values.get("output_dir"),
             "pin_best_before_resume": True,
             "final_model_symlink": "training_summary/model",
+        },
+        "preflight": {
+            "config_exists": config.is_file(),
+            "dataset_exists": dataset.is_file(),
+            "output_root": os.environ.get("OUTPUT_ROOT"),
+            "run_dir": str(Path(args.run_dir).resolve()),
+            "checkpoint_dir": str(Path(args.checkpoint_dir).resolve()),
+            "tmpdir": os.environ.get("TMPDIR"),
+            "dataset_name": os.environ.get("DATASET_NAME"),
+            "log_file": str(Path(args.run_dir).resolve() / "logs" / "train_stdout_stderr.log"),
+            "xtrace_file": str(Path(args.run_dir).resolve() / "logs" / "train_xtrace.log"),
+            "early_exit_diagnostics": str(Path(args.run_dir).resolve() / "early_exit_diagnostics.txt"),
         },
         "environment": {
             "USE_MCA": os.environ.get("USE_MCA"),
