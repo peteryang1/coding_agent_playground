@@ -94,6 +94,11 @@ PR must wait for PM gate before any owner self-merge.
 task_id: M1-S23-NCCL-WARNING-PARSER-HYGIENE-DEV4
 owner: intern_code_dev_4
 result: READY_FOR_PM_REVIEW
+pr: 53
+pr_url: https://github.com/peteryang1/coding_agent_playground/pull/53
+pr_state: OPEN
+pr_mergeable: MERGEABLE
+pr_merge_state_status: CLEAN
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_nccl_warning_parser_hygiene.md
 parser_patch: true
 tests_added: true
