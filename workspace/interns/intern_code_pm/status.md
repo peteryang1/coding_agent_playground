@@ -9,6 +9,7 @@
 - PM delivered those six tasks by tmux inject plus Enter and capture-pane verification; first audit found follow-up evidence and open PR still pending.
 - PM sent a second evidence-or-blocker tmux follow-up to all six owners and verified submitted text in panes.
 - PM gated PR #57 as ready for dev_4 owner self-merge only after dev_1/test_1 `PASS_FOR_PM_RETRY`; runtime retry remains unauthorized.
+- PM gated PR #59 as ready for dev_4 owner self-merge only after dev_1/test_1 `PASS_FOR_PM_RETRY`; latest observed head `b0b54279bcf87add7e617b0c08686c40fac41b48`; runtime retry remains unauthorized until PR #59 is merged/completion-marked and PM separately authorizes dev_2.
 - PM did not run LTP, SFT, GPU, eval, remote workspace code, rsync/scp, or remote commands.
 
 | 字段 | 值 |

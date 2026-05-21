@@ -3,29 +3,28 @@
 Owner: `intern_code_dev_1`  
 Task: `M1-S23-PR57-MCORE-REVIEW-DEV1`  
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_1_s23_pr57_mcore_review.md`  
-Review timestamp: `2026-05-21T16:11:29Z`  
-Result: `BLOCKER_MISSING_DEV4_MCORE_FIX_PACKAGE`
+Review timestamp: `2026-05-21T16:21:19Z`  
+Result: `PASS_FOR_PM_RETRY`
 
 ## Execution Boundary
 
 - Dev_1 did not run LTP, GPU, preflight, SFT, eval, dry-run, transfer, or remote commands.
-- Review used durable local PM evidence only.
+- Dev_1 reviewed durable PM evidence and PR #59 code statically.
+- Local static checks run by dev_1 were shell syntax, Python compile, and pytest for static wrapper tests only.
 
 ## Inputs Reviewed
 
 - `workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md`
 - `evidence/dev_2_s23_pr57_preflight_sft_runtime.md`
 - `evidence/gpu_s23_pr57_preflight_sft_tracking.md`
+- `evidence/dev_4_s23_pr57_mcore_fix.md`
 - `evidence/dev_4_s23_pr57_launch_support.md`
 - `evidence/test_1_s23_pr57_runtime_gate.md`
-
-Missing required fix input:
-
-- `evidence/dev_4_s23_pr57_mcore_fix.md`
+- PR #59 head named by PM: `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`
 
 ## Runtime Evidence Review
 
-Dev_2 PR57 final runtime evidence is sufficient to classify the new blocker:
+Dev_2 PR57 final runtime evidence remains sufficient to classify the active blocker:
 
 - Authorized source commit: `b4ac31ef1e3772953108348bf099818326ed65cc`.
 - Runtime frame: `xu.yang~coding-agent-playground-m1-s23-pr57-preflight-sft-20260521T155200Z`.
@@ -35,7 +34,7 @@ Dev_2 PR57 final runtime evidence is sufficient to classify the new blocker:
 - ShareGPT dataset had 10 rows with sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
 - Transfer command was recorded as `scp` to `/root/workspace/`, with bundle, file list, critical checksums, transfer manifest, and dataset.
 - Post-transfer verification recorded bundle sha256 OK, critical file checksums OK, remote file count 122, and dataset sha256 match.
-- Dependency bundles were transferred and verified: `cap_pr55_pydeps_20260521T1505.tar.gz` and `LLamaFactory_4fa8e1ee_20260507.tar.gz`.
+- Dependency bundles transferred for PR57 were verified, but did not include a usable `mcore_adapter` path for `USE_MCA=1`.
 - `/home/xu.yang` storage proof passed: `/home/xu.yang` resolves to `/mnt/cephfs/home/xu.yang`, output root is `/home/xu.yang/coding_agent_playground/outputs`, and 24 GiB capacity probe passed and cleaned.
 - Structured preflight passed:
   - `PREFLIGHT_RESULT=PASS`
@@ -56,7 +55,7 @@ Dev_2 PR57 final runtime evidence is sufficient to classify the new blocker:
 
 Runtime result: `BLOCKED_PR57_RUNTIME_MISSING_MCORE_ADAPTER_STOPPED_NO_CHECKPOINT`
 
-The SFT attempt failed before checkpoint/training output creation with:
+Failure signature:
 
 ```text
 ImportError: mcore_adapter is required when USE_MCA=1. Please install `mcore_adapter` and its dependencies.
@@ -70,6 +69,7 @@ Classification:
 - This is a runtime dependency/environment blocker for the MCA path.
 - It is distinct from prior blockers: no `DEP_TARGET: unbound variable`, missing dataset info, `KeyError: 'from'`, ENOSPC checkpoint save failure, `datasets.map(num_proc=4)` SyncManager EOF, parser false-positive preflight failure, NCCL/SXid health blocker, or ceph-fuse bootstrap blocker is shown as the active failure.
 - No checkpoint/model, `trainer_state.json`, or `all_results.json` was produced.
+- Eval remains blocked until a future retry produces an accepted model/checkpoint or endpoint.
 
 ## Stop Proof
 
@@ -82,28 +82,70 @@ Stop proof is sufficient:
 - `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
 - Dev_2 records no active Milestone GPU is held after stop.
 
-## Fix Gate
+## PR #59 / Dev_4 Fix Review
 
-No `PASS_FOR_PM_RETRY` is possible yet because the required dev_4 fix package is absent:
+PR #59 head reviewed: `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`  
+PM-reported state: open, non-draft, `MERGEABLE` / `CLEAN`
 
-- Missing: `evidence/dev_4_s23_pr57_mcore_fix.md`
+PR #59 changed files at the reviewed head include the expected functional files:
 
-The expected fix package must either:
+- `scripts/train_qwen3_8b_sft.sh`
+- `scripts/write_sft_run_manifest.py`
+- `tests/test_train_qwen3_8b_sft_static.py`
 
-- provide `mcore_adapter` and dependencies when `USE_MCA=1`, using local/provided workspace preparation and bundle transfer with checksums and no remote project/dependency downloads; or
-- explicitly select a supported non-MCA path, with rationale and evidence that it does not weaken prior model/config/runtime acceptance criteria.
+The remaining changed files are task/status/evidence/history documentation for the PR57 launch support and mcore fix tasks.
 
-The fix package must preserve:
+Dev_4 fix package and PR #59 are acceptable for PM retry gate:
 
-- PR57 wrapper/env contract;
-- no-external-network staging rule for remote GPU/LTP nodes;
-- `/home/xu.yang/coding_agent_playground/outputs` for generated outputs/logs/checkpoints/run metadata/intermediates;
-- structured preflight before SFT;
-- SFT only after `PREFLIGHT_RESULT=PASS` and `SFT_ALLOWED=true`;
-- stop/no-active-job proof requirement for the future retry.
+- Cites dev_2 PR57 runtime failure and correctly diagnoses the MCA path: `USE_MCA=1` requires `mcore_adapter` importability before training can proceed.
+- Keeps the MCA path as the primary path and does not silently switch to non-MCA.
+- Explicitly states non-MCA fallback is not selected and would need separate PM/dev_1/test_1 approval.
+- Adds `MCORE_ADAPTER_DIR`, defaulting to `${REPO_ROOT}/code/mcore_adapter`.
+- Exports `MCORE_ADAPTER_DIR` with the wrapper environment contract.
+- Prepends `${MCORE_ADAPTER_DIR}` to `PYTHONPATH_PREFIX` when that directory exists, while preserving LLamaFactory `src` in the prefix.
+- Records `MCORE_ADAPTER_DIR` and `PYTHONPATH_PREFIX` in the manifest environment/preflight fields.
+- Adds a `USE_MCA=1` import gate before LLamaFactory train invocation.
+- If `mcore_adapter` is not importable, exits early with explicit instruction to use a local/provided dependency bundle and not remote GitHub/fetch/download dependency staging on GPU/LTP nodes.
+- Preserves PR57 wrapper/env contract for `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`.
+- Preserves `/home/xu.yang/coding_agent_playground/outputs` output-root behavior.
+- Provides future runtime bundle requirements: local/provided `mcore_adapter` provenance, file list, bundle sha256, transfer command, destination, remote sha256 verification, `MCORE_ADAPTER_DIR`, and Python import check result.
+
+## Dev_1 Static Checks
+
+Commands run locally in dev_4 worktree:
+
+```bash
+bash -n scripts/train_qwen3_8b_sft.sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m py_compile scripts/write_sft_run_manifest.py
+PYTHONDONTWRITEBYTECODE=1 python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q
+```
+
+Results:
+
+```text
+bash -n scripts/train_qwen3_8b_sft.sh: exit 0
+python3 -m py_compile scripts/write_sft_run_manifest.py: exit 0
+python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q: 3 passed in 0.01s
+```
+
+## Remaining Retry Conditions
+
+`PASS_FOR_PM_RETRY` here means the PR #59 mcore fix is acceptable for PM retry gating. It does not mean eval handoff or checkpoint readiness.
+
+Before any new runtime, the runtime owner evidence should still record:
+
+- PR #59 merged/completion-marked source commit selected by PM.
+- Local/provided `mcore_adapter` dependency source provenance.
+- `mcore_adapter` file list and bundle checksum.
+- Exact transfer command, destination, and post-transfer checksum verification.
+- `MCORE_ADAPTER_DIR` used by the SFT wrapper.
+- Python import check result for `mcore_adapter`.
+- `/home/xu.yang/coding_agent_playground/outputs` paths for generated outputs/logs/checkpoints/run metadata/intermediates.
+- Structured preflight PASS and `SFT_ALLOWED=true` before SFT.
+- SFT result, checkpoint/model or exact blocker, and stop/no-running-job proof.
 
 ## Decision
 
-`BLOCKER_MISSING_DEV4_MCORE_FIX_PACKAGE`
+`PASS_FOR_PM_RETRY`
 
-Dev_2 final runtime evidence cleanly identifies the active blocker as missing `mcore_adapter` while `USE_MCA=1`. Transfer, storage, preflight, conditional SFT, and stop proof are sufficient for classifying the runtime failure. PM should wait for `dev_4_s23_pr57_mcore_fix.md` and then request a refreshed dev_1/test_1 gate before authorizing any retry.
+PR #59 fixes the reviewed mcore blocker at the wrapper/launch gate level without weakening prior transfer, storage, preflight, SFT, or stop-proof gates. The next retry still requires PM authorization and runtime evidence that the local/provided `mcore_adapter` bundle was transferred and verified without remote project/dependency downloads on the GPU/LTP node.

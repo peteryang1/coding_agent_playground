@@ -5,230 +5,137 @@ Gate owner: `intern_code_test_1`
 Runtime owner: `intern_code_dev_2`
 Fix owner: `intern_code_dev_4`
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr57_mcore_gate.md`
-Status timestamp: `2026-05-21T16:11:26Z`
+Status timestamp: `2026-05-21T16:20:08Z`
 
 ## Result
 
-`BLOCKED_MISSING_DEV4_MCORE_FIX_PACKAGE`
+`PASS_FOR_PM_RETRY`
 
-No LTP, GPU, preflight, SFT, eval, dry-run, transfer command, remote command, or parser execution was run by `intern_code_test_1`.
+No LTP, GPU, preflight, SFT, eval, dry-run, transfer command, remote command, parser execution, or PR code execution was run by `intern_code_test_1`.
 
-The PR57 runtime reached a new blocker after the prior PR57 wrapper fix: `mcore_adapter` is required when `USE_MCA=1`. A future retry is not gateable until dev_4 provides a no-execution fix package or PR and PM/dev_1/test_1 gate it.
+This is a no-execution PM retry gate only. It does not authorize a new runtime by itself. Fresh PM authorization remains required after PR #59 is merged and completion-marked.
 
 ## Inputs Reviewed
 
 - `evidence/pm_s23_pr57_preflight_sft_authorization.md`
 - `evidence/dev_2_s23_pr57_preflight_sft_runtime.md`
 - `evidence/gpu_s23_pr57_preflight_sft_tracking.md`
-- `evidence/dev_4_s23_pr57_launch_support.md`
-- `evidence/dev_1_s23_pr57_runtime_review.md`
-- `evidence/test_2_s23_pr57_eval_ready.md`
+- `evidence/dev_4_s23_pr57_mcore_fix.md`
+- PR #59: `https://github.com/peteryang1/coding_agent_playground/pull/59`
+- PM-named functional head: `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`
+- Fetched PR head observed by test_1: `6b92490d0e9db32da3380a38ada27d75ed529970`
 
-Missing fix input:
-
-- no concrete dev_4 mcore fix package or PR evidence was present in the PM durable evidence path at this check.
-
-## Runtime Gate Findings
-
-### Authorization / No-Execution Boundary
-
-PASS for reviewed runtime scope.
-
-PM authorized exactly one dev_2 runtime using:
+GitHub metadata reviewed by test_1:
 
 ```text
-task: M1-S23-PR57-PREFLIGHT-SFT-RUNTIME-DEV2
+state: OPEN
+draft: false
+mergeable: MERGEABLE
+merge_state_status: CLEAN
+```
+
+Diff from `92e437cf690b68121b9ad9d2f76b18a60a10a2d6` to `6b92490d0e9db32da3380a38ada27d75ed529970` changes only task/evidence/status/history files. The functional source changes are in `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`.
+
+## Runtime Findings Retained
+
+The prior PR57 runtime remains blocked for model/eval output:
+
+```text
+runtime task: M1-S23-PR57-PREFLIGHT-SFT-RUNTIME-DEV2
 source commit: b4ac31ef1e3772953108348bf099818326ed65cc
-PR57 merge commit: c450429c2e3369adc723d132396399cd17dba684
-PR58 completion merge commit: b4ac31ef1e3772953108348bf099818326ed65cc
-eval authorized: false
-```
-
-test_1 did not run any runtime command.
-
-### Transfer / No-External-Network Proof
-
-PASS for current evidence.
-
-dev_2 records local/provided-workspace preparation and no remote project code/dependency staging network use:
-
-```text
-source repository: /work-agents/intern_code_dev_4/coding_agent_playground
-detached worktree: /tmp/cap_s23_pr57_20260521T155200Z_b4ac31ef1e3772953108348bf099818326ed65cc
-commit: b4ac31ef1e3772953108348bf099818326ed65cc
-worktree status: clean
-file list count: 122
-bundle sha256: 1393a6c155e265bce6ee99e9507aaae75c3b04c958c2acf1f9760557a14d2baa
-dataset sha256: 26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2
-```
-
-Transfer command was recorded as `scp -P 22662 ... root@10.100.22.31:/root/workspace/`, with post-transfer bundle checksum, critical-file checksums, file count, and dataset checksum verified.
-
-dev_2 records no remote `git clone`, `git fetch`, GitHub/source fetch, or project/dependency download for project code/dependency staging on the GPU node.
-
-### Storage / Artifacts
-
-PASS.
-
-Generated runtime artifacts are under `/home/xu.yang/coding_agent_playground/outputs`:
-
-```text
-preflight dir: /home/xu.yang/coding_agent_playground/outputs/preflight/milestone1_qwen3_8b_s23_pr57_preflight_sft_20260521T155200Z
-train run dir: /home/xu.yang/coding_agent_playground/outputs/runs/train/milestone1_qwen3_8b_s23_pr57_sft_20260521T155200Z
-checkpoint/output dir: /home/xu.yang/coding_agent_playground/outputs/training_summary/sft_output/milestone1_qwen3_8b_s23_pr57_sft_20260521T155200Z
-stdout/stderr log: /home/xu.yang/coding_agent_playground/outputs/runs/train/milestone1_qwen3_8b_s23_pr57_sft_20260521T155200Z/logs/train_stdout_stderr.log
-xtrace log: /home/xu.yang/coding_agent_playground/outputs/runs/train/milestone1_qwen3_8b_s23_pr57_sft_20260521T155200Z/logs/train_xtrace.log
-run manifest: /home/xu.yang/coding_agent_playground/outputs/runs/train/milestone1_qwen3_8b_s23_pr57_sft_20260521T155200Z/run_manifest.json
-runtime config: /home/xu.yang/coding_agent_playground/outputs/runs/train/milestone1_qwen3_8b_s23_pr57_sft_20260521T155200Z/config/qwen3_8b_sft.yaml
-final summary: /home/xu.yang/coding_agent_playground/outputs/runs/train/milestone1_qwen3_8b_s23_pr57_sft_20260521T155200Z/final_artifact_summary.txt
-```
-
-Storage proof:
-
-```text
-/mnt/cephfs mount: fuse.ceph-fuse
-/home/xu.yang: /mnt/cephfs/home/xu.yang
-capacity probe: PASS_AND_CLEANED, 25769803776 bytes written and removed
-```
-
-### Preflight / SFT Conditional Rule
-
-PASS.
-
-Durable preflight result:
-
-```text
-PREFLIGHT_RESULT=PASS
-PREFLIGHT_STRUCTURED_STATUS=PASS
-ACTIONABLE_FAULT=false
-SFT_ALLOWED=true
-SFT_ALLOWED_IF_PM_AUTHORIZED=true
-TORCH_NCCL_ALLREDUCE_EXIT=0
-CAPACITY_PROBE_STATUS=PASS
-DIFFERENT_NODE_GATE=PASS
-HOME_XU_YANG_STORAGE_STATUS=PASS
-TOPOLOGY_CAPTURE_STATUS=PRESENT
-NVLINK_CAPTURE_STATUS=PRESENT
-torch all-reduce: ALLREDUCE_OK
-```
-
-SFT was run exactly once after preflight PASS and `SFT_ALLOWED=true`, matching PM authorization.
-
-### SFT Runtime Blocker
-
-BLOCKED.
-
-SFT config evidence:
-
-```text
-base model: /mnt/3fs/data/ai4ai/models/ws_20260422_2156_qwen3-8b_1bench_61f6
-dataset: coding_agent_m1_sft_10_sharegpt
-preprocessing_num_workers: null
-dataloader_num_workers: 0
-max_steps: 2
-save_steps: 2
-save_total_limit: 1
-tensor_model_parallel_size: 8
-```
-
-Final failure:
-
-```text
-EXIT_STATUS=1
-END_UTC=2026-05-21T16:03:28Z
-ImportError: mcore_adapter is required when USE_MCA=1. Please install `mcore_adapter` and its dependencies.
-torch.distributed.elastic.multiprocessing.errors.ChildFailedError
-/root/workspace/coding_agent_playground/code/LLamaFactory/src/llamafactory/launcher.py FAILED
-local_rank: 7 exitcode 1
-```
-
-The launcher initialized 8 distributed tasks before the import failure, then exited before training/checkpoint creation.
-
-Gate classification:
-
-`BLOCKED_PR57_RUNTIME_MISSING_MCORE_ADAPTER_USE_MCA`
-
-### Checkpoint / Model / Eval
-
-PASS for expected absence under the runtime blocker; eval handoff remains blocked.
-
-Reviewed current state:
-
-```text
-checkpoint files: none
-checkpoint/model: absent
-trainer_state.json: absent
-all_results.json: absent
-served endpoint/model id: absent
-eval: not authorized and not run
-```
-
-No checkpoint/model/eval artifact exists for mini-swe.
-
-### Stop / No-Running-Job Proof
-
-PASS.
-
-dev_2 records:
-
-```text
 frame: xu.yang~coding-agent-playground-m1-s23-pr57-preflight-sft-20260521T155200Z
 endpoint: ssh -p 22662 root@10.100.22.31
 node: lg-cmc-b7r202-q04u06-h200-000725
-stop command: python3 /work-agents/axrd/workspace/.skill_sources/intern_agent_skills/intern_ltp_skill/scripts/ltp.py stop xu.yang~coding-agent-playground-m1-s23-pr57-preflight-sft-20260521T155200Z
-post-stop state: STOPPED (Completed)
-completed: 2026-05-21 16:06:06
-endpoint proof: ssh refused connection after stop
-no-running-job proof: ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground => No jobs found
+preflight: PASS
+SFT_ALLOWED: true
+SFT attempt count: 1 of 1 authorized
+SFT exit: EXIT_STATUS=1, END_UTC=2026-05-21T16:03:28Z
+runtime blocker: ImportError: mcore_adapter is required when USE_MCA=1
+checkpoint/model: absent
+trainer_state.json: absent
+all_results.json: absent
+eval: not authorized and not run
+stop proof: STOPPED (Completed), endpoint refused, no running coding-agent-playground job
 ```
 
-## dev_4 Fix Package Gate
-
-BLOCKED.
-
-Current dev_4 evidence `dev_4_s23_pr57_launch_support.md` is standby/support evidence written before the concrete PR57 mcore blocker. It records PR57/PR58 landed state and no-execution boundary, but it does not provide a fix for:
+Transfer/no-network/storage findings remain accepted:
 
 ```text
-ImportError: mcore_adapter is required when USE_MCA=1
-USE_MCA=1 runtime path
+source bundle sha256: 1393a6c155e265bce6ee99e9507aaae75c3b04c958c2acf1f9760557a14d2baa
+source file count: 122
+dataset sha256: 26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2
+transfer method: scp to root@10.100.22.31:/root/workspace/
+post-transfer verification: bundle sha256 OK, critical files OK, file count OK, dataset sha256 OK
+remote project source/dependency network: no remote git clone/fetch/GitHub/source/dependency download recorded
+output root: /home/xu.yang/coding_agent_playground/outputs
+capacity probe: PASS_AND_CLEANED, 25769803776 bytes written and removed
 ```
 
-Required dev_4 fix package must cover one PM-approved path:
+## PR #59 MCore Fix Gate
 
-1. Provide `mcore_adapter` and required dependencies through local/provided workspace packaging and transfer only, with checksums and no remote project/dependency downloads on the GPU node.
-2. Or explicitly disable/select away from MCA with a supported config/env path, explaining why non-MCA is valid for this milestone smoke and preserving tensor-parallel/training acceptance.
-3. Preserve PR57 wrapper contract for `DEP_TARGET`, `LF`, `LLAMAFACTORY_CLI`, manifest/log/xtrace/diagnostics, and `/home/xu.yang/coding_agent_playground/outputs`.
-4. Include static/source checks or precise no-execution review evidence.
-5. State no LTP/GPU/preflight/SFT/eval was run by dev_4.
+PASS.
 
-## Future Retry Acceptance Criteria
+Reviewed functional commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6` for:
 
-Before PM can authorize another runtime:
+```text
+scripts/train_qwen3_8b_sft.sh
+scripts/write_sft_run_manifest.py
+tests/test_train_qwen3_8b_sft_static.py
+```
 
-1. dev_4 mcore/USE_MCA fix package or PR exists.
-2. dev_1/test_1 gates the fix as `PASS_FOR_PM_RETRY`.
-3. dev_2 records no active prior job and fresh PM authorization names owner, commit/package, allocation count, and scope.
-4. Source/config/scripts/data/dependency bundles are prepared locally/provided workspace, checksummed, transferred by `scp`, `rsync`, or tar-over-SSH, and post-transfer verified.
-5. Remote GPU/LTP node does not run project source/dependency clone/fetch/download.
-6. `/home/xu.yang/coding_agent_playground/outputs` remains the generated-artifact root.
-7. Structured preflight must be `PASS` with `SFT_ALLOWED=true` before SFT.
-8. SFT logs must show the mcore blocker absent and no regression to prior blockers.
-9. Eval handoff requires complete checkpoint/model plus `trainer_state.json` and `all_results.json`, or PM-approved replacements, plus stop proof.
+The patch covers the `mcore_adapter` / `USE_MCA=1` blocker without adding remote dependency downloads:
+
+- Adds `MCORE_ADAPTER_DIR="${MCORE_ADAPTER_DIR:-${REPO_ROOT}/code/mcore_adapter}"`.
+- Exports `MCORE_ADAPTER_DIR` with the existing wrapper environment contract.
+- Builds `PYTHONPATH_PREFIX` from `LLAMAFACTORY_DIR/src` and prepends `MCORE_ADAPTER_DIR` when that directory exists.
+- Records `MCORE_ADAPTER_DIR` in logs.
+- Records `MCORE_ADAPTER_DIR` and `PYTHONPATH_PREFIX` in `run_manifest.json`.
+- Records `MCORE_ADAPTER_DIR` in the manifest launch command.
+- When `USE_MCA=1`, runs a Python import gate for `mcore_adapter` before LLamaFactory training launch.
+- If the import gate fails, exits early with explicit instructions to provide `mcore_adapter` via local/provided dependency bundle, not remote clone/fetch/download.
+- Leaves non-MCA fallback unselected, which is correct for this gate because changing away from MCA would alter the backend/parallelism path and needs separate PM/dev_1/test_1 approval.
+
+Static evidence reported by dev_4:
+
+```text
+bash -n scripts/train_qwen3_8b_sft.sh: exit 0
+python3 -m py_compile scripts/write_sft_run_manifest.py: exit 0
+python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q: 3 passed in 0.01s
+```
+
+test_1 did not run these commands; test_1 reviewed durable evidence and source diff only.
+
+## Required Future Runtime Conditions
+
+PM can consider a fresh retry only after PR #59 is merged and completion-marked, with a separate PM authorization. The next runtime must prove:
+
+1. `mcore_adapter` source/tree or package is prepared in a local/provided workspace before remote use.
+2. Dependency provenance, file list, and checksum are recorded locally.
+3. Dependency bundle is transferred by `scp`, `rsync`, or tar-over-SSH.
+4. Remote post-transfer verification records sha256, destination, and `MCORE_ADAPTER_DIR`.
+5. Remote GPU/LTP node does not run project source/dependency `git clone`, `git fetch`, GitHub/source download, pip download, or equivalent external dependency retrieval.
+6. `MCORE_ADAPTER_DIR` points to the transferred local/provided dependency location.
+7. `USE_MCA=1` import gate records `mcore_adapter import OK for USE_MCA=1` before SFT starts.
+8. `/home/xu.yang/coding_agent_playground/outputs` remains the generated output/log/tmp/checkpoint/run-metadata/intermediate root.
+9. Structured preflight is `PASS` with `SFT_ALLOWED=true` before SFT.
+10. SFT logs show no regression to prior blockers, including `DEP_TARGET: unbound variable`, missing dataset info, `KeyError: 'from'`, ENOSPC, dataset-map SyncManager EOF, NCCL/NVLink peer-memory failure, preflight parser false positive, or `mcore_adapter is required when USE_MCA=1`.
+11. Eval handoff remains blocked until a complete checkpoint/model plus `trainer_state.json` and `all_results.json`, or PM-approved replacements, exist with stop proof.
 
 ## Completion Marker
 
 ```yaml
 task_id: M1-S23-PR57-MCORE-GATE-TEST1
 owner: intern_code_test_1
-result: BLOCKED_MISSING_DEV4_MCORE_FIX_PACKAGE
-runtime_blocker: BLOCKED_PR57_RUNTIME_MISSING_MCORE_ADAPTER_USE_MCA
-preflight_pass_durable: true
-sft_attempt_authorized_and_conditionally_valid: true
-checkpoint_model_present: false
-trainer_state_json_present: false
-all_results_json_present: false
+result: PASS_FOR_PM_RETRY
+pr: 59
+pm_named_functional_head: 92e437cf690b68121b9ad9d2f76b18a60a10a2d6
+observed_pr_head: 6b92490d0e9db32da3380a38ada27d75ed529970
+mcore_adapter_use_mca_fix: PASS
+no_remote_dependency_download_rule_preserved: true
+checkpoint_model_present_current_runtime: false
+trainer_state_json_present_current_runtime: false
+all_results_json_present_current_runtime: false
 eval_handoff: BLOCKED_NO_MODEL
-stop_proof_complete: true
-dev4_fix_package_present: false
+fresh_pm_authorization_required: true
 no_ltp_gpu_preflight_sft_eval_by_test1: true
 ```

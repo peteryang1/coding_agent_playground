@@ -72,6 +72,13 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - PR55 wrapper fix package is gate-ready for owner self-merge: dev_4 opened PR #57, dev_1/test_1 both recorded `PASS_FOR_PM_RETRY`, and GitHub reports PR #57 open/non-draft `MERGEABLE` / `CLEAN`. PM gate is owner self-merge only; no runtime is authorized.
 - No PM -> secretary peer message is needed; this report, status, blockers, task registry, and evidence files are the durable reporting channel.
 
+## 2026-05-21 Session 23 PR59 MCore Gate
+
+- PR #59 `M1-S23 PR57 launch support and mcore adapter fix` is open, non-draft, `MERGEABLE` / `CLEAN`; latest observed head is `b0b54279bcf87add7e617b0c08686c40fac41b48`.
+- dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY` for the PR #59 mcore fix package.
+- PM gate decision: notify dev_4 to owner self-merge PR #59 and mark `M1-S23-PR57-MCORE-FIX-DEV4` complete. This is not a runtime authorization.
+- Next runtime remains blocked until PR #59 is merged/completion-marked and PM separately authorizes dev_2. Future runtime must include local/provided `mcore_adapter` bundle provenance, file list, checksum, exact transfer command, post-transfer verification, no remote source/dependency downloads, `/home/xu.yang` outputs, and successful `mcore_adapter` import gate before SFT.
+
 ## 2026-05-21 Session 22 PR #45 Re-Gate Update
 
 - Dev_4 pushed PR #45 gate-fix commits after prior dev_1/test_1 blockers.

@@ -1,6 +1,6 @@
 # Milestone 1 Task Registry
 
-<!-- METADATA:STATUS=Open,SESSION=22 -->
+<!-- METADATA:STATUS=Open,SESSION=23 -->
 
 This registry is the PM gate index for task -> PR -> merge -> task-complete flow.
 
@@ -13,6 +13,11 @@ This registry is the PM gate index for task -> PR -> merge -> task-complete flow
 5. When an owner self-merges a PR, that owner must mark the task complete in the task README/status or this registry, update their own `status.md`, update history/evidence if needed, push, and merge the completion record.
 
 Routine status and completion proof stay in durable files. Do not peer-send PM for routine task confirmation.
+
+## Session 23 Current Gate Addendum
+
+- `M1-S23-PR57-MCORE-FIX-DEV4`: PR #59 is open/non-draft `MERGEABLE` / `CLEAN`, latest observed head `b0b54279bcf87add7e617b0c08686c40fac41b48`, functional patch commit `92e437cf690b68121b9ad9d2f76b18a60a10a2d6`. dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`. PM gate passes for dev_4 owner self-merge only; no LTP/GPU/preflight/SFT/eval/runtime retry is authorized by this PR gate.
+- Future runtime gate after PR #59 merge/completion: create a separate dev_2 owner task requiring local/provided `mcore_adapter` source/package provenance, file list, checksum, exact transfer command, destination, post-transfer verification, `MCORE_ADAPTER_DIR`, `mcore_adapter` import-check proof, no remote source/dependency downloads, `/home/xu.yang/coding_agent_playground/outputs`, structured preflight PASS, and `SFT_ALLOWED=true` before SFT.
 
 ## Active Tasks
 
