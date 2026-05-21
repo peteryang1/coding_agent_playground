@@ -984,3 +984,12 @@
 - SFT did not run by contract; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists; eval remains blocked and unauthorized.
 - dev_2 stopped/released the frame at `2026-05-21T14:30:11Z`; final state `STOPPED (Completed)`, completed `2026-05-21 14:30:42`; endpoint refused after stop; `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned `No jobs found`.
 - PM created no-execution follow-up tasks for all owners: dev_4 parser/runtime fix package, dev_1 review, test_1 gate, dev_2 resource recovery, dev_3 data confirmation, and test_2 eval re-block. No fresh LTP/GPU/preflight/SFT/eval retry is authorized.
+
+## 2026-05-21 Session 23 PR #55 Gate Pass
+
+- dev_4 opened PR #55 for `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4`; GitHub reports open/non-draft `MERGEABLE` / `CLEAN`.
+- Functional patch commit `6c959e89a75ce162076292ad6d6c317f421cd45f` adds preflight-level all-reduce success context across torch/NCCL/allreduce artifacts, limited to the `NCCL_ASYNC_ERROR_HANDLING` deprecation-warning exception; dev_4 reports `py_compile` and pytest `4 passed`.
+- Later PR #55 head `ee10fead593aa5a3d2a3eebdbf6cee5e643bfdde` differs from dev_1/test_1 reviewed head only in docs/evidence status wording; no parser/test functional files changed after `6c959e89`.
+- dev_1 refreshed `M1-S23-PR53-PREFLIGHT-BLOCKER-REVIEW-DEV1` to `PASS_FOR_PM_RETRY`.
+- test_1 refreshed `M1-S23-PR53-PREFLIGHT-BLOCKER-GATE-TEST1` to `PASS_FOR_PM_RETRY`.
+- PM decision: PR #55 passes owner self-merge gate for dev_4 only. This does not authorize LTP/GPU/preflight/SFT/eval. PM injected dev_4 to self-merge PR #55 and mark `M1-S23-PR53-PREFLIGHT-PARSER-RUNTIME-FIX-DEV4` complete in durable task/status/history/evidence.

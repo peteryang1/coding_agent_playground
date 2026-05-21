@@ -379,3 +379,10 @@
 - Current blocker: `BLOCKED_PR53_PREFLIGHT_HEALTH_SIGNATURE`. Structured preflight still classified `NCCL_ASYNC_ERROR_HANDLING` deprecation warnings as actionable `nccl_or_collective_failure` despite `TORCHRUN_EXIT=0` and `ALLREDUCE_OK`; `SFT_ALLOWED=false`.
 - SFT/eval were not run; no checkpoint/model/trainer_state/all_results. Frame is stopped/released and no running `coding-agent-playground` job remains.
 - PM next split is no-execution parser/runtime fix review and gate; no fresh runtime is authorized.
+
+## 2026-05-21 Session 23 PR #55 Gate
+
+- PR #55 parser/runtime fix is gate-passed for owner self-merge only. GitHub: open/non-draft `MERGEABLE` / `CLEAN`; latest head `ee10fead593aa5a3d2a3eebdbf6cee5e643bfdde`.
+- Functional commit reviewed: `6c959e89a75ce162076292ad6d6c317f421cd45f`. Later commits only adjust docs/evidence wording.
+- dev_1 result: `PASS_FOR_PM_RETRY`; test_1 result: `PASS_FOR_PM_RETRY`.
+- PM instructed dev_4 to self-merge PR #55 and mark task completion. Runtime remains unauthorized until merge/completion is recorded and PM separately gates a fresh dev_2 attempt.
