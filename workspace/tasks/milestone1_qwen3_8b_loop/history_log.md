@@ -750,3 +750,11 @@
 - The parser excludes generated command/process/evidence/summary text from actionable matching, records ignored matches for audit, and preserves detection for real Xid/ECC/NVLink/NCCL invalid peer memory/SIGABRT/collective failures.
 - Opened PR #45 `https://github.com/peteryang1/coding_agent_playground/pull/45`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 - No LTP/GPU/SFT/eval/dry-run launch command was run.
+
+## Session 38 - Dev 4 PR #45 Gate Fix Update - 2026-05-21
+
+- PM gate result for PR #45 was NOT READY.
+- Addressed dev_1 blocker `BLOCKER_ECC_FALSE_NEGATIVE_RISK_IN_PR45`: ECC parsing now treats fatal ECC as actionable and detects nonzero uncorrected ECC counters without being suppressed by unrelated standalone zero tokens such as GPU 0 or timestamp fields.
+- Addressed test_1 blocker `BLOCKED_STRUCTURED_FIELDS_AND_STORAGE_STATUS`: parser output now includes stable top-level `preflight_result`, `health_result`, `non_actionable_matches`, `torch_nccl_allreduce_exit`, `capacity_probe_status`, `different_node_gate`, `home_xu_yang_storage_status`, `topology_capture_status`, `nvlink_capture_status`, `sft_allowed`, and `sft_skip_reason`.
+- `/home/xu.yang/coding_agent_playground/outputs` storage status is emitted and blocks `sft_allowed` when the parsed preflight root is outside that path.
+- No LTP/GPU/SFT/eval/dry-run/runtime command was run.

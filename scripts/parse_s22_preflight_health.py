@@ -73,11 +73,21 @@ ECC_RE = re.compile(
     r"(?:fatal\s+)?ECC|uncorrected|volatile.*uncorrect|aggregate.*uncorrect",
     re.IGNORECASE,
 )
-NONZERO_RE = re.compile(r"\b[1-9][0-9]*\b")
+FATAL_ECC_RE = re.compile(r"fatal.*ECC|ECC.*fatal", re.IGNORECASE)
+UNCORRECTED_ECC_RE = re.compile(r"uncorrect(?:ed|able)|volatile.*uncorrect|aggregate.*uncorrect", re.IGNORECASE)
+ECC_COUNTER_RE = re.compile(
+    r"(?:uncorrect(?:ed|able)|volatile.*uncorrect|aggregate.*uncorrect|ECC[^:\n]*error[^:\n]*)"
+    r"[^0-9\n-]*(\d+)",
+    re.IGNORECASE,
+)
+NONZERO_COUNTER_RE = re.compile(r"\b[1-9][0-9]*\b")
 NVLINK_RE = re.compile(r"NVLink", re.IGNORECASE)
 NVLINK_BAD_RE = re.compile(r"down|inactive|fail|fatal|crc|replay|error", re.IGNORECASE)
 TORCHRUN_EXIT_RE = re.compile(r"\bTORCHRUN_EXIT\s*=\s*(\d+)\b")
 PREFLIGHT_RESULT_RE = re.compile(r"\bPREFLIGHT_RESULT\s*=\s*([A-Z0-9_]+)\b")
+DIFFERENT_NODE_RE = re.compile(r"PASS_DIFFERENT_PHYSICAL_NODE|different-node[^:\n]*:\s*PASS", re.IGNORECASE)
+
+EXPECTED_OUTPUT_ROOT = Path("/home/xu.yang/coding_agent_playground/outputs")
 
 
 @dataclass(frozen=True)
@@ -112,6 +122,26 @@ def read_lines(path: Path) -> list[str]:
         return [f"<read_error:{exc}>"]
 
 
+def has_ecc_fault(line: str) -> bool:
+    if not ECC_RE.search(line):
+        return False
+    if FATAL_ECC_RE.search(line):
+        return True
+
+    match = UNCORRECTED_ECC_RE.search(line)
+    if not match:
+        return False
+
+    # Only numbers tied to the ECC/uncorrected field are counters. This avoids
+    # false negatives from unrelated zeros in prefixes such as GPU 0 or timestamps.
+    suffix = line[match.start() :]
+    counters = [int(value) for value in ECC_COUNTER_RE.findall(suffix)]
+    if counters:
+        return any(value > 0 for value in counters)
+
+    return bool(NONZERO_COUNTER_RE.search(suffix))
+
+
 def line_faults(line: str, source_name: str) -> list[str]:
     lowered = source_name.lower()
     faults: list[str] = []
@@ -125,7 +155,7 @@ def line_faults(line: str, source_name: str) -> list[str]:
         faults.append("torch_child_failed")
     if NCCL_FAILURE_RE.search(line) and "NCCL INFO" not in line:
         faults.append("nccl_or_collective_failure")
-    if ECC_RE.search(line) and NONZERO_RE.search(line) and not re.search(r"\b0\b", line.strip()):
+    if has_ecc_fault(line):
         faults.append("ecc_nonzero_or_fatal")
     if NVLINK_RE.search(line) and NVLINK_BAD_RE.search(line):
         if not re.search(r"(?:error|replay|crc)[^0-9]{0,24}0\b", line, re.IGNORECASE):
@@ -166,6 +196,15 @@ def infer_artifact_checks(root: Path, files: list[Path]) -> dict[str, dict[str, 
             "status": "INFO_ONLY",
             "evidence": [name for name in names if "process" in name.lower()],
         },
+        "different_node_gate": {
+            "status": "UNKNOWN",
+            "evidence": [],
+        },
+        "home_xu_yang_storage": {
+            "status": storage_status(root),
+            "expected_root": str(EXPECTED_OUTPUT_ROOT),
+            "preflight_dir": str(root),
+        },
     }
 
     for path in files:
@@ -173,6 +212,9 @@ def infer_artifact_checks(root: Path, files: list[Path]) -> dict[str, dict[str, 
         if re.search(r"capacity.*PASS|PASS_AND_CLEANED", text, re.IGNORECASE):
             checks["capacity"]["status"] = "PASS"
             checks["capacity"]["source"] = rel(path, root)
+        if DIFFERENT_NODE_RE.search(text):
+            checks["different_node_gate"]["status"] = "PASS"
+            checks["different_node_gate"]["evidence"] = [*checks["different_node_gate"]["evidence"], rel(path, root)]
         match = TORCHRUN_EXIT_RE.search(text)
         if match:
             checks["torch_nccl"]["status"] = "PASS" if match.group(1) == "0" else "FAIL"
@@ -186,6 +228,40 @@ def infer_artifact_checks(root: Path, files: list[Path]) -> dict[str, dict[str, 
                 "note": "Recorded for audit only; parser status comes from allowlisted actionable sources.",
             }
     return checks
+
+
+def storage_status(root: Path) -> str:
+    try:
+        root.relative_to(EXPECTED_OUTPUT_ROOT)
+        return "PASS"
+    except ValueError:
+        return "FAIL_OUTSIDE_HOME_XU_YANG_OUTPUTS"
+
+
+def top_level_compatibility_fields(
+    *,
+    status: str,
+    checks: dict[str, dict[str, object]],
+    ignored_matches: list[dict[str, object]],
+) -> dict[str, object]:
+    torch_exit = checks.get("torch_nccl", {}).get("exit_code")
+    sft_allowed = status == "PASS"
+    return {
+        "preflight_result": status,
+        "health_result": {
+            "status": status,
+            "actionable_fault": status == "FAIL_HEALTH_SIGNATURE",
+        },
+        "non_actionable_matches": ignored_matches,
+        "torch_nccl_allreduce_exit": torch_exit,
+        "capacity_probe_status": checks.get("capacity", {}).get("status", "UNKNOWN"),
+        "different_node_gate": checks.get("different_node_gate", {}).get("status", "UNKNOWN"),
+        "home_xu_yang_storage_status": checks.get("home_xu_yang_storage", {}).get("status", "UNKNOWN"),
+        "topology_capture_status": checks.get("topology", {}).get("status", "UNKNOWN"),
+        "nvlink_capture_status": checks.get("nvlink", {}).get("status", "UNKNOWN"),
+        "sft_allowed": sft_allowed,
+        "sft_skip_reason": "" if sft_allowed else status,
+    }
 
 
 def parse(root: Path) -> dict[str, object]:
@@ -221,6 +297,8 @@ def parse(root: Path) -> dict[str, object]:
         for key in ("topology", "nvlink", "torch_nccl")
         if checks.get(key, {}).get("status") in {"MISSING", "UNKNOWN"}
     ]
+    if checks.get("home_xu_yang_storage", {}).get("status") != "PASS":
+        missing_required.append("home_xu_yang_storage")
 
     if actionable_faults or checks.get("torch_nccl", {}).get("status") == "FAIL":
         status = "FAIL_HEALTH_SIGNATURE"
@@ -229,7 +307,7 @@ def parse(root: Path) -> dict[str, object]:
     else:
         status = "PASS"
 
-    return {
+    result = {
         "schema_version": "s22_preflight_health_v1",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "preflight_dir": str(root),
@@ -267,6 +345,10 @@ def parse(root: Path) -> dict[str, object]:
             ],
         },
     }
+    result.update(top_level_compatibility_fields(status=status, checks=checks, ignored_matches=ignored_matches))
+    if status != "PASS" and not result["sft_skip_reason"]:
+        result["sft_skip_reason"] = "preflight_not_passed"
+    return result
 
 
 def main() -> int:
@@ -288,9 +370,18 @@ def main() -> int:
     if args.out_text:
         reasons = "; ".join(str(item) for item in result["decision"]["reason"])
         Path(args.out_text).write_text(
+            f"PREFLIGHT_RESULT={result['preflight_result']}\n"
             f"PREFLIGHT_STRUCTURED_STATUS={result['status']}\n"
             f"ACTIONABLE_FAULT={str(result['actionable_fault']).lower()}\n"
+            f"SFT_ALLOWED={str(result['sft_allowed']).lower()}\n"
             f"SFT_ALLOWED_IF_PM_AUTHORIZED={str(result['decision']['sft_allowed_if_pm_authorized']).lower()}\n"
+            f"SFT_SKIP_REASON={result['sft_skip_reason']}\n"
+            f"TORCH_NCCL_ALLREDUCE_EXIT={result['torch_nccl_allreduce_exit']}\n"
+            f"CAPACITY_PROBE_STATUS={result['capacity_probe_status']}\n"
+            f"DIFFERENT_NODE_GATE={result['different_node_gate']}\n"
+            f"HOME_XU_YANG_STORAGE_STATUS={result['home_xu_yang_storage_status']}\n"
+            f"TOPOLOGY_CAPTURE_STATUS={result['topology_capture_status']}\n"
+            f"NVLINK_CAPTURE_STATUS={result['nvlink_capture_status']}\n"
             f"REASON={reasons}\n",
             encoding="utf-8",
         )
