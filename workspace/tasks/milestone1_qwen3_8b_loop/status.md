@@ -271,3 +271,11 @@
 - PM did not run LTP, SFT, GPU, remote workspace code, or eval commands.
 - Runtime outcome: dev_2 completed the one authorized post-PR39 attempt and stop proof. The run produced PR #39 diagnostics and failed before training/checkpoint save with `datasets.map(num_proc=4)` / `SyncManager EOFError`; no checkpoint/model, `trainer_state.json`, or `all_results.json` exists; LTP reached `STOPPED (Completed)`.
 - PM opened the no-execution dataset-map EOF fix chain: dev_4 single-process config/launcher package, dev_3 data confirmation, dev_1 review, test_1 gate, dev_2 no-active-resource readiness, and test_2 eval blocked. No new runtime authorization is open.
+
+## 2026-05-21 Session 22 PR #41 Gate
+
+- PM gated PR #41 for `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` as `PASS_OWNER_SELF_MERGE_ONLY`.
+- Gate basis: PR #41 head `fc0b6062664e3eb5283e89c22a152427ca47fc3c` is open, non-draft, `MERGEABLE` / `CLEAN`; dev_1 and test_1 both record `PASS_FOR_PM_RETRY`; dev_3 confirms no ShareGPT content/schema change is needed.
+- Accepted scope: force the 10-row ShareGPT smoke away from `datasets.map(num_proc=4)` multiprocessing by using in-process/single-process preprocessing, preserve PR #39 diagnostics, and keep SFT intermediates under `/home/xu.yang/coding_agent_playground/outputs`.
+- PM instructed dev_4 by tmux inject to self-merge PR #41 as owner and then mark the task completion record. This gate does not authorize LTP, SFT, GPU, eval, dry-run launch, or a runtime retry.
+- Current milestone blocker remains absence of a complete SFT checkpoint/model plus `trainer_state.json`/`all_results.json`; mini-swe eval remains blocked until PM gates a model/checkpoint or served endpoint.

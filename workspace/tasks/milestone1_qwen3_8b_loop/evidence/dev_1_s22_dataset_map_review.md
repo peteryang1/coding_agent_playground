@@ -7,12 +7,11 @@ Execution boundary: no remote experiments, SFT, GPU, or eval run by dev_1.
 
 ## Result
 
-`BLOCKED_MISSING_DEV4_DEV3_PACKAGES`
+`PASS_FOR_PM_RETRY`
 
-dev_1 can confirm the new runtime blocker facts from durable evidence, but cannot issue `PASS_FOR_PM_RETRY` until the assigned no-execution fix inputs exist:
+dev_1 refreshed the review after PR #41, dev_4 single-process package, and dev_3 data confirmation became available. No remaining dev_1 blocker found for PM retry authorization.
 
-- Missing: `evidence/dev_4_s22_dataset_map_singleproc_fix.md`
-- Missing: `evidence/dev_3_s22_dataset_map_data_confirm.md`
+`PASS_FOR_PM_RETRY` means dev_1 finds the PR #41 single-process preprocessing package and dev_3 data confirmation coherent for PM to decide on the next runtime gate. It does not itself authorize SFT/GPU/eval. Any future runtime still needs explicit PM authorization, resource readiness, and test gate approval.
 
 ## Inputs Reviewed
 
@@ -20,13 +19,30 @@ dev_1 can confirm the new runtime blocker facts from durable evidence, but canno
 - `evidence/gpu_s22_postpatch_runtime_tracking.md`
 - `evidence/pm_s22_dataset_map_eof_gate.md`
 - `evidence/test_1_s22_postpatch_sft_runtime_gate.md`
+- `evidence/dev_4_s22_dataset_map_singleproc_fix.md`
+- `evidence/dev_3_s22_dataset_map_data_confirm.md`
+- PR #41: `https://github.com/peteryang1/coding_agent_playground/pull/41`
 - `task_registry.md`
 
-Checked for package inputs:
+PR #41 metadata checked with `gh pr view 41 --repo peteryang1/coding_agent_playground --json ...`:
 
 ```text
-/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_dataset_map_singleproc_fix.md: MISSING
-/work-agents/intern_code_pm/coding_agent_playground/workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_3_s22_dataset_map_data_confirm.md: MISSING
+state: OPEN
+draft: false
+mergeable: MERGEABLE
+merge_state: CLEAN
+head: intern_code_dev_4/M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4
+head_commit: fc0b6062664e3eb5283e89c22a152427ca47fc3c
+title: M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4
+body execution boundary: No LTP/SFT/GPU/eval or dry-run launch was performed.
+```
+
+Static no-execution checks run locally:
+
+```text
+git show origin/pr-41:scripts/train_qwen3_8b_sft.sh | bash -n
+python compile() of origin/pr-41:scripts/write_sft_run_manifest.py
+result: syntax_ok
 ```
 
 ## Confirmed Runtime Facts
@@ -45,28 +61,11 @@ Confirmed from dev_2/test_1/PM evidence:
 - Runtime artifacts are preserved under `/home/xu.yang/coding_agent_playground/outputs` on CephFS.
 - `/home/xu.yang` resolved to `/mnt/cephfs/home/xu.yang`.
 - Capacity probe under `/home/xu.yang/coding_agent_playground/outputs/capacity_probes/...` wrote and cleaned `25769803776` bytes.
-- PR39 diagnostics worked and produced:
-  - `preflight.json`
-  - `config/qwen3_8b_sft.yaml`
-  - `run_manifest.json`
-  - `logs/train_stdout_stderr.log`
-  - `logs/train_xtrace.log`
-  - `early_exit_diagnostics.txt`
-  - `exit_status.txt`
-- Run manifest records:
-  - `dataset_name: coding_agent_m1_sft_10_sharegpt`
-  - train sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`
-  - PR39 merge commit
-  - save policy and preflight log/xtrace/diagnostic paths.
-- Generated config records:
-  - `dataset: coding_agent_m1_sft_10_sharegpt`
-  - `output_dir` under `/home/xu.yang/coding_agent_playground/outputs`
-  - `max_steps: 2`
-  - `save_steps: 2`
-  - `save_total_limit: 1`
-  - `tensor_model_parallel_size: 8`
+- PR39 diagnostics worked and produced `preflight.json`, generated config, run manifest, stdout/stderr log, xtrace log, early-exit diagnostics, and exit status.
+- Run manifest records `dataset_name: coding_agent_m1_sft_10_sharegpt`, train sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`, PR39 merge commit, save policy, and preflight log/xtrace/diagnostic paths.
+- Generated config records `dataset: coding_agent_m1_sft_10_sharegpt`, output dir under `/home/xu.yang/coding_agent_playground/outputs`, `max_steps: 2`, `save_steps: 2`, `save_total_limit: 1`, and `tensor_model_parallel_size: 8`.
 
-## Current Failure Signature
+## Runtime Failure Signature
 
 The authorized post-PR39 run failed before training and before checkpoint save:
 
@@ -95,41 +94,65 @@ Old failure signatures are absent in durable evidence:
 - Checkpoint save failure: not reached.
 - Training step progress: not reached.
 
-## Expected Review Criteria When Packages Exist
+## PR #41 Gate Review
 
-dev_4 single-process preprocessing package must show, without running SFT/GPU/eval:
+Functional diff reviewed from `origin/main...origin/pr-41`:
 
-- The future config/launcher forces single-process dataset preprocessing for the 10-row smoke, for example `preprocessing_num_workers: 1` or an accepted equivalent that avoids `datasets.map(num_proc=4)`.
-- PR #39 diagnostics remain preserved: stdout/stderr log, xtrace, ERR/EXIT diagnostics, preflight JSON, runtime config copy, run manifest, and exit status.
-- `/home/xu.yang/coding_agent_playground/outputs` remains the default for outputs, logs, checkpoints, run metadata, temporary converted datasets, capacity probes, and intermediates.
-- Dataset name remains `coding_agent_m1_sft_10_sharegpt`.
-- Exact future command/config path and expected post-run PASS/FAIL artifacts are recorded.
+```text
+configs/train/qwen3_8b_s21_sharegpt_tp8_maxsteps2_finalsave.yaml
+scripts/train_qwen3_8b_sft.sh
+scripts/write_sft_run_manifest.py
+workspace/interns/intern_code_dev_4/status.md
+workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_dataset_map_singleproc_fix.md
+workspace/tasks/milestone1_qwen3_8b_loop/history_log.md
+workspace/tasks/milestone1_qwen3_8b_loop/task_knowledge.md
+workspace/tasks/milestone1_qwen3_8b_loop/task_registry.md
+```
 
-dev_3 data confirmation must show, without running SFT/GPU/eval:
+Gate findings:
 
-- Source artifact remains `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`.
-- Source sha256 remains `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
-- Row count remains `10`.
-- ShareGPT schema remains `messages[*].from/value` with provenance fields preserved.
-- The new `SyncManager EOFError` is not evidence of content/schema corruption, or it records an exact data-side blocker if dev_3 finds one.
-- Any future staging/copy/temp dataset path uses `/home/xu.yang` or records an explicit required-path exception.
+- PASS: PR #41 cites task `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4`, owner `intern_code_dev_4`, acceptance criteria, evidence path, and completion marker.
+- PASS: PR #41 is open, non-draft, and GitHub reports `MERGEABLE` / `CLEAN`.
+- PASS: config forces single-process/in-process preprocessing for the 10-row ShareGPT smoke:
+  - `preprocessing_num_workers: null`
+  - `dataloader_num_workers: 0`
+- PASS: config preserves dataset name `coding_agent_m1_sft_10_sharegpt`.
+- PASS: config preserves `/home/xu.yang/coding_agent_playground/outputs` output path.
+- PASS: wrapper preserves PR39 diagnostics: stdout/stderr log, xtrace file, ERR/EXIT diagnostics, preflight JSON, runtime config copy, run manifest, and exit status.
+- PASS: wrapper preserves `/home/xu.yang/coding_agent_playground/outputs` defaults for output root, run dir, checkpoint dir, tmpdir, logs, xtrace, and diagnostics.
+- PASS: wrapper supports optional `PREPROCESSING_NUM_WORKERS` override, but the reviewed template already sets `preprocessing_num_workers: null`; generated runtime config should keep null unless a future owner explicitly overrides it.
+- PASS: manifest writer records `preflight.preprocessing_num_workers` from the generated runtime config and records `PREPROCESSING_NUM_WORKERS` from the environment, making future runtime proof auditable.
+- PASS: dev_4 evidence states no LTP/SFT/GPU/eval or dry-run launch was run for the package.
+
+## dev_3 Data Confirmation Review
+
+- PASS: dev_3 confirms no ShareGPT content/schema change is needed for this blocker.
+- PASS: source artifact remains `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`.
+- PASS: source sha256 remains `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
+- PASS: row count remains 10.
+- PASS: ShareGPT contract remains `messages[*].from/value` with provenance fields preserved.
+- PASS: future staging/copy/tmp data artifacts must use `/home/xu.yang` unless explicitly justified.
 
 ## Current Blockers
 
-No `PASS_FOR_PM_RETRY` from dev_1 yet.
-
-Exact blockers:
-
-1. `MISSING_DEV4_SINGLEPROC_FIX_PACKAGE`: `evidence/dev_4_s22_dataset_map_singleproc_fix.md` is absent, so dev_1 cannot verify the proposed config/launcher change to single-process dataset preprocessing.
-2. `MISSING_DEV3_DATA_CONFIRMATION`: `evidence/dev_3_s22_dataset_map_data_confirm.md` is absent, so dev_1 cannot verify whether the ShareGPT data artifact needs no content/schema change for this blocker.
+None from dev_1 no-execution review.
 
 ## Completion Marker
 
 ```yaml
 task_id: M1-S22-DATASET-MAP-REVIEW-DEV1
 owner: intern_code_dev_1
-result: BLOCKED_MISSING_DEV4_DEV3_PACKAGES
+result: PASS_FOR_PM_RETRY
 runtime_blocker_confirmed: BLOCKED_POSTPATCH_RUNTIME_DATASET_MAP_EOF
+pr_41_head: fc0b6062664e3eb5283e89c22a152427ca47fc3c
+pr_41_mergeable: true
+single_process_preprocessing_forced: true
+preprocessing_num_workers: null
+dataloader_num_workers: 0
+pr39_diagnostics_preserved: true
+home_xu_yang_paths_preserved: true
+dev3_data_confirmation_present: true
+data_content_schema_change_needed: false
 old_keyerror_from_absent: true
 enospc_absent: true
 checkpoint_model_present: false
@@ -137,8 +160,6 @@ trainer_state_present: false
 all_results_present: false
 ltp_stopped_completed: true
 endpoint_refused_after_stop: true
-missing_inputs:
-  - evidence/dev_4_s22_dataset_map_singleproc_fix.md
-  - evidence/dev_3_s22_dataset_map_data_confirm.md
+missing_inputs: []
 no_remote_experiments_sft_gpu_eval_by_dev1: true
 ```

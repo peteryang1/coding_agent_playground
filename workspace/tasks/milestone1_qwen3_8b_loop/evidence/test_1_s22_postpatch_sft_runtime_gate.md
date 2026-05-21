@@ -4,11 +4,13 @@ Task under gate: `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2`
 Owner under gate: `intern_code_dev_2`
 Test owner: `intern_code_test_1`
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_postpatch_sft_runtime_gate.md`
-Status timestamp: `2026-05-21T09:36:00Z`
+Status timestamp: `2026-05-21T09:49:15Z`
 
 ## Result
 
-`BLOCKED_FINAL_RUNTIME`
+Current runtime result: `BLOCKED_FINAL_RUNTIME`
+
+PR #41 no-execution retry gate result: `PASS_FOR_PM_RETRY`
 
 No SFT, GPU command, LTP action, or eval was run by `intern_code_test_1`.
 
@@ -19,6 +21,61 @@ No SFT, GPU command, LTP action, or eval was run by `intern_code_test_1`.
 - Required dev_2 runtime evidence is present:
   - `evidence/dev_2_s22_postpatch_sft_runtime.md`
   - `evidence/gpu_s22_postpatch_runtime_tracking.md`
+
+## PR #41 Single-Process Fix Gate
+
+Result: `PASS_FOR_PM_RETRY`
+
+PR metadata checked:
+
+```text
+PR: https://github.com/peteryang1/coding_agent_playground/pull/41
+title: M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4
+state: OPEN
+draft: false
+mergeable: MERGEABLE
+merge_state_status: CLEAN
+head: fc0b6062664e3eb5283e89c22a152427ca47fc3c
+task_id: M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4
+owner: intern_code_dev_4
+```
+
+Scope and execution boundary:
+
+- PASS: PR body cites task id, owner, acceptance criteria, evidence path, and completion marker.
+- PASS: PR body and dev_4 evidence state no LTP/SFT/GPU/eval or dry-run launch was performed.
+- PASS: This gate is no-execution only. It does not authorize SFT/GPU/eval; it only clears the config/package for PM retry consideration.
+
+Single-process preprocessing fix:
+
+- PASS: The ShareGPT smoke config now documents the post-PR39 failure and sets `preprocessing_num_workers: null`.
+- PASS: The same config sets `dataloader_num_workers: 0`.
+- PASS: This directly addresses the observed `BLOCKED_POSTPATCH_RUNTIME_DATASET_MAP_EOF` failure surface from `datasets.map(num_proc=4)` / `SyncManager EOFError` for a 10-row smoke.
+- PASS: `scripts/train_qwen3_8b_sft.sh` keeps `PREPROCESSING_NUM_WORKERS` as an optional runtime override and rewrites the generated runtime config before manifest creation and launch if PM/dev_2 deliberately sets that variable.
+- PASS: `scripts/write_sft_run_manifest.py` records `preflight.preprocessing_num_workers` from the generated runtime config and records `PREPROCESSING_NUM_WORKERS` from the environment, so future runtime evidence can prove whether the retry used the intended single-process setting.
+
+PR39 diagnostics preservation:
+
+- PASS: PR #41 preserves the PR39 wrapper diagnostics contract: durable stdout/stderr log, xtrace log, ERR/EXIT diagnostics, exit status, preflight JSON, runtime config copy, and run manifest.
+- PASS: The wrapper still writes diagnostics before fragile runtime work and keeps the non-`exec` training launch behavior so exit traps can record status.
+
+Storage path gate:
+
+- PASS: The required storage path is `/home/xu.yang`, not `/home.xu.yang`.
+- PASS: PR #41 preserves `OUTPUT_ROOT="${OUTPUT_ROOT:-/home/xu.yang/coding_agent_playground/outputs}"`.
+- PASS: Default `RUN_DIR`, `CHECKPOINT_DIR`, `TMPDIR`, log, xtrace, diagnostics, preflight, manifest, and runtime config paths remain under `/home/xu.yang/coding_agent_playground/outputs`.
+- PASS: The future retry gate must continue to fail any output, temporary converted dataset, checkpoint, run metadata, capacity probe, or intermediate path outside `/home/xu.yang` unless it is an explicitly justified existing required input.
+
+ShareGPT/data preservation:
+
+- PASS: Dataset remains `coding_agent_m1_sft_10_sharegpt`.
+- PASS: dev_4 evidence preserves the accepted source dataset `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl` and sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
+- PASS: No data regeneration or schema conversion is introduced by PR #41.
+
+Remaining condition:
+
+- Eval handoff remains blocked. There is still no checkpoint/model, `trainer_state.json`, or `all_results.json` from the last runtime.
+- PM retry authorization is still a separate decision. If PM authorizes a new SFT runtime, post-run PASS still requires complete checkpoint/model, `trainer_state.json`, `all_results.json` or PM-accepted replacement, preserved PR39 diagnostics, `/home/xu.yang` artifacts, stop proof, and absence of old and new failure signatures.
 
 ## Post-Run Findings
 
@@ -185,11 +242,16 @@ The post-run gate must verify all of the following from durable evidence only:
 ```yaml
 task_under_gate: M1-S22-POSTPATCH-SFT-RUNTIME-DEV2
 test_owner: intern_code_test_1
-result: BLOCKED_FINAL_RUNTIME
+result: PASS_FOR_PM_RETRY
+current_runtime_result: BLOCKED_FINAL_RUNTIME
+pr41_gate_result: PASS_FOR_PM_RETRY
+pr41_head: fc0b6062664e3eb5283e89c22a152427ca47fc3c
 runtime_blocker: BLOCKED_POSTPATCH_RUNTIME_DATASET_MAP_EOF
 exit_status: 1
 pr39_diagnostics_complete: true
 home_xu_yang_outputs_preserved: true
+single_process_preprocessing_fix_present: true
+preprocessing_num_workers_expected: null
 checkpoint_model_present: false
 trainer_state_present: false
 all_results_present: false
@@ -198,7 +260,7 @@ enospc_absent: true
 ltp_stopped_completed: true
 endpoint_refused_after_stop: true
 eval_handoff_allowed: false
-next_gate_recommendation: no_execution_config_fix_for_single_process_dataset_conversion_then_dev1_test1_regate
+next_gate_recommendation: pm_may_consider_one_retry_after_required_resource_gate_and_any_pm_required_reviews
 home_xu_yang_required: true
 sft_gpu_eval_executed_by_test1: false
 ```

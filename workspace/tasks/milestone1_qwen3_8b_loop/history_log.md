@@ -809,6 +809,7 @@
 - PM authorized only `intern_code_dev_2` for one post-patch ShareGPT-fixed SFT smoke. Required output/intermediate root is `/home/xu.yang/coding_agent_playground/outputs`; required next result is checkpoint/model or fresh exact runtime blocker with stop proof. PM did not run LTP/SFT/GPU/eval.
 - Dev_2 completed the one authorized post-PR39 runtime and stop proof. PR #39 diagnostics produced preflight/config/manifest/xtrace/diagnostics/exit_status; SFT failed with `EXIT_STATUS=1` before training/checkpoint save at `datasets.map(num_proc=4)` / `SyncManager EOFError`; no checkpoint/model, `trainer_state.json`, or `all_results.json`; LTP reached `STOPPED (Completed)`.
 - PM created no-execution next tasks for dataset-map EOF: dev_4 single-process config/launcher fix, dev_3 data confirmation, dev_1 review, test_1 gate, dev_2 no-active-resource readiness, and test_2 eval blocked. No new runtime authorization is open.
+- PM gated PR #41 for `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` at head `fc0b6062664e3eb5283e89c22a152427ca47fc3c`; dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`, dev_3 confirmed no data content/schema change, and GitHub reported PR #41 open/non-draft `MERGEABLE` / `CLEAN`. PM gate passes for owner self-merge only. No LTP/SFT/GPU/eval/dry-run launch or runtime retry is authorized.
 
 ## 2026-05-21 Session 21 Dev 2 Gate Refresh
 

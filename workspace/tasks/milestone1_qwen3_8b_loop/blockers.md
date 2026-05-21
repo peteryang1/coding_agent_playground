@@ -33,6 +33,8 @@
 - PR #39 merge blocker resolved: dev_4 self-merged PR #39 at `2026-05-21T09:17:15Z`, merge commit `4a6c2968e1290d30415460b464eee638110958bc`. PM opened task `M1-S22-POSTPATCH-SFT-RUNTIME-DEV2` and authorized only dev_2 for one post-patch runtime attempt.
 - Current active blocker is runtime outcome, not authorization: dev_2 must produce either a complete checkpoint/model or fresh exact runtime blocker. All SFT intermediates must be under `/home/xu.yang/coding_agent_playground/outputs`; mini-swe remains blocked until PM gates a model/checkpoint or served endpoint.
 - Runtime outcome blocker: dev_2 produced a fresh exact runtime blocker with stop proof. PR #39 diagnostics worked, but SFT failed before training at `datasets.map(num_proc=4)` / `SyncManager EOFError`; no checkpoint/model, `trainer_state.json`, or `all_results.json`; LTP `STOPPED (Completed)`. Next blocker is no-execution single-process dataset preprocessing fix/gate. No new GPU/SFT/eval is authorized.
+- PR #41 gate state: the no-execution single-process dataset preprocessing fix now passes PM gate for owner self-merge only. Dev_4 must self-merge PR #41 and mark `M1-S22-DATASET-MAP-SINGLEPROC-FIX-DEV4` complete before PM can consider a separate runtime authorization. This gate does not authorize LTP/SFT/GPU/eval/dry-run.
+- Current post-PR41 runtime blocker: no complete checkpoint/model, `trainer_state.json`, or `all_results.json` exists. After PR #41 is merged and completion-marked, the next possible progress item is a fresh PM-gated dev_2 runtime/resource authorization using `/home/xu.yang/coding_agent_playground/outputs`, not PM-run execution.
 
 ## Active
 
