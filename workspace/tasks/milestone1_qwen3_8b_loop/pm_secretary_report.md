@@ -82,6 +82,7 @@ Final workspace machine verified: `ssh -p 31787 root@10.100.194.40`.
 - PR59 runtime reached a fresh exact blocker rather than a checkpoint: transfer/import/preflight all passed, but the single SFT attempt exited `127` because `LLAMAFACTORY_CLI` was a space-containing command string executed as one quoted path. The frame is stopped/released and no active coding-agent-playground GPU job remains. Next owner task is dev_4 no-execution launcher fix plus dev_1/test_1 gates; no fresh runtime is authorized yet.
 - PR #61 launcher fix is now gate-passed for dev_4 owner self-merge only: dev_1/test_1 both `PASS_FOR_PM_RETRY`, GitHub `MERGEABLE` / `CLEAN`, head `d4f3340d1f7b32d91553cbe18d7effce533276c7`. No runtime is authorized by this PR gate.
 - PR #61 and completion PR #62 are now merged. PM authorized only dev_2 for one fresh post-PR61 runtime under `M1-S23-PR61-PREFLIGHT-SFT-RUNTIME-DEV2`; eval remains unauthorized and PM will not run remote/LTP/SFT commands personally.
+- PR61 runtime reached a new exact blocker: transfer/import/preflight passed and one SFT attempt ran, but it failed before checkpoint with `ValueError: Please provide model_name_or_path`; no checkpoint/model/trainer_state/all_results/eval exists. PR61 CLI fix was verified because `LLAMAFACTORY_CMD` was parsed and `launcher.py` was reached. The frame is stopped/released with no running coding-agent-playground job. PM assigned no-execution follow-ups; no fresh runtime is authorized.
 
 ## 2026-05-21 Session 22 PR #45 Re-Gate Update
 

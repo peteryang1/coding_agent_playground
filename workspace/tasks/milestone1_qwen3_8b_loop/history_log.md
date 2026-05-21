@@ -1070,3 +1070,14 @@
 - PM created `M1-S23-PR61-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr61_preflight_sft_authorization.md`.
 - PM authorizes only dev_2 for exactly one fresh owner-executed runtime using `origin/main` commit `713862da983f73b165af1cfe27935ccef616a049`. Eval remains unauthorized. Runtime must preserve local/provided bundle transfer, no remote source/dependency downloads, `/home/xu.yang` outputs, `mcore_adapter` import proof, structured preflight, and SFT only if `SFT_ALLOWED=true`.
 - PM committed and pushed the authorization in `37de3c3`, then injected the runtime authorization into dev_2 pane `%75` by tmux with Enter and capture verification. The captured pane showed `UserPromptSubmit hook` and `Working`, confirming the task was submitted rather than left in the input line.
+
+## 2026-05-21 Session 23 PR61 Runtime Final Blocker and Follow-Up Split
+
+- dev_2 completed exactly one authorized PR61 runtime on frame `xu.yang~coding-agent-playground-m1-s23-pr61-preflight-sft-20260521T171551Z`, endpoint `ssh -p 33089 root@10.100.22.31`, node `lg-cmc-b7r202-q04u06-h200-000725`.
+- Source/data/`mcore_adapter`/dependency bundles were prepared locally/provided, transferred to `/root/workspace`, and verified with no remote source/dependency downloads; outputs were under `/home/xu.yang/coding_agent_playground/outputs`.
+- `mcore_adapter import OK for USE_MCA=1`, structured preflight `PREFLIGHT_RESULT=PASS`, `SFT_ALLOWED=true`, and all-reduce/storage gates passed.
+- The one SFT attempt verified the PR61 CLI fix: `LLAMAFACTORY_CMD` was parsed from `LLAMAFACTORY_CLI=python3 ... launcher.py`, the previous quoted single-path `No such file or directory` signature did not recur, and execution reached `launcher.py`.
+- New blocker: `BLOCKED_PR61_RUNTIME_MCA_MODEL_NAME_OR_PATH_PARSE`. SFT exited `EXIT_STATUS=1` at `2026-05-21T17:31:39Z` with `ValueError: Please provide model_name_or_path`, despite generated runtime config containing `model_name_or_path`.
+- No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists. Eval was not authorized and was not run.
+- dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 17:32:52`; endpoint refused after stop and no running coding-agent-playground job remains.
+- PM created no-execution follow-up tasks for dev_4 MCA/model path fix, dev_1 review, test_1 gate, dev_2 recovery/readiness, dev_3 data confirmation, and test_2 eval re-block. No fresh LTP/GPU/preflight/SFT/eval retry is authorized.

@@ -15,6 +15,7 @@
 - PR #61 passed PM owner-self-merge gate after dev_1/test_1 `PASS_FOR_PM_RETRY`; GitHub open/non-draft `MERGEABLE` / `CLEAN`, head `d4f3340d1f7b32d91553cbe18d7effce533276c7`. Runtime remains unauthorized pending merge/completion and separate PM authorization.
 - PR #61 merged at `2026-05-21T17:13:17Z` and completion PR #62 merged at `2026-05-21T17:15:51Z`; PM authorized only dev_2 for one fresh post-PR61 owner-executed runtime. Eval remains unauthorized.
 - PM pushed authorization commit `37de3c3` and tmux-injected the dev_2 runtime task into pane `%75`; capture showed the prompt submitted and working.
+- PR61 runtime is stopped/released with exact blocker `BLOCKED_PR61_RUNTIME_MCA_MODEL_NAME_OR_PATH_PARSE`: transfer/import/preflight passed, PR61 CLI parsing fix was verified, one SFT attempt failed before checkpoint with `ValueError: Please provide model_name_or_path`, no trainer artifacts/eval exist, and no active coding-agent-playground GPU job remains. PM assigned no-execution follow-ups and has not authorized a fresh runtime.
 - PM did not run LTP, SFT, GPU, eval, remote workspace code, rsync/scp, or remote commands.
 
 | 字段 | 值 |
