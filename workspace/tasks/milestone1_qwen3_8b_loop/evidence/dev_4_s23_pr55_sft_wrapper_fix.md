@@ -133,18 +133,40 @@ python3 -m pytest tests/test_train_qwen3_8b_sft_static.py -q: 2 passed in 0.01s
 ```yaml
 task_id: M1-S23-PR55-SFT-WRAPPER-FIX-DEV4
 owner: intern_code_dev_4
-result: READY_FOR_PR
+result: COMPLETE
 pr: 57
 pr_url: https://github.com/peteryang1/coding_agent_playground/pull/57
-pr_state: OPEN
-pr_mergeable: MERGEABLE
-pr_merge_state_status: CLEAN
-pr_head: see GitHub PR #57 latest head; metadata commits may advance this value
+pr_state: MERGED
+pr_mergeable: MERGEABLE_AT_GATE
+pr_merge_state_status: CLEAN_AT_GATE
+pr_gate_head: b94dd93c131b9a6472919c14ae71684d71683a60
+merged_at: 2026-05-21T15:45:10Z
+merge_commit: c450429c2e3369adc723d132396399cd17dba684
 evidence_path: workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr55_sft_wrapper_fix.md
 patch_files:
   - scripts/train_qwen3_8b_sft.sh
   - tests/test_train_qwen3_8b_sft_static.py
 runtime_authorized: false
 ltp_gpu_preflight_sft_eval_dry_run_executed_by_dev4: false
-completion_marker: ready-for-review; owner self-merge requires PM gate
+completion_marker: complete
+```
+
+## PM Gate And Merge Record
+
+PM gate basis:
+
+```text
+PR #57 latest observed head: b94dd93c131b9a6472919c14ae71684d71683a60
+GitHub state at gate: open, non-draft, MERGEABLE / CLEAN
+dev_1 evidence: PASS_FOR_PM_RETRY
+test_1 evidence: PASS_FOR_PM_RETRY
+```
+
+Owner action:
+
+```text
+Self-merged PR #57 at 2026-05-21T15:45:10Z.
+Merge commit: c450429c2e3369adc723d132396399cd17dba684.
+Task completion marker: complete.
+Runtime boundary: wrapper fix only; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run or authorized.
 ```

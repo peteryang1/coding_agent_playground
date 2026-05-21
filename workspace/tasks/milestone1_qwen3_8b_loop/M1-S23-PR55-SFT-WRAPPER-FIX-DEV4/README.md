@@ -1,12 +1,12 @@
 # M1-S23-PR55-SFT-WRAPPER-FIX-DEV4
 
-<!-- METADATA:STATUS=InProgress,ASSIGNEE=intern_code_dev_4 -->
+<!-- METADATA:STATUS=Completed,ASSIGNEE=intern_code_dev_4 -->
 
 Owner: `intern_code_dev_4`
 
 Evidence: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr55_sft_wrapper_fix.md`
 
-PR: #57 `https://github.com/peteryang1/coding_agent_playground/pull/57` (open, non-draft, `MERGEABLE` / `CLEAN` when checked after branch push)
+PR: #57 `https://github.com/peteryang1/coding_agent_playground/pull/57` (merged at `2026-05-21T15:45:10Z`, merge commit `c450429c2e3369adc723d132396399cd17dba684`)
 
 Acceptance:
 
@@ -18,4 +18,4 @@ Acceptance:
 - Include static/unit evidence if code changes.
 - Do not run LTP/GPU/preflight/SFT/eval/dry-run/runtime.
 
-Completion marker: ready-for-review after no-execution wrapper fix package and PR are opened; complete only after PM-gated owner self-merge.
+Completion marker: complete after PM-gated owner self-merge. Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run for completion.

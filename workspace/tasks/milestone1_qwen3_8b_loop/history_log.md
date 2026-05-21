@@ -864,3 +864,11 @@
 - Wrote evidence `evidence/dev_4_s23_pr55_sft_wrapper_fix.md`.
 - Opened PR #57 `https://github.com/peteryang1/coding_agent_playground/pull/57`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 - No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+
+## Session 51 - Dev 4 PR #57 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #57 / `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4` at latest observed head `b94dd93c131b9a6472919c14ae71684d71683a60`.
+- Gate evidence: dev_1 and test_1 both recorded `PASS_FOR_PM_RETRY`; GitHub open/non-draft `MERGEABLE` / `CLEAN`.
+- Self-merged PR #57 at `2026-05-21T15:45:10Z`; merge commit `c450429c2e3369adc723d132396399cd17dba684`.
+- Task `M1-S23-PR55-SFT-WRAPPER-FIX-DEV4` is complete as a wrapper env fix.
+- Runtime remains separately PM-gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
