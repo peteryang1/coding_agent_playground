@@ -132,3 +132,11 @@
 - Current blocker: PR55 SFT wrapper env failure. The authorized PR55 runtime passed preflight, then failed immediately with `environment: DEP_TARGET: unbound variable`; no checkpoint/model/trainer_state/all_results/eval exists and the resource is stopped/released.
 - PR #57 wrapper fix is PM-gated for dev_4 owner self-merge only. Runtime retry remains unauthorized until PR #57 is merged/completion-marked and PM separately authorizes dev_2.
 - Remote runtime staging prevention: all future GPU/LTP runtime work must avoid remote GitHub clone/fetch/download. A retry is not gateable unless owner evidence includes local/provided-workspace source preparation, exact commit/file list/checksums, exact `rsync`/`scp`/tar-over-SSH transfer command, destination, and post-transfer verification.
+
+## 2026-05-21 Session 23 PR57 Final Runtime Blocker
+
+- Current blocker: `BLOCKED_PR57_RUNTIME_MISSING_MCORE_ADAPTER_STOPPED_NO_CHECKPOINT`.
+- Cleared gates: local/provided bundle prep, source/data/dependency transfer and checksums, `/home/xu.yang` storage/capacity, structured preflight PASS, `SFT_ALLOWED=true`, torch all-reduce PASS, and stop/no-running-job proof.
+- Exact SFT failure: `ImportError: mcore_adapter is required when USE_MCA=1`; SFT exited before checkpoint/model creation.
+- Missing artifacts: checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, and mini-swe eval output.
+- No fresh runtime/eval authorization exists. Next required work is no-execution dependency/MCA launch fix package and review/gate.
