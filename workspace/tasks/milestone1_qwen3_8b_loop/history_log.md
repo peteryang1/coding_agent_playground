@@ -1125,3 +1125,13 @@
 - Final blocker is `BLOCKED_PR63_DIFFERENTNODE_RUNTIME_NCCL_NVLINK_PEER_MEMORY`. No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists. Eval was not authorized and was not run.
 - dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 18:43:25`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
 - No fresh LTP/GPU/preflight/SFT/eval retry is authorized without a new PM gate.
+
+## 2026-05-21 Session 23 PR63 Alternate-Node Placement Blocker
+
+- dev_2 completed exactly one authorized `M1-S23-PR63-ALTNODE-PREFLIGHT-SFT-RUNTIME-DEV2` bounded alternate-node allocation attempt.
+- LTP frame `xu.yang~coding-agent-playground-m1-s23-pr63-altnode-preflight-sft-20260521T181207Z` started on endpoint `ssh -p 31316 root@10.100.18.14`, assigned node `lg-cmc-b7r202-k07u06-h200-000580`.
+- Placement failed because the assigned node matched a forbidden node. Forbidden nodes for this task were `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`.
+- Per PM contract, dev_2 stopped/released before source/data/dependency transfer, `/home/xu.yang` capacity probing, mcore import, structured preflight, SFT, or eval. No checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, or eval artifact exists.
+- dev_2 stopped/released the frame; final state `STOPPED (Completed)`, completed `2026-05-21 18:53:18`; endpoint refused after stop and `ltp.py list --user xu.yang --state RUNNING --keyword coding-agent-playground` returned no jobs.
+- This consumed the one authorized alternate-node attempt.
+- PM classifies this as placement/resource scheduling blocker, not code/data/launcher/package blocker, and authorizes only dev_2 for one fresh bounded placement retry under `M1-S23-PR63-PLACEMENTRETRY2-PREFLIGHT-SFT-RUNTIME-DEV2`. Forbidden nodes remain `lg-cmc-b7r202-k07u06-h200-000580` and `lg-cmc-b7r202-q04u06-h200-000725`; eval remains unauthorized.
