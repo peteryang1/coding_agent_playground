@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=17 -->
+<!-- METADATA:SESSION=18 -->
 
 ## Knowledge Entries
 
@@ -37,3 +37,5 @@
 31. PR55 wrapper fix gate rule: test_1 result is `BLOCKED_MISSING_DEV4_WRAPPER_FIX` until `evidence/dev_4_s23_pr55_sft_wrapper_fix.md` exists and proves the wrapper/export strategy covers `DEP_TARGET` without weakening `/home/xu.yang`, no-remote-source/dependency-network, manifest/logging, and future runtime acceptance guarantees.
 32. PR57 wrapper fix gate fact: test_1 re-gated `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1` to `PASS_FOR_PM_RETRY` after PR #57 functional head `0253ff99cb1bd595bc68bda5a7a4bf7d5983162c`; the patch defaults and exports `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`, records them in logs/manifest command, and uses configurable `LLAMAFACTORY_CLI`. Current fetched PR ref `b94dd93c131b9a6472919c14ae71684d71683a60` adds docs/status/evidence/task updates only after the functional head.
 33. PR57 retry boundary: `PASS_FOR_PM_RETRY` does not authorize runtime. Future PM authorization must still require non-forbidden node, `/home/xu.yang/coding_agent_playground/outputs` for generated artifacts, local bundle/checksum transfer, no remote source/dependency network, structured preflight PASS plus `sft_allowed=true`, no `DEP_TARGET: unbound variable` regression, checkpoint/model plus `trainer_state.json` and `all_results.json` for eval handoff, and stop proof.
+34. PR57 runtime gate fact: `M1-S23-PR57-RUNTIME-GATE-TEST1` is currently `WAITING_DEV2_PR57_RUNTIME_EVIDENCE`; PM authorized only dev_2 for one fresh runtime at `origin/main` commit `b4ac31ef1e3772953108348bf099818326ed65cc`, and eval remains unauthorized until checkpoint/model or served endpoint evidence is accepted.
+35. Session 23 no-external-network rule for PR57: all remote GPU/LTP nodes must be treated as no-external-network for project code/dependency staging. Runtime evidence is not gateable unless it shows local/provided workspace preparation, exact commit/file list/checksums, exact `rsync`/`scp`/tar-over-SSH transfer command, destination and post-transfer verification, and no remote GitHub/source/dependency clone/fetch/download.

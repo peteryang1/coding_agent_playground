@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=17 -->
+<!-- METADATA:SESSION=18 -->
 
 ## Session 1 - 2026-05-21
 
@@ -105,3 +105,9 @@
 - Re-gated `M1-S23-PR55-SFT-BLOCKER-GATE-TEST1` against PR #57 and `evidence/dev_4_s23_pr55_sft_wrapper_fix.md`.
 - Updated PM durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr55_sft_blocker_gate.md` to `PASS_FOR_PM_RETRY`: functional head `0253ff99cb1bd595bc68bda5a7a4bf7d5983162c` defaults and exports `DEP_TARGET`, `LF`, and `LLAMAFACTORY_CLI`, records them in logs/manifest command, uses configurable `LLAMAFACTORY_CLI`, preserves `/home/xu.yang/coding_agent_playground/outputs`, and adds no remote source/dependency network behavior.
 - Noted that fetched PR ref `b94dd93c131b9a6472919c14ae71684d71683a60` only changes docs/status/evidence/task files after `0253ff99cb1bd595bc68bda5a7a4bf7d5983162c`; no wrapper/test source changed. No LTP/GPU/preflight/SFT/eval/dry-run was run by `intern_code_test_1`.
+
+## Session 18 - 2026-05-21
+
+- Created `M1-S23-PR57-RUNTIME-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr57_runtime_gate.md`.
+- Current result is `WAITING_DEV2_PR57_RUNTIME_EVIDENCE`: PM authorization exists for dev_2 exactly one fresh PR57 runtime at `origin/main` commit `b4ac31ef1e3772953108348bf099818326ed65cc`, but `evidence/dev_2_s23_pr57_preflight_sft_runtime.md` and `evidence/gpu_s23_pr57_preflight_sft_tracking.md` are not present yet.
+- Recorded supervisor no-external-network rule as a hard final gate: dev_2 must prove local/provided workspace bundle preparation, exact commit/file list/checksums, exact `rsync`/`scp`/tar-over-SSH transfer command, destination, post-transfer verification, no remote project code/dependency clone/fetch/download, `/home/xu.yang` outputs, preflight PASS plus `SFT_ALLOWED`, SFT command/env if run, checkpoint/model/trainer/eval state or exact blocker, and stop/no-running-job proof. No LTP/GPU/preflight/SFT/eval/transfer/remote command was run by `intern_code_test_1`.
