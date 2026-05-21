@@ -759,3 +759,10 @@
 - `/home/xu.yang/coding_agent_playground/outputs` storage status is emitted and blocks `sft_allowed` when the parsed preflight root is outside that path.
 - Pushed PR #45 update; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 - No LTP/GPU/SFT/eval/dry-run/runtime command was run.
+
+## Session 39 - Dev 4 PR #45 PM Gate Pass - 2026-05-21
+
+- PM gate passed for PR #45 / `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`.
+- Gate facts: latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`, GitHub open/non-draft `MERGEABLE` / `CLEAN`, dev_1 `PASS_FOR_PM_RETRY`, and test_1 `PASS_FOR_PM_RETRY`.
+- Marked task completion-ready and dev status Idle before owner self-merge per playbook.
+- Runtime remains separately gated; no LTP/GPU/SFT/eval/dry-run/runtime command was run.

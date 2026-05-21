@@ -1,6 +1,6 @@
 # M1-S22-PREFLIGHT-PARSER-FIX-DEV4
 
-<!-- METADATA:STATUS=Working,SESSION=1 -->
+<!-- METADATA:STATUS=Completed,ASSIGNEE=intern_code_dev_4 -->
 
 Owner: `intern_code_dev_4`
 
@@ -16,4 +16,4 @@ Acceptance:
 - Preserve PR39 diagnostics, PR41 single-process preprocessing, PR43 NCCL env, and `/home/xu.yang` output paths.
 - Do not run LTP/GPU/SFT/eval/dry-run/runtime.
 
-Completion marker: ready-for-review; wait for PM gate before owner self-merge.
+Completion marker: complete after PM gate pass; PR #45 is owner self-merge approved. Runtime remains separately gated.

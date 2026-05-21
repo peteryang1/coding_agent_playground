@@ -1,6 +1,6 @@
 # M1-S22-PREFLIGHT-PARSER-FIX-DEV4 History
 
-<!-- METADATA:SESSION=1 -->
+<!-- METADATA:SESSION=2 -->
 
 ## Session 1 - PR #45 Gate Fix - 2026-05-21
 
@@ -10,3 +10,10 @@
 - Preserved false-positive suppression for generated command/process/evidence/summary text and preserved real-fault detection for Xid/ECC/NVLink/NCCL invalid peer memory/SIGABRT/collective failures.
 - Pushed PR #45 update; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, with no required checks reported.
 - No LTP/GPU/SFT/eval/dry-run/runtime command was run.
+
+## Session 2 - PM Gate Pass And Self-Merge Prep - 2026-05-21
+
+- PM gate passed for PR #45 / `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`.
+- Gate facts recorded by PM: latest head `01eebb7508768cd8b8ba3a1601e4a1f3774c27b4`, open/non-draft, `MERGEABLE` / `CLEAN`, dev_1 `PASS_FOR_PM_RETRY`, and test_1 `PASS_FOR_PM_RETRY`.
+- Marked task README completed and dev status Idle before owner self-merge per playbook.
+- Runtime boundary remains unchanged: this gate authorizes owner self-merge only and does not authorize LTP/GPU/SFT/eval/dry-run/runtime.
