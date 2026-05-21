@@ -325,3 +325,18 @@
 - Scope: one fresh 8 x H200 LTP allocation, preferably different from failed node `lg-cmc-b7r202-p07u16-h200-000708`; run NCCL/NVLink preflight first; run exactly one SFT smoke only if preflight passes.
 - Required generated-artifact root: `/home/xu.yang/coding_agent_playground/outputs`, including preflight logs, launch logs, temporary converted datasets, checkpoints, run metadata, and eval-ready intermediates.
 - No mini-swe eval is authorized. PM did not run LTP, GPU, NCCL preflight, SFT, eval, remote workspace code, or dry-run launch.
+
+## 2026-05-21 Session 22 NCCL Preflight Final Blocker
+
+- dev_2 completed the one authorized `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2` attempt and stop proof.
+- Fresh frame: `xu.yang~coding-agent-playground-m1-s22-nccl-preflight-sft-20260521T105525Z`; endpoint while active: `ssh -p 27402 root@10.100.24.11`; node: `lg-cmc-b7r401-a04u26-h200-000769`, different from failed post-PR41 node `lg-cmc-b7r202-p07u16-h200-000708`.
+- `/home/xu.yang/coding_agent_playground/outputs/preflight/milestone1_qwen3_8b_s22_nccl_preflight_sharegpt_tp8_maxsteps2_20260521T105525Z` preserved preflight artifacts on CephFS.
+- Capacity probe passed and cleaned; topology/NVLink evidence was captured; 8-rank torch NCCL all-reduce exited 0 with `NCCL_P2P_DISABLE` unset.
+- Final preflight marker: `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`; dev_2's evidence attributes this to broad health-scan matches over evidence/command/process/generic NVRM text.
+- Conditional SFT was correctly not run. No checkpoint/model, `trainer_state.json`, or `all_results.json` exists; no eval was run.
+- Stop proof: LTP reached `STOPPED (Completed)` with completed timestamp `2026-05-21 11:02:09`; endpoint refused connection afterward.
+- dev_1 final review result: `BLOCKER_PREFLIGHT_FAILED_NO_SFT_RUN_HEALTH_SIGNATURE_AMBIGUOUS`.
+- test_1 final gate result: `PASS_FOR_NEXT_PM_DECISION`, with eval handoff still blocked as `EVAL_HANDOFF_BLOCKED_NO_SFT_NO_CHECKPOINT`.
+- PM decision: no new LTP/GPU/NCCL preflight/SFT/eval authorization. Next no-execution task chain is parser refinement by dev_4, review by dev_1, test gate by test_1, and resource/data/eval-blocked refresh by dev_2/dev_3/test_2.
+- Follow-up evidence collected so far: dev_2 no-submit resource readiness complete, dev_3 data/package no-change confirmation complete, test_2 eval blocked/readiness complete, test_1 parser gate defined and waiting for dev_4 package, and dev_1 review is blocked only on missing dev_4 parser package.
+- Current critical path: dev_4 must finish `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` package/PR; then dev_1/test_1 must re-review/re-gate before PM can decide on any fresh preflight/SFT authorization.

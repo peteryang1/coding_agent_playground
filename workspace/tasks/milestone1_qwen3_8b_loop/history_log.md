@@ -861,3 +861,19 @@
 - Required evidence files are `evidence/dev_2_s22_nccl_preflight_sft_runtime.md`, `evidence/gpu_s22_nccl_preflight_sft_tracking.md`, and dev_2 own status.
 - Generated outputs, logs, temporary converted datasets, checkpoints, run metadata, preflight artifacts, and intermediates must remain under `/home/xu.yang/coding_agent_playground/outputs` unless a required input path is explicitly justified.
 - No mini-swe eval is authorized. PM did not run LTP, GPU, NCCL preflight, SFT, eval, remote workspace code, or dry-run launch.
+
+## 2026-05-21 Session 22 NCCL Preflight Final Evidence
+
+- Task id: `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2`.
+- dev_2 submitted fresh frame `xu.yang~coding-agent-playground-m1-s22-nccl-preflight-sft-20260521T105525Z`, endpoint `ssh -p 27402 root@10.100.24.11`, node `lg-cmc-b7r401-a04u26-h200-000769`, which passed the different-node check against failed node `lg-cmc-b7r202-p07u16-h200-000708`.
+- Preflight artifacts were preserved under `/home/xu.yang/coding_agent_playground/outputs/preflight/milestone1_qwen3_8b_s22_nccl_preflight_sharegpt_tp8_maxsteps2_20260521T105525Z` on CephFS.
+- Preflight capacity probe passed and cleaned, topology/NVLink evidence was captured, and torch 8-rank NCCL all-reduce exited 0 with `NCCL_P2P_DISABLE` unset.
+- Final preflight marker was `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`; under the PM contract, dev_2 did not run SFT.
+- No checkpoint/model, `trainer_state.json`, or `all_results.json` exists for this task because SFT was not run; no eval was run.
+- dev_2 stopped the LTP frame at `2026-05-21T11:01:38Z`; final LTP status is `STOPPED (Completed)` with completed timestamp `2026-05-21 11:02:09`; endpoint refused connection afterward.
+- Durable evidence is in `evidence/dev_2_s22_nccl_preflight_sft_runtime.md`, `evidence/gpu_s22_nccl_preflight_sft_tracking.md`, `task_registry.md`, and `workspace/interns/intern_code_dev_2/status.md`.
+- dev_1 final review result is `BLOCKER_PREFLIGHT_FAILED_NO_SFT_RUN_HEALTH_SIGNATURE_AMBIGUOUS`: the actual capacity/topology/torch-NCCL checks pass, but the durable FAIL marker must be respected because the health parser scanned overly broad evidence/command/process/generic NVRM text.
+- test_1 final gate result is `PASS_FOR_NEXT_PM_DECISION`, not eval handoff; mini-swe remains blocked as `EVAL_HANDOFF_BLOCKED_NO_SFT_NO_CHECKPOINT`.
+- PM created no-execution follow-up tasks for all six owners: dev_4 parser fix, dev_1 review, test_1 gate, dev_2 resource readiness, dev_3 data confirmation, and test_2 eval blocked refresh. No new LTP/GPU/NCCL preflight/SFT/eval attempt is authorized.
+- Follow-up no-execution evidence now present: dev_2 completed `M1-S22-PREFLIGHT-RESOURCE-READY-DEV2`; dev_3 completed `M1-S22-PREFLIGHT-DATA-CONFIRM-DEV3`; test_2 completed `M1-S22-PREFLIGHT-EVAL-BLOCKED-TEST2`; test_1 defined `M1-S22-PREFLIGHT-PARSER-GATE-TEST1`; dev_1 recorded `BLOCKER_MISSING_DEV4_PREFLIGHT_PARSER_FIX_PACKAGE`.
+- Current critical path is dev_4's `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` no-execution parser package/PR. No runtime authorization will be considered until dev_4 package exists and dev_1/test_1 refresh to PASS or exact blocker.

@@ -175,6 +175,16 @@ When an owner self-merges a PR, that owner must mark the corresponding task comp
   - `intern_code_dev_2`: task `M1-S22-DATASET-MAP-RESOURCE-DEV2`; keep GPU released and record no-active-resource/readiness only if updated. No submit without fresh PM authorization.
   - `intern_code_test_2`: keep eval blocked; no checkpoint/model or served endpoint exists.
 
+- 2026-05-21 Session 22 preflight health-parser blocker split:
+  - Runtime/preflight result: dev_2's authorized fresh different-node preflight preserved artifacts under `/home/xu.yang/coding_agent_playground/outputs`, passed capacity, topology/NVLink capture, and 8-rank torch NCCL all-reduce, but wrote `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE` after a broad scan matched evidence/command/process/generic NVRM text. SFT correctly did not run, so no checkpoint/model, `trainer_state.json`, or `all_results.json` exists. The LTP frame is stopped.
+  - No new LTP/SFT/GPU/eval retry is authorized.
+  - `intern_code_dev_4`: task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4`; prepare a no-execution parser refinement package/PR that avoids self/command/historical text false positives while preserving real Xid/ECC/NVLink/NCCL fault detection. Write `evidence/dev_4_s22_preflight_parser_fix.md`.
+  - `intern_code_dev_1`: task `M1-S22-PREFLIGHT-PARSER-REVIEW-DEV1`; review the dev_4 package and record PASS_FOR_PM_RETRY or exact blocker in `evidence/dev_1_s22_preflight_parser_review.md`.
+  - `intern_code_test_1`: task `M1-S22-PREFLIGHT-PARSER-GATE-TEST1`; gate the parser package and define next preflight/SFT acceptance in `evidence/test_1_s22_preflight_parser_gate.md`.
+  - `intern_code_dev_2`: task `M1-S22-PREFLIGHT-RESOURCE-READY-DEV2`; refresh no-submit future resource/readiness plan and no-active-GPU proof in `evidence/dev_2_s22_preflight_resource_ready.md`. Do not submit without fresh PM authorization.
+  - `intern_code_dev_3`: task `M1-S22-PREFLIGHT-DATA-CONFIRM-DEV3`; confirm no data/package change is needed and restate accepted ShareGPT dataset contract in `evidence/dev_3_s22_preflight_data_confirm.md`.
+  - `intern_code_test_2`: task `M1-S22-PREFLIGHT-EVAL-BLOCKED-TEST2`; refresh eval blocked evidence in `evidence/test_2_s22_preflight_eval_blocked.md`. Do not run eval until PM gates a checkpoint/model or served endpoint.
+
 ## PM Integration Responsibilities
 
 - Keep `status.md` updated with milestone state.

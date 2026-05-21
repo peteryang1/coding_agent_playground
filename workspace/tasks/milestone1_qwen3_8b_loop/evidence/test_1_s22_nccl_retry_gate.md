@@ -3,13 +3,140 @@
 Task ID: `M1-S22-NCCL-GATE-TEST1`
 Owner: `intern_code_test_1`
 Evidence path: `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s22_nccl_retry_gate.md`
-Status timestamp: `2026-05-21T10:41:00Z`
+Status timestamp: `2026-05-21T11:08:50Z`
 
 ## Result
 
 `PASS_FOR_PM_RETRY`
 
 No SFT, GPU command, LTP action, eval, or dry-run launch was run by `intern_code_test_1`.
+
+## Runtime Watch: M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2
+
+Current watch result: `PASS_FOR_NEXT_PM_DECISION`
+
+PM has authorized `intern_code_dev_2` only for task `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2`: one fresh single-node 8 x H200 LTP allocation, NCCL/NVLink preflight first, and exactly one SFT smoke only if preflight passes. Mini-swe eval is not authorized.
+
+Authorization checked:
+
+- Authorization file: `evidence/pm_s22_nccl_preflight_sft_authorization.md`.
+- Authorization timestamp: `2026-05-21T10:53:00Z`.
+- Decision: `AUTHORIZED_DEV2_ONLY_ONE_FRESH_DIFFERENT_NODE_PREFLIGHT_THEN_CONDITIONAL_SFT`.
+- PR #43 merged at `2026-05-21T10:47:20Z`, merge commit `2c867d3226f7ebb4962b5b173235639df8f1f9be`.
+- PR #44 merged at `2026-05-21T10:50:28Z`, merge commit `6dcdc6730debeb2fb875baaec6667cb64d09867d`.
+
+Final dev_2 evidence state:
+
+- `evidence/dev_2_s22_nccl_preflight_sft_runtime.md` records final result `BLOCKED_PREFLIGHT_FAILED_NO_SFT_RUN`.
+- `evidence/gpu_s22_nccl_preflight_sft_tracking.md` records final result `STOPPED_AFTER_PREFLIGHT_FAILURE_NO_SFT`.
+- SFT was not run because the durable preflight marker was FAIL.
+- No checkpoint/model, `trainer_state.json`, or `all_results.json` exists because SFT was not run.
+- Stop proof is present and endpoint refused after stop.
+
+### Final Preflight/SFT Gate Result
+
+`PASS_FOR_NEXT_PM_DECISION`
+
+This is not `PASS_FOR_EVAL_HANDOFF`: eval handoff remains blocked because SFT was not run and no checkpoint/model, `trainer_state.json`, or `all_results.json` exists.
+
+Final facts verified from durable evidence:
+
+- Frame: `xu.yang~coding-agent-playground-m1-s22-nccl-preflight-sft-20260521T105525Z`.
+- Endpoint while active: `ssh -p 27402 root@10.100.24.11`.
+- Fresh node: `lg-cmc-b7r401-a04u26-h200-000769`.
+- Different-node gate: PASS, not failed post-PR41 node `lg-cmc-b7r202-p07u16-h200-000708`.
+- `/home/xu.yang/coding_agent_playground/outputs` storage contract: PASS.
+- Preflight artifact root: `/home/xu.yang/coding_agent_playground/outputs/preflight/milestone1_qwen3_8b_s22_nccl_preflight_sharegpt_tp8_maxsteps2_20260521T105525Z`.
+- CephFS preserved path: `/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs/preflight/milestone1_qwen3_8b_s22_nccl_preflight_sharegpt_tp8_maxsteps2_20260521T105525Z`.
+- Capacity probe: PASS_AND_CLEANED, 4 x 6GiB writes, `25769803776` bytes verified.
+- Topology/NVLink captured: `nvidia-smi topo -m` showed NV18 between every GPU pair; `nvidia-smi nvlink --status` captured links 0-17 at 26.562 GB/s per GPU.
+- Torch NCCL substitute: `torchrun --standalone --nnodes 1 --nproc_per_node 8 torch_nccl_allreduce.py`, `TORCHRUN_EXIT=0`.
+- NCCL env evidence: `NCCL_DEBUG=INFO`, `NCCL_DEBUG_SUBSYS=INIT,GRAPH,COLL`, `NCCL_ASYNC_ERROR_HANDLING=1`, `TORCH_NCCL_ASYNC_ERROR_HANDLING=1`, `CUDA_DEVICE_MAX_CONNECTIONS=1`; `NCCL_P2P_DISABLE` unset.
+- Final preflight marker: `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`.
+- Health-signature cause recorded by dev_2: broad health scan matched evidence/command/process/generic NVRM text in preflight artifacts, including command text/process-scan copies containing searched terms.
+- SFT command executed: no.
+- SFT config/log/checkpoint path: none.
+- Stop result: `STOPPED (Completed)`, completed `2026-05-21 11:02:09`.
+- Endpoint proof after stop: `ssh -p 27402 root@10.100.24.11` refused connection.
+- Artifact preservation: preflight artifacts remain under `/home/xu.yang/coding_agent_playground/outputs/preflight/...` on CephFS.
+
+### Final Blocker And PM Decision Point
+
+Exact blocker for eval handoff:
+
+`EVAL_HANDOFF_BLOCKED_NO_SFT_NO_CHECKPOINT`
+
+Operational blocker for next PM decision:
+
+`BLOCKED_PREFLIGHT_FAILED_NO_SFT_RUN`
+
+The failure is a preflight health-parser/health-signature gate failure, not a failed SFT run. The 8-rank torch NCCL all-reduce exited 0, capacity passed, topology/NVLink was captured, and immediate post-preflight GPU/process sampling was clean, but the durable final preflight marker is FAIL. Dev_2 correctly did not run SFT under the PM contract.
+
+### Next Retry/Fix Criteria
+
+Before any future PM authorization:
+
+- Refine the preflight health parser so it does not scan its own command text, process-scan output, or copied historical evidence terms as actionable health failures.
+- Separate actionable GPU/NCCL health faults from generic/historical NVRM/NVLink initialization text.
+- Preserve failure-on-real-fault behavior for Xid, fatal ECC, NVLink link error, invalid peer GPU memory, rank SIGABRT, and NCCL collective failure.
+- Continue to require a fresh allocation, preferably a different healthy H200 node if the current allocation has been stopped.
+- Continue to require `/home/xu.yang/coding_agent_playground/outputs` for preflight/SFT artifacts.
+- Continue to require capacity probe, topology/NVLink capture, NCCL collective preflight, and a clear PASS marker before SFT.
+- Continue to forbid SFT if preflight marker is FAIL.
+- If SFT later runs, post-run eval handoff still requires complete checkpoint/model plus `trainer_state.json` and `all_results.json` or PM/test accepted replacements, PR39 diagnostics, PR41 preprocessing, stop proof, and old blocker absence.
+
+### Post-Run Decision Labels
+
+When final dev_2 evidence lands, test_1 will record exactly one of:
+
+- `PASS_FOR_EVAL_HANDOFF`: preflight passes, SFT runs and produces complete checkpoint/model plus `trainer_state.json` and `all_results.json` or accepted replacements, diagnostics/storage/stop/old-failure gates pass, and PM may decide eval handoff.
+- `PASS_FOR_NEXT_PM_DECISION`: preflight and/or runtime evidence is complete enough for PM to decide the next action, but eval handoff is not allowed, for example preflight passes but SFT exposes a fresh exact blocker, or preflight fails cleanly with complete stop/artifact proof.
+- Exact blocker: required evidence is missing, storage/diagnostics/preflight/stop proof fails, old blocker recurs, SFT runs despite failed preflight, same failed node is reused without PM acceptance, or a runtime blocker lacks reproducible evidence.
+
+### Required Preflight Gate
+
+PASS for preflight requires durable evidence of:
+
+- Fresh LTP frame/job id, node id, endpoint, `nodes.json`, submit/status commands, and start time.
+- Different-node proof against failed post-PR41 node `lg-cmc-b7r202-p07u16-h200-000708`, unless PM explicitly accepts same-node use later.
+- `/home/xu.yang/coding_agent_playground/outputs` CephFS proof and capacity/write proof.
+- Preflight root under `/home/xu.yang/coding_agent_playground/outputs/preflight/<RUN_ID>`.
+- Captured `hostname`, `nvidia-smi -L`, `nvidia-smi topo -m`, NVLink/NVSwitch health where available, and ECC/Xid/PCI/NVLink checks where available.
+- 8-rank NCCL all-reduce or equivalent NCCL collective preflight if tool is available, or exact blocker if unavailable.
+- Preflight PASS/FAIL conclusion before any SFT command starts.
+
+Preflight FAIL conditions:
+
+- Same physical node as `lg-cmc-b7r202-p07u16-h200-000708` without explicit later PM acceptance.
+- Missing/unhealthy GPU.
+- Xid, fatal ECC, NVLink link error, PCI fault, NCCL/CUDA invalid peer memory signature, rank SIGABRT, collective failure, or inability to write artifacts under `/home/xu.yang`.
+- If preflight fails, SFT must not run and dev_2 must stop/release the allocation.
+
+### Conditional SFT Gate If Preflight Passes
+
+If and only if preflight passes, SFT evidence must include:
+
+- Exact SFT command/env/config and owner boundary.
+- Runtime source includes PR #43 and PR #44 merged state, plus already-merged PR39/PR41 behavior.
+- PR39 diagnostics: stdout/stderr log, xtrace, diagnostics, exit status, preflight JSON, generated config, and run manifest.
+- PR41 preprocessing proof: generated config and manifest record `preprocessing_num_workers: null` or accepted single-process equivalent, `dataloader_num_workers: 0`, dataset `coding_agent_m1_sft_10_sharegpt`.
+- Required NCCL env evidence: `NCCL_DEBUG=INFO`, `NCCL_DEBUG_SUBSYS=INIT,GRAPH,COLL`, `NCCL_ASYNC_ERROR_HANDLING=1`, `TORCH_NCCL_ASYNC_ERROR_HANDLING=1`, and `CUDA_DEVICE_MAX_CONNECTIONS=1`.
+- No default `NCCL_P2P_DISABLE=1` unless later PM/dev_1/test_1 explicitly accepts degraded diagnostic fallback.
+- Dataset path and sha: `/root/workspace/cleaned_m1_sft_10_sharegpt/train.jsonl`, sha256 `26a93abae6f125f4c6bc8e572dd1b0e63085ac805b238128a2d66c24910c1ea2`.
+- `/home/xu.yang/coding_agent_playground/outputs` for output/log/tmp/checkpoint/run metadata/intermediate paths.
+
+### Final Artifact Acceptance
+
+`PASS_FOR_EVAL_HANDOFF` requires:
+
+- Complete checkpoint/model under `/home/xu.yang/coding_agent_playground/outputs`.
+- File listing, sizes, and checksums or equivalent integrity proof.
+- `trainer_state.json` present.
+- `all_results.json` present.
+- Stop/release proof and endpoint refused/unreachable after stop.
+- Old blocker absence: no `KeyError: from`, no missing/wrong `dataset_info`, no `datasets.map(num_proc=4)` SyncManager EOF, no ENOSPC/safetensors no-space, no early wrapper exit before diagnostics, and no recurrence of `BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY`.
+
+If any of these are absent, eval handoff remains blocked unless PM/test explicitly accepts replacement artifacts.
 
 ## Refresh Against Current Inputs
 
@@ -271,12 +398,25 @@ Remaining before any actual execution:
 
 Eval handoff remains blocked because the latest runtime has no checkpoint/model, no `trainer_state.json`, and no `all_results.json`.
 
+Current runtime watch status for `M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2` is `PASS_FOR_NEXT_PM_DECISION`: dev_2 produced complete preflight/stop evidence and correctly did not run SFT after `PREFLIGHT_RESULT=FAIL_HEALTH_SIGNATURE`. Eval handoff remains blocked.
+
 ## Completion Marker
 
 ```yaml
 task_id: M1-S22-NCCL-GATE-TEST1
 owner: intern_code_test_1
 result: PASS_FOR_PM_RETRY
+runtime_watch_result: PASS_FOR_NEXT_PM_DECISION
+runtime_task: M1-S22-NCCL-PREFLIGHT-SFT-RUNTIME-DEV2
+runtime_frame: xu.yang~coding-agent-playground-m1-s22-nccl-preflight-sft-20260521T105525Z
+runtime_node: lg-cmc-b7r401-a04u26-h200-000769
+different_node_gate: PASS
+preflight_result: FAIL_HEALTH_SIGNATURE
+torch_nccl_allreduce_exit_0: true
+capacity_probe_pass: true
+sft_run: false
+runtime_operational_blocker: BLOCKED_PREFLIGHT_FAILED_NO_SFT_RUN
+eval_handoff_status: EVAL_HANDOFF_BLOCKED_NO_SFT_NO_CHECKPOINT
 runtime_blocker_to_resolve: BLOCKED_POSTPR41_RUNTIME_NCCL_NVLINK_PEER_MEMORY
 fresh_pm_authorization_required: true
 pr43_head: 5f4d14a12aa8044a429d1110757ed631a7bc9833
@@ -289,9 +429,13 @@ pr39_diagnostics_required: true
 pr41_preprocessing_num_workers_required: null
 home_xu_yang_outputs_required: true
 checkpoint_model_required: true
+checkpoint_model_present: false
 trainer_state_required: true
+trainer_state_present: false
 all_results_required: true
+all_results_present: false
 stop_proof_required: true
+stop_proof_present: true
 old_failure_absence_required: true
 eval_handoff_allowed_now: false
 sft_gpu_eval_executed_by_test1: false
