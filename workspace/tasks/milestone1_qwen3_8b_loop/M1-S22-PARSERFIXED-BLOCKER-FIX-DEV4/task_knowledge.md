@@ -6,3 +6,4 @@
 2. Historical Xid/SXid entries need freshness classification instead of blanket suppression; fresh or timestamp-unknown Xid/SXid remains actionable.
 3. `/home/xu.yang/coding_agent_playground/outputs` may resolve to `/mnt/cephfs/home/xu.yang/coding_agent_playground/outputs`; storage checks should accept that mirror only as the resolved form of the `/home/xu.yang` output tree.
 4. PM gate pass for this no-execution evidence package authorizes only owner self-merge; runtime authorization remains a separate PM decision.
+5. PR #47 merged at `2026-05-21T12:13:48Z` with merge commit `e9cce7b1ee60949c4481b1efcc7074c06761c7fc`; the task is complete, but runtime remains separately gated.

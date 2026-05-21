@@ -784,3 +784,5 @@
 - Gate facts: GitHub reports PR #47 open, non-draft, `MERGEABLE` / `CLEAN`; PR body includes task id, owner, acceptance criteria, durable evidence path, and completion marker.
 - Marked task completion-ready and dev status Idle before owner self-merge per playbook.
 - Runtime remains separately gated; no LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- Self-merged PR #47 at `2026-05-21T12:13:48Z`; merge commit `e9cce7b1ee60949c4481b1efcc7074c06761c7fc`.
+- Task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4` is complete as a no-execution blocker-fix package; future parser patch/runtime requires separate PM authorization.

@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | PR #47 PM-gated for self-merge |
+| PR | PR #47 merged |
 | Session | 1 |
 
 ## PM Corrections
@@ -57,3 +57,4 @@
 - 2026-05-21 Session 2 completion: Self-merged PR #45 at `2026-05-21T11:42:20Z` with merge commit `6f61489e85fcf7e129699061c9ddcb6e8db80926`. Task `M1-S22-PREFLIGHT-PARSER-FIX-DEV4` is complete; runtime remains separately PM-gated and was not run.
 - 2026-05-21: Accepted PM task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`. Reviewed dev_2 parser-fixed preflight runtime/tracking evidence plus dev_1/test_1 refreshed gates. Wrote no-execution fix package evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s22_parserfixed_blocker_fix.md`, recommending parser changes for Xid/SXid freshness classification and `/home/xu.yang` CephFS path normalization. Opened PR #47 `https://github.com/peteryang1/coding_agent_playground/pull/47`. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
 - 2026-05-21 Session 1: PM gate passed for PR #47 / `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4`; GitHub reports open, non-draft, `MERGEABLE` / `CLEAN`, and PM authorized owner self-merge only. Marked local task status Idle/completion-ready before owner self-merge per playbook. No LTP/GPU/preflight/SFT/eval/dry-run/runtime command was run.
+- 2026-05-21 Session 1 completion: Self-merged PR #47 at `2026-05-21T12:13:48Z` with merge commit `e9cce7b1ee60949c4481b1efcc7074c06761c7fc`. Task `M1-S22-PARSERFIXED-BLOCKER-FIX-DEV4` is complete; runtime remains separately PM-gated and was not run.
