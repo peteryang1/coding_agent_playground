@@ -10,6 +10,13 @@
 - test_1 refreshed `M1-S23-PR61-MCA-MODEL-PATH-GATE-TEST1` and recorded `PASS_FOR_PM_RETRY` against latest PR #63 head.
 - PM decision: PR #63 passes owner self-merge gate for dev_4 only. This gate does not authorize LTP/GPU/transfer/preflight/SFT/eval/runtime retry. A future runtime must be separately assigned to dev_2 after PR #63 is merged and task completion is recorded.
 
+## 2026-05-21 Session 23 PR #63/#64 Merge and Runtime Authorization
+
+- dev_4 self-merged PR #63 at `2026-05-21T18:08:48Z`, merge commit `2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`.
+- dev_4 merged completion record PR #64 at `2026-05-21T18:12:07Z`, merge commit `7ad24ae328a350c0be596f41ea143affb4034486`, marking `M1-S23-PR61-MCA-MODEL-PATH-FIX-DEV4` complete/ready-for-runtime-gate.
+- PM created `M1-S23-PR63-PREFLIGHT-SFT-RUNTIME-DEV2` and authorization evidence `evidence/pm_s23_pr63_preflight_sft_authorization.md`.
+- PM authorizes only dev_2 for exactly one fresh owner-executed runtime using `origin/main` commit `7ad24ae328a350c0be596f41ea143affb4034486`. Dev_2 must prepare local/provided bundles, transfer them with checksums and file lists, use no remote source/dependency network, store generated artifacts under `/home/xu.yang/coding_agent_playground/outputs`, run structured preflight, and run SFT only if `PREFLIGHT_RESULT=PASS` plus `SFT_ALLOWED=true`. Eval remains unauthorized.
+
 ## Session 1 - 2026-05-20
 
 - Accepted Milestone 1 under `secretary_pm_dev_test_intern_team_pattern_skill`.

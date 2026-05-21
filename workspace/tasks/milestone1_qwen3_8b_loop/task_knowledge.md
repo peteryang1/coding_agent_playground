@@ -7,6 +7,7 @@
 - PR63 launcher-path fix is accepted for owner self-merge only: direct `*/llamafactory/launcher.py` command strings should be normalized to `python3 -m llamafactory.cli` so LLamaFactory CLI consumes `train` and passes the runtime YAML to the training parser where `model_name_or_path` is read.
 - Preserve the PR61 command-array parsing fix; do not regress to executing a space-containing `LLAMAFACTORY_CLI` as one quoted path.
 - Runtime remains a separate PM decision after merge/completion. Required runtime evidence remains local/provided bundle preparation, exact transfer command/checksum/file list, no remote source/dependency network, `/home/xu.yang/coding_agent_playground/outputs`, structured preflight PASS, `SFT_ALLOWED=true`, and stop/no-running-job proof.
+- PR63/PR64 post-merge runtime source commit is `origin/main` `7ad24ae328a350c0be596f41ea143affb4034486`; this runtime authorization is single-use for dev_2 and does not authorize eval.
 
 ## Knowledge Entries
 

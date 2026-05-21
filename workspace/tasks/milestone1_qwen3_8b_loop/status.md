@@ -7,7 +7,8 @@
 - Current SFT checkpoint status: not produced yet. Latest final runtime blocker remains PR61 `ValueError: Please provide model_name_or_path`; PR #63 is the no-execution fix package for that blocker.
 - PR #63 gate: `PASS_OWNER_SELF_MERGE_ONLY` for `intern_code_dev_4`. GitHub state is open/non-draft `MERGEABLE` / `CLEAN`, latest head `a0ab039278198a6c1b0cd40009038d89cd602922`.
 - Review inputs: dev_1 `PASS_FOR_PM_RETRY`, test_1 `PASS_FOR_PM_RETRY`, and dev_4 evidence/static checks are present in durable evidence.
-- Runtime status: no fresh LTP/GPU/transfer/preflight/SFT/eval is authorized by this gate. Next runtime can only be considered after dev_4 self-merges PR #63 and records task completion.
+- PR #63 is merged (`2f89e9234bb5f9dfdcc433a30bc0f6dcfd9a8689`) and completion PR #64 is merged (`7ad24ae328a350c0be596f41ea143affb4034486`).
+- Runtime status: PM authorized only dev_2 for exactly one fresh post-PR63 owner-executed preflight/SFT attempt under `M1-S23-PR63-PREFLIGHT-SFT-RUNTIME-DEV2`; eval remains unauthorized.
 
 ## 2026-05-20
 
