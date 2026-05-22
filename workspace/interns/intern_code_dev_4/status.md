@@ -7,7 +7,7 @@
 | Name | intern_code_dev_4 |
 | Status | Idle |
 | Current Task |  |
-| PR | #65 merged; completion record branch active |
+| PR | policy ack branch active |
 | Session | 2 |
 
 ## PM Corrections
@@ -84,3 +84,4 @@
 - 2026-05-21 Session 23 PR63 altnode launch support: Accepted task `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4`. Reviewed PM authorization plus dev_2 altnode runtime/tracking evidence; current dev_2 durable state is `LOCAL_PACKAGE_READY_PRE_SUBMIT` with LTP submit/placement/preflight/SFT pending and no final signature yet. Wrote evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/dev_4_s23_pr63_altnode_launch_support.md` with classification `WAITING_ON_DEV2_FINAL_SIGNATURE`; no dev_4 code/config/launcher fix PR is needed unless a future final signature implicates code/config/launcher. No LTP/GPU/preflight/SFT/eval/remote command was run.
 - 2026-05-21 Session 23 PR63 altnode final classification: PM reported PR #65 was not ready against pre-submit state; re-read final dev_2 altnode evidence. Final signature is forbidden placement on `lg-cmc-b7r202-k07u06-h200-000580`, stopped before transfer/preflight/SFT/eval with no checkpoint/model/trainer/eval artifacts. Updated evidence classification to `FINAL_PLACEMENT_BLOCKER_NO_LAUNCH_FIX_NEEDED`; no dev_4 code/config/launcher issue found. No LTP/GPU/preflight/SFT/eval/remote command was run.
 - 2026-05-21 Session 23 PR63 altnode completion: PM gate passed for PR #65 with PM gate evidence `pm_s23_pr65_gate.md` commit `4f607c7`; GitHub observed open/non-draft `MERGEABLE` / `CLEAN` at head `14b6e713845c96b69d9de1fccbc819fdd16f6254`. Self-merged PR #65 at `2026-05-21T19:12:40Z`; merge commit `f71a8f591cdcf6064fdf466744a0e23aa88901f3`. Task `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` is marked complete/no-launch-fix-needed; no LTP/GPU/preflight/SFT/eval/runtime command was run or authorized.
+- 2026-05-22 Session 24 policy relay: Received supervisor communication policy update through `peer_send` from `intern_code_secretary`. Effective now, secretary and PM should use `peer_send` for normal intern communication instead of tmux inject; secretary may use `peer_send mode=goal` only when directing PM. All other interns, including dev/test, must not use goal mode and should use default/next as appropriate. dev_4 recorded acknowledgement durably and did not use tmux inject or peer_send for this routine acknowledgement.
