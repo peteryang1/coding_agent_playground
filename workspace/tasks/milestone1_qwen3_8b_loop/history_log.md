@@ -1,6 +1,13 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=23 -->
+<!-- METADATA:SESSION=24 -->
+
+## 2026-05-22 Session 24 Peer Communication Policy Update
+
+- Secretary delivered supervisor policy update by peer_send: latest peer_send is active for intern communication.
+- PM durable rule updated: `intern_code_secretary` and `intern_code_pm` should use peer_send for normal intern communication instead of tmux inject.
+- Secretary may use `peer_send mode=goal` when directing PM if needed; all other interns, including PM/dev/test, must not use goal mode and should use default/next as appropriate.
+- PM acknowledges this policy in durable status/knowledge. No tmux inject was used for this policy relay.
 
 ## 2026-05-21 Session 23 PR #63 Gate Pass
 

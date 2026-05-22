@@ -1,6 +1,6 @@
 # intern_code_pm - 个人知识库
 
-<!-- METADATA:SESSION=8 -->
+<!-- METADATA:SESSION=24 -->
 
 ---
 
@@ -24,11 +24,15 @@
 
 ### 2026-05-20 - PM to dev/test notification channel change
 
-- For PM -> dev/test tasking or correction messages, primary delivery is now direct `tmux send-keys` injection into the target intern pane, followed by Enter.
-- `peer_send` is no longer the primary notification method for dev/test assignments because its priority is insufficient for this team workflow.
-- PM should avoid interrupts by default: do not use `C-c`, `/esc`, or other interruption unless the supervisor explicitly asks for urgent interruption, or the target's current behavior would keep wasting resources or continue an incorrect execution.
-- After tmux injection, PM must use `tmux capture-pane` to verify that the message was submitted and is not merely sitting in the input line.
-- Routine dev/test status and evidence still go to durable files; this change is about PM's outbound task/correction delivery mechanism.
+- Superseded by the 2026-05-22 peer_send policy below. Do not treat this tmux-primary rule as current for normal intern communication.
+
+### 2026-05-22 - Latest peer_send policy
+
+- Latest supervisor policy: `peer_send` is active for normal intern communication.
+- `intern_code_secretary` and `intern_code_pm` should use peer_send for intern communication instead of tmux inject for normal messages.
+- Secretary may use `peer_send mode=goal` when directing PM if needed.
+- All other interns, including PM/dev/test, must not use goal mode; use default/next as appropriate.
+- Do not use tmux inject for normal policy relay or routine intern communication under this updated policy.
 
 ### 2026-05-20 - PR gate and owner self-merge correction
 

@@ -2,6 +2,12 @@
 
 <!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
 
+## 2026-05-22 Session 24 Update
+
+- Acknowledged supervisor communication policy update delivered by secretary via peer_send: latest peer_send is active for normal intern communication.
+- PM durable working rule is updated: use peer_send for normal PM/secretary intern communication instead of tmux inject; only secretary may use peer_send `mode=goal` when directing PM if needed, while PM/dev/test must use default/next and must not use goal mode.
+- This policy relay was recorded in durable files without tmux inject.
+
 ## 2026-05-21 Session 23 Update
 
 - PR #63 passes PM owner-self-merge gate for dev_4 only: latest head `a0ab039278198a6c1b0cd40009038d89cd602922`, GitHub `MERGEABLE` / `CLEAN`, dev_1/test_1 both `PASS_FOR_PM_RETRY`. No runtime authorization is issued by this gate.

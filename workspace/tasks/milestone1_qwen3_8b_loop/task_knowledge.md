@@ -1,6 +1,14 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=23 -->
+<!-- METADATA:SESSION=24 -->
+
+## 2026-05-22 Session 24 Communication Knowledge
+
+- Latest supervisor policy supersedes the older tmux-primary outbound communication rule for normal intern messages.
+- PM and secretary should use `peer_send` for normal intern communication.
+- Secretary may use `peer_send mode=goal` when directing PM if needed.
+- PM/dev/test and all other interns must not use goal mode; use default/next as appropriate.
+- Do not use tmux inject for normal policy relays or routine intern communication under this policy.
 
 ## 2026-05-21 Session 23 PR63 Gate Knowledge
 
