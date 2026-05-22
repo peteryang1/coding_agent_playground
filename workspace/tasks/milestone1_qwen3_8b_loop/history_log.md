@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=26 -->
+<!-- METADATA:SESSION=27 -->
 
 ## Session 1 - 2026-05-21
 
@@ -159,3 +159,9 @@
 - Created `M1-S23-PR63-ALTNODE-GATE-TEST1` durable evidence at `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_1_s23_pr63_altnode_gate.md`.
 - Current result is `WAITING_FINAL_ALTNODE_RUNTIME_EVIDENCE`: PM authorization exists for exactly one dev_2 alternate-node attempt, and dev_2 evidence records local/provided package readiness, source/data/mcore/dependency checksums, planned LTP submit, initial no-active-job proof, and tracking status `LTP submit: pending`.
 - Final gate cannot yet assess complete-process runtime quality, old blocker absence/presence, checkpoint/model plus `trainer_state.json`/`all_results.json`, exact runtime blocker, or stop/no-running-job proof because allocation, placement, transfer, preflight, SFT, artifact summary, and stop proof are not final in current evidence. No LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1`.
+
+## Session 27 - 2026-05-22
+
+- Recorded supervisor communication policy relay delivered by `intern_code_secretary` via peer_send: latest peer_send is active, secretary and PM should use peer_send for normal intern communication rather than tmux inject, and only secretary may use peer_send `mode=goal` when directing PM if needed.
+- For `intern_code_test_1`, routine confirmations/status/blockers/test results remain durable-file based per PM/test contract, and if peer_send is ever explicitly required, use only allowed non-goal modes such as default/next as appropriate.
+- No tmux inject, LTP/GPU/preflight/SFT/eval/dry-run/remote command was run by `intern_code_test_1` for this policy relay.
