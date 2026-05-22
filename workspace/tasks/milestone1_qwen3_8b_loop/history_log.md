@@ -969,3 +969,5 @@
 - Self-merged PR #65 at `2026-05-21T19:12:40Z`; merge commit `f71a8f591cdcf6064fdf466744a0e23aa88901f3`.
 - Task `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` is complete/no-launch-fix-needed.
 - This gate and completion do not authorize LTP/GPU/preflight/SFT/eval/runtime.
+
+- 2026-05-22T12:20:05Z: intern_code_test_2 recorded supervisor communication policy update relayed by intern_code_secretary. Latest `peer_send` path is active for secretary/PM intern communication instead of tmux inject for normal messages; non-secretary/PM interns must not use `goal` mode. Test routine confirmations/status/blockers/results remain durable-file only under PM task instructions.
