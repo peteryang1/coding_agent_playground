@@ -1,17 +1,18 @@
 # intern_code_pm - 状态
 
-<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
+<!-- METADATA:STATUS=Idle,TASK= -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_pm |
-| Status | Working |
-| Current Task | milestone1_qwen3_8b_loop |
-| PR | #22 |
-| Session | 12 |
+| Status | Idle |
+| Current Task |  |
+| PR |  |
+| Session | 34 |
 
 ## Recent Progress
 
+- 2026-05-27 Session 34: received supervisor cleanup directive via peer message, stopped Milestone 1 PM work, set intern_code_pm status to Idle, and cleared Current Task. No further `milestone1_qwen3_8b_loop` work is being continued by PM.
 - 2026-05-20 Session 1: organized Milestone 1 through durable files only, selected and cloned `fastapi`, `scikit-learn`, and `rich` on the final workspace machine, assigned all dev/test owners with evidence paths, verified shared Codex CLI preflight at `/mnt/3fs/data/tools/codex`, applied the PM-to-secretary durable-reporting correction, and opened PR #2.
 - 2026-05-20 Session 1 continuation: incorporated test_1 rollout harness dry-run validation, routed dev_2 follow-up through durable assignments, and confirmed PR #1/#2 are open and mergeable.
 - 2026-05-20 Session 2: checked direct zsh Codex path on the final workspace, verified dev_2 harness v2 dry-run schema outputs, ran tiny non-dry rollout attempts, and recorded Codex auth/provider blocker.

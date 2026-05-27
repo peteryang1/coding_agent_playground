@@ -2,6 +2,11 @@
 
 <!-- METADATA:SESSION=34 -->
 
+## 2026-05-27 Session 34 Cleanup Knowledge
+
+- Supervisor cleanup directive stops PM continuation of `milestone1_qwen3_8b_loop`.
+- PM status must be Idle with Current Task cleared for intern cleanup.
+
 ## Knowledge Entries
 
 1. Supervisor requirement: Milestone 1 must run an end-to-end smoke loop across three high-star repo types with 10 total Codex trajectories, cleaning to `coding_agent_playground` format, Qwen3-8B SFT smoke/path, mini-swe-agent eval smoke/report, and final report.
