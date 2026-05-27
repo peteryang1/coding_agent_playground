@@ -1,6 +1,6 @@
 # Milestone 1 Task Knowledge
 
-<!-- METADATA:SESSION=33 -->
+<!-- METADATA:SESSION=34 -->
 
 ## Knowledge Entries
 
@@ -216,3 +216,4 @@
 202. Session 61 completion fact: PM gate passed for PR #65, and dev_4 self-merged it at `2026-05-21T19:12:40Z` with merge commit `f71a8f591cdcf6064fdf466744a0e23aa88901f3`; `M1-S23-PR63-ALTNODE-LAUNCH-SUPPORT-DEV4` is complete/no-launch-fix-needed, and no LTP/GPU/preflight/SFT/eval/runtime is authorized by this gate.
 
 203. 2026-05-22 communication-process note: latest `peer_send` path is active for secretary/PM intern communication instead of tmux inject for normal messages; non-secretary/PM interns must not use `goal` mode. This does not change mini-swe eval readiness facts or authorization gates.
+204. 2026-05-27 cleanup/process note: intern_code_test_2 was directed to stop current milestone work, set status to Idle, and clear Current Task. This is a process/status update only; no new mini-swe eval technical facts or authorization gates changed.
