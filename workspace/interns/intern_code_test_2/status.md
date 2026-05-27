@@ -1,14 +1,14 @@
 # intern_code_test_2 - 状态
 
-<!-- METADATA:STATUS=Working,TASK=milestone1_qwen3_8b_loop -->
+<!-- METADATA:STATUS=Idle,TASK= -->
 
 | 字段 | 值 |
 |------|-----|
 | Name | intern_code_test_2 |
-| Status | Working |
-| Current Task | milestone1_qwen3_8b_loop |
+| Status | Idle |
+| Current Task |  |
 | PR | N/A |
-| Session | 0 |
+| Session | 34 |
 
 ## Acknowledgements
 
@@ -49,3 +49,4 @@
 - 2026-05-21T17:41:12Z: Accepted Session 23 task `M1-S23-PR61-EVAL-REBLOCK-TEST2` and created durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_2_s23_pr61_eval_blocked.md`. Read dev_2 PR61 runtime/tracking evidence: local/provided source, data, dependency, flash_attn, and `mcore_adapter` bundles were transferred with checksums; no remote project code/dependency network was used; `/home/xu.yang` storage/capacity, `mcore_adapter` import, and structured preflight passed with `SFT_ALLOWED=true`; PR61 CLI parsing reached `llamafactory/launcher.py` and did not repeat the PR59 quoted-single-path signature; exactly one SFT attempt failed before checkpoint at `EXIT_STATUS=1` with `ValueError: Please provide model_name_or_path`. Checkpoint/model, checkpoint files, `trainer_state.json`, `all_results.json`, served endpoint, and eval-approved model id are absent; endpoint was stopped/refused and no running job remains. Recorded accepted future checkpoint/model or endpoint forms, `/home/xu.yang` eval logs/predictions/results/metrics/run metadata/intermediates/cache paths, exact unblock condition, and marker `BLOCKED_PR61_NO_MODEL`; eval remains unauthorized. No eval/GPU/SFT/dry-run/remote commands performed by test_2.
 - 2026-05-21T18:53:22Z: Accepted Session 23 task `M1-S23-PR63-ALTNODE-EVAL-READY-TEST2` and created durable evidence `workspace/tasks/milestone1_qwen3_8b_loop/evidence/test_2_s23_pr63_altnode_eval_ready.md`. Read dev_2 PR63 alternate-node runtime/tracking evidence: authorization exists for exactly one bounded alternate-node attempt, local/provided source/data/dependency package provenance is recorded, but current durable state is `LOCAL_PACKAGE_READY_PRE_SUBMIT` with LTP submit, placement decision, CephFS/capacity proof, transfer verification, `mcore_adapter` import, structured preflight, conditional SFT, checkpoint/model, `trainer_state.json`, `all_results.json`, served endpoint, and eval-approved model id still pending/absent. Recorded accepted future checkpoint/model or endpoint forms, `/home/xu.yang` eval logs/predictions/results/metrics/run metadata/intermediates/cache paths, command template, and exact unblock condition requiring dev_2 final result plus PM model/endpoint eval gate. Current marker `READY_BLOCKED_PENDING_PR63_ALTNODE_RESULT`; eval remains unauthorized. No eval/GPU/SFT/dry-run/remote commands performed by test_2.
 - 2026-05-22T12:20:05Z: Acknowledged supervisor communication policy update relayed by intern_code_secretary: latest `peer_send` path is active for secretary/PM intern communication instead of tmux inject for normal messages; secretary may use `peer_send mode=goal` when directing PM if needed; all other interns, including test, must not use goal mode and should use default/next only when appropriate. Test role routine confirmations/status/blockers/results remain durable-file only under PM task instructions; no tmux inject or routine peer_send used for this acknowledgement.
+- 2026-05-27T07:04:18Z: Received cleanup directive via peer message from `intern_xu_new_feature_dev_4` relaying supervisor request to clean up test interns. Stopped current milestone work, set status to `Idle`, cleared `Current Task`, and did not continue `milestone1_qwen3_8b_loop`.

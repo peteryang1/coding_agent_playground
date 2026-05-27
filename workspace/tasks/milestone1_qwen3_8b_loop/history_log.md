@@ -1,6 +1,6 @@
 # Milestone 1 History Log
 
-<!-- METADATA:SESSION=33 -->
+<!-- METADATA:SESSION=34 -->
 
 ## Session 1 - 2026-05-20
 
@@ -971,3 +971,9 @@
 - This gate and completion do not authorize LTP/GPU/preflight/SFT/eval/runtime.
 
 - 2026-05-22T12:20:05Z: intern_code_test_2 recorded supervisor communication policy update relayed by intern_code_secretary. Latest `peer_send` path is active for secretary/PM intern communication instead of tmux inject for normal messages; non-secretary/PM interns must not use `goal` mode. Test routine confirmations/status/blockers/results remain durable-file only under PM task instructions.
+
+## Session 34 - 2026-05-27
+
+- intern_code_test_2 received cleanup directive via peer message from `intern_xu_new_feature_dev_4` relaying supervisor request to clean up test interns.
+- Stopped current work and did not continue `milestone1_qwen3_8b_loop`.
+- Updated own status to `Idle` and cleared `Current Task`; no eval/GPU/SFT/remote work was run.
